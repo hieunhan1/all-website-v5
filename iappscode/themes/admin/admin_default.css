@@ -1,0 +1,135 @@
+@charset "utf-8";
+*{margin:0px}
+body{color:#1E1E1E; font-family:Arial, Helvetica, sans-serif; font-size:13px}
+img{border:0px;}
+a{color:#0000FF; text-decoration:none}
+a:hover{color:#F00; text-decoration:underline}
+input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica, sans-serif}
+hr{border: solid 2px #F3A972}
+
+.clear1{clear:both; height:1px}
+.clear10{clear:both; height:10px}
+.clear20{clear:both; height:20px}
+.clear30{clear:both; height:30px}
+
+.hr{height:1px; background-color:#CCC; border:none; margin-bottom:15px}
+.error{font-style:italic; color:#F00; font-weight:bold; padding:10px 0px}
+.message{color:#00F; padding:10px 0px; font-weight:bold}
+.notes{color:#666; padding-left:5px; font-style:italic; word-spacing:1px}
+.table{border-collapse:collapse}
+.fontOther{font-family: "Times New Roman", Times, serif }
+.datetimepick{background:url(img/lich.jpg) no-repeat; background-position:188px 4px}
+
+#wrapper{width:1130px; margin:auto}
+.container{width:1130px; margin:auto}
+
+#login{width:240px; margin:30px auto 0; padding:10px; border:solid 1px #a9c1d4; background:url(img/bg-dangnhap.gif)}
+#login h2{display:block; margin-bottom:10px; padding-bottom:10px; border-bottom:solid 1px #b4b8be}
+#login p{line-height:25px; margin-bottom:10px}
+#login input{width:235px; line-height:22px; height:22px; border:solid 1px #999; background-color:#C6DDFF}
+#login #btnLogin{width:150px; height:25px; margin:10px auto 20px 45px; border:none; background:url(img/btn-dangnhap.gif); cursor:pointer}
+
+#header{width:100%; height:80px; line-height:80px; margin-bottom:5px}
+#header #logo{width:auto; float:left; font-size:26px; font-weight:bold; color:#06F}
+#header #thongtin{width:auto; float:right; font-size:16px}
+
+.titleAdmin{line-height:25px; font-weight:bold; color:#0037A0; margin-bottom:10px}
+
+#left{width:180px; float:left; padding:1px 10px; background:url(img/bg_tieude.jpg) top repeat-x #FFF; border:solid 1px #6593CF}
+
+#catalog a{display:block; color:#333; line-height:23px; margin:20px 0; text-align:center; font-weight:bold; background:url(img/bg-cn.jpg) no-repeat}
+#catalog a:hover{color:#F00}
+
+#right {width:900px; float:right; padding:1px 10px; background:url(img/bg_tieude.jpg) top repeat-x #FFF; border:solid 1px #6593CF}
+
+#action {float:right; margin-right:20px}
+#action a {padding:0 10px}
+
+#view_select{}
+#view_select td, #view_select th{height:25px; overflow:hidden; border-bottom:solid 1px #88C4FF}
+.height_row_hidden{height:30px; line-height:30px; overflow:hidden; margin-right:5px}
+
+#phantrang{clear:both; padding:20px 0 30px 0}
+#phantrang a{margin-right:3px; padding:5px 10px; text-align:center; background-color:#888; color:#FFF}
+#phantrang a:hover{background-color:#E18B05}
+#phantrang .current{margin-right:3px; padding:5px 10px; text-align:center; background-color:#E18B05; color:#FFF}
+#phantrang .space{margin:0 5px}
+
+.listCheckboxMedium{width:345px; height:200px; overflow:auto; float:left; line-height:22px; padding:5px; border:solid 1px #999; background-color:#FFC}
+.listCheckboxSmall{width:165px; height:300px; overflow:auto; float:left; line-height:22px; padding:5px; border:solid 1px #999; background-color:#FFC}
+
+
+.label{width:150px; text-align:right; vertical-align:top; font-weight:bold; line-height:22px}
+.labelData{color:#666}
+.radio{margin-top:5px}
+.checkbox{margin-top:5px}
+.checkboxItem{margin:4px 0}
+
+.input_large{width:200px; padding:3px; border:solid 1px #999}
+.input_medium{width:350px; padding:3px; border:solid 1px #999}
+.input_small{width:450px; padding:3px; border:solid 1px #999}
+
+.textareaAdmin{width:350px; height:80px; overflow:auto; resize:none; padding:2px 3px; border:solid 1px #999}
+.buttonAdmin{padding:3px 20px; margin:0px 5px}
+.submitAdmin{padding:8px 30px; margin-right:10px; font-weight:bold; color:#333; font-size:110%}
+
+.clock_button{background-color:#CCC; border:solid 1px #999}
+
+#search{background-color:#090; padding:4px 10px; margin-bottom:5px; border-radius:4px}
+#search input, #search select{height:23px; line-height:23px; overflow:hidden; margin-right:5px; border-radius:3px}
+#search .txt{width:150px; padding:0 3px; border:none}
+#search .select{width:150px; padding:0 3px; border:none}
+#search .btn{height:23px; padding:0 20px; border:none; background-color:#FF3; cursor:pointer}
+
+#listLang{padding:5px 0 15px 0}
+#listLang a{margin:0 15px; padding:3px 10px}
+#listLang .activeLang{color:#333; background-color:#FF6; border:solid 1px #333}
+
+#chucnang{height:500px; margin:auto; padding:10px 20px 20px 20px}
+#chucnang .item{width:120px; height:125px; float:left; text-align:center; margin:20px 10px; background-color:#FFF}
+#chucnang .item p{font-weight:100; padding:5px 0}
+
+.ajax_thongtin{color:#F00}
+
+#reset_pass{display:block; padding-bottom:30px; font-size:110%; font-style:italic}
+.change{padding:0 10px; font-weight:bold}
+
+.avarta{clear:both; width:500px; overflow:hidden}
+.avarta img{height:60px}
+
+/*other*/
+#value_view{line-height:22px}
+#value_view .value_data{color:#00F; cursor:pointer}
+#value_view .value_data:hover{color:#F00}
+
+.saved{color:#666; background-color:#FFF; border:solid 1px #CCC}
+
+/*upload img*/
+#imageForm{}
+#imageloadstatus{display:none; margin-bottom:5px}
+#imageloadbutton{margin-bottom:10px}
+#imagePhoto{}
+
+#imageUpload{clear:both}
+#imageUpload .active{background-color:#FF6}
+#imageUpload .imageSelect{width:90px; font-size:9px; text-align:center; color:#FFF; background-color:#333; padding:3px 0; position:absolute; cursor:pointer; opacity:0.7}
+#imageUpload .item{width:90px; height:95px; float:left; overflow:hidden; margin:0 10px 10px 0; border:solid 1px #CCC}
+#imageUpload .img{height:60px; text-align:center; overflow:hidden; text-align:center; margin:3px 3px 6px 3px}
+#imageUpload .img img{height:60px}
+#imageUpload .copylink{width:auto; float:left; font-size:11px; font-weight:bold; color:#00F; margin:3px 0 0 3px; cursor:pointer}
+#imageUpload .copylink:hover{color:#F00}
+#imageUpload .imageDelete{width:auto; float:right; margin-right:3px; cursor:pointer}
+/*end upload img*/
+
+/*copy*/
+#copyData{display:none; padding:30px 50px; background-color:#FFF; border:solid 1px #CCC; border-radius:10px; box-shadow:5px 5px 5px #666; position:absolute; z-index:2}
+#copyData .js-data{margin-bottom:20px}
+#copyData .js-btn button{margin-right:5px; padding:5px 10px}
+#copyData .js-message{display:none}
+/*end copy*/
+
+#dataAction{display:none; width:auto; overflow:hidden; font-weight:bold; border:solid 1px #FFF; border-radius:10px; box-shadow:0px 0px 7px #333; position:fixed; top:40%; left:42%; z-index:3}
+#dataAction .process{display:block; padding:20px 30px; background-color:#FFF}
+#dataAction .message{display:block; color:#FFF; padding:20px 30px; background-color:#090}
+#dataAction .error{display:block; color:#FFF; padding:20px 30px; background-color:#F00}
+#dataActionBG{display:none; width:100%; height:100%; position:fixed; top:0; left:0; z-index:1}
