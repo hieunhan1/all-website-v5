@@ -138,12 +138,12 @@ echo '<div id="tableName" style="display:none">'.$table.'</div>
 	echo $data;
 	//-----end web_content-----//
 	
-	/*$name = 'order';
+	$name = 'order';
 	$properties = array();
 	$properties[] = array('propertie'=>'maxlength', 'value'=>'5');
 	$value=$rowHeader[$name];
 	$data = $cF->inputText($name, $value, 'input_medium', $properties);
-	echo $cF->displayTable('Thứ tự', $data);*/
+	echo $cF->displayTable('Thứ tự', $data);
 	
 	if(isset($_GET['type_id'])) $type_id=$_GET['type_id']; else $type_id='';
 	$name = 'type_id';

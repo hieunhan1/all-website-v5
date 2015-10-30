@@ -17,13 +17,14 @@ define('CONS_RECEIVE_MAIL_NAME', 'Admin');
 define('CONS_LINK_HOME', '');
 define('CONS_LINK_AJAX', 'ajax');
 define('CONS_LINK_ADMIN', 'cp_admin');
+define('CONS_LINK_MANAGER_APPS', 'manager');
 
 /*CONTROL FILE*/
 define('CONS_FILE_HOME', 'pageHome');
 define('CONS_FILE_AJAX', 'pageAjax');
 define('CONS_FILE_ADMIN', 'pageAdmin');
 define('CONS_FILE_PAGE', 'pageAll');
-//define('CONS_FILE_DETAIL', 'pageDetails');
+define('CONS_FILE_MANAGER_APPS', 'pageApps');
 
 /*WEBSITE*/
 define('ERROR_NOT_FOUND_CONTROLLER', 'Not found controller: ');

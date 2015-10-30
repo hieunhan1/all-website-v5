@@ -131,9 +131,9 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 
 
 /*home*/
-.home-margin{margin:0 4%}
-.home-box{width:46%; float:left; margin-bottom:40px}
-.home-box .title{color:#777; font-size:100%; font-weight:100}
+.home-margin{}
+.home-box{width:45%; float:left; margin:0 2% 40px 2%}
+.home-box .title{display:block; color:#777; font-size:100%; font-weight:100; margin-bottom:5px}
 .home-box .img{height:150px; overflow:hidden; margin-bottom:10px}
 .home-box .img img{width:100%}
 .home-box .info{line-height:22px; height:88px; margin-bottom:10px; word-spacing:2px}

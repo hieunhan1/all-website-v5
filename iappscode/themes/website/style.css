@@ -128,10 +128,10 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 /*home*/
 .home-margin{margin-left:4.5%}
 .home-box{width:30%; float:left; margin-bottom:40px}
-.home-box .title{color:#777; font-size:130%; font-weight:100}
+.home-box .title{display:block; color:#777; font-size:120%; font-weight:100; margin-bottom:10px}
 .home-box .img{height:200px; overflow:hidden; margin-bottom:10px}
 .home-box .img img{width:100%}
-.home-box .info{line-height:22px; height:110px; margin-bottom:10px; word-spacing:2px}
+.home-box .info{line-height:22px; height:88px; margin-bottom:10px; word-spacing:2px}
 .home-box .viewmore{height:40px; line-height:40px; text-align:center; text-transform:uppercase; background-color:#999}
 .home-box .viewmore a{display:block; color:#FFF; font-size:115%; text-decoration:none; letter-spacing:1px; word-spacing:2px}
 .home-box:hover .viewmore{background-color:#ffaa00}

@@ -18,8 +18,8 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 
 .allIcon{background:url(img/icon.png) no-repeat top left}
 
-#wrapper{width:990px; margin:auto}
-.container{width:990px; margin:auto}
+#wrapper{margin:0 1%}
+.container{margin:0 1%}
 
 .viewpost{line-height:180%; font-size:100%; padding-bottom:20px}
 .viewpost h1{color:#339933; font-size:180%; line-height:150%; padding-bottom:5px}
@@ -106,9 +106,9 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 /*end footer*/
 
 /*top*/
-#top{height:40px; line-height:40px; color:#bfd9ff; font-size:120%; background-color:#3379ee}
+#top{line-height:40px; color:#bfd9ff; font-size:120%; background-color:#3379ee}
 #top-left{width:auto; float:left}
-#top-left .span{padding-left:20px; margin-right:30px}
+#top-left .span{padding-left:20px; margin-right:20px}
 #top-right{width:auto; float:right}
 #top-right .li{list-style:none; width:auto; float:left; padding:0 15px}
 #top-right .border{border-left:solid 2px #2670ec}
@@ -131,7 +131,7 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 /*home*/
 .home-margin{margin-left:3%}
 .home-box{width:31%; float:left; margin-bottom:40px}
-.home-box .title{color:#777; font-size:110%; font-weight:100}
+.home-box .title{display:block; color:#777; font-size:100%; font-weight:100; margin-bottom:8px}
 .home-box .img{height:200px; overflow:hidden; margin-bottom:10px}
 .home-box .img img{width:100%}
 .home-box .info{line-height:22px; height:88px; margin-bottom:10px; word-spacing:1px}

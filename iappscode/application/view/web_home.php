@@ -17,7 +17,7 @@
 	$data = $c->_model->_headerData($arr);
 	foreach($data as $row){
 		$i++;
-		$img = $urlImg[$position['type_id']]['url_img_thumb'].$row['img'];
+		$img = $urlImg[$position['type_id']]['url_img'].$row['img'];
 		if($row['img']=='' || !file_exists('../'.$img)) $img=CONS_IMAGE_DEFAULT;
 		if($i%3 != 1) $magin='home-margin'; else $magin='';
 		echo '<div class="home-box '.$magin.'">

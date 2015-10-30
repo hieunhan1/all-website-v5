@@ -130,7 +130,7 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 /*home*/
 .home-margin{}
 .home-box{margin:2% 8% 10% 8%}
-.home-box .title{display:block; color:#777; font-size:120%; font-weight:100; margin-bottom:5px}
+.home-box .title{display:block; color:#777; font-size:100%; font-weight:100; margin-bottom:5px}
 .home-box .img{margin-bottom:5px}
 .home-box .img img{max-width:100%}
 .home-box .info{line-height:22px; margin-bottom:10px; word-spacing:2px}

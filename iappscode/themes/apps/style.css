@@ -1,0 +1,96 @@
+@charset "utf-8";
+*{margin:0px}
+body{color:#666; font-size:13px; font-family:"Arial", Helvetica, sans-serif; z-index:0}
+img{border:0px;}
+a{color:#3379ee; text-decoration:none}
+a:hover{color:#ffaa00; text-decoration:underline}
+input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica, sans-serif}
+.hr{height:1px; background-color:#CCC; border:none; margin-bottom:15px}
+.error{font-style:italic; color:#F00}
+.message{font-style:italic; color:#00F}
+.table{border-collapse:collapse}
+.fontOther{font-family: "Times New Roman", Times, serif }
+
+.clear1{clear:both; height:1px}
+.clear10{clear:both; height:10px}
+.clear20{clear:both; height:20px}
+.clear30{clear:both; height:30px}
+
+.allIcon{background:url(../website/img/icon.png) no-repeat top left}
+
+#wrapper{width:80%; margin:auto}
+.container{width:80%; margin:auto}
+
+/*top*/
+#top{line-height:25px; color:#bfd9ff; font-size:120%; padding:7px 0; background-color:#3379ee}
+#top-left{width:auto; float:left; letter-spacing:1px}
+#top-left .span{padding-left:23px; margin-right:30px}
+#top-right{width:auto; float:right}
+#top-right .li{list-style:none; width:auto; float:left; padding:0 25px}
+#top-right .border{border-left:solid 2px #2670ec}
+#top-right .li a{color:#bfd9ff; text-transform:uppercase}
+#top-right .li .active{color:#FFF}
+/*end top*/
+
+#appsTitle{font-size:160%; font-weight:100; color:#339933; line-height:140%; margin-bottom:10px}
+#appsDes{font-size:100%; font-weight:100; line-height:180%; margin-bottom:50px}
+#appsImg{max-width:100%}
+#registerTrial{clear:both; width:360px; line-height:35px; text-align:center; color:#FFF; font-size:120%; background-color:#339933; border-radius:10px; cursor:pointer}
+
+/*class form*/
+#frmTitle{font-size:160%; font-weight:bold; line-height:140%; margin-bottom:15px}
+.frmLR{width:auto; float:left; margin-bottom:30px; padding:30px; border:dashed 1px #CCC}
+.frmLR .row{width:300px; margin-bottom:30px}
+.frmLR .row p{text-align:right}
+.frmLR .row a{text-decoration:underline}
+.frmLR .label{font-weight:bold; margin-bottom:5px}
+.frmLR .txt{margin-bottom:3px}
+.frmLR .txt input{width:97%; height:25px; line-height:25px; padding:0 1%}
+.frmLR .sel{}
+.frmLR .tar{}
+.frmLR .btn{width:100%; height:32px; line-height:32px; color:#FFF; font-weight:bold; margin-bottom:10px; padding:0; border:none; background-color:#ffc03e; cursor:pointer}
+.frmLR .btn:hover{background-color:#ffaa00}
+/*end class form*/
+
+#left{width:28%; float:left}
+
+#right{width:68%; float:right}
+
+/*feeds*/
+#fb-feeds{clear:both}
+
+.fb-user{clear:both; line-height:180%; margin:30px 0}
+.fb-user .fb-name{font-size:160%; margin-bottom:10px}
+.fb-user .fb-picture{width:130px; height:130px; float:left; overflow:hidden; text-align:center; margin-right:15px; border:solid 1px #CCC}
+.fb-user .fb-picture img{height:130px; margin-left:-10%}
+.fb-user .fb-email{}
+.fb-user .fb-total-friend{}
+.fb-user .fb-total-post{}
+
+.fb-feed{line-height:160%; margin-bottom:15px; padding:10px 15px; border:solid 1px #CCC; background-color:#FFF}
+.fb-feed .fb-message{clear:both; margin:5px 0 10px 0}
+.fb-feed .fb-story{clear:both; font-style:italic; text-align:right; margin:5px 0}
+.fb-feed .fb-picture{width:130px; float:left; overflow:hidden; margin-right:15px}
+.fb-feed .fb-picture img{width:130px}
+.fb-feed .fb-link{color:#333}
+.fb-feed .fb-name{line-height:140%; font-size:135%; margin-bottom:5px}
+.fb-feed .fb-description{font-size:90%}
+.fb-feed .fb-total{clear:both; height:22px; line-height:22px; padding:5px 0; border-top:solid 1px #CCC; border-bottom:solid 1px #CCC; background-color:#F3F3F3}
+.fb-feed .fb-total-like{width:auto; float:left; margin:0 50px 0 5px; padding:0 8px; cursor:pointer}
+.fb-feed .fb-total-comment{width:auto; float:left; margin-right:50px; padding:0 8px; cursor:pointer}
+.fb-feed .fb-total-ac:hover{color:#333; border-radius:5px; background-color:#CCC}
+.fb-feed .fb-total-share{width:auto; float:left; margin-right:50px}
+
+.fb-feed-ajax{margin-top:15px}
+.fb-feed-ajax .fb-item{width:32%; height:25px; float:left; margin-bottom:3px}
+.fb-feed-ajax .fb-item a{color:#333; font-size:90%}
+.fb-feed-ajax .fb-item .fb-item-picture{width:25px; float:left; overflow:hidden; margin-right:5px}
+.fb-feed-ajax .fb-item .fb-item-picture img{width:25px}
+.fb-feed-ajax .fb-item .fb-item-name{}
+
+.fb-feed-ajax .fb-item-cm{clear:both; line-height:140% !important; font-size:90%; margin-bottom:10px}
+.fb-feed-ajax .fb-item-cm a{font-weight:bold}
+.fb-feed-ajax .fb-item-cm .fb-item-picture{width:5%; float:left; overflow:hidden}
+.fb-feed-ajax .fb-item-cm .fb-item-picture img{max-width:100%}
+.fb-feed-ajax .fb-item-cm .fb-item-message{width:93%; float:right}
+/*end feeds*/
