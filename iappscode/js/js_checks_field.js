@@ -61,16 +61,16 @@ function check_email(name_check,name_message,message_error){
 	}
 }
 
-function check_email_nl(name_check,name_message,message_error,condition){
-	var str = $.trim($(name_check).val());
+function check_confirm(name_check,name_message,message_error,condition){
+	var str1 = $.trim($(name_check).val());
 	var str2 = $.trim($(condition).val());
-	if(str!=str2 || str2==''){
+	if(str1!=str2){
 		$(name_message).html(message_error);
-		$(condition).focus();
+		$(name_check).focus();
 		return false;
 	}else{
 		$(name_message).html('');
-		return str2;
+		return str1;
 	}
 }
 

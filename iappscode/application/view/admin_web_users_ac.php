@@ -129,4 +129,4 @@ echo '<form name="form_action" method="post" action="">
 
 echo '</table></form>';
 
-if($_SESSION['adminId']==25) echo '<p><a href="javascript:;" id="reset_pass">Reset password (Password: "<b>'.CONS_ADMIN_PASSWORD_DEFAULT.'</b>")</a></p>';
+if($_SESSION['adminID']==25) echo '<p><a href="javascript:;" id="reset_pass">Reset password (Password: "<b>'.CONS_ADMIN_PASSWORD_DEFAULT.'</b>")</a></p>';

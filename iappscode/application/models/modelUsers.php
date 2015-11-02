@@ -99,5 +99,27 @@ class modelUsers extends modelDB{
 		return true;
 	}
 	/*end reset pass*/
+	
+	/*register*/
+	public function _checkUserEmail($data){
+		$email = $this->_checkEmail($data);
+		if($email!=false) $data = "`email`='{$email}'";
+		else{
+			$data = strtolower(trim($data));
+			$data = "`username`='{$data}'";
+		}
+		$sql = "SELECT count(`id`) FROM `web_users` WHERE {$data} LIMIT 1";
+		if(!$result = $this->db->query($sql)) die($this->db->error);
+		$row = $result->fetch_row();
+		return $row[0];
+	}
+	
+	public function _insertUserRegister($name, $phone, $address, $email, $pass, $expiration, $status, $group){
+		$datetime = time();
+		$sql = "INSERT INTO `web_users` (`name`, `address`, `phone`, `email`, `password`, `date_expiration`, `datetime`, `status`, `group_id`) VALUES ( '{$name}', '{$address}', '{$phone}', '{$email}', '{$pass}', '{$expiration}', '{$datetime}', '{$status}', '{$group}' )";
+		if(!$this->db->query($sql)) die($this->db->error);
+		return true;
+	}
+	/*end register*/
 }
 ?>

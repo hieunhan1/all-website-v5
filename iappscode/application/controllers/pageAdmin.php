@@ -226,7 +226,7 @@ if(isset($_POST['btnLogin'])){
 	$error = $cUser->login($user, $pass, $group);
 }
 
-if(!isset($_SESSION['adminId'])){
+if(!isset($_SESSION['adminID'])){
 	include_once('view/admin_login.php');
 }else{
 	include_once('view/admin.php');

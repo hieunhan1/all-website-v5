@@ -26,11 +26,18 @@ $tagHead = $c->tagHead($currentPage['title'].$namePage, $currentPage['descriptio
 
 
 $viewData = ob_start();
-if(isset($_SESSION['appsUser'])){
-	$header = array('name'=>'Đăng ký', 'link'=>CONS_LINK_MANAGER_APPS.'/register');
+if(!isset($_SESSION['userID'])){
 	include_once("view/apps_login.php");
 }else{
-	$header = array('name'=>'Thoát', 'link'=>CONS_LINK_MANAGER_APPS.'/logout');
+	if($arrUrl['link']=='logout'){
+		$cU = new controlUsers;
+		$cU->logout_user(CONS_BASE_URL.'/'.CONS_LINK_MANAGER_APPS);
+		return true;
+	}
+	$header = array(
+		'<li class="li">Chào: '.$_SESSION['userName'].'</li>',
+		'<li class="li border"><a href="'.CONS_LINK_MANAGER_APPS.'/logout" id="appsLogout">Đăng xuất</a></li>',
+	);
 	include_once("view/apps_manager.php");
 }
 $viewData = ob_get_clean();

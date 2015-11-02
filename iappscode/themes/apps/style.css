@@ -35,12 +35,17 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 #appsTitle{font-size:160%; font-weight:100; color:#339933; line-height:140%; margin-bottom:10px}
 #appsDes{font-size:100%; font-weight:100; line-height:180%; margin-bottom:50px}
 #appsImg{max-width:100%}
-#registerTrial{clear:both; width:360px; line-height:35px; text-align:center; color:#FFF; font-size:120%; background-color:#339933; border-radius:10px; cursor:pointer}
+#registerTrial{clear:both; width:360px; line-height:35px; text-align:center; color:#FFF; font-size:120%; margin-bottom:15px; background-color:#339933; border-radius:10px; cursor:pointer}
+#registerSuccess{width:400px; font-size:120%; line-height:180%}
+#registerSuccess h3{font-weight:100; font-size:150%; margin-bottom:20px}
+.backLogin{text-align:right}
+.backLogin a{text-decoration:underline}
 
 /*class form*/
 #frmTitle{font-size:160%; font-weight:bold; line-height:140%; margin-bottom:15px}
+.appsError{margin-bottom:10px}
 .frmLR{width:auto; float:left; margin-bottom:30px; padding:30px; border:dashed 1px #CCC}
-.frmLR .row{width:300px; margin-bottom:30px}
+.frmLR .row{width:300px; margin-bottom:15px}
 .frmLR .row p{text-align:right}
 .frmLR .row a{text-decoration:underline}
 .frmLR .label{font-weight:bold; margin-bottom:5px}
@@ -50,6 +55,7 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 .frmLR .tar{}
 .frmLR .btn{width:100%; height:32px; line-height:32px; color:#FFF; font-weight:bold; margin-bottom:10px; padding:0; border:none; background-color:#ffc03e; cursor:pointer}
 .frmLR .btn:hover{background-color:#ffaa00}
+.frmLR .disabled{background-color:#CCC !important; border:none}
 /*end class form*/
 
 #left{width:28%; float:left}

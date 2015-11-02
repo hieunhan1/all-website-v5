@@ -12,7 +12,7 @@ class controlUsers{
 		$data = $this->_model->_check_user_login($user, $pass, $group);
 		if(count($data)==1){
 			$row = $data[0];
-			$_SESSION['userId'] = $row['id'];
+			$_SESSION['userID'] = $row['id'];
 			$_SESSION['userName'] = $row['name'];
 			$_SESSION['userAccount'] = $row['username'];
 			$_SESSION['userEmail'] = $row['email'];
@@ -25,7 +25,7 @@ class controlUsers{
 		$data = $this->_model->_check_admin_login($user, $pass, $group);
 		if(count($data)==1){
 			$row = $data[0];
-			$_SESSION['adminId'] = $row['id'];
+			$_SESSION['adminID'] = $row['id'];
 			$_SESSION['adminName'] = $row['name'];
 			$_SESSION['adminUser'] = $row['username'];
 			$_SESSION['adminRuleView'] = $row['rule_view'];
@@ -36,7 +36,7 @@ class controlUsers{
 	
 	public function login($user, $pass, $group){
 		$currentDatetime = time();
-		$user = $this->_model->_changeDauNhay($user);
+		$user = $this->_model->_changeDauNhay(strtolower($user));
 		$pass = $this->_model->_changeDauNhay($pass);
 		if($user!='' && $pass!=''){
 			$check_ip = $this->_model->_check_lock_ip($this->_ip);
@@ -73,7 +73,7 @@ class controlUsers{
 	}
 	
 	public function logout_admin(){
-		session_unset('adminId');
+		session_unset('adminID');
 		session_unset('adminName');
 		session_unset('adminUser');
 		session_unset('adminRuleView');
@@ -83,7 +83,7 @@ class controlUsers{
 	}
 	
 	public function logout_user($link){
-		session_unset('userId');
+		session_unset('userID');
 		session_unset('userName');
 		session_unset('userAccount');
 		session_unset('userEmail');
@@ -131,7 +131,7 @@ class controlUsers{
 	}
 	
 	public function userChangeInfomation(){
-		$id = $_SESSION['userId'];
+		$id = $_SESSION['userID'];
 		$email = $_SESSION['userEmail'];
 		$name = $this->_model->_changeDauNhay($_POST['name']);
 		$phone = $this->_model->_checksPhone($_POST['phone']);
@@ -152,7 +152,7 @@ class controlUsers{
 		return true;
 	}
 	public function userChangePassowrd(){
-		$id = $_SESSION['userId'];
+		$id = $_SESSION['userID'];
 		$email = $_SESSION['userEmail'];
 		$oldPass = $this->_model->_changeDauNhay($_POST['oldPass']);
 		$newPass = $this->_model->_changeDauNhay($_POST['newPass']);
@@ -164,5 +164,19 @@ class controlUsers{
 				return true;
 			}else return 'Incorrect password';
 		}else return 'Error';
+	}
+	
+	public function register($name, $phone, $address, $email, $pass){
+		$name = $this->_model->_changeDauNhay($name);
+		$phone = $this->_model->_changeDauNhay($phone);
+		$address = $this->_model->_changeDauNhay($address);
+		$email = $this->_model->_changeDauNhay($email);
+		$pass = $this->_model->_changeDauNhay($pass);
+		$pass = md5($pass);
+		$expiration = time() + 30*24*60*60;
+		$status = 1;
+		$group = 2;
+		$this->_model->_insertUserRegister($name, $phone, $address, $email, $pass, $expiration, $status, $group);
+		return true;
 	}
 }

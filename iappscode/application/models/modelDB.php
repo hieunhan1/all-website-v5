@@ -9,6 +9,7 @@ class modelDB{
 	
 	public function _checkEmail($str){
 		$str = trim($str);
+		$str = strtolower($str);
 		$pattern = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+$/';
 		if(preg_match($pattern, $str)) return $str;
 		else return false;
@@ -34,7 +35,8 @@ class modelDB{
 	}
 	
 	public function _removeTag($str){
-		$str = strip_tags($str,""); 
+		$str = strip_tags($str,"");
+		$str = trim($str);
 		return $str;
 	}
 	
@@ -47,6 +49,7 @@ class modelDB{
 			$str = str_replace('>', '&gt;', $str);
 			$str = str_replace('/', '&#47;', $str);
 		}
+		$str = trim($str);
 		return $str;
 	}
 	
@@ -55,6 +58,7 @@ class modelDB{
 		$str = str_replace('"', '', $str);
 		$str = str_replace('&', '', $str);
 		$str = str_replace('\\', '', $str);
+		$str = trim($str);
 		return $str;
 	}
 	
