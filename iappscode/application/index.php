@@ -21,7 +21,7 @@ function tachUrl($url){
 			return $arr;
 		case CONS_LINK_MANAGER_APPS :
 			$arr['control'] = CONS_FILE_MANAGER_APPS;
-			if(!isset($urlArr[1]) || $urlArr[1]=='') $arr['link'] = 'home'; else $arr['link'] = $urlArr[1];
+			if(!isset($urlArr[1]) || $urlArr[1]=='') $arr['link'] = 'fanpage'; else $arr['link'] = $urlArr[1];
 			return $arr;
 		default : 
 			$regex='/(.*)*.html$/';

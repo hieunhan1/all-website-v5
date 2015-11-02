@@ -7,7 +7,7 @@ a:hover{color:#ffaa00; text-decoration:underline}
 input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica, sans-serif}
 .hr{height:1px; background-color:#CCC; border:none; margin-bottom:15px}
 .error{font-style:italic; color:#F00}
-.message{font-style:italic; color:#00F}
+.message{color:#00F}
 .table{border-collapse:collapse}
 .fontOther{font-family: "Times New Roman", Times, serif }
 
@@ -16,7 +16,7 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 .clear20{clear:both; height:20px}
 .clear30{clear:both; height:30px}
 
-.allIcon{background:url(../website/img/icon.png) no-repeat top left}
+.allIcon{background:url(img/icon.png) no-repeat top left}
 
 #wrapper{width:80%; margin:auto}
 .container{width:80%; margin:auto}
@@ -32,6 +32,7 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 #top-right .li .active{color:#FFF}
 /*end top*/
 
+/*info login*/
 #appsTitle{font-size:160%; font-weight:100; color:#339933; line-height:140%; margin-bottom:10px}
 #appsDes{font-size:100%; font-weight:100; line-height:180%; margin-bottom:50px}
 #appsImg{max-width:100%}
@@ -40,6 +41,7 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 #registerSuccess h3{font-weight:100; font-size:150%; margin-bottom:20px}
 .backLogin{text-align:right}
 .backLogin a{text-decoration:underline}
+/*end info login*/
 
 /*class form*/
 #frmTitle{font-size:160%; font-weight:bold; line-height:140%; margin-bottom:15px}
@@ -58,9 +60,9 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 .frmLR .disabled{background-color:#CCC !important; border:none}
 /*end class form*/
 
-#left{width:28%; float:left}
-
-#right{width:68%; float:right}
+/*facebook*/
+#fb-login{width:auto; float:left; color:#fff; padding:7px 48px; border-radius:8px; cursor:pointer; background-color:#ffaa00; background-position:20px -465px}
+/*end facebook*/
 
 /*feeds*/
 #fb-feeds{clear:both}
@@ -100,3 +102,15 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 .fb-feed-ajax .fb-item-cm .fb-item-picture img{max-width:100%}
 .fb-feed-ajax .fb-item-cm .fb-item-message{width:93%; float:right}
 /*end feeds*/
+
+/*left*/
+#left{width:28%; float:left}
+#left .left-item{line-height:25px; margin:0 0 15px 30%; padding-left:23px}
+#left .left-item .link{color:#666}
+#left .left-item .active{color:#ffaa00; font-weight:bold}
+/*end left*/
+
+/*right*/
+#right{width:68%; float:right}
+#right .title{font-size:120%; margin-bottom:20px; padding-bottom:10px; border-bottom:solid 1px #CCC}
+/*end right*/

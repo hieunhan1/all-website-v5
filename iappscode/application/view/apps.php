@@ -14,8 +14,8 @@
 <div id="top" class="fontOther">
 	<div class="container">
         <div id="top-left">
-            <span class="span allIcon" style="background-position:0px -348px"><?php echo $config['hotline'];?></span>
-            <span class="span allIcon" style="background-position:0px -398px"><?php echo $config['email'];?></span>
+            <span class="span allIcon" style="background-position:0px -100px"><?php echo $config['hotline'];?></span>
+            <span class="span allIcon" style="background-position:0px -150px"><?php echo $config['email'];?></span>
         </div>
         <div id="top-right">
         	<?php
