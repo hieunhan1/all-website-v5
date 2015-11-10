@@ -60,8 +60,8 @@ echo '<form name="form_action" method="post" action="">
 	
 	$name = 'type';
 	$values = array();
-	$values[] = array('name'=>'làm chính', 'id'=>'1');
-	$values[] = array('name'=>'làm phụ', 'id'=>'2');
+	$values[] = array('name'=>'Thẩm tra', 'id'=>'1');
+	$values[] = array('name'=>'Thiết kế', 'id'=>'2');
 	if(!isset($_POST[$name])){
 		if($rowDetail[$name]=='') $valueCheck=1;
 		else $valueCheck=$rowDetail[$name];
@@ -69,12 +69,23 @@ echo '<form name="form_action" method="post" action="">
 	$data = $cF->inputRadio($name, $values, $valueCheck, 'radio');
 	echo $cF->displayTable('Loại công trình', $data);
 	
+	$name = 'other';
+	$values = array();
+	$values[] = array('name'=>'Công trình chính', 'id'=>'1');
+	$values[] = array('name'=>'Công trình phụ', 'id'=>'2');
+	if(!isset($_POST[$name])){
+		if($rowDetail[$name]=='') $valueCheck=1;
+		else $valueCheck=$rowDetail[$name];
+	}else $valueCheck=$_POST[$name];
+	$data = $cF->inputRadio($name, $values, $valueCheck, 'radio');
+	echo $cF->displayTable('Khác', $data);
+	
 	$name = 'city_id';
 	$values = $c->_model->_listTable('web_listcity', '`order`, `name`');
 	array_unshift($values, array('name'=>'-- chọn tỉnh thành --', 'id'=>'0'));
 	if($rowDetail[$name]!=''){
 		$valueCheck=$rowDetail[$name];
-	}else $valueCheck=0;
+	}else $valueCheck=35;
 	$data = $cF->select($name, $values, $valueCheck, 'input_medium', 1);
 	echo $cF->displayTable('Tỉnh thành', $data);
 	

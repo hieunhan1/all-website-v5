@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2015 at 11:27 AM
+-- Generation Time: Nov 10, 2015 at 09:02 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -72,7 +72,7 @@ INSERT INTO `web_admin` (`id`, `name`, `url`, `table`, `parameter`, `file`, `img
 (25, 'Web Header', 'web_header', 'web_header', '', 'web_header', 'icon-item.jpg', 92, 0, '0', 1),
 (26, 'Công trình thẩm tra', 'construction', 'web_construction', '', 'web_construction', 'icon-construction.jpg', 11, 0, '0', 1),
 (27, 'Thanh toán', 'payment', 'web_payment', '', 'web_payment', 'icon-payment.jpg', 12, 0, '0', 1),
-(28, 'Tra cứu thanh toán', 'checkpayment', 'web_payment', '', 'web_paymentcheck', 'icon-tra-cuu-hoc-phi.jpg', 13, 1, '0', 1);
+(28, 'Tra cứu thanh toán', 'checkpayment', 'web_construction', '', 'web_paymentcheck', 'icon-tra-cuu-hoc-phi.jpg', 13, 1, '0', 1);
 
 -- --------------------------------------------------------
 
@@ -135,6 +135,7 @@ CREATE TABLE IF NOT EXISTS `web_construction` (
   `investor` varchar(100) NOT NULL,
   `notes` varchar(200) NOT NULL,
   `type` tinyint(1) NOT NULL DEFAULT '1',
+  `other` tinyint(1) NOT NULL DEFAULT '1',
   `datetime` bigint(10) NOT NULL,
   `lang` varchar(2) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
@@ -146,11 +147,11 @@ CREATE TABLE IF NOT EXISTS `web_construction` (
 -- Dumping data for table `web_construction`
 --
 
-INSERT INTO `web_construction` (`id`, `name`, `code`, `date_examine`, `provisional_costs`, `investor`, `notes`, `type`, `datetime`, `lang`, `status`, `city_id`, `district_id`) VALUES
-(1, 'Công trình AAA', 'HN01', 1446364320, 200000000, 'Huyện Thủ Thừa', 'cần theo dõi', 1, 1447058392, 'vi', 1, 35, 356),
-(2, 'Công trình BBB', 'HN02', 1446453300, 100000000, 'Huyện Châu Thành', '', 1, 1447058389, 'vi', 1, 35, 346),
-(3, 'Công trình CCC', 'HN03', 1446539760, 300000000, 'Huyện Bến Lức', '', 1, 1447058386, 'vi', 1, 35, 341),
-(4, 'Công trình DDD', 'HN04', 1446626460, 500000000, 'TP.Tân An', '', 1, 1447058507, 'vi', 1, 35, 350);
+INSERT INTO `web_construction` (`id`, `name`, `code`, `date_examine`, `provisional_costs`, `investor`, `notes`, `type`, `other`, `datetime`, `lang`, `status`, `city_id`, `district_id`) VALUES
+(1, 'Công trình thẩm tra chính AAA', 'HN01', 1446364320, 200000000, 'Huyện Thủ Thừa', 'cần theo dõi', 1, 1, 1447058392, 'vi', 1, 35, 356),
+(2, 'Công trình thẩm tra chính BBB', 'HN02', 1446453300, 100000000, 'Huyện Châu Thành', '', 1, 1, 1447058389, 'vi', 1, 35, 346),
+(3, 'Công trình thẩm tra phụ CCC', 'HN03', 1446539760, 300000000, 'Huyện Bến Lức', '', 1, 2, 1447058386, 'vi', 1, 35, 341),
+(4, 'Công trình thiết kế DDD', 'HN04', 1446626460, 500000000, 'TP.Tân An', '', 2, 1, 1447058507, 'vi', 1, 35, 350);
 
 -- --------------------------------------------------------
 
@@ -1116,7 +1117,24 @@ CREATE TABLE IF NOT EXISTS `web_logs` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `date_restore` bigint(10) DEFAULT NULL,
   `user_restore` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `web_logs`
+--
+
+INSERT INTO `web_logs` (`id`, `name`, `action`, `table`, `datetime`, `username`, `content`, `lang`, `status`, `date_restore`, `user_restore`) VALUES
+(1, '', 'create', 'web_payment', 1447126044, 'admin', '', 'vi', 0, NULL, NULL),
+(2, '', 'create', 'web_payment', 1447126060, 'admin', '', 'vi', 0, NULL, NULL),
+(3, 'Tra cứu thanh toán', 'update', 'web_admin', 1447126149, 'admin', 'id,name,url,table,parameter,file,img,order,other,ajax,statusfields%%%values28%%%Tra cứu thanh toán%%%checkpayment%%%web_payment%%%%%%web_paymentcheck%%%icon-tra-cuu-hoc-phi.jpg%%%13%%%1%%%0%%%1', 'vi', 0, NULL, NULL),
+(4, '', 'create', 'web_payment', 1447129381, 'admin', '', 'vi', 0, NULL, NULL),
+(5, '', 'create', 'web_payment', 1447129388, 'admin', '', 'vi', 0, NULL, NULL),
+(6, 'Công trình DDD', 'update', 'web_construction', 1447141789, 'admin', 'id,name,code,date_examine,provisional_costs,investor,notes,type,other,datetime,lang,status,city_id,district_idfields%%%values4%%%Công trình DDD%%%HN04%%%1446626460%%%500000000%%%TP.Tân An%%%%%%1%%%1%%%1447058507%%%vi%%%1%%%35%%%350', 'vi', 0, NULL, NULL),
+(7, 'Công trình CCC', 'update', 'web_construction', 1447141793, 'admin', 'id,name,code,date_examine,provisional_costs,investor,notes,type,other,datetime,lang,status,city_id,district_idfields%%%values3%%%Công trình CCC%%%HN03%%%1446539760%%%300000000%%%Huyện Bến Lức%%%%%%1%%%1%%%1447058386%%%vi%%%1%%%35%%%341', 'vi', 0, NULL, NULL),
+(8, 'Công trình AAA', 'update', 'web_construction', 1447141815, 'admin', 'id,name,code,date_examine,provisional_costs,investor,notes,type,other,datetime,lang,status,city_id,district_idfields%%%values1%%%Công trình AAA%%%HN01%%%1446364320%%%200000000%%%Huyện Thủ Thừa%%%cần theo dõi%%%1%%%1%%%1447058392%%%vi%%%1%%%35%%%356', 'vi', 0, NULL, NULL),
+(9, 'Công trình BBB', 'update', 'web_construction', 1447141820, 'admin', 'id,name,code,date_examine,provisional_costs,investor,notes,type,other,datetime,lang,status,city_id,district_idfields%%%values2%%%Công trình BBB%%%HN02%%%1446453300%%%100000000%%%Huyện Châu Thành%%%%%%1%%%1%%%1447058389%%%vi%%%1%%%35%%%346', 'vi', 0, NULL, NULL),
+(10, 'Công trình CCC', 'update', 'web_construction', 1447141836, 'admin', 'id,name,code,date_examine,provisional_costs,investor,notes,type,other,datetime,lang,status,city_id,district_idfields%%%values3%%%Công trình CCC%%%HN03%%%1446539760%%%300000000%%%Huyện Bến Lức%%%%%%1%%%2%%%1447058386%%%vi%%%1%%%35%%%341', 'vi', 0, NULL, NULL),
+(11, 'Công trình DDD', 'update', 'web_construction', 1447141844, 'admin', 'id,name,code,date_examine,provisional_costs,investor,notes,type,other,datetime,lang,status,city_id,district_idfields%%%values4%%%Công trình DDD%%%HN04%%%1446626460%%%500000000%%%TP.Tân An%%%%%%2%%%1%%%1447058507%%%vi%%%1%%%35%%%350', 'vi', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1176,7 +1194,7 @@ CREATE TABLE IF NOT EXISTS `web_payment` (
   `lang` varchar(2) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `construction_code` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `web_payment`
@@ -1185,7 +1203,11 @@ CREATE TABLE IF NOT EXISTS `web_payment` (
 INSERT INTO `web_payment` (`id`, `amount`, `datetime`, `notes`, `lang`, `status`, `construction_code`) VALUES
 (1, 50000000, 1446803700, '', 'vi', 1, 'hn01'),
 (2, 50000000, 1447062900, '', 'vi', 1, 'HN01'),
-(3, 100000000, 1446803880, '', 'vi', 1, 'HN02');
+(3, 100000000, 1446803880, '', 'vi', 1, 'HN02'),
+(4, 100000000, 1447125960, '', 'vi', 1, 'HN03'),
+(5, 120000000, 1447126020, '', 'vi', 1, 'HN04'),
+(6, 50000000, 1447129320, '', 'vi', 1, 'HN04'),
+(7, 80000000, 1447129380, '', 'vi', 1, 'HN04');
 
 -- --------------------------------------------------------
 
@@ -1390,7 +1412,7 @@ CREATE TABLE IF NOT EXISTS `web_users_lock_ip` (
 --
 
 INSERT INTO `web_users_lock_ip` (`id`, `ip_address`, `login_number`, `disable_date`, `datetime`) VALUES
-(6, '::1', 2, 0, 1447064630);
+(6, '::1', 2, 0, 1447125077);
 
 -- --------------------------------------------------------
 
@@ -1628,7 +1650,7 @@ MODIFY `id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `web_logs`
 --
 ALTER TABLE `web_logs`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `web_order`
 --
@@ -1643,7 +1665,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `web_payment`
 --
 ALTER TABLE `web_payment`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `web_photo`
 --

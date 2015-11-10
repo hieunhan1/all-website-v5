@@ -45,13 +45,17 @@ class pageAdmin{
 			if($fields[$i]!='page' && $fields[$i]!='lang'){
 				$value = $this->_model->_removeDauNhay($values[$i]);
 				if($value!=''){
-					if(!preg_match("/LIKE_/i", $fields[$i])){
-						$field = $this->_model->_removeDauNhay($fields[$i]);
-						$str .= " AND `{$field}`='{$value}' ";
-					}else{
+					if(preg_match("/LIKE_/i", $fields[$i])){
 						$field = str_replace('LIKE_', '', $fields[$i]);
 						$field = $this->_model->_removeDauNhay($field);
 						$str .= " AND `{$field}` LIKE '%{$value}%' ";
+					}else if(preg_match("/date/i", $fields[$i])){
+						$field = $this->_model->_removeDauNhay($fields[$i]);
+						$value = strtotime($value);
+						$str .= " AND `{$field}`>'{$value}' ";
+					}else{
+						$field = $this->_model->_removeDauNhay($fields[$i]);
+						$str .= " AND `{$field}`='{$value}' ";
 					}
 					$urlSearch .= "&{$fields[$i]}={$value}";
 				}
@@ -133,13 +137,14 @@ class pageAdmin{
 	}
 	
 	public function viewFormSearch($arr){
-		$str='';
+		$str=''; $class='';
 		$all = array();
 		for($i=0; $i<count($arr); $i++){
 			$all[$arr[$i]['name']] = '';
-			if($arr[$i]['type']=='text')
-				$str.='<input type="text" name="'.$arr[$i]['name'].'" value="'.$arr[$i]['value'].'" class="txt" placeholder="'.$arr[$i]['other'].'">';
-			else if($arr[$i]['type']=='select'){
+			if($arr[$i]['type']=='text'){
+				if(isset($arr[$i]['class'])) $class=$arr[$i]['class'];
+				$str.='<input type="text" name="'.$arr[$i]['name'].'" value="'.$arr[$i]['value'].'" class="txt '.$class.'" placeholder="'.$arr[$i]['other'].'">';
+			}else if($arr[$i]['type']=='select'){
 				$option='';
 				$values = $arr[$i]['value'];
 				for($j=0; $j<count($values); $j++){
@@ -147,6 +152,8 @@ class pageAdmin{
 					$option .= '<option value="'.$values[$j]['id'].'" '.$check.'>'.$values[$j]['name'].'</option>';
 				}
 				$str.='<select class="select" name="'.$arr[$i]['name'].'">'.$option.'</select>';
+			}else if($arr[$i]['type']=='style'){
+				$str.=$arr[$i]['name'];
 			}
 		}
 		

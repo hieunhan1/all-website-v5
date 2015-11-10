@@ -15,7 +15,15 @@ $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=
 
 $name = 'type';
 $value = array();
-$value[] = array('id'=>'', 'name'=>'-- chọn loại c.trình --');
+$value[] = array('id'=>'', 'name'=>'-- loại c.trình --');
+$value[] = array('id'=>'1', 'name'=>'Công trình thẩm tra');
+$value[] = array('id'=>'2', 'name'=>'Công trình thiết kế');
+if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
+$arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
+
+$name = 'other';
+$value = array();
+$value[] = array('id'=>'', 'name'=>'-- chính phụ --');
 $value[] = array('id'=>'1', 'name'=>'Công trình chính');
 $value[] = array('id'=>'2', 'name'=>'Công trình phụ');
 if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];

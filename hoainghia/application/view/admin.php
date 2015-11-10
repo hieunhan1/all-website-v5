@@ -10,13 +10,9 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.wallform.js"></script>
 <script type="text/javascript" src="js/js_admin.js"></script>
-<script>
-$(document).ready(function() {
-	 //alert(1);
-});
-</script>
-<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="js/ckfinder/ckfinder.js"></script>
+
+<!--<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="js/ckfinder/ckfinder.js"></script>-->
 
 <link type="text/css" href="js/datetimepick/jquery.simple-dtpicker.css" rel="stylesheet" />
 <script type="text/javascript" src="js/datetimepick/jquery.simple-dtpicker.js"></script>
@@ -28,7 +24,7 @@ $(document).ready(function() {
 	});
 </script>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
 function BrowseServer( startupPath, functionData ){
 	var finder = new CKFinder();
 	finder.basePath = 'ckfinder/';
@@ -41,7 +37,7 @@ function SetFileField(fileUrl, data){
 	var sFileName = this.getSelectedFile().name;
 	document.getElementById(data["selectActionData"]).value = sFileName;
 }
-</script>
+</script>-->
 
 </head>
 
