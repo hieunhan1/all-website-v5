@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2015 at 10:37 AM
+-- Generation Time: Nov 09, 2015 at 03:24 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -19,6 +19,46 @@ SET time_zone = "+00:00";
 --
 -- Database: `iappscode`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `apps_fb_feed`
+--
+
+CREATE TABLE IF NOT EXISTS `apps_fb_feed` (
+`id` int(11) NOT NULL,
+  `feed_id` char(32) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `apps_fb_user`
+--
+
+CREATE TABLE IF NOT EXISTS `apps_fb_user` (
+  `id` bigint(17) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `gender` int(3) NOT NULL,
+  `date_birthday` bigint(10) NOT NULL,
+  `datetime` bigint(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `apps_user_manager`
+--
+
+CREATE TABLE IF NOT EXISTS `apps_user_manager` (
+`id` int(11) NOT NULL,
+  `fb_id` bigint(17) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `type` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -150,7 +190,16 @@ CREATE TABLE IF NOT EXISTS `web_content` (
   `price_cost` varchar(10) DEFAULT NULL,
   `price` varchar(10) DEFAULT NULL,
   `header_id` int(11) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `web_content`
+--
+
+INSERT INTO `web_content` (`id`, `arr_img`, `content`, `more`, `price_cost`, `price`, `header_id`) VALUES
+(79, '', '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas feugiat consequat diam. Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, nulla.</p>\n\n<p>Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque, sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac, ullamcorper nec, enim.</p>\n\n<p>Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a, luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede bibendum sem, in tempus tellus justo quis ligula.</p>\n\n<p>Etiam eget tortor. Vestibulum rutrum, est ut placerat elementum, lectus nisl aliquam velit, tempor aliquam eros nunc nonummy metus. In eros metus, gravida a, gravida sed, lobortis id, turpis. Ut ultrices, ipsum at venenatis fringilla, sem nulla lacinia tellus, eget aliquet turpis mauris non enim.</p>\n\n<p>Nam turpis. Suspendisse lacinia. Curabitur ac tortor ut ipsum egestas elementum. Nunc imperdiet gravida mauris.</p>\n\n<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas feugiat consequat diam. Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, nulla.</p>\n\n<p>Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque, sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac, ullamcorper nec, enim.</p>\n\n<p>Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a, luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede bibendum sem, in tempus tellus justo quis ligula.</p>\n\n<p>Etiam eget tortor. Vestibulum rutrum, est ut placerat elementum, lectus nisl aliquam velit, tempor aliquam eros nunc nonummy metus. In eros metus, gravida a, gravida sed, lobortis id, turpis. Ut ultrices, ipsum at venenatis fringilla, sem nulla lacinia tellus, eget aliquet turpis mauris non enim.</p>\n\n<p>Nam turpis. Suspendisse lacinia. Curabitur ac tortor ut ipsum egestas elementum. Nunc imperdiet gravida mauris.</p>\n', '', '', '', 83),
+(80, '1446108284.jpg,', '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas feugiat consequat diam. Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, nulla.</p>\n\n<p>Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque, sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac, ullamcorper nec, enim.</p>\n\n<p>Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a, luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede bibendum sem, in tempus tellus justo quis ligula.</p>\n\n<p>Etiam eget tortor. Vestibulum rutrum, est ut placerat elementum, lectus nisl aliquam velit, tempor aliquam eros nunc nonummy metus. In eros metus, gravida a, gravida sed, lobortis id, turpis. Ut ultrices, ipsum at venenatis fringilla, sem nulla lacinia tellus, eget aliquet turpis mauris non enim.</p>\n\n<p>Nam turpis. Suspendisse lacinia. Curabitur ac tortor ut ipsum egestas elementum. Nunc imperdiet gravida mauris.</p>\n\n<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas feugiat consequat diam. Maecenas metus. Vivamus diam purus, cursus a, commodo non, facilisis vitae, nulla.</p>\n\n<p>Aenean dictum lacinia tortor. Nunc iaculis, nibh non iaculis aliquam, orci felis euismod neque, sed ornare massa mauris sed velit. Nulla pretium mi et risus. Fusce mi pede, tempor id, cursus ac, ullamcorper nec, enim.</p>\n\n<p>Sed tortor. Curabitur molestie. Duis velit augue, condimentum at, ultrices a, luctus ut, orci. Donec pellentesque egestas eros. Integer cursus, augue in cursus faucibus, eros pede bibendum sem, in tempus tellus justo quis ligula.</p>\n\n<p>Etiam eget tortor. Vestibulum rutrum, est ut placerat elementum, lectus nisl aliquam velit, tempor aliquam eros nunc nonummy metus. In eros metus, gravida a, gravida sed, lobortis id, turpis. Ut ultrices, ipsum at venenatis fringilla, sem nulla lacinia tellus, eget aliquet turpis mauris non enim.</p>\n\n<p>Nam turpis. Suspendisse lacinia. Curabitur ac tortor ut ipsum egestas elementum. Nunc imperdiet gravida mauris.</p>\n', '', '', '', 82),
+(81, '', '<p>Quảng cáo Google - Dịch vụ, giải pháp quảng cáo Google Adwords chuyên nghiệp, hiệu quả. Quảng cáo Google gia tăng doanh số bán hàng và thương hiệu.</p>', '', '', '', 86);
 
 -- --------------------------------------------------------
 
@@ -188,7 +237,7 @@ INSERT INTO `web_header` (`id`, `name`, `name_alias`, `url`, `img`, `title`, `de
 (2, 'Giới thiệu', 'gioithieu', '', '', 'Giới thiệu', 'Giới thiệu', 'Giới thiệu,gioi thieu', NULL, 0, 11, 1442290500, 'vi', 1, 1, 2, ',1,', NULL),
 (3, 'Tin tức', 'tintuc', '', '', 'Tin tức', 'Tin tức', 'tin tức,tin tuc', NULL, 0, 12, 1442290680, 'vi', 1, 1, 2, ',1,', NULL),
 (4, 'Thiết kế web', 'thietkeweb', '', '', 'Thiết kế website', 'Thiết kế website', 'thiết kế web', NULL, 0, 21, 1442290680, 'vi', 1, 1, 2, ',2,', NULL),
-(5, 'Quảng cáo Google', 'quangcaogoogle', 'dich-vu-thiet-ke-website-iappscode', '', 'Quảng cáo Google', 'Quảng cáo Google', 'quảng cáo google,quang cao google', NULL, 0, 23, 1442290740, 'vi', 1, 1, 2, ',2,', NULL),
+(5, 'Quảng cáo Google', 'quangcaogoogle', '', '', 'Quảng cáo Google', 'Quảng cáo Google', 'quảng cáo google,quang cao google', NULL, 0, 23, 1442290740, 'vi', 1, 1, 2, ',2,', NULL),
 (6, 'Liên hệ', 'lienhe', '', '', 'Liên hệ', 'des', 'Liên hệ', '', 0, 14, 1442292480, 'vi', 1, 1, 17, ',1,', ''),
 (65, 'Thiết kế website chuyên nghiệp', 'test-slider', 'javascript:;', '1445512661.png', 'Test slider', 'Sáng tạo không ngừng nghỉ, ý tưởng luôn đổi mới, quy trình chuẩn hóa quốc tế. Nỗ lực vươn tới vị trí những công ty thiết kế web hàng đầu Việt Nam.', 'test slider', '', 0, 0, 1445421480, 'vi', 1, 2, 16, ',16,', ',1,'),
 (83, 'Quảng cáo Google', 'quang-cao-google-gia-tang-doanh-so-ban-hang', '', '1445654308.png', 'Quảng cáo Google gia tăng doanh số bán hàng.', 'Quảng cáo Google - Dịch vụ, giải pháp quảng cáo Google Adwords chuyên nghiệp, hiệu quả. Quảng cáo Google gia tăng doanh số bán hàng và thương hiệu.', 'quảng cáo google,gia tăng doanh số bán hàng,quang cao google,gia tang doanh so ban hang', '', 0, 0, 1445591700, 'vi', 1, 2, 2, '', ',84,4,5,'),
@@ -199,7 +248,7 @@ INSERT INTO `web_header` (`id`, `name`, `name_alias`, `url`, `img`, `title`, `de
 (71, 'Kiến thức', 'kienthuc', '', '', 'Kiến thức', 'Kiến thức', 'kiến thức', NULL, 0, 13, 1445483460, 'vi', 1, 1, 2, ',1,', NULL),
 (72, 'Thiết kế lập trình website', '', 'javascript:;', '1445512644.png', '', 'Sáng tạo không ngừng nghỉ, ý tưởng luôn đổi mới, quy trình chuẩn hóa quốc tế. Nỗ lực vươn tới vị trí những công ty thiết kế web hàng đầu Việt Nam.', '', NULL, 0, 2, 1445510100, 'vi', 1, 2, 16, ',16,', ',1,'),
 (73, 'Home', 'home', '', '', 'Home', 'Description', 'keyword', NULL, 0, 0, 1445570760, 'en', 1, 1, 1, ',2,', NULL),
-(82, 'Dịch vụ thiết kế website', 'dich-vu-thiet-ke-website-iappscode', '', '1445591539.png', 'Dịch vụ thiết kế website iAppsCode', 'Thiết kế web chuyên nghiệp, uy tín theo chuẩn SEO, sử dụng công nghệ Mobile Responsive tương thích Di động, Giá rẻ.', 'dịch vụ thiết kế website,dich vu thiet ke website', '', 0, 0, 1445591220, 'vi', 1, 2, 2, NULL, ',84,4,'),
+(82, 'Dịch vụ thiết kế website', 'dich-vu-thiet-ke-website-iappscode', '', '1446108284.jpg', 'Dịch vụ thiết kế website iAppsCode', 'Thiết kế web chuyên nghiệp, uy tín theo chuẩn SEO, sử dụng công nghệ Mobile Responsive tương thích Di động, Giá rẻ.', 'dịch vụ thiết kế website,dich vu thiet ke website', '', 0, 0, 1445591220, 'vi', 1, 2, 2, NULL, ',84,4,'),
 (86, 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'cong-ty-thiet-ke-website-chuyen-nghiep-chuan-seo', '', '', 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'Sáng tạo không ngừng nghỉ, ý tưởng luôn đổi mới, quy trình chuẩn hóa quốc tế. Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'công ty thiết kế website chuyên nghiệp chuẩn seo', '', 0, 0, 1445655480, 'vi', 1, 2, 2, '', ',85,'),
 (84, 'Các dịch vụ trang chủ', 'cac-dich-vu-trang-chu', '', '', 'Các dịch vụ trang chủ', 'Các dịch vụ trang chủ', 'các dịch vụ trang chủ', NULL, 0, 1, 1445652540, 'vi', 1, 1, 2, ',11,', NULL),
 (85, 'Giới thiệu trang chủ', 'gioi-thieu-trang-chu', '', '', 'Giới thiệu trang chủ', 'Giới thiệu trang chủ', 'giới thiệu trang chủ', NULL, 0, 2, 1445652600, 'vi', 1, 1, 2, ',7,', NULL);
@@ -1072,7 +1121,44 @@ CREATE TABLE IF NOT EXISTS `web_logs` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `date_restore` bigint(10) DEFAULT NULL,
   `user_restore` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `web_logs`
+--
+
+INSERT INTO `web_logs` (`id`, `name`, `action`, `table`, `datetime`, `username`, `content`, `lang`, `status`, `date_restore`, `user_restore`) VALUES
+(1, 'Quảng cáo Google', 'update', 'web_header', 1446088884, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values5%%%Quảng cáo Google%%%quangcaogoogle%%%dich-vu-thiet-ke-website-iappscode%%%%%%Quảng cáo Google%%%Quảng cáo Google%%%quảng cáo google,quang cao google%%%%%%0%%%23%%%1442290740%%%vi%%%1%%%1%%%2%%%,2,', 'vi', 0, NULL, NULL),
+(2, 'Quảng cáo Google', 'update', 'web_header', 1446088911, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values83%%%Quảng cáo Google%%%quang-cao-google-gia-tang-doanh-so-ban-hang%%%%%%1445654308.png%%%Quảng cáo Google gia tăng doanh số bán hàng.%%%Quảng cáo Google - Dịch vụ, giải pháp quảng cáo Google Adwords chuyên nghiệp, hiệu quả. Quảng cáo Google gia tăng doanh số bán hàng và thương hiệu.%%%quảng cáo google,gia tăng doanh số bán hàng,quang cao google,gia tang doanh so ban hang%%%%%%0%%%0%%%1445591700%%%vi%%%1%%%2%%%2%%%%%%,84,4,5,', 'vi', 0, NULL, NULL),
+(3, 'Dịch vụ thiết kế website', 'update', 'web_header', 1446088920, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values82%%%Dịch vụ thiết kế website%%%dich-vu-thiet-ke-website-iappscode%%%%%%1445591539.png%%%Dịch vụ thiết kế website iAppsCode%%%Thiết kế web chuyên nghiệp, uy tín theo chuẩn SEO, sử dụng công nghệ Mobile Responsive tương thích Di động, Giá rẻ.%%%dịch vụ thiết kế website,dich vu thiet ke website%%%%%%0%%%0%%%1445591220%%%vi%%%1%%%2%%%2%%%%%%,84,4,', 'vi', 0, NULL, NULL),
+(4, 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'update', 'web_header', 1446088927, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values86%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%cong-ty-thiet-ke-website-chuyen-nghiep-chuan-seo%%%%%%%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%Sáng tạo không ngừng nghỉ, ý tưởng luôn đổi mới, quy trình chuẩn hóa quốc tế. Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%công ty thiết kế website chuyên nghiệp chuẩn seo%%%%%%0%%%0%%%1445655480%%%vi%%%1%%%2%%%2%%%%%%,85,', 'vi', 0, NULL, NULL),
+(5, 'Dịch vụ thiết kế website', 'update', 'web_header', 1446088972, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values82%%%Dịch vụ thiết kế website%%%dich-vu-thiet-ke-website-iappscode%%%%%%1445591539.png%%%Dịch vụ thiết kế website iAppsCode%%%Thiết kế web chuyên nghiệp, uy tín theo chuẩn SEO, sử dụng công nghệ Mobile Responsive tương thích Di động, Giá rẻ.%%%dịch vụ thiết kế website,dich vu thiet ke website%%%%%%0%%%0%%%1445591220%%%vi%%%1%%%2%%%2%%%%%%,84,4,', 'vi', 0, NULL, NULL),
+(6, 'Quảng cáo Google', 'update', 'web_header', 1446088982, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values83%%%Quảng cáo Google%%%quang-cao-google-gia-tang-doanh-so-ban-hang%%%%%%1445654308.png%%%Quảng cáo Google gia tăng doanh số bán hàng.%%%Quảng cáo Google - Dịch vụ, giải pháp quảng cáo Google Adwords chuyên nghiệp, hiệu quả. Quảng cáo Google gia tăng doanh số bán hàng và thương hiệu.%%%quảng cáo google,gia tăng doanh số bán hàng,quang cao google,gia tang doanh so ban hang%%%%%%0%%%0%%%1445591700%%%vi%%%1%%%2%%%2%%%%%%,84,4,5,', 'vi', 0, NULL, NULL),
+(7, 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'update', 'web_header', 1446091861, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values86%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%cong-ty-thiet-ke-website-chuyen-nghiep-chuan-seo%%%%%%%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%Sáng tạo không ngừng nghỉ, ý tưởng luôn đổi mới, quy trình chuẩn hóa quốc tế. Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%công ty thiết kế website chuyên nghiệp chuẩn seo%%%%%%0%%%0%%%1445655480%%%vi%%%1%%%2%%%2%%%%%%,85,', 'vi', 0, NULL, NULL),
+(8, 'Tags keyword', 'status', 'web_tags', 1446091907, 'admin', '1', 'vi', 0, NULL, NULL),
+(9, 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'update', 'web_header', 1446092772, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values86%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%cong-ty-thiet-ke-website-chuyen-nghiep-chuan-seo%%%%%%%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%Sáng tạo không ngừng nghỉ, ý tưởng luôn đổi mới, quy trình chuẩn hóa quốc tế. Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%công ty thiết kế website chuyên nghiệp chuẩn seo%%%%%%0%%%0%%%1445655480%%%vi%%%1%%%2%%%2%%%%%%,85,', 'vi', 0, NULL, NULL),
+(10, 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'status', 'web_header', 1446107983, 'admin', '1', 'vi', 0, NULL, NULL),
+(11, 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'status', 'web_header', 1446107988, 'admin', '0', 'vi', 0, NULL, NULL),
+(12, 'Dịch vụ thiết kế website', 'update', 'web_header', 1446108285, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values82%%%Dịch vụ thiết kế website%%%dich-vu-thiet-ke-website-iappscode%%%%%%1445591539.png%%%Dịch vụ thiết kế website iAppsCode%%%Thiết kế web chuyên nghiệp, uy tín theo chuẩn SEO, sử dụng công nghệ Mobile Responsive tương thích Di động, Giá rẻ.%%%dịch vụ thiết kế website,dich vu thiet ke website%%%%%%0%%%0%%%1445591220%%%vi%%%1%%%2%%%2%%%%%%,84,4,', 'vi', 0, NULL, NULL),
+(13, 'Dịch vụ thiết kế website', 'update', 'web_header', 1446108293, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values82%%%Dịch vụ thiết kế website%%%dich-vu-thiet-ke-website-iappscode%%%%%%1445591539.png%%%Dịch vụ thiết kế website iAppsCode%%%Thiết kế web chuyên nghiệp, uy tín theo chuẩn SEO, sử dụng công nghệ Mobile Responsive tương thích Di động, Giá rẻ.%%%dịch vụ thiết kế website,dich vu thiet ke website%%%%%%0%%%0%%%1445591220%%%vi%%%1%%%2%%%2%%%%%%,84,4,', 'vi', 0, NULL, NULL),
+(14, 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'status', 'web_header', 1446197810, 'admin', '1', 'vi', 0, NULL, NULL),
+(15, 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'status', 'web_header', 1446197812, 'admin', '0', 'vi', 0, NULL, NULL),
+(16, 'Thành viên', 'update', 'web_users_group', 1446199532, 'admin', 'id,name,order,statusfields%%%values2%%%Thành viên%%%2%%%1', 'vi', 0, NULL, NULL),
+(17, 'Quản lý Apps', 'update', 'web_users_group', 1446199548, 'admin', 'id,name,order,statusfields%%%values2%%%Quản lý Apps%%%2%%%1', 'vi', 0, NULL, NULL),
+(18, 'Trần Hiếu Nhân', 'create', 'web_users', 1446199667, 'admin', '', 'vi', 0, NULL, NULL),
+(19, 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'update', 'web_header', 1446262996, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values86%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%cong-ty-thiet-ke-website-chuyen-nghiep-chuan-seo%%%%%%%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%Sáng tạo không ngừng nghỉ, ý tưởng luôn đổi mới, quy trình chuẩn hóa quốc tế. Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%công ty thiết kế website chuyên nghiệp chuẩn seo%%%%%%0%%%0%%%1445655480%%%vi%%%1%%%2%%%2%%%%%%,84,85,', 'vi', 0, NULL, NULL),
+(20, 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'update', 'web_header', 1446262998, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values86%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%cong-ty-thiet-ke-website-chuyen-nghiep-chuan-seo%%%%%%%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%Sáng tạo không ngừng nghỉ, ý tưởng luôn đổi mới, quy trình chuẩn hóa quốc tế. Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%công ty thiết kế website chuyên nghiệp chuẩn seo%%%%%%0%%%0%%%1445655480%%%vi%%%1%%%2%%%2%%%%%%,84,85,', 'vi', 0, NULL, NULL),
+(21, 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'update', 'web_header', 1446263002, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values86%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%cong-ty-thiet-ke-website-chuyen-nghiep-chuan-seo%%%%%%1446262995.jpg%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%Sáng tạo không ngừng nghỉ, ý tưởng luôn đổi mới, quy trình chuẩn hóa quốc tế. Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%công ty thiết kế website chuyên nghiệp chuẩn seo%%%%%%0%%%0%%%1445655480%%%vi%%%1%%%2%%%2%%%%%%,84,85,', 'vi', 0, NULL, NULL),
+(22, 'Admin', 'update', 'web_users', 1446266080, 'admin', 'id,name,address,phone,email,birthday,gender,img,salt,username,password,rule_view,rule_action,random_key,date_expiration,lang,datetime,status,group_idfields%%%values25%%%Admin%%%123 CMT 8%%%0988 388 003%%%hieunhan1121@gmail.com%%%0%%%1%%%%%%%%%admin%%%fc7fc678608590b123692867f176fe63%%%,1,2,3,4,8,13,14,16,20,15,17,18,21,22,25,24,23,%%%,1,2,3,4,8,13,14,16,20,15,17,18,21,22,25,24,23,%%%%%%0%%%vi%%%0%%%1%%%3', 'vi', 0, NULL, NULL),
+(23, 'Hiếu Nhân', 'update', 'web_users', 1446266095, 'admin', 'id,name,address,phone,email,birthday,gender,img,salt,username,password,rule_view,rule_action,random_key,date_expiration,lang,datetime,status,group_idfields%%%values34%%%Hiếu Nhân%%%123 CMT 8%%%0988 388 003%%%hieunhan112@gmail.com%%%609872400%%%1%%%%%%%%%trannhan%%%867e1a36d190000d2f266d80889683fc%%%,1,2,3,4,6,7,8,18,21,23,%%%,1,2,3,4,6,7,8,18,21,23,%%%%%%0%%%vi%%%1425093180%%%1%%%3', 'vi', 0, NULL, NULL),
+(24, 'Nhan 2', 'delete', 'web_users', 1446267384, 'admin', 'id,name,address,phone,email,birthday,gender,img,salt,username,password,rule_view,rule_action,random_key,date_expiration,lang,datetime,status,group_idfields%%%values38%%%Nhan 2%%%123 cmt%%%0988388388%%%hieu@yahhoo.com%%%0%%%%%%%%%%%%%%%93279e3308bdbbeed946fc965017f67a%%%%%%%%%%%%1448859366%%%vi%%%1446267366%%%1%%%2', 'vi', 0, NULL, NULL),
+(25, 'Tran Nhan', 'delete', 'web_users', 1446267385, 'admin', 'id,name,address,phone,email,birthday,gender,img,salt,username,password,rule_view,rule_action,random_key,date_expiration,lang,datetime,status,group_idfields%%%values37%%%Tran Nhan%%%123 cmt 8888%%%0938 27 27 35%%%hieu_nhan1@yahoo.com%%%0%%%%%%%%%%%%%%%93279e3308bdbbeed946fc965017f67a%%%%%%%%%%%%1448859265%%%vi%%%1446267265%%%1%%%2', 'vi', 0, NULL, NULL),
+(26, 'Nhan', 'delete', 'web_users', 1446267386, 'admin', 'id,name,address,phone,email,birthday,gender,img,salt,username,password,rule_view,rule_action,random_key,date_expiration,lang,datetime,status,group_idfields%%%values36%%%Nhan%%%123 cmt 8%%%0988388003%%%hieunhan1@gmail.com%%%0%%%%%%%%%%%%%%%93279e3308bdbbeed946fc965017f67a%%%%%%%%%%%%1448858512%%%vi%%%1446266512%%%1%%%2', 'vi', 0, NULL, NULL),
+(27, 'Tran Nhan', 'delete', 'web_users', 1446267483, 'admin', 'id,name,address,phone,email,birthday,gender,img,salt,username,password,rule_view,rule_action,random_key,date_expiration,lang,datetime,status,group_idfields%%%values39%%%Tran Nhan%%%123 cmt 8%%%0988388003%%%hieu_nhan1@yahoo.com%%%0%%%%%%%%%%%%%%%93279e3308bdbbeed946fc965017f67a%%%%%%%%%%%%1448859426%%%vi%%%1446267426%%%1%%%2', 'vi', 0, NULL, NULL),
+(28, 'Tran Nhan', 'delete', 'web_users', 1446267790, 'admin', 'id,name,address,phone,email,birthday,gender,img,salt,username,password,rule_view,rule_action,random_key,date_expiration,lang,datetime,status,group_idfields%%%values40%%%Tran Nhan%%%123 cmt 8%%%0988388003%%%hieu_nhan1@yahoo.com%%%0%%%%%%%%%%%%%%%93279e3308bdbbeed946fc965017f67a%%%%%%%%%%%%1448859490%%%vi%%%1446267490%%%1%%%2', 'vi', 0, NULL, NULL),
+(29, 'Nhan', 'delete', 'web_users', 1446267914, 'admin', 'id,name,address,phone,email,birthday,gender,img,salt,username,password,rule_view,rule_action,random_key,date_expiration,lang,datetime,status,group_idfields%%%values41%%%Nhan%%%123 cmt 8%%%0988388003%%%hieu_nhan1@yahoo.com%%%0%%%%%%%%%%%%%%%93279e3308bdbbeed946fc965017f67a%%%%%%%%%%%%1448859792%%%vi%%%1446267792%%%1%%%2', 'vi', 0, NULL, NULL),
+(30, 'Nhan', 'delete', 'web_users', 1446267941, 'admin', 'id,name,address,phone,email,birthday,gender,img,salt,username,password,rule_view,rule_action,random_key,date_expiration,lang,datetime,status,group_idfields%%%values42%%%Nhan%%%123 cmt 8%%%0988388003%%%hieu_nhan1@yahoo.com%%%0%%%%%%%%%%%%%%%93279e3308bdbbeed946fc965017f67a%%%%%%%%%%%%1448859915%%%vi%%%1446267915%%%1%%%2', 'vi', 0, NULL, NULL),
+(31, 'Công ty thiết kế website chuyên nghiệp, chuẩn SEO', 'update', 'web_header', 1446281932, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,parent,order,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values86%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%cong-ty-thiet-ke-website-chuyen-nghiep-chuan-seo%%%%%%%%%Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%Sáng tạo không ngừng nghỉ, ý tưởng luôn đổi mới, quy trình chuẩn hóa quốc tế. Công ty thiết kế website chuyên nghiệp, chuẩn SEO%%%công ty thiết kế website chuyên nghiệp chuẩn seo%%%%%%0%%%0%%%1445655480%%%vi%%%1%%%2%%%2%%%%%%,84,85,', 'vi', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1197,7 +1283,7 @@ CREATE TABLE IF NOT EXISTS `web_tags` (
 --
 
 INSERT INTO `web_tags` (`id`, `name`, `title`, `url`, `order`, `lang`, `status`) VALUES
-(2, 'Tags keyword', 'Title', 'link', 2, 'vi', 1);
+(2, 'Tags keyword', 'Title', 'link', 2, 'vi', 0);
 
 -- --------------------------------------------------------
 
@@ -1269,15 +1355,16 @@ CREATE TABLE IF NOT EXISTS `web_users` (
   `datetime` bigint(10) NOT NULL,
   `status` tinyint(1) DEFAULT '1',
   `group_id` int(1) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `web_users`
 --
 
 INSERT INTO `web_users` (`id`, `name`, `address`, `phone`, `email`, `birthday`, `gender`, `img`, `salt`, `username`, `password`, `rule_view`, `rule_action`, `random_key`, `date_expiration`, `lang`, `datetime`, `status`, `group_id`) VALUES
-(25, 'Admin', '123 CMT 8', '0988 388 003', 'hieunhan1121@gmail.com', 0, 1, '', '', 'admin', 'fc7fc678608590b123692867f176fe63', ',1,2,3,4,8,13,14,16,20,15,17,18,21,22,25,24,23,', ',1,2,3,4,8,13,14,16,20,15,17,18,21,22,25,24,23,', NULL, 0, 'vi', 0, 1, 3),
-(34, 'Hiếu Nhân', '123 CMT 8', '0988 388 003', 'hieunhan112@gmail.com', 609872400, 1, '', '', 'trannhan', '867e1a36d190000d2f266d80889683fc', ',1,2,3,4,6,7,8,18,21,23,', ',1,2,3,4,6,7,8,18,21,23,', NULL, 0, 'vi', 1425093180, 1, 3);
+(25, 'Admin', '123 CMT 8', '0988 388 003', 'admin@localhost.com', 0, 1, '', '', 'admin', 'fc7fc678608590b123692867f176fe63', ',1,2,3,4,8,13,14,16,20,15,17,18,21,22,25,24,23,', ',1,2,3,4,8,13,14,16,20,15,17,18,21,22,25,24,23,', NULL, 0, 'vi', 0, 1, 3),
+(34, 'Hiếu Nhân', '123 CMT 8', '0988 388 003', 'trannhan@localhost.com', 609872400, 1, '', '', 'trannhan', '867e1a36d190000d2f266d80889683fc', ',1,2,3,4,6,7,8,18,21,23,', ',1,2,3,4,6,7,8,18,21,23,', NULL, 0, 'vi', 1425093180, 1, 3),
+(35, 'Trần Hiếu Nhân', '123 cmt 8', '0988388003', 'hieunhan112@gmail.com', 0, NULL, '', '', '', '867e1a36d190000d2f266d80889683fc', '', '', NULL, 0, 'vi', 0, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -1298,7 +1385,7 @@ CREATE TABLE IF NOT EXISTS `web_users_group` (
 
 INSERT INTO `web_users_group` (`id`, `name`, `order`, `status`) VALUES
 (1, 'Khách hàng', 1, 1),
-(2, 'Thành viên', 2, 1),
+(2, 'Quản lý Apps Facebook', 2, 1),
 (3, 'Quản trị website', 3, 1);
 
 -- --------------------------------------------------------
@@ -1313,14 +1400,14 @@ CREATE TABLE IF NOT EXISTS `web_users_lock_ip` (
   `login_number` int(2) NOT NULL,
   `disable_date` bigint(10) NOT NULL,
   `datetime` bigint(10) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `web_users_lock_ip`
 --
 
 INSERT INTO `web_users_lock_ip` (`id`, `ip_address`, `login_number`, `disable_date`, `datetime`) VALUES
-(4, '::1', 2, 0, 1446003128);
+(6, '::1', 2, 0, 1446435369);
 
 -- --------------------------------------------------------
 
@@ -1336,9 +1423,43 @@ CREATE TABLE IF NOT EXISTS `web_users_login` (
   `datetime` bigint(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `web_users_reset`
+--
+
+CREATE TABLE IF NOT EXISTS `web_users_reset` (
+`id` int(9) NOT NULL,
+  `name` varchar(60) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `ip_address` varchar(20) NOT NULL,
+  `key` char(10) NOT NULL,
+  `datetime` bigint(10) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `apps_fb_feed`
+--
+ALTER TABLE `apps_fb_feed`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `apps_fb_user`
+--
+ALTER TABLE `apps_fb_user`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `apps_user_manager`
+--
+ALTER TABLE `apps_user_manager`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `web_admin`
@@ -1446,7 +1567,7 @@ ALTER TABLE `web_type`
 -- Indexes for table `web_users`
 --
 ALTER TABLE `web_users`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `web_users_group`
@@ -1467,9 +1588,25 @@ ALTER TABLE `web_users_login`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `web_users_reset`
+--
+ALTER TABLE `web_users_reset`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `apps_fb_feed`
+--
+ALTER TABLE `apps_fb_feed`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `apps_user_manager`
+--
+ALTER TABLE `apps_user_manager`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `web_admin`
 --
@@ -1489,7 +1626,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 -- AUTO_INCREMENT for table `web_content`
 --
 ALTER TABLE `web_content`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=79;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=82;
 --
 -- AUTO_INCREMENT for table `web_header`
 --
@@ -1519,7 +1656,7 @@ MODIFY `id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `web_logs`
 --
 ALTER TABLE `web_logs`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `web_order`
 --
@@ -1554,7 +1691,7 @@ MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 -- AUTO_INCREMENT for table `web_users`
 --
 ALTER TABLE `web_users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `web_users_group`
 --
@@ -1564,12 +1701,17 @@ MODIFY `id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `web_users_lock_ip`
 --
 ALTER TABLE `web_users_lock_ip`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `web_users_login`
 --
 ALTER TABLE `web_users_login`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `web_users_reset`
+--
+ALTER TABLE `web_users_reset`
+MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

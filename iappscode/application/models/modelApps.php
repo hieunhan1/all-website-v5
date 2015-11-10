@@ -34,15 +34,13 @@ class modelApps extends modelDB{
 		return true;
 	}
 	
-	/*public function _temp($user, $fb){
-		$sql = "SELECT * FROM `apps_user_manager` WHERE `user_id`='{$user}' AND `fb_id`='{$fb}' LIMIT 1 ";
+	public function _viewAppsFeedFollow($user){
+		$sql = "SELECT `feed_id` FROM `apps_fb_feed` WHERE `user_id`='{$user}' ORDER BY `id` DESC";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
-		while($row = $result->fetch_assoc()){
-			$data[$row['name_var']] = $row['value'];
-		}
-		return $result->fetch_assoc();
-	}*/
+		while($row = $result->fetch_assoc()) $data[]=$row;
+		return $data;
+	}
 	
 }
 ?>

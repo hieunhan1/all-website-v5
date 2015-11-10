@@ -83,7 +83,6 @@ if(isset($_SESSION['userID']) && isset($_SESSION['userExpiration'])){
 		$check = $mApps->_checksAppsFeedFollow($userID, $id);
 		if(count($check)==0){
 			$mApps->_insertAppsFeedFollow($userID, $id);
-			echo 'Đã thêm vào thành công';
 		}else{
 			echo 'Bạn đã theo dõi bài viết này.';
 		}

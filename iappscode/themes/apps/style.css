@@ -64,9 +64,11 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 /*end class form*/
 
 /*facebook*/
+.fb-loading{width:50%; height:50px; margin:auto; background:url(img/loader.gif) no-repeat center; background-size:10%}
+
 #fb-login{width:auto; float:left; color:#fff; padding:7px 48px; border-radius:8px; cursor:pointer; background-color:#ffaa00; background-position:20px -465px}
 
-#view-fb-login{display:none}
+#view-fb-login{}
 #view-fb-login .h2{color:#339933; font-weight:bold; margin-bottom:15px}
 #view-fb-login .or{clear:both; padding:8px 0}
 
@@ -74,6 +76,8 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 #fb-link-fanpage input{border-radius:5px}
 #fb-link-fanpage .txt{width:300px; height:27px; line-height:27px; padding:0 5px; border:solid 1px #CCC}
 #fb-link-fanpage .btn{height:29px; line-height:29px; color:#FFF; padding:0 20px; border:none; background-color:#ffaa00; cursor:pointer}
+
+#fb-message-follow{display:none; width:auto; height:30px; line-height:30px; color:#FFF; font-weight:bold; padding:0 25px; position:fixed; top:0; left:40%; border-bottom-left-radius:8px; border-bottom-right-radius:8px; background-color:#060}
 /*end facebook*/
 
 /*feeds*/
@@ -88,12 +92,15 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 .fb-user .fb-total-post{}
 
 .fb-feed{line-height:160%; margin-bottom:15px; padding:10px 15px; border:solid 1px #CCC; background-color:#FFF}
-.fb-feed .fb-follow{width:auto; height:22px; line-height:22px; float:right; color:#FFF; margin-right:10px; padding:0 10px; background-color:#339933; border-radius:5px; cursor:pointer}
+.fb-feed .fb-action{width:auto; height:22px; line-height:22px; float:right; color:#FFF; margin-right:10px; padding:0 10px; border-radius:5px; cursor:pointer}
+.fb-feed .fb-action a{color:#FFF; font-weight:bold}
+.fb-feed .fb-follow{background-color:#339933}
+.fb-feed .fb-analytic{background-color:#ffaa00}
 .fb-feed .fb-message{clear:both; margin:5px 0 10px 0}
 .fb-feed .fb-story{clear:both; font-style:italic; text-align:right; margin:5px 0}
 .fb-feed .fb-picture{width:130px; float:left; overflow:hidden; margin-right:15px}
 .fb-feed .fb-picture img{width:130px}
-.fb-feed .fb-link{color:#333}
+.fb-feed .fb-link{color:#666}
 .fb-feed .fb-name{line-height:140%; font-size:135%; margin-bottom:5px}
 .fb-feed .fb-description{font-size:90%}
 .fb-feed .fb-total{clear:both; height:22px; line-height:22px; padding:5px 0; border-top:solid 1px #CCC; border-bottom:solid 1px #CCC; background-color:#F3F3F3}
@@ -103,7 +110,7 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 .fb-feed .fb-total-share{width:auto; float:left; margin-right:50px}
 
 .fb-feed-ajax{margin-top:15px}
-.fb-feed-ajax .fb-item{width:32%; height:25px; float:left; margin-bottom:3px}
+.fb-feed-ajax .fb-item{width:32%; height:30px; float:left; line-height:15px !important; font-size:90%; margin-bottom:1px}
 .fb-feed-ajax .fb-item a{color:#333; font-size:90%}
 .fb-feed-ajax .fb-item .fb-item-picture{width:25px; float:left; overflow:hidden; margin-right:5px}
 .fb-feed-ajax .fb-item .fb-item-picture img{width:25px}

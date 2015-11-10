@@ -10,11 +10,7 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.wallform.js"></script>
 <script type="text/javascript" src="js/js_admin.js"></script>
-<script>
-$(document).ready(function() {
-	 //alert(1);
-});
-</script>
+
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="js/ckfinder/ckfinder.js"></script>
 

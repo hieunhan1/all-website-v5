@@ -58,7 +58,6 @@ $(document).ready(function(e) {
 			if (response.status === 'connected'){
 				//$("#fb-message").html('Connected to Facebook'); //SUCCESS
 				<?php echo $scriptFB; ?>
-				//getFeedFollow('478505599008414_137127649812879');
 			} else if (response.status === 'not_authorized'){
 				$("#fb-error").html('Failed to Connect'); //FAILED
 			} else {
