@@ -47,7 +47,7 @@ $arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other
 
 $name = 'LIKE_city_id';
 $value = array();
-$value[] = array('id'=>'', 'name'=>'-- tất cả --');
+$value[] = array('id'=>'', 'name'=>'-- tất cả nợ và không nợ --');
 $value[] = array('id'=>'3', 'name'=>'Công trình còn nợ');
 $value[] = array('id'=>'5', 'name'=>'Công trình hết nợ');
 if(!isset($_GET[$name])) $other='3'; else $other=$_GET[$name];
@@ -61,7 +61,7 @@ echo $c->viewTableHtml($table);
 	<table width="100%" border="0" cellpadding="0" cellspacing="0" id="view_select">
     	<tr bgcolor="#88C4FF">
         	<!--<th width="50">STT</th>-->
-        	<th width="90" align="left">Số thẩm tra</th>
+        	<th width="90" align="left" style="padding-left:10px">Số thẩm tra</th>
             <th align="left">Tên công trình</th>
             <th width="150" align="left">Chủ đầu tư</th>
             <th width="120" align="left">Ngày thẩm tra</th>
@@ -76,7 +76,7 @@ echo $c->viewTableHtml($table);
 			$i = $arr['startRow'] + $i;
 			$str .= '<tr class="row" id="'.$row['id'].'" name="'.$row['name'].'">
                 <!--<td align="center">'.$i.'</td>-->
-                <td>'.$row['code'].'</td>
+                <td style="padding-left:10px">'.$row['code'].'</td>
                 <td><p class="height_row_hidden" title="'.$row['name'].'">'.$row['name'].'</p></td>
                 <td><p class="height_row_hidden" title="'.$row['investor'].'">'.$row['investor'].'</p></td>
                 <td>'.date('d-m-Y', $row['date_examine']).'</td>
