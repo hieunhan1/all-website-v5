@@ -122,10 +122,9 @@ class modelAdmin extends modelDB{
 	/*end thuc thi sql*/
 	
 	/*web_menu*/
-	public function _menuList($parent, $style, $arr, $where=''){
+	public function _menuList($parent, $style, $arr, $where=''){	
 		if(!$arr) $arr = array();
-		$sql = "SELECT `id`, `name`, `name_alias`, `url`, `order`, `status` FROM `web_header`
-		WHERE `properties`=1 AND `parent`='{$parent}' {$where} ORDER BY `order` ";
+		$sql = "SELECT * FROM `web_header` WHERE `parent`='{$parent}' {$where} ORDER BY `order`";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		
 		while($row = $result->fetch_assoc()){

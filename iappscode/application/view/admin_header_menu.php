@@ -1,4 +1,26 @@
 <?php
+$arrFrmSearch = array();
+
+$name = 'LIKE_name';
+if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
+$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mô tả');
+
+$name = 'LIKE_position_id';
+$value = array();
+$value[] = array('id'=>'', 'name'=>'-- vị trí hiển thị --');
+$data = $c->_model->_webPositionList(2);
+foreach($data as $row){
+	$value[] = array('id'=>",{$row['id']},", 'name'=>$row['name']);
+}
+$data = $c->_model->_webPositionList(1);
+foreach($data as $row){
+	$value[] = array('id'=>",{$row['id']},", 'name'=>$row['name']);
+}
+if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
+$arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
+
+echo $c->viewFormSearch($arrFrmSearch);
+
 echo $c->viewTableHtml($table);
 ?>
 <div id="content">
@@ -7,7 +29,7 @@ echo $c->viewTableHtml($table);
         	<th width="55">STT</th>
             <th align="left">Mô tả</th>
             <th width="200" align="left">Name alias</th>
-            <th width="150" align="left">Link</th>
+            <th width="200" align="left">Link</th>
             <th width="80" align="left">Thứ tự</th>
             <th width="110">Thao tác</th>
         </tr>
@@ -20,7 +42,7 @@ echo $c->viewTableHtml($table);
                 <td align="center"><?php echo $i; ?></td>
                 <td><p class="height_row_hidden"><?php echo $row['name'];?></p></td>
                 <td><p class="height_row_hidden"><?php echo $row['name_alias'];?></p></td>
-                <td><p class="height_row_hidden"><?php echo $row['url'];?></p></td>
+                <td><p class="height_row_hidden" style="width:190px"><?php echo $row['url'];?></p></td>
                 <td><?php echo $row['order'];?></td>
                 <td align="center">
                     <a href="javascript:;" class="status_one" status="<?php echo $row['status'];?>"><img src="<?php echo CONS_ADMIN_CSS_IMG.'anhien_'.$row['status'].'.gif';?>" /></a> &nbsp;

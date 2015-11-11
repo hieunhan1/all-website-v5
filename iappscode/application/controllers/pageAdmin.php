@@ -183,14 +183,18 @@ class pageAdmin{
 	}
 	
 	/*menu web_header*/
-	public function selectFromHeaderMenu($lang, $where=NULL){
-		if($lang!='') $where.=" AND `lang`='{$lang}' ";
+	public function selectFromHeaderMenu($lang, $where=''){
+		$strSearch = $this->strSearch($urlSearch);
+		if($lang != '') $where = "AND `lang`='{$lang}' ";
+		
+		$where .= $strSearch;
+		
 		$data = $this->_model->_menuList(0, '', NULL, $where);
 		return $data;
 	}
 	public function menuList($lang, $where=NULL){
-		if($where==NULL) $where=" AND `lang`='{$lang}' ";
-		else $where=" AND `lang`='{$lang}' AND ({$where})";
+		if($where==NULL) $where=" AND `lang`='{$lang}' AND `properties`=1 ";
+		else $where=" AND `lang`='{$lang}' AND `properties`=1 AND ({$where})";
 		$data = $this->_model->_menuList(0, '', NULL, $where);
 		return $data;
 	}
