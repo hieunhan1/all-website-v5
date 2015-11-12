@@ -471,7 +471,10 @@ $(document).ready(function(e) {
 			cache:false,
 			success: function(data) {
 				if(data!='') $(".value_name").val(data);
-				else alert("Không tìm thấy dữ liệu");
+				else{
+					$(".value_name").val('');
+					alert("Không tìm thấy dữ liệu");
+				}
 				return true;
 			}
 		});
