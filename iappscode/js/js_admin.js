@@ -419,6 +419,20 @@ $(document).ready(function(e) {
 		autoHeaderInsert();
 		$(this).val("Đã lưu"); $(this).addClass("saved");
 	});
+	
+	$("#btnViewFrmContent").click(function(){
+		var id = $("#id").val();
+		$.ajax({
+			url: url_link_ajax,
+			type:'POST',
+			data:{viewFrmContent:id},
+			cache:false,
+			success: function(data){
+				$("#ajaxViewFrmContent").html(data);
+				return true;
+			}
+		});
+	});
 	/*end auto insert data*/
 	
 	/*sendmail*/

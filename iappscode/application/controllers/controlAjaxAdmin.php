@@ -200,4 +200,25 @@ if(isset($_POST['autoContentInsert'])){
 	return true;
 }
 /*end content insert data*/
+
+if(isset($_POST['viewFrmContent'])){
+	$id = $c->_model->_changeDauNhay($_POST['viewFrmContent']);
+	if(!is_numeric($id)) return false;
+	
+	$cF = new controlAdminForm;
+	$dataContent = $c->_model->_webContentID($id);
+	
+	$name = 'content';
+	$value=$dataContent[$name];
+	$others = $cF->ckeditorFull($name);
+	$data = $cF->textArea($name, $value, 'textarea', NULL, $others);
+	echo $data;
+	
+	$name = 'idContent';
+	$value = $dataContent['id'];
+	$data = $cF->inputHidden($name, $value);
+	echo $data;
+	
+	return true;
+}
 ?>

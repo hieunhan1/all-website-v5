@@ -133,10 +133,17 @@ echo '<div id="tableName" style="display:none">'.$table.'</div>
 	echo $data;
 	*/
 	
-	$name = 'btnCancel';
-    $btnCancel = $cF->btnCancel($name, 'Quay lại');
+	echo '<tr><td colspan="2" id="ajaxViewFrmContent"></td></tr>';
+	
 	$name = 'btnSubmitAjax';
-    $btnSubmit = $cF->inputSubmit($name, $arrAction['lable'], 'submitAdmin');
-	echo $cF->displayTable('', $btnSubmit.$btnCancel);
+    $data = $cF->inputSubmit($name, $arrAction['lable'], 'submitAdmin');
+	
+	$name = 'btnCancel';
+    $data .= $cF->btnCancel($name, 'Quay lại');
+	
+	$name = 'btnViewFrmContent';
+    $data .= $cF->inputSubmit($name, 'Nhập nội dung', 'submitAdmin');
+	
+	echo $cF->displayTable('', $data);
 
 echo '</table>';
