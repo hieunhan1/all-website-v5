@@ -96,8 +96,8 @@ function xulyImage($img, $urlImgTemp, $urlImg, $urlImgThumb, $original=1){
 		return true;
 	}else return false;
 }
-function viewImage($image, $urlImgThumb, $checkArray){
-	$str = '<div class="item" name="'.$image.'">
+function viewImage($image, $urlImgThumb, $urlImg, $checkArray){
+	$str = '<div class="item" name="'.$image.'" link="'.CONS_BASE_URL.'/'.$urlImg.$image.'">
 		<div class="imageSelect">Chọn làm đại diện</div>
 		<div class="img"><img src="'.$urlImgThumb.$image.'" /></div>
 		<div class="copylink">Copy link</div>
@@ -122,6 +122,7 @@ if(isset($_POST['imageUpload'])){
 	
 	$urlImg = $c->_model->_menuTypeOne($table);
 	$urlImgView = $urlImg['url_img_thumb'];
+	$urlImgLink = $urlImg['url_img'];
 	$urlImgThumb = '../'.$urlImg['url_img_thumb'];
 	$urlImg = '../'.$urlImg['url_img'];
 	$urlImgTemp = '../public/tempUpload/';//link ảnh tạm thời chờ xử lý
@@ -139,7 +140,7 @@ if(isset($_POST['imageUpload'])){
 				$imgTemp = $urlImgTemp.$imageName;
 				if(move_uploaded_file($_FILES['photos']['tmp_name'][$name], $imgTemp)){
 					$result = xulyImage($imageName, $urlImgTemp, $urlImg, $urlImgThumb, $original);
-					if($result) echo viewImage($imageName, $urlImgView, $checkArray);
+					if($result) echo viewImage($imageName, $urlImgView, $urlImgLink, $checkArray);
 				}else
 					echo '<span class="error">'.ERROR_MOVING.'</span>';
 			}else
