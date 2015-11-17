@@ -47,7 +47,6 @@ class modelDB{
 			$str = str_replace('"', '&quot;', $str);
 			$str = str_replace('<', '&lt;', $str);
 			$str = str_replace('>', '&gt;', $str);
-			$str = str_replace('/', '&#47;', $str);
 		}
 		$str = trim($str);
 		return $str;
