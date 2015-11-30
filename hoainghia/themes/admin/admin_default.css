@@ -76,11 +76,11 @@ hr{border: solid 2px #F3A972}
 
 .clock_button{background-color:#CCC; border:solid 1px #999}
 
-#search{background-color:#090; padding:4px 10px; margin-bottom:5px; border-radius:4px}
+#search{background-color:#BBB; padding:4px 10px; margin-bottom:5px; border-radius:4px}
 #search input, #search select{height:23px; line-height:23px; overflow:hidden; margin-right:5px; border-radius:3px}
-#search .txt{width:145px; padding:0 3px; border:none}
-#search .select{width:151px; padding:0 3px; border:none}
-#search .btn{height:23px; color:#111; font-weight:bold; padding:0 10px; border:none; background-color:#FF0; cursor:pointer}
+#search .txt{width:150px; padding:0 3px; border:none}
+#search .select{width:150px; padding:0 3px; border:none}
+#search .btn{height:23px; padding:0 10px; border:none; color:#FFF; font-weight:bold; background-color:#555; cursor:pointer}
 
 #listLang{padding:5px 0 15px 0}
 #listLang a{margin:0 15px; padding:3px 10px}
