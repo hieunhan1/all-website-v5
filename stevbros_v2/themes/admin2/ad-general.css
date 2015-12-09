@@ -1,0 +1,94 @@
+@charset "utf-8";
+*{margin:0px}
+body{color:#666; font-family:"Arial", Helvetica, sans-serif; font-size:13px}
+img{border:0px;}
+a{color:#307ecc; text-decoration:none}
+a:hover{color:#d15b47; text-decoration:underline}
+input, textarea, select{color:#666; font-size:100%; font-family:"Arial", Helvetica, sans-serif}
+
+.hr{border:solid 1px #F3A972}
+
+.clear1{clear:both; height:1px}
+.clear5{clear:both; height:5px}
+.clear10{clear:both; height:10px}
+.clear20{clear:both; height:20px}
+.clear30{clear:both; height:30px}
+.corner5{border-radius:5px}
+.corner8{border-radius:8px}
+.corner10{border-radius:10px}
+
+.hr{height:1px; background-color:#CCC; border:none; margin-bottom:15px}
+.adError{font-style:italic; color:#F00}
+.adMessage{color:#00F}
+.adNotes{font-style:italic; padding-left:5px; opacity:0.6}
+.adHidden{display:none}
+.fontOther{font-family: "Times New Roman", Times, serif }
+.datetimepick{background:url(img/lich.jpg) no-repeat; background-position:188px 4px}
+
+/*btn, field, bg color*/
+.adBtnSmall{width:auto; float:left; color:#FFF; font-size:100%; margin-right:10px; padding:5px 10px; cursor:pointer; outline:none}
+.adBtnLarge{width:auto; float:left; color:#FFF; font-size:120%; margin-right:10px; padding:10px 15px; cursor:pointer; outline:none}
+
+.adInput{width:96%; padding:7px 6px; border:solid 1px #CCC}
+.adInput:hover{border:solid 1px #999}
+.adInput:focus{outline:none; border:solid 1px #ffb752}
+
+.bgColorBlue1{background-color:#2283c5 !important; border:solid 3px #2283c5}
+.bgColorBlue1:hover{background-color:#045e9f !important}
+.bgColorBlue2{background-color:#6fb3e0 !important; border:solid 3px #6fb3e0}
+.bgColorBlue2:hover{background-color:#4f99c6 !important}
+.bgColorGreen{background-color:#89b95b; border:solid 3px #89b95b}
+.bgColorGreen:hover{background-color:#5e8338}
+.bgColorRed{background-color:#d15b47; border:solid 3px #d15b47}
+.bgColorRed:hover{background-color:#b74635}
+.bgColorYellow{background-color:#ffb752; border:solid 3px #ffb752}
+.bgColorYellow:hover{background-color:#e59729}
+.bgColorOranges{background-color:#ff962d; border:solid 3px #ff962d}
+.bgColorOranges:hover{background-color:#dd6f00}
+.bgColorPink{background-color:#d6487e; border:solid 3px #d6487e}
+.bgColorPink:hover{background-color:#b73766}
+.bgColorPurple{background-color:#9585bf; border:solid 3px #9585bf}
+.bgColorPurple:hover{background-color:#7461aa}
+.bgColorBlack{background-color:#555555; border:solid 3px #555555}
+.bgColorBlack:hover{background-color:#303030}
+.bgColorGray{background-color:#999; border:solid 3px #999}
+.bgColorGray:hover{background-color:#666}
+/*end btn, field, bg color*/
+
+/*all icon*/
+.adIconBlack{width:24px; height:24px; display:inline-block; vertical-align:middle; background:url(img/icon-default.png) no-repeat; opacity:0.7}
+.adIconWhite{width:24px; height:24px; display:inline-block; vertical-align:middle; background:url(img/icon-default-white.png) no-repeat}
+
+.adIconArticle{background-position:0 -69px}
+.adIconProduct{background-position:-432px -21px}
+.adIconPhoto{background-position:-456px -46px}
+.adIconVideo{background-position:-192px 2px}
+.adIconHome{background-position:0 -21px}
+.adIconConfig{background-position:-360px -142px}
+.adIconMenu{background-position:-264px 2px}
+.adIconAds{background-position:-48px -117px}
+.adIconTags{background-position:-24px -45px}
+.adIconLang{background-position:-336px -141px}
+.adIconVar{background-position:-72px -117px}
+.adIconType{background-position:-72px -70px}
+.adIconPosition{background-position:-24px -70px}
+.adIconGroup{background-position:-408px -117px}
+.adIconContact{background-position:-24px -141px}
+.adIconLog{background-position:-48px -21px}
+.adIconUser{background-position:-166px 3px; opacity:0.6}
+.adIconLogOut{background-position:-380px 3px}
+.adIconPass{background-position:-235px -22px}
+.adIconSetting{background-position:-432px 3px}
+.adIconUserRole{background-position:-144px -141px}
+.adIconOther{background-position:-216px 2px}
+
+.adIconCourse{background-position:-72px -45px}
+.adIconOpinion{background-position:-120px 3px}
+.adIconOpening{background-position:-192px -117px}
+
+.adIconView{background-position:-45px 3px}
+.adIconEdit{background-position:-92px -69px}
+.adIconDelete{background-position:-165px -93px}
+.adIconEnable{background-position:-92px -117px}
+.adIconDisable{background-position:-116px -117px}
+/*end all icon*/
