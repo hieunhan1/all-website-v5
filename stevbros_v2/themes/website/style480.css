@@ -180,7 +180,7 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 #header #menuH{clear:both; line-height:22px; margin-top:18px}
 #header #menuH .li{width:auto; height:44px; float:left; list-style:none; opacity:0.9; padding-bottom:25px}
 #header #menuH .li:hover, #header #menuH .li:hover span{opacity:1}
-#header #menuH .li a{display:block; color:#FFF; padding:0 15px; border-left:solid 1px #506891}
+#header #menuH .li a{display:block; color:#FFF; padding:0 15px; border-left:solid 1px rgba(255, 255, 255, 0.2)}
 #header #menuH .li a:hover{text-decoration:none}
 #header #menuH .li a span{display:block; color:#FFF; font-style:italic; opacity:0.6}
 #header #menuH .active{opacity:1}

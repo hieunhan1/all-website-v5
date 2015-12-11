@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2015 at 12:56 PM
+-- Generation Time: Dec 11, 2015 at 12:49 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -37,10 +37,6 @@ CREATE TABLE IF NOT EXISTS `web_admin` (
   `order` int(3) DEFAULT '0',
   `ajax` varchar(100) DEFAULT NULL,
   `type` tinyint(1) NOT NULL DEFAULT '1',
-  `view` tinyint(1) NOT NULL DEFAULT '1',
-  `create` tinyint(1) NOT NULL DEFAULT '1',
-  `edit` tinyint(1) NOT NULL DEFAULT '1',
-  `delete` tinyint(1) NOT NULL DEFAULT '1',
   `parent` int(3) NOT NULL DEFAULT '0',
   `status` tinyint(1) DEFAULT '1'
 ) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
@@ -49,34 +45,34 @@ CREATE TABLE IF NOT EXISTS `web_admin` (
 -- Dumping data for table `web_admin`
 --
 
-INSERT INTO `web_admin` (`id`, `name`, `url`, `table`, `parameter`, `file`, `img`, `order`, `ajax`, `type`, `view`, `create`, `edit`, `delete`, `parent`, `status`) VALUES
-(1, 'Trang chủ', 'home', '', '', 'home', 'adIconHome', 0, '0', 0, 1, 1, 1, 1, 0, 1),
-(2, 'Cấu hình website', 'config', 'web_config', '', 'web_config', 'adIconConfig', 49, '0', 2, 1, 1, 1, 1, 0, 1),
-(3, 'Danh mục menu', 'listmenu', 'web_header', '?properties=1', 'header_menu', 'adIconMenu', 5, '0', 1, 1, 1, 1, 1, 0, 1),
-(4, 'Quản lý bài viết', 'article', 'web_header', '?properties=2&type_id=2', 'header_article', 'adIconArticle', 1, '0', 1, 1, 1, 1, 1, 0, 1),
-(5, 'Quản lý khóa học', 'course', 'web_header', '?properties=2&type_id=3', 'header_course', 'adIconCourse', 2, '0', 1, 1, 1, 1, 1, 0, 1),
-(6, 'Thư viện ảnh', 'photos', 'web_photo', '', 'web_photo', 'adIconPhoto', 6, '0', 1, 1, 1, 1, 1, 0, 0),
-(7, 'Thư viện video', 'video', 'web_header', '?properties=2&type_id=6', 'web_video', 'adIconVideo', 7, '0', 1, 1, 1, 1, 1, 0, 0),
-(8, 'Slider & banner', 'sliderbanner', 'web_header', '?properties=2&type_id=16', 'header_slider', 'adIconAds', 9, '0', 1, 1, 1, 1, 1, 0, 1),
-(9, 'DS Tỉnh - Thành', 'listcity', 'web_listcity', '', 'web_listcity', 'icon-city.jpg', 20, '0', 1, 1, 1, 1, 1, 0, 0),
-(10, 'DS Quận - Huyện', 'listdistricts', 'web_listdistricts', '', 'web_listdistricts', 'icon-districts.jpg', 21, '0', 1, 1, 1, 1, 1, 0, 0),
-(11, 'Đơn đặt hàng', 'order', 'web_order', '', 'web_order', 'icon-order.jpg', 22, '<span id="web_product_order" class="ajax_thongtin"></span>', 1, 1, 1, 1, 1, 0, 0),
-(12, 'Đơn đặt hàng chi tiết', 'order_detail', 'web_order_detail', '', 'web_order_detail', 'icon-order-detail.jpg', 23, '0', 1, 1, 1, 1, 1, 0, 0),
-(13, 'Menu admin', 'web_admin', 'web_admin', '', 'web_admin', 'adIconMenu', 50, '0', 2, 1, 1, 1, 1, 0, 1),
-(14, 'Danh sách ngôn ngữ', 'language', 'web_language', '', 'web_language', 'adIconLang', 51, '0', 2, 1, 1, 1, 1, 0, 1),
-(15, 'Vị trí thông tin', 'web_position', 'web_position', '', 'web_position', 'adIconPosition', 54, '0', 2, 1, 1, 1, 1, 0, 1),
-(16, 'Biến môi trường', 'languagevar', 'web_language_var', '', 'web_language_var', 'adIconVar', 52, '0', 2, 1, 1, 1, 1, 0, 1),
-(17, 'Group user', 'users_group', 'web_users_group', '', 'web_users_group', 'adIconGroup', 55, '0', 2, 1, 1, 1, 1, 0, 1),
-(18, 'Add tags keyword', 'web_tags', 'web_tags', '', 'web_tags', 'adIconTags', 0, '0', 0, 1, 1, 1, 1, 0, 1),
-(19, 'Ý kiến khách hàng', 'opinion', 'web_header', '?properties=2&type_id=4', 'header_opinion', 'adIconOpinion', 3, '0', 1, 1, 1, 1, 1, 0, 1),
-(20, 'Loại thông tin', 'web_type', 'web_type', '', 'web_type', 'adIconType', 53, '0', 2, 1, 1, 1, 1, 0, 1),
-(21, 'Liên hệ trực tuyến', 'web_contact', 'web_contact', '', 'web_contact', 'adIconContact', 10, '0', 1, 1, 1, 1, 1, 0, 1),
-(22, 'Event logs', 'web_logs', 'web_logs', '', 'web_logs', 'adIconLog', 56, '0', 2, 1, 1, 1, 1, 0, 1),
-(23, 'Tài khoản', 'web_users', 'web_users', '', 'web_users', 'adIconSetting', 100, '0', 2, 1, 1, 1, 1, 0, 1),
-(24, 'Thông tin tài khoản', 'user', 'account', '?infomation=1', 'account', 'adIconUser', 0, '0', 0, 1, 1, 1, 1, 0, 1),
-(25, 'Web Header', 'web_header', 'web_header', '', 'web_header', 'adIconOther', 57, '0', 2, 1, 1, 1, 1, 0, 1),
-(26, 'Lịch khai giảng', 'opening', 'web_opening', '', 'web_opening', 'adIconOpening', 4, '0', 1, 1, 1, 1, 1, 0, 1),
-(27, 'Phân quyền', 'users_role', 'web_users_role', '', 'web_users_role', 'adIconUserRole', 99, '0', 2, 1, 1, 1, 1, 0, 1);
+INSERT INTO `web_admin` (`id`, `name`, `url`, `table`, `parameter`, `file`, `img`, `order`, `ajax`, `type`, `parent`, `status`) VALUES
+(1, 'Trang chủ', 'home', '', '', 'home', 'adIconHome', 0, '0', 0, 0, 1),
+(2, 'Cấu hình website', 'config', 'web_config', '', 'web_config', 'adIconConfig', 49, '0', 2, 0, 1),
+(3, 'Danh mục menu', 'listmenu', 'web_header', '?properties=1', 'header_menu', 'adIconMenu', 7, '0', 1, 0, 1),
+(4, 'Quản lý bài viết', 'article', 'web_header', '?properties=2&type_id=2', 'header_article', 'adIconArticle', 1, '0', 1, 0, 1),
+(5, 'Quản lý khóa học', 'course', 'web_header', '?properties=2&type_id=3', 'header_course', 'adIconCourse', 2, '0', 1, 0, 1),
+(6, 'Thư viện ảnh', 'picture', 'web_picture', '', 'web_picture', 'adIconPhoto', 5, '0', 1, 0, 1),
+(7, 'Entry test', 'entry_test', 'web_header', '?properties=2&type_id=6', 'header_entry_test', 'adIconEdit', 6, '0', 1, 0, 1),
+(8, 'Slider & banner', 'sliderbanner', 'web_header', '?properties=2&type_id=16', 'header_slider', 'adIconAds', 9, '0', 1, 0, 1),
+(9, 'DS Tỉnh - Thành', 'listcity', 'web_listcity', '', 'web_listcity', 'icon-city.jpg', 20, '0', 1, 0, 0),
+(10, 'DS Quận - Huyện', 'listdistricts', 'web_listdistricts', '', 'web_listdistricts', 'icon-districts.jpg', 21, '0', 1, 0, 0),
+(11, 'Đơn đặt hàng', 'order', 'web_order', '', 'web_order', 'icon-order.jpg', 22, '<span id="web_product_order" class="ajax_thongtin"></span>', 1, 0, 0),
+(12, 'Đơn đặt hàng chi tiết', 'order_detail', 'web_order_detail', '', 'web_order_detail', 'icon-order-detail.jpg', 23, '0', 1, 0, 0),
+(13, 'Menu admin', 'web_admin', 'web_admin', '', 'web_admin', 'adIconMenu', 50, '0', 2, 0, 1),
+(14, 'Danh sách ngôn ngữ', 'language', 'web_language', '', 'web_language', 'adIconLang', 51, '0', 2, 0, 1),
+(15, 'Vị trí thông tin', 'web_position', 'web_position', '', 'web_position', 'adIconPosition', 54, '0', 2, 0, 1),
+(16, 'Biến môi trường', 'languagevar', 'web_language_var', '', 'web_language_var', 'adIconVar', 52, '0', 2, 0, 1),
+(17, 'Group user', 'users_group', 'web_users_group', '', 'web_users_group', 'adIconGroup', 55, '0', 2, 0, 1),
+(18, 'Add tags keyword', 'web_tags', 'web_tags', '', 'web_tags', 'adIconTags', 0, '0', 0, 0, 1),
+(19, 'Ý kiến khách hàng', 'opinion', 'web_header', '?properties=2&type_id=4', 'header_opinion', 'adIconOpinion', 3, '0', 1, 0, 1),
+(20, 'Loại thông tin', 'web_type', 'web_type', '', 'web_type', 'adIconType', 53, '0', 2, 0, 1),
+(21, 'Liên hệ trực tuyến', 'web_contact', 'web_contact', '', 'web_contact', 'adIconContact', 10, '0', 1, 0, 1),
+(22, 'Event logs', 'web_logs', 'web_logs', '', 'web_logs', 'adIconLog', 56, '0', 2, 0, 1),
+(23, 'Tài khoản', 'web_users', 'web_users', '', 'web_users', 'adIconSetting', 100, '0', 2, 0, 1),
+(24, 'Thông tin tài khoản', 'user', 'account', '?infomation=1', 'account', 'adIconUser', 0, '0', 0, 0, 1),
+(25, 'Web Header', 'web_header', 'web_header', '', 'web_header', 'adIconOther', 57, '0', 2, 0, 1),
+(26, 'Lịch khai giảng', 'opening', 'web_opening', '', 'web_opening', 'adIconOpening', 4, '0', 1, 0, 1),
+(27, 'Phân quyền', 'users_role', 'web_users_role', '', 'web_users_role', 'adIconUserRole', 99, '0', 2, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -170,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `web_content` (
   `price_cost` varchar(10) DEFAULT NULL,
   `price` varchar(10) DEFAULT NULL,
   `header_id` int(11) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=235 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=240 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `web_content`
@@ -339,7 +335,12 @@ INSERT INTO `web_content` (`id`, `arr_img`, `content`, `more`, `price_cost`, `pr
 (231, '1447920145.jpg,', '<h2><span style="font-size:18px;">Ngày 26-27/09/2015 và 03-04/10/2015 Stevbros cung cấp khóa học Luyện Thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP® PassForSure 4 ngày cho các anh chị Việt Nam và nước ngoài chuẩn bị tham dự kỳ thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP®!</span></h2>\n\n<p>Chúc mừng các anh chị đã hoàn thành khóa học và chúc các anh chị tràn đầy nhiệt huyết liên tục tham dự các workshop PMP® PassForSure&nbsp;vào tối thứ 5&nbsp;hàng tuần và thực hành 4 đề thi 200 câu theo hướng dẫn của giảng viên. Giảng viên Stevbros sẽ liên tục hổ trợ các anh chị cả trên lớp và trên hệ thống e-learning cho đến khi thi đậu chứng chỉ&nbsp;PMP®.</p>\n\n<p style="text-align: center;"><img alt="" src="http://stevbros.edu.vn/public/images/articles/Luyen-Thi-Chung-Chi-Chuyen-Gia-Quan-Ly-Du-An-PMP-STEVBROS1.jpg" /></p>\n\n<p style="text-align: center;"><img alt="" src="http://stevbros.edu.vn/public/images/articles/Luyen-Thi-Chung-Chi-Chuyen-Gia-Quan-Ly-Du-An-PMP-STEVBROS2.jpg" /></p>\n\n<p style="text-align: center;"><em>Stevbros đang cung cấp khóa học qua mạng cho các chuyên gia quản lý dự án ở&nbsp;168 quốc gia trên thế giới&nbsp;và đào tạo chuyên gia quản lý dự án cho các doanh nghiệp và cá nhân trong khu vực châu Á.</em></p>', '', '', '', 257),
 (232, '1447920196.jpg,', '<h2><span style="font-size:18px;">Ngày 08-09-10/10/2015&nbsp;Stevbros cung cấp khóa học Project Management Fundamentals - PMF&nbsp;3 ngày cho các anh chị quản lý tại&nbsp;Fsoft&nbsp;Hà Nội.</span></h2>\n\n<p>Chúc mừng các anh chị quản lý dự án tại Fsoft Hà Nội&nbsp;đã hoàn thành khóa học và chúc các anh chị ứng dụng thành công và hiệu quả Tiêu Chuẩn Quản Lý Dự Án&nbsp;Quốc Tế PMBOK® trong các dự án tại đơn vị mình!</p>\n\n<p style="text-align: center;"><img alt="" src="http://stevbros.edu.vn/public/images/articles/Quan-Ly-Du-An-PMBOK-PMP-fsofthn3.jpg" /></p>\n\n<p style="text-align: center;"><img alt="" src="http://stevbros.edu.vn/public/images/articles/Quan-Ly-Du-An-PMBOK-PMP-fsofthn4.jpg" /></p>\n\n<p style="text-align: center;"><em>Stevbros đang cung cấp khóa học qua mạng cho các chuyên gia quản lý dự án ở&nbsp;168 quốc gia trên thế giới&nbsp;và đào tạo chuyên gia quản lý dự án cho các doanh nghiệp và cá nhân trong khu vực châu Á.</em></p>', '', '', '', 258),
 (233, '1447920249.jpg,', '<h2><span style="font-size:18px;">Ngày 04-05-06/11/2015&nbsp;Stevbros cung cấp khóa học Project Management Fundamentals - PMF&nbsp;3 ngày cho các anh chị quản lý tại&nbsp;Fsoft&nbsp;Hồ Chí Minh.</span></h2>\n\n<p>Chúc mừng các anh chị quản lý dự án tại Fsoft Hồ Chí Minh&nbsp;đã hoàn thành khóa học và chúc các anh chị ứng dụng thành công và hiệu quả Tiêu Chuẩn Quản Lý Dự Án&nbsp;Quốc Tế PMBOK® trong các dự án tại đơn vị mình!</p>\n\n<p style="text-align: center;"><img alt="" src="http://stevbros.edu.vn/public/images/articles/Quan-Ly-Du-An-PMBOK-PMP-fsofthcm7.jpg" /></p>\n\n<p style="text-align: center;"><img alt="" src="http://stevbros.edu.vn/public/images/articles/Quan-Ly-Du-An-PMBOK-PMP-fsofthcm8.jpg" /></p>\n\n<p style="text-align: center;"><em>Stevbros đang cung cấp khóa học qua mạng cho các chuyên gia quản lý dự án ở&nbsp;168 quốc gia trên thế giới&nbsp;và đào tạo chuyên gia quản lý dự án cho các doanh nghiệp và cá nhân trong khu vực châu Á.</em></p>', '', '', '', 259),
-(234, '', '<p><span style="font-size: 13px; line-height: 20.8px;">Nội dung đào tạo cũng</span></p>', NULL, NULL, NULL, 260);
+(234, '', '<p>Stevbros Training and Consultancy là ủy quyền đào tạo toàn cầu của Viện Quản Lý Dự Án Hoa Kỳ - Project Management Institute (Global PMI R.E.P). Chúng tôi cam kết tuân thủ các tiêu chuẩn đảm bảo chất lượng trong đào tạo và tư vấn do Viện Quản Lý Dự Án Hoa Kỳ thiết lập và giám sát.</p>\n\n<p>Stevbros Training and Consultancy đào tạo chuyên gia quản lý dự án theo tiêu chuẩn quốc tế và cung cấp các kỹ năng thiết thực nhất giúp họ quản lý dự án thành công.</p>', NULL, NULL, NULL, 263),
+(235, '', '<p>Các chuyên gia đào tạo và tư vấn quản lý tại Stevbros Training and Consultancy được đề cử, lựa chọn và phê chuẩn cẩn thận theo quy trình đánh giá do Viện Quản Lý Dự Án Hoa Kỳ giám sát.</p>\r\n<p>Tất cả chuyên gia đào tạo và tư vấn điều có kinh nghiệm quốc tế trong quản lý dự án thực tiễn ở nhiều nước trong khu vực và trên thế giới. Ngoài ra, các chuyên gia đào tạo và tư vấn tại Stevbros điều tốt nghiệp Thạc Sỹ tại các đại học quốc tế và có chứng chỉ quốc tế về quản lý dự án chuyên nghiệp.</p>', NULL, NULL, NULL, 264),
+(236, '', '<p>Stevbros Training and Consultancy đang cung cấp các khóa học qua mạng cho các chuyên gia quản lý dự án trên toàn cầu. Ngoài ra, Stevbros Training and Consultancy còn khai giảng khóa học quản lý dự án định kỳ, đào tạo quản lý dự án cho doanh nghiệp và tư vấn doanh nghiệp về quản lý dự án ở các nước trong khu vực châu Á.</p>\r\n<p>Dịch vụ đào tạo và tư vấn quản lý dự án của Stevbros Training and Consultancy bám sát các tiêu chuẩn quản lý dự án và các nghiên cứu mới nhất của Viện Quản Lý Dự Án Hoa Kỳ cũng như cập nhật các kinh nghiệm thực tế của các công đồng chuyên gia quản lý dự án (Community of Practice - CoP) ở từng quốc gia.</p>', NULL, NULL, NULL, 265),
+(237, '', '<p>Stevbros Training and Consultancy liên tục tiến hành các nghiên cứu chuyên sâu để đảm bảo nội dung đào tạo và dịch vụ tư vấn của chúng tôi thực sự phản ánh các kỹ năng, kiến thức và cách làm tốt nhất hiện tại bạn đang cần để quản lý dự án thành công.</p>', NULL, NULL, NULL, 266),
+(238, '', '<p>Các khóa học qua mạng của Stevbros đang được các chuyên gia Quản Lý Dự Án ở 168 quốc gia trên thế giới lựa chọn và đánh giá cao.</p>', NULL, NULL, NULL, 267),
+(239, '', '<p>Nếu bạn đã là một thành viên của cộng đồng chuyên gia quản lý dự án toàn cầu và bạn đang sở hữu chứng chỉ quản lý dự án chuyên nghiệp do Viện Quản Lý Dự Án Hoa Kỳ cấp, bạn không còn phải lo lắng rằng chứng chỉ quản lý dự án chuyên nghiệp của bạn sẽ hết giá trị sử dụng.</p>\r\n<p>Stevbros Training and Consultancy cung cấp giải pháp Professional Development Units (PDUs) trọn gói với giá tốt nhất nhằm giúp bạn tích lũy PDUs nhanh chóng và gia hạn chứng chỉ quản lý dự án chuyên nghiệp dễ dàng. Các gói PDUs (30 PDUs, 35 PDUs, 45 PDUs, 60 PDUs) được thiết kế thuận tiện cho nhu cầu của từng bạn để gia hạn từng loại chứng chỉ khác nhau.</p>', NULL, NULL, NULL, 268);
 
 -- --------------------------------------------------------
 
@@ -367,7 +368,7 @@ CREATE TABLE IF NOT EXISTS `web_header` (
   `type_id` int(2) NOT NULL,
   `position_id` varchar(20) DEFAULT NULL,
   `menu_id` varchar(20) DEFAULT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=262 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=270 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `web_header`
@@ -401,7 +402,7 @@ INSERT INTO `web_header` (`id`, `name`, `name_alias`, `url`, `img`, `title`, `de
 (102, 'Youtube', 'youtube', 'https://www.youtube.com/user/stevbrostraining/videos', '', 'Youtube', 'background-position:12px -737px', 'youtube', NULL, 0, 65, 0, 1447152720, 'vi', 1, 1, 20, ',6,', NULL),
 (103, 'Logo Stevbros', 'logo-stevbros', '&#47;', '1447210799.png', 'Stevbros Training and Consultancy - Global Registered Education Provider of Project Management Institute (Global PMI R.E.P)', '', 'logo stevbros', NULL, 0, 31, 0, 1447210680, 'vi', 1, 1, 20, ',14,', NULL),
 (104, 'Logo PMI', 'logo-pmi', 'javascript:;', '1447211410.png', 'PMI - the World’s Leading Professional Association for Project Management', 'height:62px; padding-top:9px', 'logo pmi', NULL, 0, 32, 0, 1447211280, 'vi', 1, 1, 20, ',14,', NULL),
-(105, 'Home giới thiệu', 'home-gioi-thieu', '', '1447232840.png', 'Stevbros Training and Consultancy', '', 'Stevbros Training and Consultancy', NULL, 0, 3, 0, 1447232700, 'vi', 1, 1, 20, ',8,', NULL),
+(105, 'Home giới thiệu', 'home-gioi-thieu', '', '1447232840.png', 'Stevbros Training and Consultancy', '', 'Stevbros Training and Consultancy', NULL, 0, 4, 0, 1447232700, 'vi', 1, 1, 20, ',8,', NULL),
 (106, 'Quản Lý Dự Án Xây Dựng Theo Tiêu Chuẩn PMBOK®', 'quan-ly-du-an-xay-dung-theo-tieu-chuan-pmbok', '', '1447235752.jpg', 'Quản Lý Dự Án Xây Dựng Theo Tiêu Chuẩn PMBOK®', 'Stevbros tùy chỉnh tốc độ đào tạo và mức độ chuyên sâu của từng chủ đề phù hợp với kinh nghiệm của nhân viên trong quý doanh nghiệp nhằm mang lại hiệu quả và chất lượng đào tạo cao nhất!', 'quản lý dự án xây dựng,tiêu chuẩn pmbok®,quan ly du an xay dung,tieu chuan pmbok', NULL, 0, 4, 0, 1385543700, 'vi', 1, 2, 3, NULL, ',70,'),
 (107, 'PMBOK® 5th Edition Refresh - 60 PDUs', 'pmbok-5th-edition-refresh', '', '1447235786.jpg', 'PMBOK® 5th Edition Refresh - 60 PDUs', 'Thời lượng 5 ngày workshop + 25 giờ e-learning. Chứng nhận 60 PDUs. Tùy chỉnh khóa học này giúp tối đa hóa hiệu quả đầu tư phát triển kỹ năng của nhân viên trong quý doanh nghiệp.', 'pmbok® 5th edition refresh 60 pdus,pmbok 5th edition refresh 60 pdus', NULL, 0, 5, 0, 1385632560, 'vi', 1, 2, 3, NULL, ',70,'),
 (108, 'Các Lớp Quản Lý Dự Án và Sự Kiện', 'event-cac-lop-hoc-quan-ly-du-an-pmbok-pmp', '', '', 'Các Lớp Quản Lý Dự Án PMBOK®/PMP® Agile/Scrum và Sự Kiện', 'Event các lớp học quản lý dự án PMBOK®/PMP® tại Stevbros. Khóa học quản lý dự án theo tiêu chuẩn quốc tế PMBOK®. Khóa học luyện thi chứng chỉ quản lý dự án PMP® tại Stevbros', 'các lớp quản lý dự án,sự kiện,cac lop quan ly du an,PMBOK®/PMP®,Agile/Scrum', NULL, 0, 51, 0, 1447319520, 'vi', 1, 1, 2, ',15,', NULL),
@@ -551,7 +552,15 @@ INSERT INTO `web_header` (`id`, `name`, `name_alias`, `url`, `img`, `title`, `de
 (257, 'HCM - Luyện Thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP®', 'hcm-luyen-thi-chung-chi-chuyen-gia-quan-ly-du-an-pmp', '', '1447920145.jpg', 'HCM - Luyện Thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP®', 'Ngày 26-27/09/2015 và 03-04/10/2015 Stevbros cung cấp khóa học Luyện Thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP® PassForSure 4 ngày cho các anh chị Việt Nam và nước ngoài chuẩn bị tham dự kỳ thi', 'hcm luyện thi chứng chỉ chuyên gia quản lý dự án pmp®', NULL, 0, 0, 0, 1443254460, 'vi', 1, 2, 2, NULL, ',108,'),
 (258, 'FSOFT Hà Nội - Project Management Fundamentals', 'fsoft-ha-noi-project-management-fundamentals', '', '1447920196.jpg', 'FSOFT Hà Nội - Project Management Fundamentals', 'Ngày 08-09-10/10/2015 Stevbros cung cấp khóa học Project Management Fundamentals - PMF 3 ngày cho các anh chị quản lý tại Fsoft Hà Nội', 'fsoft hà nội project management fundamentals', NULL, 0, 0, 0, 1444291320, 'vi', 1, 2, 2, NULL, ',108,'),
 (259, 'FSOFT HCM - Project Management Fundamentals', 'fsoft-hcm-project-management-fundamentals', '', '1447920249.jpg', 'FSOFT HCM - Project Management Fundamentals', 'Ngày 04-05-06/11/2015 Stevbros cung cấp khóa học Project Management Fundamentals - PMF 3 ngày cho các anh chị quản lý tại Fsoft Hồ Chí Minh.', 'fsoft hcm project management fundamentals', NULL, 0, 0, 0, 1446624180, 'vi', 1, 2, 2, NULL, ',108,'),
-(261, 'Slider', '', 'http://www.hoangha.com/vi/tuyen-dung/tuyen-dung-nhan-vien-kinh-doanh-sale-logistics-thang-11-2015.html', '', '', '', '', NULL, 0, 1, 0, 1449457560, 'vi', 0, 2, 16, ',16,', ',1,');
+(261, 'Slider', '', 'http://www.hoangha.com/vi/tuyen-dung/tuyen-dung-nhan-vien-kinh-doanh-sale-logistics-thang-11-2015.html', '', '', '', '', NULL, 0, 1, 0, 1449457560, 'vi', 0, 2, 16, ',16,', ',1,'),
+(262, 'Home tạo sao chọn Stevbros', 'home-tao-sao-chon-stevbros', '', '', 'Tại sao chọn Stevbros?', '', 'home tạo sao chọn stevbros', NULL, 0, 3, 0, 1449655860, 'vi', 1, 1, 20, ',9,', NULL),
+(263, 'Ủy quyền đào tạo toàn cầu của PMI', 'uy-quyen-dao-tao-toan-cau-cua-pmi', '', '', 'Ủy quyền đào tạo toàn cầu của PMI', 'Ủy quyền đào tạo toàn cầu của PMI', 'ủy quyền đào tạo toàn cầu của pmi', NULL, 262, 1, 0, 1449658680, 'vi', 1, 1, 20, ',9,', NULL),
+(264, 'Chuyên gia đào tạo và tư vấn kinh nghiệm quốc tế', 'chuyen-gia-dao-tao-va-tu-van-kinh-nghiem-quoc-te', '', '', 'Chuyên gia đào tạo và tư vấn kinh nghiệm quốc tế', 'Chuyên gia đào tạo và tư vấn kinh nghiệm quốc tế', 'chuyên gia đào tạo và tư vấn kinh nghiệm quốc tế', NULL, 262, 2, 0, 1449658740, 'vi', 1, 1, 20, ',9,', NULL),
+(265, 'Tiêu chuẩn quản lý dự án quốc tế', 'tieu-chuan-quan-ly-du-an-quoc-te', '', '', 'Tiêu chuẩn quản lý dự án quốc tế', 'Tiêu chuẩn quản lý dự án quốc tế', 'tiêu chuẩn quản lý dự án quốc tế', NULL, 262, 3, 0, 1449658800, 'vi', 1, 1, 20, ',9,', NULL),
+(266, 'Đào tạo và tư vấn doanh nghiệp khu vực châu Á', 'dao-tao-va-tu-van-doanh-nghiep-khu-vuc-chau-a', '', '', 'Đào tạo và tư vấn doanh nghiệp khu vực châu Á', 'Đào tạo và tư vấn doanh nghiệp khu vực châu Á', 'đào tạo và tư vấn doanh nghiệp khu vực châu á', NULL, 262, 4, 0, 1449658860, 'vi', 1, 1, 20, ',9,', NULL),
+(267, 'Khách hàng trên 168 quốc gia', 'khach-hang-tren-168-quoc-gia', '', '', 'Khách hàng trên 168 quốc gia', 'Khách hàng trên 168 quốc gia', 'khách hàng trên 168 quốc gia', NULL, 262, 5, 0, 1449658920, 'vi', 1, 1, 20, ',9,', NULL),
+(268, 'Tích lũy PDUs dễ dàng với giá tốt nhất', 'tich-luy-pdus-de-dang-voi-gia-tot-nhat', '', '', 'Tích lũy PDUs dễ dàng với giá tốt nhất', 'Tích lũy PDUs dễ dàng với giá tốt nhất', 'tích lũy pdus dễ dàng với giá tốt nhất', NULL, 262, 6, 0, 1449658920, 'vi', 1, 1, 20, ',9,', NULL),
+(269, 'Bottom FLICKR WIDGET', 'flickr-widget', '', '', 'FLICKR WIDGET', '', 'flickr widget', NULL, 0, 6, 0, 1449743340, 'vi', 1, 1, 7, ',11,', NULL);
 
 -- --------------------------------------------------------
 
@@ -588,7 +597,7 @@ CREATE TABLE IF NOT EXISTS `web_language_var` (
   `order` int(3) NOT NULL,
   `lang` varchar(2) NOT NULL DEFAULT 'vi',
   `status` tinyint(1) DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `web_language_var`
@@ -642,7 +651,15 @@ INSERT INTO `web_language_var` (`id`, `name`, `value`, `order`, `lang`, `status`
 (45, 'error_address', 'Nhập địa chỉ', 0, 'vi', 1),
 (46, 'error_message', 'Nội dung phải hơn 10 ký tự', 0, 'vi', 1),
 (47, 'phone', 'Di động', 0, 'vi', 1),
-(48, 'phone', 'Mobile', 0, 'en', 1);
+(48, 'phone', 'Mobile', 0, 'en', 1),
+(49, 'bottom_title', 'STEVBROS TRAINING & CONSULTANCY', 0, 'vi', 1),
+(50, 'bottom_news', 'Bài viết mới', 0, 'vi', 1),
+(51, 'bottom_link', 'Liên kết', 0, 'vi', 1),
+(52, 'bottom_photo', 'FLICKR WIDGET', 0, 'vi', 1),
+(53, 'bottom_title', 'STEVBROS TRAINING & CONSULTANCY', 0, 'en', 1),
+(54, 'bottom_news', 'News post', 0, 'en', 1),
+(55, 'bottom_link', 'Link', 0, 'en', 1),
+(56, 'bottom_photo', 'FLICKR WIDGET', 0, 'en', 1);
 
 -- --------------------------------------------------------
 
@@ -1552,150 +1569,154 @@ CREATE TABLE IF NOT EXISTS `web_picture` (
   `name` varchar(100) NOT NULL,
   `img` varchar(15) NOT NULL,
   `datetime` bigint(10) NOT NULL,
+  `order` int(11) NOT NULL DEFAULT '0',
   `table` varchar(30) NOT NULL,
   `table_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=180 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `web_picture`
 --
 
-INSERT INTO `web_picture` (`id`, `name`, `img`, `datetime`, `table`, `table_id`) VALUES
-(6, 'Liên hệ', '1447324866.jpg', 1442292480, 'web_header', 6),
-(9, 'Quản Lý Dự Án Theo Tiêu Chuẩn PMBOK® (PMF)', '1447235647.jpg', 1385370900, 'web_header', 83),
-(17, 'Luyện Thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP®', '1447235504.jpg', 1382087220, 'web_header', 82),
-(18, 'Quản Lý Dự Án Phần Mềm Agile/Scrum', '1447235702.jpg', 1385457300, 'web_header', 86),
-(19, 'Home đào tạo doanh nghiệp', '1447214138.jpg', 1445652540, 'web_header', 84),
-(20, 'Home luyện thi PMP mỗi ngày', '1447232320.jpg', 1445652600, 'web_header', 85),
-(26, 'Logo Stevbros', '1447210799.png', 1447210680, 'web_header', 103),
-(27, 'Logo PMI', '1447211410.png', 1447211280, 'web_header', 104),
-(28, 'Home giới thiệu', '1447232840.png', 1447232700, 'web_header', 105),
-(29, 'Quản Lý Dự Án Xây Dựng Theo Tiêu Chuẩn PMBOK®', '1447235752.jpg', 1385543700, 'web_header', 106),
-(30, 'PMBOK® 5th Edition Refresh - 60 PDUs', '1447235786.jpg', 1385632560, 'web_header', 107),
-(47, 'Tư Vấn Doanh Nghiệp Ứng Dụng PMBOK®', '1447489219.jpg', 1447489140, 'web_header', 130),
-(48, 'Tư Vấn Doanh Nghiệp Ứng Dụng Agile, Scrum, Kanban, XP', '1447489459.jpg', 1447489320, 'web_header', 131),
-(49, 'Đánh Giá Năng Lực Quản Lý Dự Án', '1447489582.jpg', 1447489500, 'web_header', 132),
-(50, '23 PDUs Luyện Thi CAPM®. Bonus: 1 đề thi mẫu', '1447495440.png', 1440493080, 'web_header', 133),
-(51, '20 PDUs gia hạn chứng chỉ PMP®, PgMP®', '1447495590.jpg', 1440583440, 'web_header', 134),
-(52, '35 PDUs Luyện Thi PMP®. Bonus: 4 đề thi mẫu', '1447560907.jpg', 1385630100, 'web_header', 135),
-(53, '30 PDUs gia hạn chứng chỉ PMI-RMP®, PMI-SP®, PMI-ACP®, PMP®, PgMP®', '1447559130.jpg', 1390361880, 'web_header', 136),
-(54, '45 PDUs gia hạn chứng chỉ PMP®, PgMP®', '1447560116.jpg', 1401508500, 'web_header', 137),
-(55, '60 PDUs gia hạn chứng chỉ PMP®, PgMP®', '1447560287.jpg', 1385716500, 'web_header', 138),
-(56, 'Chính Sách Bảo Mật Thông Tin', '1447561782.jpg', 1406348580, 'web_header', 139),
-(57, 'Chính sách hủy giao dịch, hoàn tiền và khiếu nại', '1447561979.jpg', 1409027340, 'web_header', 140),
-(58, 'Nhận Userid, Học, và Chứng Nhận', '1447562134.jpg', 1411792500, 'web_header', 141),
-(59, 'Chính Sách Thanh toán và Giao hàng', '1447562559.jpg', 1411965540, 'web_header', 142),
-(60, 'Hướng Dẫn Luyện Thi PMP® qua WebEx Trên Các Trình Duyệt Web', '1447562771.jpg', 1435725780, 'web_header', 143),
-(61, 'Hướng Dẫn Luyện Thi PMP® qua WebEx Trên Thiết Bị Di Động', '1447563243.jpg', 1440737400, 'web_header', 144),
-(62, 'Lương Thị Duy Hiếu - M.ENG', '1447662173.jpg', 1399429620, 'web_header', 145),
-(63, 'Nguyễn Bình Phương - MBA, PMP®', '1447662267.jpg', 1399429920, 'web_header', 146),
-(64, 'Nguyễn Thanh Sơn - MSC, CSM, CSP', '1447662384.jpg', 1399430040, 'web_header', 147),
-(65, 'Ngon Ca - IAM, PMP®', '1447662432.jpg', 1399451160, 'web_header', 153),
-(71, 'Trò chơi quản lý dự án', '1447665364.jpg', 1364029680, 'web_header', 154),
-(72, 'Project Baseline - thành phần quan trọng nhất để quản lý dự án', '1447665374.jpg', 1372929120, 'web_header', 155),
-(73, 'PDU là gì? Tại sao các PMP® cần 35 PDUs và 60 PDUs?', '1447665624.jpg', 1372929420, 'web_header', 156),
-(74, 'Năng lực của nhà quản lý dự án theo tiêu chuẩn PMBOK', '1447665936.jpg', 1373016000, 'web_header', 157),
-(75, 'PM Network 03/2015 - THE PROJECTS BEHIND THE CITIES OF THE FUTURE', '1447668291.png', 1425117300, 'web_header', 158),
-(76, 'Quản lý dự án là gì?', '1447668256.jpg', 1425290520, 'web_header', 159),
-(77, 'Người quản lý dự án cần những phẩm chất gì?', '1447668554.jpg', 1425463500, 'web_header', 160),
-(78, 'Kỹ năng quản lý dự án', '1447668853.jpg', 1425723060, 'web_header', 161),
-(79, 'Quản lý việc thực hiện dự án', '1447669054.jpg', 1425982500, 'web_header', 162),
-(80, 'Nhà quản lý dự án và 10 điều học từ họ', '1447669674.jpg', 1426501080, 'web_header', 163),
-(81, 'Mức lương chuyên gia Quản Lý Dự Án PMP® năm 2015', '1447669692.jpg', 1428056460, 'web_header', 164),
-(82, '80% sản phẩm mới thất bại và 70% dự án phầm mềm thất bại do quản lý yêu cầu kém', '1447669760.jpg', 1428056640, 'web_header', 165),
-(83, 'Happy Lunar New Year 2015', '1447753525.jpg', 1423906860, 'web_header', 166),
-(84, 'PM Network 02/2015 - HEALTH CRISES Project On The Front Lines', '1447753579.jpg', 1423647960, 'web_header', 167),
-(85, 'PM Network 01/2015 - The 2015 Global Jobs Report', '1447753728.jpg', 1423216020, 'web_header', 168),
-(86, 'Stevbros Tuyển Dụng Giảng Viên Risk Management', '1447753830.jpg', 1423129800, 'web_header', 169),
-(87, 'Danh Sách Những Người Đạt Chứng Chỉ PMI Tại Việt Nam', '1447754096.jpg', 1422957120, 'web_header', 170),
-(88, 'Stevbros Thông Báo Tuyển Dụng Giảng Viên Luyện Thi PMP', '1447754237.jpg', 1422525300, 'web_header', 171),
-(89, 'Để Quản Lý Dự Án Thành Công', '1447754428.jpg', 1420451820, 'web_header', 172),
-(90, 'Các kiến thức, kỹ năng cần có để quản lý dự án', '1447754594.jpg', 1420020000, 'web_header', 173),
-(91, '7 lý do nên chọn khóa học Quản Lý Dự Án theo Tiêu Chuẩn Quốc Tế PMBOK®', '1447754825.jpg', 1394273040, 'web_header', 174),
-(92, 'Lỗi trong kỳ thi chứng chỉ Quản Lý Dự Án Chuyên Nghiệp PMP', '1447754988.jpg', 1393582020, 'web_header', 175),
-(93, 'Cần tuyển Quản Lý Dự Án Embedded System, RFID', '1447755095.jpg', 1393323000, 'web_header', 176),
-(94, 'Stevbros khai giảng: Quản Lý Dự Án theo Tiêu Chuẩn Quốc Tế PMBOK và Luyện Thi PMP®', '1447755331.jpg', 1392113460, 'web_header', 177),
-(95, 'Trí Tuệ Cảm Xúc cho nhà Quản Lý Dự Án: một nghiên cứu tại Việt Nam', '1447755495.jpg', 1388312160, 'web_header', 178),
-(96, '6 lý do tại sao các chuyên gia quản lý dự án muốn có chứng chỉ PMP®', '1447755608.jpg', 1385115480, 'web_header', 179),
-(97, '5 điều các chuyên gia quản lý dự án cần có để thành công', '1447755859.jpg', 1385029200, 'web_header', 180),
-(98, 'Đào tạo chuyên gia quản lý dự án cho doanh nghiệp', '1447755981.jpg', 1383560640, 'web_header', 181),
-(99, '3 điều PMP® cần biết khi chọn khóa học 60 PDUs gia hạn chứng chỉ PMP®', '1447756225.jpg', 1383559200, 'web_header', 182),
-(100, '6 lý do bạn nên học khóa 60 PDUs online để gia hạn chứng chỉ PMP®', '1447756364.jpg', 1383557400, 'web_header', 183),
-(101, 'Bí quyết thi PMP® thành công với Luyện Thi PMP® Cấp Tốc', '1447756519.jpg', 1383474780, 'web_header', 184),
-(102, 'Quản lý tích hợp dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447756665.jpg', 1377772500, 'web_header', 185),
-(103, 'Quản lý mua sắm dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447756822.jpg', 1377599880, 'web_header', 186),
-(104, 'Quản lý các bên liên quan trong dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447757104.jpg', 1374748800, 'web_header', 187),
-(105, 'Quản lý giao tiếp dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447757241.jpg', 1374749100, 'web_header', 188),
-(106, 'Quản lý rủi ro dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447757372.jpg', 1374662820, 'web_header', 189),
-(107, 'Quản lý nhân sự dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447757564.jpg', 1374576600, 'web_header', 190),
-(108, 'Các bước đăng ký thi PMP® nhanh nhất!', '1447757693.jpg', 1374403920, 'web_header', 191),
-(109, 'Luyện thi PMP® PMBOK: Quản lý chi phí dự án', '1447757813.jpg', 1374404100, 'web_header', 192),
-(110, 'Quản lý chất lượng dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447757950.jpg', 1374404220, 'web_header', 193),
-(111, 'Luyện thi PMP® PMBOK: Quản lý thời gian dự án', '1447758066.jpg', 1374231540, 'web_header', 194),
-(112, 'Luyện thi PMP® PMBOK: Quản lý phạm vi dự án', '1447758160.jpg', 1374145260, 'web_header', 195),
-(113, 'Quản lý dự án theo tiêu chuẩn quốc tế PMBOK®', '1447758366.jpg', 1374058980, 'web_header', 196),
-(114, 'Luyện thi PMP® cấp tốc hiệu quả không?', '1447758532.jpg', 1373108760, 'web_header', 197),
-(115, 'Giảng Viên Dạy PMP®, Agile, Scrum', '1447759004.jpg', 1443266040, 'web_header', 198),
-(116, 'Senior Academic Officer', '1447759156.jpg', 1442747820, 'web_header', 199),
-(118, 'Tại sao chọn du học Singapore?', '1447906340.jpg', 1363147740, 'web_header', 201),
-(119, 'Câu hỏi thường gặp về thông tin du học Singapore', '1447906532.jpg', 1372738320, 'web_header', 202),
-(120, 'Xin Visa du học Mỹ không khó', '1447906650.jpg', 1373343360, 'web_header', 203),
-(121, 'Chi phí du học Singapore chi tiết như thế nào?', '1447906874.jpg', 1373343480, 'web_header', 204),
-(122, 'Phỏng vấn xin Visa du học Mỹ - Phần 4: Các câu hỏi khác', '1447907074.jpg', 1373430120, 'web_header', 205),
-(123, 'Phỏng vấn xin Visa du học Mỹ - Phần 3: Tài chính gia đình đảm bảo cho chi phí du học Mỹ', '1447907258.jpg', 1373430240, 'web_header', 206),
-(124, 'Phỏng vấn xin Visa du học Mỹ - Phần 2: Phỏng vấn kết quả học tập và kế hoạch học tại Mỹ', '1447907420.jpg', 1373430480, 'web_header', 207),
-(125, 'Phỏng vấn xin Visa du học Mỹ - Phần 1', '1447907582.jpg', 1373430600, 'web_header', 208),
-(126, 'Kinh nghiệm xin việc làm tại Singapore', '1447908249.jpg', 1373517660, 'web_header', 209),
-(127, 'Cách tìm học bổng du học Mỹ hiệu quả', '1447908428.jpg', 1373604240, 'web_header', 210),
-(128, 'Hỗ trợ tài chính du học Mỹ', '1447908532.jpg', 1373604420, 'web_header', 211),
-(129, 'Du học tại Singapore: trường James Cook', '1447908740.jpg', 1381466940, 'web_header', 212),
-(130, 'Du học tại Singapore: trường NTU', '1447908878.jpg', 1381035120, 'web_header', 213),
-(131, 'Du học tại Singapore: trường NUS', '1447909003.jpg', 1381035240, 'web_header', 214),
-(132, 'Du học tại Singapore: trường SMU', '1447915045.jpg', 1381035360, 'web_header', 215),
-(133, 'Học Tiếng Anh ở Singapore hiệu quả hơn nhiều!', '1447915240.jpg', 1377585540, 'web_header', 216),
-(134, 'Các trường đại học Singapore', '1447915457.jpg', 1374993660, 'web_header', 217),
-(135, 'Du học tại Singapore có ưu điểm gì', '1447915622.jpg', 1374561840, 'web_header', 218),
-(136, 'Những việc nên làm ngay khi du học Mỹ', '1447915742.jpg', 1373870820, 'web_header', 219),
-(137, 'Giải pháp xin Visa du học Mỹ', '1447915903.jpg', 1393829340, 'web_header', 220),
-(138, 'Du học Singapore ngay từ lớp 10', '1447915997.jpg', 1389941460, 'web_header', 221),
-(139, 'Chứng minh tài chính du học Mỹ', '1447916122.jpg', 1386571980, 'web_header', 222),
-(140, 'Du học tại Singapore: trường Kaplan', '1447916224.jpg', 1382079300, 'web_header', 223),
-(141, 'Du học tại Singapore: trường EASB', '1447916347.jpg', 1381733820, 'web_header', 224),
-(142, 'Du học tại Singapore: trường Lasalle', '1447916478.jpg', 1381733940, 'web_header', 225),
-(143, 'Du học tại Singapore: trường SIM', '1447916574.jpg', 1381474860, 'web_header', 226),
-(144, 'Du học tại Singapore: trường Curtin', '1447916693.jpg', 1381474980, 'web_header', 227),
-(145, 'Lớp Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® [07-08-2014]', '1447917199.jpg', 1407391200, 'web_header', 228),
-(146, 'VPBank - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK®', '1447917272.jpg', 1407395580, 'web_header', 229),
-(147, 'Lớp Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® [15/08/2014]', '1447917454.jpg', 1408000500, 'web_header', 230),
-(148, 'Lớp Luyện Thi Chứng Chỉ Quản Lý Dự Án PMP® [06-09-2014]', '1447917561.jpg', 1409987820, 'web_header', 231),
-(149, 'Lớp Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® [17-10-2014]', '1447917658.jpg', 1413530340, 'web_header', 232),
-(150, 'Lớp Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® [20-10-2014]', '1447917918.jpg', 1413789720, 'web_header', 233),
-(151, 'Triyard - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK®', '1447918000.jpg', 1413789900, 'web_header', 234),
-(152, 'TIKI.vn Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® và Agile/Scrum', '1447918087.jpg', 1415345220, 'web_header', 235),
-(153, 'KIDO - Lớp Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK®', '1447918251.jpg', 1417505340, 'web_header', 236),
-(154, 'Lớp Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® [05-12-2014]', '1447918349.jpg', 1417764660, 'web_header', 237),
-(155, 'Saigon - Luyện Thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP®', '1447918709.jpg', 1421566620, 'web_header', 238),
-(156, 'MobifoneService - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK®', '1447918794.jpg', 1421912340, 'web_header', 239),
-(157, 'Saigon - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® 07/03/2015', '1447918897.jpg', 1425714000, 'web_header', 240),
-(158, 'Sở Thông Tin Truyền Thông HCM - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK®', '1447918954.jpg', 1426837260, 'web_header', 241),
-(159, 'FSOFT Hà Nội - Áp Dụng Agile Scrum trong Quản Lý Dự Án Phần Mềm', '1447919004.jpg', 1426837320, 'web_header', 242),
-(160, 'FSOFT Đà Nẵng - Áp Dụng Agile Scrum trong Quản Lý Dự Án Phần Mềm', '1447919083.jpg', 1428910980, 'web_header', 243),
-(161, 'Saigon - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® 18/04/2015', '1447919168.jpg', 1432539900, 'web_header', 244),
-(162, 'Công Ty Cổ Phần Giải Pháp Phần Mềm Tài Chính FSS Hà Nội - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBO', '1447919230.jpg', 1431675960, 'web_header', 245),
-(163, 'FSOFT Hồ Chí Minh - Luyện Thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP®', '1447919300.jpg', 1432799220, 'web_header', 246),
-(164, 'Saigon - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® 30/05/2015', '1447919370.jpg', 1432972080, 'web_header', 247),
-(165, 'FSOFT Hà Nội - Project Management Fundamentals - PMF', '1447919624.jpg', 1434613980, 'web_header', 248),
-(166, 'Công Ty TNHH BAYER Việt Nam - Project Management Fundamentals - PMF', '1447919675.jpg', 1434959580, 'web_header', 249),
-(167, 'FSOFT HN - Áp Dụng Agile Scrum trong Quản Lý Dự Án Phần Mềm', '1447919719.jpg', 1435910040, 'web_header', 250),
-(168, 'FSOFT HN - Project Management Fundamentals - PMF', '1447919768.jpg', 1436428500, 'web_header', 251),
-(169, 'FSOFT Hồ Chí Minh - Project Management Fundamentals - PMF', '1447919864.jpg', 1437551820, 'web_header', 252),
-(170, 'FSOFT HCM - Project Management Fundamentals - PMF', '1447919919.jpg', 1438761420, 'web_header', 253),
-(171, 'Công Ty Cổ Phần Quảng Cáo Trực Tuyến 24H - Áp Dụng Agile Scrum trong Quản Lý Dự Án Phần Mềm', '1447919961.jpg', 1439625480, 'web_header', 254),
-(172, 'Saigon - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® 29/08/2015', '1447920006.jpg', 1440835140, 'web_header', 255),
-(173, 'FSOFT Hồ Chí Minh - Project Management Fundamentals', '1447920085.jpg', 1441872000, 'web_header', 256),
-(174, 'HCM - Luyện Thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP®', '1447920145.jpg', 1443254460, 'web_header', 257),
-(175, 'FSOFT Hà Nội - Project Management Fundamentals', '1447920196.jpg', 1444291320, 'web_header', 258),
-(176, 'FSOFT HCM - Project Management Fundamentals', '1447920249.jpg', 1446624180, 'web_header', 259);
+INSERT INTO `web_picture` (`id`, `name`, `img`, `datetime`, `order`, `table`, `table_id`) VALUES
+(6, 'Liên hệ', '1447324866.jpg', 1442292480, 0, 'web_header', 6),
+(9, 'Quản Lý Dự Án Theo Tiêu Chuẩn PMBOK® (PMF)', '1447235647.jpg', 1385370900, 0, 'web_header', 83),
+(17, 'Luyện Thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP®', '1447235504.jpg', 1382087220, 0, 'web_header', 82),
+(18, 'Quản Lý Dự Án Phần Mềm Agile/Scrum', '1447235702.jpg', 1385457300, 0, 'web_header', 86),
+(19, 'Home đào tạo doanh nghiệp', '1447214138.jpg', 1445652540, 0, 'web_header', 84),
+(20, 'Home luyện thi PMP mỗi ngày', '1447232320.jpg', 1445652600, 0, 'web_header', 85),
+(26, 'Logo Stevbros', '1447210799.png', 1447210680, 0, 'web_header', 103),
+(27, 'Logo PMI', '1447211410.png', 1447211280, 0, 'web_header', 104),
+(28, 'Home giới thiệu', '1447232840.png', 1447232700, 0, 'web_header', 105),
+(29, 'Quản Lý Dự Án Xây Dựng Theo Tiêu Chuẩn PMBOK®', '1447235752.jpg', 1385543700, 0, 'web_header', 106),
+(30, 'PMBOK® 5th Edition Refresh - 60 PDUs', '1447235786.jpg', 1385632560, 0, 'web_header', 107),
+(47, 'Tư Vấn Doanh Nghiệp Ứng Dụng PMBOK®', '1447489219.jpg', 1447489140, 0, 'web_header', 130),
+(48, 'Tư Vấn Doanh Nghiệp Ứng Dụng Agile, Scrum, Kanban, XP', '1447489459.jpg', 1447489320, 0, 'web_header', 131),
+(49, 'Đánh Giá Năng Lực Quản Lý Dự Án', '1447489582.jpg', 1447489500, 0, 'web_header', 132),
+(50, '23 PDUs Luyện Thi CAPM®. Bonus: 1 đề thi mẫu', '1447495440.png', 1440493080, 0, 'web_header', 133),
+(51, '20 PDUs gia hạn chứng chỉ PMP®, PgMP®', '1447495590.jpg', 1440583440, 0, 'web_header', 134),
+(52, '35 PDUs Luyện Thi PMP®. Bonus: 4 đề thi mẫu', '1447560907.jpg', 1385630100, 0, 'web_header', 135),
+(53, '30 PDUs gia hạn chứng chỉ PMI-RMP®, PMI-SP®, PMI-ACP®, PMP®, PgMP®', '1447559130.jpg', 1390361880, 0, 'web_header', 136),
+(54, '45 PDUs gia hạn chứng chỉ PMP®, PgMP®', '1447560116.jpg', 1401508500, 0, 'web_header', 137),
+(55, '60 PDUs gia hạn chứng chỉ PMP®, PgMP®', '1447560287.jpg', 1385716500, 0, 'web_header', 138),
+(56, 'Chính Sách Bảo Mật Thông Tin', '1447561782.jpg', 1406348580, 0, 'web_header', 139),
+(57, 'Chính sách hủy giao dịch, hoàn tiền và khiếu nại', '1447561979.jpg', 1409027340, 0, 'web_header', 140),
+(58, 'Nhận Userid, Học, và Chứng Nhận', '1447562134.jpg', 1411792500, 0, 'web_header', 141),
+(59, 'Chính Sách Thanh toán và Giao hàng', '1447562559.jpg', 1411965540, 0, 'web_header', 142),
+(60, 'Hướng Dẫn Luyện Thi PMP® qua WebEx Trên Các Trình Duyệt Web', '1447562771.jpg', 1435725780, 0, 'web_header', 143),
+(61, 'Hướng Dẫn Luyện Thi PMP® qua WebEx Trên Thiết Bị Di Động', '1447563243.jpg', 1440737400, 0, 'web_header', 144),
+(62, 'Lương Thị Duy Hiếu - M.ENG', '1447662173.jpg', 1399429620, 0, 'web_header', 145),
+(63, 'Nguyễn Bình Phương - MBA, PMP®', '1447662267.jpg', 1399429920, 0, 'web_header', 146),
+(64, 'Nguyễn Thanh Sơn - MSC, CSM, CSP', '1447662384.jpg', 1399430040, 0, 'web_header', 147),
+(65, 'Ngon Ca - IAM, PMP®', '1447662432.jpg', 1399451160, 0, 'web_header', 153),
+(71, 'Trò chơi quản lý dự án', '1447665364.jpg', 1364029680, 0, 'web_header', 154),
+(72, 'Project Baseline - thành phần quan trọng nhất để quản lý dự án', '1447665374.jpg', 1372929120, 0, 'web_header', 155),
+(73, 'PDU là gì? Tại sao các PMP® cần 35 PDUs và 60 PDUs?', '1447665624.jpg', 1372929420, 0, 'web_header', 156),
+(74, 'Năng lực của nhà quản lý dự án theo tiêu chuẩn PMBOK', '1447665936.jpg', 1373016000, 0, 'web_header', 157),
+(75, 'PM Network 03/2015 - THE PROJECTS BEHIND THE CITIES OF THE FUTURE', '1447668291.png', 1425117300, 0, 'web_header', 158),
+(76, 'Quản lý dự án là gì?', '1447668256.jpg', 1425290520, 0, 'web_header', 159),
+(77, 'Người quản lý dự án cần những phẩm chất gì?', '1447668554.jpg', 1425463500, 0, 'web_header', 160),
+(78, 'Kỹ năng quản lý dự án', '1447668853.jpg', 1425723060, 0, 'web_header', 161),
+(79, 'Quản lý việc thực hiện dự án', '1447669054.jpg', 1425982500, 0, 'web_header', 162),
+(80, 'Nhà quản lý dự án và 10 điều học từ họ', '1447669674.jpg', 1426501080, 0, 'web_header', 163),
+(81, 'Mức lương chuyên gia Quản Lý Dự Án PMP® năm 2015', '1447669692.jpg', 1428056460, 0, 'web_header', 164),
+(82, '80% sản phẩm mới thất bại và 70% dự án phầm mềm thất bại do quản lý yêu cầu kém', '1447669760.jpg', 1428056640, 0, 'web_header', 165),
+(83, 'Happy Lunar New Year 2015', '1447753525.jpg', 1423906860, 0, 'web_header', 166),
+(84, 'PM Network 02/2015 - HEALTH CRISES Project On The Front Lines', '1447753579.jpg', 1423647960, 0, 'web_header', 167),
+(85, 'PM Network 01/2015 - The 2015 Global Jobs Report', '1447753728.jpg', 1423216020, 0, 'web_header', 168),
+(86, 'Stevbros Tuyển Dụng Giảng Viên Risk Management', '1447753830.jpg', 1423129800, 0, 'web_header', 169),
+(87, 'Danh Sách Những Người Đạt Chứng Chỉ PMI Tại Việt Nam', '1447754096.jpg', 1422957120, 0, 'web_header', 170),
+(88, 'Stevbros Thông Báo Tuyển Dụng Giảng Viên Luyện Thi PMP', '1447754237.jpg', 1422525300, 0, 'web_header', 171),
+(89, 'Để Quản Lý Dự Án Thành Công', '1447754428.jpg', 1420451820, 0, 'web_header', 172),
+(90, 'Các kiến thức, kỹ năng cần có để quản lý dự án', '1447754594.jpg', 1420020000, 0, 'web_header', 173),
+(91, '7 lý do nên chọn khóa học Quản Lý Dự Án theo Tiêu Chuẩn Quốc Tế PMBOK®', '1447754825.jpg', 1394273040, 0, 'web_header', 174),
+(92, 'Lỗi trong kỳ thi chứng chỉ Quản Lý Dự Án Chuyên Nghiệp PMP', '1447754988.jpg', 1393582020, 0, 'web_header', 175),
+(93, 'Cần tuyển Quản Lý Dự Án Embedded System, RFID', '1447755095.jpg', 1393323000, 0, 'web_header', 176),
+(94, 'Stevbros khai giảng: Quản Lý Dự Án theo Tiêu Chuẩn Quốc Tế PMBOK và Luyện Thi PMP®', '1447755331.jpg', 1392113460, 0, 'web_header', 177),
+(95, 'Trí Tuệ Cảm Xúc cho nhà Quản Lý Dự Án: một nghiên cứu tại Việt Nam', '1447755495.jpg', 1388312160, 0, 'web_header', 178),
+(96, '6 lý do tại sao các chuyên gia quản lý dự án muốn có chứng chỉ PMP®', '1447755608.jpg', 1385115480, 0, 'web_header', 179),
+(97, '5 điều các chuyên gia quản lý dự án cần có để thành công', '1447755859.jpg', 1385029200, 0, 'web_header', 180),
+(98, 'Đào tạo chuyên gia quản lý dự án cho doanh nghiệp', '1447755981.jpg', 1383560640, 0, 'web_header', 181),
+(99, '3 điều PMP® cần biết khi chọn khóa học 60 PDUs gia hạn chứng chỉ PMP®', '1447756225.jpg', 1383559200, 0, 'web_header', 182),
+(100, '6 lý do bạn nên học khóa 60 PDUs online để gia hạn chứng chỉ PMP®', '1447756364.jpg', 1383557400, 0, 'web_header', 183),
+(101, 'Bí quyết thi PMP® thành công với Luyện Thi PMP® Cấp Tốc', '1447756519.jpg', 1383474780, 0, 'web_header', 184),
+(102, 'Quản lý tích hợp dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447756665.jpg', 1377772500, 0, 'web_header', 185),
+(103, 'Quản lý mua sắm dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447756822.jpg', 1377599880, 0, 'web_header', 186),
+(104, 'Quản lý các bên liên quan trong dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447757104.jpg', 1374748800, 0, 'web_header', 187),
+(105, 'Quản lý giao tiếp dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447757241.jpg', 1374749100, 0, 'web_header', 188),
+(106, 'Quản lý rủi ro dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447757372.jpg', 1374662820, 0, 'web_header', 189),
+(107, 'Quản lý nhân sự dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447757564.jpg', 1374576600, 0, 'web_header', 190),
+(108, 'Các bước đăng ký thi PMP® nhanh nhất!', '1447757693.jpg', 1374403920, 0, 'web_header', 191),
+(109, 'Luyện thi PMP® PMBOK: Quản lý chi phí dự án', '1447757813.jpg', 1374404100, 0, 'web_header', 192),
+(110, 'Quản lý chất lượng dự án theo tiêu chuẩn quốc tế PMBOK 5th', '1447757950.jpg', 1374404220, 0, 'web_header', 193),
+(111, 'Luyện thi PMP® PMBOK: Quản lý thời gian dự án', '1447758066.jpg', 1374231540, 0, 'web_header', 194),
+(112, 'Luyện thi PMP® PMBOK: Quản lý phạm vi dự án', '1447758160.jpg', 1374145260, 0, 'web_header', 195),
+(113, 'Quản lý dự án theo tiêu chuẩn quốc tế PMBOK®', '1447758366.jpg', 1374058980, 0, 'web_header', 196),
+(114, 'Luyện thi PMP® cấp tốc hiệu quả không?', '1447758532.jpg', 1373108760, 0, 'web_header', 197),
+(115, 'Giảng Viên Dạy PMP®, Agile, Scrum', '1447759004.jpg', 1443266040, 0, 'web_header', 198),
+(116, 'Senior Academic Officer', '1447759156.jpg', 1442747820, 0, 'web_header', 199),
+(118, 'Tại sao chọn du học Singapore?', '1447906340.jpg', 1363147740, 0, 'web_header', 201),
+(119, 'Câu hỏi thường gặp về thông tin du học Singapore', '1447906532.jpg', 1372738320, 0, 'web_header', 202),
+(120, 'Xin Visa du học Mỹ không khó', '1447906650.jpg', 1373343360, 0, 'web_header', 203),
+(121, 'Chi phí du học Singapore chi tiết như thế nào?', '1447906874.jpg', 1373343480, 0, 'web_header', 204),
+(122, 'Phỏng vấn xin Visa du học Mỹ - Phần 4: Các câu hỏi khác', '1447907074.jpg', 1373430120, 0, 'web_header', 205),
+(123, 'Phỏng vấn xin Visa du học Mỹ - Phần 3: Tài chính gia đình đảm bảo cho chi phí du học Mỹ', '1447907258.jpg', 1373430240, 0, 'web_header', 206),
+(124, 'Phỏng vấn xin Visa du học Mỹ - Phần 2: Phỏng vấn kết quả học tập và kế hoạch học tại Mỹ', '1447907420.jpg', 1373430480, 0, 'web_header', 207),
+(125, 'Phỏng vấn xin Visa du học Mỹ - Phần 1', '1447907582.jpg', 1373430600, 0, 'web_header', 208),
+(126, 'Kinh nghiệm xin việc làm tại Singapore', '1447908249.jpg', 1373517660, 0, 'web_header', 209),
+(127, 'Cách tìm học bổng du học Mỹ hiệu quả', '1447908428.jpg', 1373604240, 0, 'web_header', 210),
+(128, 'Hỗ trợ tài chính du học Mỹ', '1447908532.jpg', 1373604420, 0, 'web_header', 211),
+(129, 'Du học tại Singapore: trường James Cook', '1447908740.jpg', 1381466940, 0, 'web_header', 212),
+(130, 'Du học tại Singapore: trường NTU', '1447908878.jpg', 1381035120, 0, 'web_header', 213),
+(131, 'Du học tại Singapore: trường NUS', '1447909003.jpg', 1381035240, 0, 'web_header', 214),
+(132, 'Du học tại Singapore: trường SMU', '1447915045.jpg', 1381035360, 0, 'web_header', 215),
+(133, 'Học Tiếng Anh ở Singapore hiệu quả hơn nhiều!', '1447915240.jpg', 1377585540, 0, 'web_header', 216),
+(134, 'Các trường đại học Singapore', '1447915457.jpg', 1374993660, 0, 'web_header', 217),
+(135, 'Du học tại Singapore có ưu điểm gì', '1447915622.jpg', 1374561840, 0, 'web_header', 218),
+(136, 'Những việc nên làm ngay khi du học Mỹ', '1447915742.jpg', 1373870820, 0, 'web_header', 219),
+(137, 'Giải pháp xin Visa du học Mỹ', '1447915903.jpg', 1393829340, 0, 'web_header', 220),
+(138, 'Du học Singapore ngay từ lớp 10', '1447915997.jpg', 1389941460, 0, 'web_header', 221),
+(139, 'Chứng minh tài chính du học Mỹ', '1447916122.jpg', 1386571980, 0, 'web_header', 222),
+(140, 'Du học tại Singapore: trường Kaplan', '1447916224.jpg', 1382079300, 0, 'web_header', 223),
+(141, 'Du học tại Singapore: trường EASB', '1447916347.jpg', 1381733820, 0, 'web_header', 224),
+(142, 'Du học tại Singapore: trường Lasalle', '1447916478.jpg', 1381733940, 0, 'web_header', 225),
+(143, 'Du học tại Singapore: trường SIM', '1447916574.jpg', 1381474860, 0, 'web_header', 226),
+(144, 'Du học tại Singapore: trường Curtin', '1447916693.jpg', 1381474980, 0, 'web_header', 227),
+(145, 'Lớp Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® [07-08-2014]', '1447917199.jpg', 1407391200, 0, 'web_header', 228),
+(146, 'VPBank - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK®', '1447917272.jpg', 1407395580, 0, 'web_header', 229),
+(147, 'Lớp Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® [15/08/2014]', '1447917454.jpg', 1408000500, 0, 'web_header', 230),
+(148, 'Lớp Luyện Thi Chứng Chỉ Quản Lý Dự Án PMP® [06-09-2014]', '1447917561.jpg', 1409987820, 0, 'web_header', 231),
+(149, 'Lớp Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® [17-10-2014]', '1447917658.jpg', 1413530340, 0, 'web_header', 232),
+(150, 'Lớp Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® [20-10-2014]', '1447917918.jpg', 1413789720, 0, 'web_header', 233),
+(151, 'Triyard - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK®', '1447918000.jpg', 1413789900, 0, 'web_header', 234),
+(152, 'TIKI.vn Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® và Agile/Scrum', '1447918087.jpg', 1415345220, 0, 'web_header', 235),
+(153, 'KIDO - Lớp Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK®', '1447918251.jpg', 1417505340, 0, 'web_header', 236),
+(154, 'Lớp Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® [05-12-2014]', '1447918349.jpg', 1417764660, 0, 'web_header', 237),
+(155, 'Saigon - Luyện Thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP®', '1447918709.jpg', 1421566620, 0, 'web_header', 238),
+(156, 'MobifoneService - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK®', '1447918794.jpg', 1421912340, 0, 'web_header', 239),
+(157, 'Saigon - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® 07/03/2015', '1447918897.jpg', 1425714000, 0, 'web_header', 240),
+(158, 'Sở Thông Tin Truyền Thông HCM - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK®', '1447918954.jpg', 1426837260, 0, 'web_header', 241),
+(159, 'FSOFT Hà Nội - Áp Dụng Agile Scrum trong Quản Lý Dự Án Phần Mềm', '1447919004.jpg', 1426837320, 0, 'web_header', 242),
+(160, 'FSOFT Đà Nẵng - Áp Dụng Agile Scrum trong Quản Lý Dự Án Phần Mềm', '1447919083.jpg', 1428910980, 0, 'web_header', 243),
+(161, 'Saigon - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® 18/04/2015', '1447919168.jpg', 1432539900, 0, 'web_header', 244),
+(162, 'Công Ty Cổ Phần Giải Pháp Phần Mềm Tài Chính FSS Hà Nội - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBO', '1447919230.jpg', 1431675960, 0, 'web_header', 245),
+(163, 'FSOFT Hồ Chí Minh - Luyện Thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP®', '1447919300.jpg', 1432799220, 0, 'web_header', 246),
+(164, 'Saigon - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® 30/05/2015', '1447919370.jpg', 1432972080, 0, 'web_header', 247),
+(165, 'FSOFT Hà Nội - Project Management Fundamentals - PMF', '1447919624.jpg', 1434613980, 0, 'web_header', 248),
+(166, 'Công Ty TNHH BAYER Việt Nam - Project Management Fundamentals - PMF', '1447919675.jpg', 1434959580, 0, 'web_header', 249),
+(167, 'FSOFT HN - Áp Dụng Agile Scrum trong Quản Lý Dự Án Phần Mềm', '1447919719.jpg', 1435910040, 0, 'web_header', 250),
+(168, 'FSOFT HN - Project Management Fundamentals - PMF', '1447919768.jpg', 1436428500, 0, 'web_header', 251),
+(169, 'FSOFT Hồ Chí Minh - Project Management Fundamentals - PMF', '1447919864.jpg', 1437551820, 0, 'web_header', 252),
+(170, 'FSOFT HCM - Project Management Fundamentals - PMF', '1447919919.jpg', 1438761420, 0, 'web_header', 253),
+(171, 'Công Ty Cổ Phần Quảng Cáo Trực Tuyến 24H - Áp Dụng Agile Scrum trong Quản Lý Dự Án Phần Mềm', '1447919961.jpg', 1439625480, 0, 'web_header', 254),
+(172, 'Saigon - Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK® 29/08/2015', '1447920006.jpg', 1440835140, 0, 'web_header', 255),
+(173, 'FSOFT Hồ Chí Minh - Project Management Fundamentals', '1447920085.jpg', 1441872000, 0, 'web_header', 256),
+(174, 'HCM - Luyện Thi Chứng Chỉ Chuyên Gia Quản Lý Dự Án PMP®', '1447920145.jpg', 1443254460, 0, 'web_header', 257),
+(175, 'FSOFT Hà Nội - Project Management Fundamentals', '1447920196.jpg', 1444291320, 0, 'web_header', 258),
+(176, 'FSOFT HCM - Project Management Fundamentals', '1447920249.jpg', 1446624180, 0, 'web_header', 259),
+(177, 'Stevbros Training and Consultancy', '1449829081.jpg', 1449829081, 0, 'web_header', 269),
+(178, 'Stevbros Training and Consultancy 2', '1449829107.jpg', 1449829107, 0, 'web_header', 269),
+(179, 'Stevbros Training and Consultancy 3', '1449829116.jpg', 1449829080, 0, 'web_header', 269);
 
 -- --------------------------------------------------------
 
@@ -1725,9 +1746,9 @@ INSERT INTO `web_position` (`id`, `name`, `themes`, `order`, `type`, `status`) V
 (6, 'Box mạng xã hội', '', 6, 1, 1),
 (7, 'Home đào tạo', '', 7, 2, 1),
 (8, 'Home giới thiệu', '', 8, 2, 1),
-(9, 'Home thông tin', '', 9, 2, 0),
+(9, 'Home tạo sao chọn chúng tôi', '', 9, 2, 1),
 (10, 'Home sản phẩm', '', 10, 2, 0),
-(11, 'Home dịch vụ', '', 11, 2, 0),
+(11, 'Bottom hình ảnh', '', 11, 1, 1),
 (12, 'Content box left', '', 12, 1, 1),
 (13, 'Content box right', '', 13, 1, 1),
 (14, 'Vị trí logo', '', 14, 1, 1),
@@ -1790,8 +1811,8 @@ INSERT INTO `web_type` (`id`, `name`, `type`, `table`, `url_img`, `url_img_thumb
 (3, 'Khóa học - Sale page', 'course', 'web_header', 'public/images/articles/', 'public/_thumbs/Images/articles/', 3, 1, 1),
 (4, 'Ý kiến', 'opinion', 'web_header', 'public/images/articles/', 'public/_thumbs/Images/articles/', 4, 1, 1),
 (5, 'Giới thiệu', 'about', 'web_header', 'public/images/articles/', 'public/_thumbs/Images/articles/', 5, 1, 1),
-(6, 'Video', 'videos', 'web_header', 'public/images/videos/', 'public/_thumbs/Images/videos/', 6, 1, 0),
-(7, 'Item 1', 'item_1', '', '', '', 7, 1, 0),
+(6, 'Entry test', 'entry_test', 'web_header', 'public/images/videos/', 'public/_thumbs/Images/videos/', 6, 1, 1),
+(7, 'Hình ảnh', 'photos', 'web_header', '', '', 7, 1, 1),
 (8, 'Item 2', 'item_2', '', '', '', 8, 1, 0),
 (9, 'Item 3', 'item_3', '', '', '', 9, 1, 0),
 (10, 'Item 4', 'item_4', '', '', '', 10, 1, 0),
@@ -1824,8 +1845,6 @@ CREATE TABLE IF NOT EXISTS `web_users` (
   `salt` varchar(3) NOT NULL,
   `username` char(32) NOT NULL,
   `password` char(32) NOT NULL,
-  `rule_view` varchar(100) NOT NULL,
-  `rule_action` varchar(100) NOT NULL,
   `random_key` varchar(255) DEFAULT NULL,
   `date_expiration` bigint(10) NOT NULL,
   `lang` varchar(3) NOT NULL DEFAULT 'vi',
@@ -1838,10 +1857,10 @@ CREATE TABLE IF NOT EXISTS `web_users` (
 -- Dumping data for table `web_users`
 --
 
-INSERT INTO `web_users` (`id`, `name`, `address`, `phone`, `email`, `birthday`, `gender`, `img`, `salt`, `username`, `password`, `rule_view`, `rule_action`, `random_key`, `date_expiration`, `lang`, `datetime`, `status`, `group_id`) VALUES
-(25, 'Admin', '123 CMT 8', '0988 388 003', 'admin@localhost.com', 0, 1, '', '', 'admin', 'fc7fc678608590b123692867f176fe63', ',1,2,3,4,5,19,8,26,13,14,16,20,15,17,18,21,22,25,24,23,27,', ',1,2,3,4,5,19,8,26,13,14,16,20,15,17,18,21,22,25,24,23,27,', NULL, 0, 'vi', 0, 1, 3),
-(34, 'Hiếu Nhân', '123 CMT 8', '0988 388 003', 'trannhan@localhost.com', 609872400, 1, '', '', 'trannhan', '867e1a36d190000d2f266d80889683fc', ',1,2,3,4,6,7,8,18,21,23,', ',1,2,3,4,6,7,8,18,21,23,', NULL, 0, 'vi', 1425093180, 1, 3),
-(35, 'Trần Hiếu Nhân', '123 cmt 8', '0988388003', 'hieunhan112@gmail.com', 0, NULL, '', '', '', '867e1a36d190000d2f266d80889683fc', '', '', NULL, 0, 'vi', 0, 1, 2);
+INSERT INTO `web_users` (`id`, `name`, `address`, `phone`, `email`, `birthday`, `gender`, `img`, `salt`, `username`, `password`, `random_key`, `date_expiration`, `lang`, `datetime`, `status`, `group_id`) VALUES
+(25, 'Admin', '123 CMT 8', '0988 388 003', 'admin@localhost.com', 0, 1, '', '', 'admin', '52e4ab92c412c5aadf3a0970779da825', NULL, 0, 'vi', 0, 1, 3),
+(34, 'Hiếu Nhân', '123 CMT 8', '0988 388 003', 'trannhan@localhost.com', 609872400, 1, '', '', 'trannhan', '867e1a36d190000d2f266d80889683fc', NULL, 0, 'vi', 1425093180, 1, 3),
+(35, 'Trần Hiếu Nhân', '123 cmt 8', '0988388003', 'hieunhan112@gmail.com', 0, NULL, '', '', '', '867e1a36d190000d2f266d80889683fc', NULL, 1481277660, 'vi', 0, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -1884,7 +1903,7 @@ CREATE TABLE IF NOT EXISTS `web_users_lock_ip` (
 --
 
 INSERT INTO `web_users_lock_ip` (`id`, `ip_address`, `login_number`, `disable_date`, `datetime`) VALUES
-(6, '::1', 2, 0, 1449476205);
+(6, '::1', 2, 0, 1449816949);
 
 -- --------------------------------------------------------
 
@@ -1931,14 +1950,14 @@ CREATE TABLE IF NOT EXISTS `web_users_role` (
   `admin_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `web_users_role`
 --
 
 INSERT INTO `web_users_role` (`id`, `action_view`, `action_create`, `action_edit`, `action_delete`, `admin_id`, `users_id`, `status`) VALUES
-(1, 1, 0, 0, 0, 1, 25, 1),
+(1, 1, 1, 1, 1, 1, 25, 1),
 (2, 1, 1, 1, 1, 18, 25, 1),
 (3, 1, 1, 1, 1, 24, 25, 1),
 (4, 1, 1, 1, 1, 4, 25, 1),
@@ -1958,7 +1977,9 @@ INSERT INTO `web_users_role` (`id`, `action_view`, `action_create`, `action_edit
 (18, 1, 1, 1, 1, 22, 25, 1),
 (19, 1, 1, 1, 1, 25, 25, 1),
 (20, 1, 1, 1, 1, 23, 25, 1),
-(21, 1, 1, 1, 1, 27, 25, 1);
+(21, 1, 1, 1, 1, 27, 25, 1),
+(22, 1, 1, 1, 1, 7, 25, 1),
+(23, 1, 1, 1, 1, 6, 25, 1);
 
 --
 -- Indexes for dumped tables
@@ -2137,12 +2158,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 -- AUTO_INCREMENT for table `web_content`
 --
 ALTER TABLE `web_content`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=235;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=240;
 --
 -- AUTO_INCREMENT for table `web_header`
 --
 ALTER TABLE `web_header`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=262;
+MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=270;
 --
 -- AUTO_INCREMENT for table `web_language`
 --
@@ -2152,7 +2173,7 @@ MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `web_language_var`
 --
 ALTER TABLE `web_language_var`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
+MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=57;
 --
 -- AUTO_INCREMENT for table `web_listdistricts`
 --
@@ -2192,7 +2213,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `web_picture`
 --
 ALTER TABLE `web_picture`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=177;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=180;
 --
 -- AUTO_INCREMENT for table `web_position`
 --
@@ -2237,7 +2258,7 @@ MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `web_users_role`
 --
 ALTER TABLE `web_users_role`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

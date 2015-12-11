@@ -22,7 +22,7 @@
 		}
 	}else{
 		$row = $c->_model->_content($currentPage['id']);
-		echo '<h1 style="color:#179bd7; font-weight:100">'.$currentPage['name'].'</h1>';
+		echo '<h1 style="color:#333; font-weight:100">'.$currentPage['name'].'</h1>';
 		echo '<p class="meta">on <time datetime="'.date('Y-m-d', $currentPage['datetime']).'" pubdate>'.date('d F Y', $currentPage['datetime']).'</time>. Posted in <a href="'.$currentPage['rootAlias'].'">'.$currentPage['rootName'].'</a></p>';
 		echo '<div class="viewpost">'.$row['content'].'</div>';
 		

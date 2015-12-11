@@ -47,6 +47,13 @@
 	$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 	echo $cF->displayDiv('Name', $data);
 	
+	$name = 'order';
+	$properties = array();
+	$properties[] = array('propertie'=>'maxlength', 'value'=>'3');
+	$value=$rowDetail[$name];
+	$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
+	echo $cF->displayDiv('Thứ tự', $data);
+	
 	$name = 'img';
 	$properties = array();
 	$properties[] = array('propertie'=>'maxlength', 'value'=>'15');

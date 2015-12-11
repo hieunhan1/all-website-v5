@@ -26,6 +26,36 @@
 
 <body>
 <?php
+$arr = array(
+	1=>array('#287e7a', '#e48d3d', '#1a4d4a'),
+	2=>array('#97b09b', '#807759', '#688a6d'),
+	3=>array('#ea5b23', '#15305b', '#a93a10'),
+);
+$i = date('H')%4;
+if($i!=0){
+	$color = $arr[$i];
+	echo '<style>
+	#nav li ul a:hover {background-color:'.$color[0].'}
+	#top{background-color:'.$color[0].'}
+	#header{background-color:'.$color[1].'}
+	#menuH{background-color:'.$color[1].' !important}
+	#header #menuH .li:hover{border-bottom:solid 4px '.$color[0].'}
+	#header #menuH .active{border-bottom:solid 4px '.$color[0].'}
+	#highlights{background-color:'.$color[0].'}
+	#whychooseus .tab .h3:hover{background-color:'.$color[0].'; border:solid 1px '.$color[0].'}
+	#whychooseus .tab .active{background-color:'.$color[0].'; border:solid 1px '.$color[0].'}
+	#opening .header{background-color:'.$color[0].'}
+	#contact-frm .btn{background-color:'.$color[0].'}
+	#phantrang a:hover{background-color:'.$color[0].'}
+	#phantrang .current{background-color:'.$color[0].'}
+	#opinion .box:hover{background-color:'.$color[0].'}
+	#opinion .box .view{background-color:'.$color[0].'; border-bottom:solid 3px '.$color[2].'}
+	.btn-business-info{background-color:'.$color[0].'; border-bottom:solid 3px '.$color[2].'}
+	#frmRegister .btn{background-color:'.$color[0].'; border-bottom:solid 3px '.$color[2].'}
+	.register{background-color:'.$color[0].'; border-bottom:solid 3px '.$color[2].'}
+	</style>';
+}
+
 include_once('web_header.php'); flush();
 
 echo $viewData;

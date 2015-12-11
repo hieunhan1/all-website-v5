@@ -56,17 +56,14 @@
         	<div id="bottomPhoto">
             	<h3 class="title"><?php echo $language_var['bottom_photo'];?></h3>
                 <?php
-				/*$arr = array(
+				$arr = array(
 					'lang' => $lang,
 					'parent' => 0,
-					'position_id' => 15,
-					'order'=>'`order`',
+					'position_id' => 11,
+					'limit'=>1,
 				);
 				$data = $c->_model->_headerData($arr);
-				foreach($data as $row){
-					if($row['url']=='') $url=$row['name_alias']; else $url=$row['url'];
-					echo '<li class="li"><a href="'.$url.'" title="'.$row['title'].'"><span>&rsaquo;</span>'.$row['name'].'</a></li>';
-				}*/
+				if(count($data)>0){
 				?>
 				<link rel="stylesheet" type="text/css" href="js/extension/source/jquery.fancybox.css?v=2.1.5" media="screen" />
                 <link rel="stylesheet" type="text/css" href="js/extension/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
@@ -100,13 +97,15 @@
 				});
 				</script>
                 <div class="pictureLibrary">
-                    <div class="img"><a class="fancybox-buttons" data-fancybox-group="button" href="public/images/1447235786.jpg"><img src="public/_thumbs/Images/1447235786.jpg" alt="" /></a></div>
-                    <div class="img"><a class="fancybox-buttons" data-fancybox-group="button" href="public/images/1447235786.jpg"><img src="public/_thumbs/Images/1447235786.jpg" alt="" /></a></div>
-                    <div class="img"><a class="fancybox-buttons" data-fancybox-group="button" href="public/images/1447235786.jpg"><img src="public/_thumbs/Images/1447235786.jpg" alt="" /></a></div>
-                    <div class="img"><a class="fancybox-buttons" data-fancybox-group="button" href="public/images/1447235786.jpg"><img src="public/_thumbs/Images/1447235786.jpg" alt="" /></a></div>
-                    <div class="img"><a class="fancybox-buttons" data-fancybox-group="button" href="public/images/1447235786.jpg"><img src="public/_thumbs/Images/1447235786.jpg" alt="" /></a></div>
-                    <div class="img"><a class="fancybox-buttons" data-fancybox-group="button" href="public/images/1447235786.jpg"><img src="public/_thumbs/Images/1447235786.jpg" alt="" /></a></div>
+                	<?php
+                    $row = $data[0];
+					$data = $c->_model->_web_picture('web_header', $row['id']);
+					foreach($data as $row){
+						echo '<div class="img"><a class="fancybox-buttons" data-fancybox-group="button" href="'.IMAGE_URL.$row['img'].'"><img src="'.IMAGE_URL_THUMB.$row['img'].'" alt="'.$row['name'].'" /></a></div>';
+					}
+					?>
                 </div>
+                <?php } ?>
             </div>
         </div>
         <div class="clear30"></div>
