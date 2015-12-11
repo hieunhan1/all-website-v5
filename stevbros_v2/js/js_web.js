@@ -69,6 +69,18 @@ $(document).ready(function($){
 		sroll_top();
 	});
 	
+	//why choose us
+	$("#whychooseus .tab .content").hide();
+	$("#whychooseus .tab .h3:first").addClass("active");
+	$("#whychooseus .tab .content:first").show();
+	$("#whychooseus .tab").click(function(){
+		$("#whychooseus .tab").children(".h3").removeClass("active");
+		$(this).children(".h3").addClass("active");
+		
+		$("#whychooseus .tab .content").hide(200);
+		$(this).children(".content").show(200);
+	});
+	
 	$(".register").click(function(){
 		var url = $(location).attr('pathname');
 		$(this).attr("href", url + "#register");

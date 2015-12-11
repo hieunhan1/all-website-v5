@@ -346,13 +346,11 @@ $(document).ready(function(e) {
 	};
 	checks_box_item('.checkBoxMenu', '.listValueMenu');
 	checks_box_item('.checkBoxPosition', '.listValuePosition');
-	checks_box_item('.checkBoxView', '.listValueView');
-	checks_box_item('.checkBoxAction', '.listValueAction');
-	checks_box_item('.checkBoxItem', '.listValueCheckBox');
+	checks_box_item('.checkBoxItem', '.listValueItem');
 	/*end checks box*/
 	
 	/*upload images*/
-	$('#imagePhoto').die('click').live('change', function(){
+	$('#imagePhoto, #uploadWebPicture').die('click').live('change', function(){
 		$("#imageForm").ajaxForm({target: '#imageUpload',
 			beforeSubmit:function(){
 				//console.log();
@@ -363,8 +361,6 @@ $(document).ready(function(e) {
 				//console.log(data);
 				$("#imageloadstatus").hide();
 				$("#imageloadbutton").show();
-				//autoSelectImg();
-				//autoTableInsert();
 			},
 			error:function(){ 
 				//console.log(data);
@@ -394,7 +390,6 @@ $(document).ready(function(e) {
 						$("input[name=arr_img]").val(arr_img);
 					}
 					if(name==img) $("input[name=img]").val('');
-					//autoTableInsert();
 				}
 			});
 		}
@@ -456,22 +451,25 @@ $(document).ready(function(e) {
 	
 	/*auto insert data*/
 	function viewDataAction(){
-		$("#dataAction").html('<span class="process">Đang xử lý..</span>');
+		$("#dataActionContent").html('<span class="process">Đang xử lý..</span>');
 		$("#dataAction").show(100);
-		$("#dataActionBG").show(100);
 		return true;
 	}
 	function endDataAction(str){
-		setTimeout(function(){ $("#dataAction").html(str); }, 500);
 		setTimeout(function(){
+			$("#dataActionContent").html(str);
+		}, 500);
+		setTimeout(function(){
+			if( $("#btnSubmitAjax").length ) $("#btnSubmitAjax").val("Đã lưu");
 			$("#dataAction").hide(100);
-			$("#dataActionBG").hide(100);
-		}, 1200);
+		}, 1100);
 		return true;
 	}
 	function autoTableInsert(){
 		var fields = ajax_field_all(".ad_field");
 		if(typeof fields=='boolean') return false;
+		viewDataAction();
+		
 		fields['rejectCreateData'] = '1';
 		fields['rejectTable'] = table;
 		
@@ -496,6 +494,8 @@ $(document).ready(function(e) {
 					var number = strSearch.indexOf("&id=") + 4;
 					strSearch = strSearch.slice(0, number);
 					window.history.pushState(null, 'Title', 'http://' + hostname + pathname + strSearch + id);
+					
+					endDataAction('<span class="message">' + data.message + '</span>');
 				}
 				return true;
 			}
@@ -536,7 +536,6 @@ $(document).ready(function(e) {
 	
 	$("#btnSubmitAjax").live("click", function(){
 		autoTableInsert();
-		//$(this).val("Đã lưu"); $(this).addClass("saved");
 	});
 	
 	//check users role
@@ -584,6 +583,8 @@ $(document).ready(function(e) {
 	function autoInsertRoleList(admin_id, id){
 		var fields = ajax_field_all(".insertListRole");
 		if(typeof fields=='boolean') return false;
+		viewDataAction();
+		
 		fields['rejectCreateData'] = '1';
 		fields['rejectTable'] = 'web_users_role';
 		fields['admin_id'] = admin_id;
@@ -595,7 +596,9 @@ $(document).ready(function(e) {
 			data: fields,
 			cache: false,
 			success: function(data){
-				console.log(data);
+				//console.log(data);
+				data = $.parseJSON(data);
+				endDataAction('<span class="message">' + data.message + '</span>');
 				return true;
 			}
 		});
@@ -621,6 +624,9 @@ $(document).ready(function(e) {
 				}
 			});
 		});
+		setTimeout(function(){
+			window.history.back();
+		}, 1500);
 	});
 	//end checks users role
 	
@@ -629,7 +635,7 @@ $(document).ready(function(e) {
 		$.ajax({
 			url: link_ajax,
 			type:'POST',
-			data:{viewFrmContent:id},
+			data:{viewFrmContent:1, id:id},
 			cache:false,
 			success: function(data){
 				$("#ajaxViewFrmContent").html(data);

@@ -528,17 +528,35 @@ $.fn.ajaxSubmit = function(options) {
 			//var exp = /<img[^>]+>/i;
 			//expResult = data.match(exp);
 			data = $.parseJSON(data);
-			console.log(data);
+			//console.log(data);
 			for(var key in data){
 				var itemData;
 				var row = data[key];
 				if(row.error==0){
 					itemData = '<div class="item">';
-					itemData += '<div class="imageSelect">Chọn làm đại diện</div>';
 					itemData += '<div class="img"><img src="' + row.img_url_thumb + row.img + '" /></div>';
-					itemData += '<div class="copylink">Copy link</div>';
-					itemData += '<div class="imageDelete"><img src="themes/admin/img/delete.gif" /></div>';
-					itemData += '<div class="data">{"img":"' + row.img + '", "img_url":"' + row.img_url + '"}</div>';
+					
+					if(row.from!='web_picture'){//upload web_picture từ nơi khác
+						itemData += '<div class="imageSelect">Chọn làm đại diện</div>';
+						itemData += '<div class="copylink">Copy link</div>';
+						itemData += '<div class="imageDelete"><img src="themes/admin/img/delete.gif" /></div>';
+						itemData += '<div class="data">{"img":"' + row.img + '", "img_url":"' + row.img_url + '"}</div>';
+					}else{//upload web_picture trực tiếp
+						var id = row.id;
+						$("input[name=id]").val(id);
+						
+						var hostname = $(location).attr('hostname');
+						var pathname = $(location).attr('pathname');
+						var strSearch = $(location).attr('search');
+						var number = strSearch.indexOf("&id=") + 4;
+						strSearch = strSearch.slice(0, number);
+						window.history.pushState(null, 'Title', 'http://' + hostname + pathname + strSearch + id);
+					
+						$("#img").val(row.img);
+						$("#optionImg").hide();
+						$("#btnSubmitAjax").val("Đã lưu");
+					}
+					
 					itemData += '</div>';
 				}else{
 					itemData = '<div class="item">';
