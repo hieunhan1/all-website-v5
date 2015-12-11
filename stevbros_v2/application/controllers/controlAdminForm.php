@@ -38,8 +38,12 @@ class controlAdminForm{
 		return $str;
 	}
 	
-	public function inputHidden($name, $value, $class=''){
-		$str = '<input type="hidden" name="'.$name.'" value="'.$value.'" id="'.$name.'" class="'.$class.'" />';
+	public function inputHidden($name, $value, $class='', $properties=NULL, $others=NULL){
+		$strPro='';
+		if($properties!=NULL){
+			$strPro = $this->properties($properties);
+		}
+		$str = '<input type="hidden" name="'.$name.'" value="'.$value.'" id="'.$name.'" class="'.$class.'" '.$strPro.' />'.$others;
 		return $str;
 	}
 	

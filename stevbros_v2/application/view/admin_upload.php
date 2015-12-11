@@ -36,10 +36,10 @@ if(isset($rowDetail['img'])){
 </div>
 <form id="imageForm" method="post" enctype="multipart/form-data" action="<?php echo CONS_BASE_URL;?>/ajax/">
     <input type="hidden" name="imageUpload" value="1" />
-    <input type="text" name="img_name" id="img_name" value="" />
-    <input type="text" name="img" value="<?php echo $img;?>" class="ad_field" id="img" />
-    <input type="text" name="table" value="<?php echo $table;?>" />
-    <input type="text" name="table_id" value="<?php echo $id;?>" />
+    <input type="hidden" name="img_name" id="img_name" value="" />
+    <input type="hidden" name="img" value="<?php echo $img;?>" class="ad_field" id="img" />
+    <input type="hidden" name="table" value="<?php echo $table;?>" />
+    <input type="hidden" name="table_id" value="<?php echo $id;?>" />
     <div class="checkbox">
     	<span class="b">Tự xử lý hình ảnh: </span>
     	<span><input type="radio" name="original" value="1" checked="checked" /> Yes</span>

@@ -129,6 +129,73 @@ if(isset($_POST['imageUpload'])){
 	return true;
 }
 
+if(isset($_POST['uploadWebPicture'])){
+	if(!isset($_POST['id']) || $_POST['id']==0 || $_POST['id']==''){
+		$id=0;
+		$type='create';
+	}else{
+		$id=$_POST['id']; settype($id, 'int');
+		if($id==0) return false;
+		$type='update';
+	}
+	$img_name = $c->_model->_changeDauNhay($_POST['name']);
+	$img = $c->_model->_changeDauNhay($_POST['img']);
+	$table = $c->_model->_changeDauNhay($_POST['table']);
+	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);
+	$original = $c->_model->_changeDauNhay($_POST['original']); // =0 xu ly img, =1 giu nguyen img
+	
+	$i=0; $arr=array();
+	foreach($_FILES['photos']['name'] as $name=>$value){
+		$filename = stripslashes($_FILES['photos']['name'][$name]);
+		$size=filesize($_FILES['photos']['tmp_name'][$name]);
+		$ext = getExtension($filename);
+		$ext = strtolower($ext);
+		
+		if(in_array($ext, $imageFormats)){
+			if($size < (IMAGE_MAX_SIZE*1024*1024)){
+				$i++;
+				$newName = time()+$i;
+				$newName = $newName.'.'.$ext;
+				if (move_uploaded_file($_FILES['photos']['tmp_name'][$name], IMAGE_UPLOAD_URL_TEMP.$newName)){
+					$img = array(
+						'img'=>$newName,
+						'img_upload_url_temp'=>IMAGE_UPLOAD_URL_TEMP,
+						'img_upload_url'=>IMAGE_UPLOAD_URL,
+						'img_upload_url_thumb'=>IMAGE_UPLOAD_URL_THUMB,
+						'img_url'=>CONS_BASE_URL.'/'.IMAGE_URL,
+						'img_url_thumb'=>IMAGE_URL_THUMB,
+						'original'=>$original,
+						'name'=>$img_name,
+						'error'=>0,
+						'message'=>'',
+						'from'=>'web_picture',
+					);
+					$result = imageProcess($img);
+					
+					//insert database
+					$type='create'; $id=0;
+					$table_insert = 'web_picture';
+					$fields = array('name', 'img', 'datetime', 'table', 'table_id');
+					$values = array($img['name'], $img['img'], date('Y-m-d H:i:s'), $table, $table_id);
+					$data = $c->_model->_getSql($type, $table_insert, $fields, $values, $id);
+					//end insert database
+					
+					$img['id'] = $data;
+					$arr[] = $img;
+				}else{
+					$arr[] = array('error'=>1, 'message'=>IMAGE_ERROR_MOVING);
+				}
+			}else{
+				$arr[] = array('error'=>1, 'message'=>IMAGE_LIMIT_SIZE);
+			}
+		}else{
+			$arr[] = array('error'=>1, 'message'=>'Unknown extension!');
+		}
+	}//end foreach
+	
+	echo $c->exportError($arr);
+	return true;
+}
 
 if(isset($_POST['imageDelete'])){
 	$type = $c->_model->_changeDauNhay($_POST['imageDelete']);
@@ -140,4 +207,3 @@ if(isset($_POST['imageDelete'])){
 	if(file_exists($image)) unlink($image);
 	return true;
 }
-/*end upload images*/
