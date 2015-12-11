@@ -88,10 +88,10 @@
 .adAction{}
 .adAction a{text-decoration:none}
 .adAction .data{display:none}
-.adAction .adView{}
+.adAction .adView{margin:0 2px}
 .adAction .adEdit{}
-.adAction .adDelete{}
-.adAction .adStatus{}
+.adAction .adDelete{margin:0 2px}
+.adAction .adStatus{margin:0 2px}
 /*end adAction*/
 
 /*adTop*/
@@ -123,7 +123,7 @@
 #adLeft{width:190px; float:left; background-color:#f2f2f2; border-right:solid 1px #CCC}
 .adLeftFixed{position:fixed; top:41px; z-index:10}
 
-#adMain{clear:both}
+#adMain{clear:both; overflow:auto}
 #adMain .active{color:#438eb9; font-weight:bold}
 #adMain ul{margin:0; padding:0}
 #adMain ul li{line-height:150%; border-bottom:solid 1px #DDD}

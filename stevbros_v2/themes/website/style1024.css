@@ -138,15 +138,22 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 
 #info-footer{clear:both; font-size:90%}
 #info-footer .title{line-height:150%; height:40px; color:#FFF; text-transform:uppercase; font-weight:100; letter-spacing:1px}
-#info-footer #bottomMenu{width:30%; float:left; margin-right:3%}
-#info-footer #bottomNews{width:30%; float:left}
-#info-footer #bottomLink{width:30%; float:right}
+#info-footer #bottomMenu{width:23%; float:left; margin-right:2%}
+#info-footer #bottomNews{width:23%; float:left; margin-right:2%}
+#info-footer #bottomLink{width:23%; float:left}
+#info-footer #bottomPhoto{width:23%; float:right}
 
 .bottomLink .li{list-style:none; height:22px; line-height:22px; overflow:hidden; margin-left:8px}
 .bottomLink .li a{color:#CCC; text-decoration:none}
 .bottomLink .li a:hover{color:#FFF}
 .bottomLink .li span{font-size:90%; padding-right:8px}
 /*end footer*/
+
+/*picture library*/
+.pictureLibrary{}
+.pictureLibrary .img{width:31%; height:60px; float:left; overflow:hidden; margin:0 2% 4px 0}
+.pictureLibrary .img img{max-width:100%}
+/*end picture library*/
 
 /*highlights*/
 #highlights{width:auto; text-align:center; padding:10px 25px; position:fixed; left:0; bottom:0; background-color:#179bd7; border-top-left-radius:10px; border-top-right-radius:10px}
@@ -205,6 +212,31 @@ input, textarea, select{color:#666; font-size:13px; font-family:Arial, Helvetica
 .home-about{clear:both; margin-bottom:-4px}
 .home-about .h1{color:#333; font-size:280%; font-weight:100; text-align:center; letter-spacing:1px; word-spacing:2px; margin-bottom:30px}
 .home-about img{max-width:100%}
+
+#whychooseus{width:48%; float:left}
+#whychooseus .h2{color:#333; font-size:240%; font-weight:100; margin:30px 0 20px 0}
+#whychooseus .tab{clear:both; margin-bottom:10px}
+#whychooseus .tab .h3{font-size:110%; font-weight:100; padding:15px; background-color:#FFF; border:solid 1px #CCC; cursor:pointer}
+#whychooseus .tab .h3:hover{color:#FFF; background-color:#179bd7; border:solid 1px #179bd7}
+#whychooseus .tab .active{color:#FFF; background-color:#179bd7; border:solid 1px #179bd7}
+#whychooseus .tab .close{width:auto; float:right; padding:0 5px 3px 5px; cursor:pointer}
+#whychooseus .tab .close:hover{color:#179bd7; background-color:#FFF; border-radius:3px}
+#whychooseus .tab .content{margin-bottom:30px; padding:0 15px}
+
+#postnew{width:48%; float:right; padding-top:20px}
+#postnew .box{height:220px; overflow:hidden; margin-bottom:20px}
+#postnew .box .img{width:40%; float:left; overflow:hidden; text-align:center}
+#postnew .box .img img{max-width:100%}
+#postnew .box .img .active{max-width:130%; margin-left:-30%; margin-top:-10%}
+#postnew .box .content{width:55%; float:right}
+#postnew .box .date{color:#999; font-style:italic; margin-bottom:8px}
+#postnew .box .link{color:#333}
+#postnew .box .h3{line-height:150%; font-weight:100; font-size:140%; padding:10px 0; border-top:solid 1px #CCC}
+#postnew .box .p{height:66px; overflow:hidden; line-height:22px; margin-bottom:20px}
+#postnew .box .view{color:#888; padding:7px 15px; text-transform:uppercase; border-radius:5px; letter-spacing:1px; word-spacing:2px; border:solid 1px #CCC}
+#postnew .box .view:hover{text-decoration:none; color:#FFF; background-color:#666; border:solid 1px #666}
+
+.lineHome{clear:both; height:1px; margin-bottom:30px; padding-bottom:30px; border-bottom:dashed 1px #CCC}
 /*end home*/
  
 /*list article*/
