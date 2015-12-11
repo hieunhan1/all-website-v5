@@ -4,6 +4,8 @@ include_once('config/configAdmin.php');
 include_once('controlUpload.php');
 
 if(isset($_POST['rejectStatus'])){
+	if($c->checkRole('edit')==false) return false;
+	
 	$table = $c->_model->_changeDauNhay($_POST['rejectTable']);
 	$data = $c->createEditData($table);
 	echo $data;
@@ -11,6 +13,8 @@ if(isset($_POST['rejectStatus'])){
 } 
 
 if(isset($_POST['rejectDetele'])){
+	if($c->checkRole('delete')==false) return false;
+	
 	$table = $c->_model->_changeDauNhay($_POST['table']);
 	$id = $c->_model->_changeDauNhay($_POST['id']); settype($id, "int");
 	if($table=='' || $id=='') return false;
@@ -145,22 +149,33 @@ if(isset($_POST['autoContentInsert'])){
 
 /*other*/
 if(isset($_POST['viewFrmContent'])){
-	$id = $c->_model->_changeDauNhay($_POST['viewFrmContent']);
-	if(!is_numeric($id)) return false;
-	
+	$id = $c->_model->_changeDauNhay($_POST['id']);
 	$cF = new controlAdminForm;
-	$dataContent = $c->_model->_webContentID($id);
 	
+	//-----web_content Second-----//
+	$rowContent = $c->_model->_webContentID($id);
+	
+	//dk de ajax table thu 2 den database
+	echo '<div id="tableSecond" style="display:none">web_content</div>'; //table database
+	if(isset($rowContent['id'])){
+		$value = '{"name":"id", "value":"'.$rowContent['id'].'"}';
+	}else{
+		$value = '{"name":"id", "value":"0"}';
+	}
+	echo '<div id="idFirst" style="display:none">'.$value.'</div>';
+	
+	$value = '{"name":"header_id", "value":"'.$id.'"}';
+	echo '<div id="idSecond" style="display:none">'.$value.'</div>';
+		
 	$name = 'content';
-	$value=$dataContent[$name];
+	if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
+	$name = 'ckeditor_content';
+	$properties = array();
+	$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
 	$others = $cF->ckeditorFull($name);
-	$data = $cF->textArea($name, $value, 'textarea', NULL, $others);
-	echo $data;
-	
-	$name = 'idContent';
-	$value = $dataContent['id'];
-	$data = $cF->inputHidden($name, $value);
-	echo $data;
+	$data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
+	echo $cF->displayDiv('', $data);
+	//-----end web_content Second-----//
 	
 	return true;
 }

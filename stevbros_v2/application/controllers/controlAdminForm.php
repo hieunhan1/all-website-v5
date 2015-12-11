@@ -98,8 +98,10 @@ class controlAdminForm{
 	}
 	
 	public function btnCancel($name, $label='Hủy'){
+		if(isset($_SESSION['linkBack'])) $link=$_SESSION['linkBack'];
+		else $link=CONS_LINK_ADMIN;
 		$properties = array();
-		$properties[] = array('propertie'=>'onClick', 'value'=>'window.location.href=\''.$_SESSION['linkBack'].'\'');
+		$properties[] = array('propertie'=>'onClick', 'value'=>'window.location.href=\''.$link.'\'');
 		return $this->inputButton($name, $label, 'adBtnLarge bgColorGray corner8', $properties);
 	}
 	

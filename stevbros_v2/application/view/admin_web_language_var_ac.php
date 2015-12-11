@@ -1,6 +1,5 @@
 <div class="clear30"></div>
 <?php
-echo $c->viewTableHtml($table);
 
 $cF = new controlAdminForm;
 
@@ -40,6 +39,10 @@ $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
 echo $cF->displayDiv('Thứ tự', $data);
+
+$name = 'lang';
+$data = $cF->inputHidden($name, $lang, 'ad_field');
+echo $data;
 
 $name = 'btnCancel';
 $btnCancel = $cF->btnCancel($name, 'Quay lại');

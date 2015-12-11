@@ -21,12 +21,13 @@ class pageAdmin{
 			if(isset($_GET['adminType'])) $_SESSION['adminType']=$_GET['adminType'];
 	}
 	
-	public function listUserRule($typeRule){
-		$data=$this->_model->_listAdmin($_SESSION['adminType']);
-		$str = array();
+	public function listViewCatalogAdmin(){
+		$adminRole = $_SESSION['adminRole'];
+		$arr = array();
+		$data = $this->_model->_listAdmin($_SESSION['adminType']);
 		foreach($data as $row){
-			if(preg_match("/,{$row['id']},/i", $typeRule)){
-				$str[] = array(
+			if(array_key_exists($row['id'], $adminRole)){
+				$arr[] = array(
 					'id'=>$row['id'],
 					'name'=>$row['name'],
 					'url'=>$row['url'],
@@ -36,7 +37,7 @@ class pageAdmin{
 				);
 			}
 		}
-		return $str;
+		return $arr;
 	}
 	
 	public function checkRule($idRule, $listRule){
@@ -228,16 +229,20 @@ $c = new pageAdmin;
 $lang = $c->language();
 $urlImg = $c->_model->_webTypeList();
 $navigator = $c->_model->_navigator($arrUrl['link']);
+$_SESSION['currentPageAdmin'] = $navigator['id'];
 $table = $navigator['table'];
 
 $error='';
-if(isset($_POST['btnLogin'])){
+if(isset($_POST['btnLogin']) && !isset($_SESSION['adminID'])){
 	$cUser = new controlUsers;
 	$user = trim($_POST['username']);
 	$pass = $_POST['password'];
 	$group=3;
 	
 	$error = $cUser->login($user, $pass, $group);
+	if($error==1){
+		$_SESSION['adminRole'] = $cUser->_model->_listRole($_SESSION['adminID']);
+	}
 }
 
 if(!isset($_SESSION['adminID'])){

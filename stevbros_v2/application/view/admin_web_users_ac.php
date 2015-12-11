@@ -1,7 +1,5 @@
 <div class="clear30"></div>
 <?php
-echo $c->viewTableHtml($table);
-
 $cF = new controlAdminForm;
 
 $id = $c->createEditData($table, $arrAction, $rowDetail);
@@ -41,19 +39,16 @@ echo $cF->displayDiv('Group', $data);
 $name = 'username';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'32');
-$properties[] = array('propertie'=>'check', 'value'=>'user');
-$properties[] = array('propertie'=>'message', 'value'=>'User chưa đúng');
 if($arrAction['disabled']!='') $properties[] = $arrAction['disabled'];
-$others = $c->messageChange('', $arrAction['change']);
 $value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $others);
-echo $cF->displayDiv('Username', $data.'<br /><span class="adError messageAlias"></span>');
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Username', $data);
 
 if($id==0){
 	echo $cF->displayDiv(' ', '<em class="label2 adMessage">Lưu ý: Khi tạo tài khoản password mặc định là "<b>'.CONS_ADMIN_PASSWORD_DEFAULT.'</b>"</em>');
 	$name = 'password';
 	$value = md5(CONS_ADMIN_PASSWORD_DEFAULT);
-	$data = $cF->inputHidden($name, $value);
+	$data = $cF->inputHidden($name, $value, 'ad_field');
 	echo $data;
 }else{
 	$name = 'password';

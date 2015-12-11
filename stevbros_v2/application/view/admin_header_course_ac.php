@@ -1,7 +1,5 @@
 <div class="clear30"></div>
 <?php
-echo $c->viewTableHtml($table);
-
 $cF = new controlAdminForm;
 
 $id = $c->createEditData($table, $arrAction, $rowDetail);

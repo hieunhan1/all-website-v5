@@ -106,16 +106,16 @@ class controlUsers{
 		//if( !preg_match("#[A-Z]+#", $password_new) ) $error.=CONS_MESSAGE_CHANGE_PASS_6;
 		
 		if($error!=''){
-			return '<p class="error">'.CONS_MESSAGE_CHANGE_PASS_7.'</p> <p class="error">'.$error.'</p>';
+			return '<p class="adError">'.CONS_MESSAGE_CHANGE_PASS_7.'</p> <p class="adError">'.$error.'</p>';
 		}else{
 			$user=$_SESSION['adminUser'];
 			$group=3;
 			$result = $this->_model->_check_admin_login($user, $password, $group);
 			if(count($result)!=1){
-				return '<p class="error">'.CONS_MESSAGE_CHANGE_PASS_8.'</p>';
+				return '<p class="adError">'.CONS_MESSAGE_CHANGE_PASS_8.'</p>';
 			}else{
 				$this->_model->_changePassword($user, $password_new);
-				return '<p class="message">'.CONS_MESSAGE_CHANGE_PASS_9.'</p>';
+				return '<p class="adMessage">'.CONS_MESSAGE_CHANGE_PASS_9.'</p>';
 			}
 		}
 	}

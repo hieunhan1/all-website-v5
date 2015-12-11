@@ -1,7 +1,5 @@
 <div class="clear30"></div>
 <?php
-echo $c->viewTableHtml($table);
-
 $cF = new controlAdminForm;
 
 $id = $c->createEditData($table, $arrAction, $rowDetail);
@@ -38,7 +36,7 @@ $name = 'position_id';
 if($rowDetail[$name]!=''){
 	$valueCheck=$rowDetail[$name];
 }else $valueCheck='';
-$values = $c->_model->_webPositionList(0);
+$values = $c->_model->_webPositionList(3);
 $data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxPosition', 1);
 $value=$rowDetail[$name];
 $data .= $cF->inputHidden($name, $value, 'ad_field listValuePosition');

@@ -26,6 +26,67 @@
 		</div>';
 	}
 	
+	//why choose us
+	$arr = array(
+		'lang' => $lang,
+		'parent' => 0,
+		'position_id' => 9,
+		'limit'=>'1',
+	);
+	$dataWhy = $c->_model->_headerData($arr);
+	if(count($dataWhy)>0){
+		$dataWhy = $dataWhy[0];
+		$str = '<div id="whychooseus"><h2 class="h2">'.$dataWhy['title'].'</h2>';
+		$arr = array(
+			'parent' => $dataWhy['id'],
+			'position_id' => 9,
+			'order'=>'`order`',
+		);
+		$i=0;
+		$data = $c->_model->_headerData($arr);
+		foreach($data as $row){
+			$i++;
+			$content = $c->_model->_content($row['id']);
+			$str.='<div class="tab">
+				<h3 class="h3">'.$row['name'].'</h3>
+				<div class="content viewpost">'.$content['content'].'</div>
+			</div>';
+		}
+		$str.='</div>';
+		echo $str;
+	}
+	
+	//bai viet moi
+	$arr = array(
+		'lang' => $lang,
+		'properties' => 2,
+		'order'=>'`datetime` DESC',
+		'limit'=>3,
+	);
+	$i=0;
+	$data = $c->_model->_headerData($arr);
+	if(count($data)>0){
+		echo '<div id="postnew">';
+		foreach($data as $row){
+			$i++;
+            $img = IMAGE_URL_THUMB.$row['img'];
+            if($row['img']=='') $img=CONS_IMAGE_DEFAULT;
+			if($i%2 == 1) $style='left'; else $style='right';
+            echo '<div class="box '.$style.'" id="'.$row['id'].'">
+                <div class="img effect"><a href="'.$row['name_alias'].'"><img src="'.$img.'" alt="'.$row['name'].'" /></a></div>
+				<div class="content">
+					<a href="'.$row['name_alias'].'" title="'.$row['name'].'" class="link"><h3 class="h3">'.$row['name'].'</h3></a>
+					<div class="p">'.$row['description'].'</div>
+					<a href="'.$row['name_alias'].'" class="view">'.$language_var['viewmore'].'</a>
+				</div>
+                <div class="clear1"></div>
+            </div>';
+		}
+		echo '</div>';
+	}
+	
+	echo '<div class="lineHome"></div>';
+	
 	//about stevbros
 	$arr = array(
 		'lang' => $lang,
@@ -45,5 +106,3 @@
 	}
 	?>
 </div>
-
-<div id="highlights"><a href="http://www.iappscode.com/stevbros/online">Luyện thi PMP mỗi ngày</a></div>

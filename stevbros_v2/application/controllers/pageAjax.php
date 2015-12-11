@@ -18,6 +18,14 @@ class pageAjax{
 		return $this->_model->_config($lang);
 	}
 	
+	public function checkRole($role){
+		$adminRole = $_SESSION['adminRole'];
+		$pageAdmin = $_SESSION['currentPageAdmin'];
+		$check = $adminRole[$pageAdmin][$role];
+		if($check==1) return true;
+		else return false;
+	}
+	
 	public function exportError($arr){
 		$str='';
 		if(!isset($arr[0])){
@@ -46,9 +54,11 @@ class pageAjax{
 	}
 	public function createEditData($table, $method='POST'){
 		if(!isset($_REQUEST['id']) || $_REQUEST['id']==0 || $_REQUEST['id']==''){
+			if($this->checkRole('create')==false) return false;
 			$id=0;
 			$type = 'create';
 		}else{
+			if($this->checkRole('edit')==false) return false;
 			$id=$_REQUEST['id']; settype($id, 'int');
 			if($id==0) return false;
 			$type = 'update';

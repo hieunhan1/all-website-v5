@@ -8,7 +8,7 @@ $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=
 $name = 'LIKE_position_id';
 $value = array();
 $value[] = array('id'=>'', 'name'=>'-- vị trí hiển thị --');
-$data = $c->_model->_webPositionList(0);
+$data = $c->_model->_webPositionList(3);
 foreach($data as $row){
 	$value[] = array('id'=>",{$row['id']},", 'name'=>$row['name']);
 }
@@ -16,8 +16,6 @@ if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
 
 echo $c->viewFormSearch($arrFrmSearch);
-
-echo $c->viewTableHtml($table);
 
 if($navigator['parameter']=='')
 	$para='?';
@@ -32,7 +30,6 @@ else
         <p class="fieldQuickView" type="txt" name="datetime">Ngày</p>
         <p class="fieldQuickView" type="txt" name="order">Thứ tự</p>
     </div>
-    <div id="urlImg" class="tagsHidden"><?php echo $urlImg[$navigator['url_img']]['url_img_thumb'];?></div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
             <th width="50">STT</th>
@@ -70,10 +67,10 @@ else
 					}
 					$str=rtrim($str, ', ');
 					echo '<div class="data">{'.$str.'}</div>';
-					echo '<a href="javascript:;" class="adStatus"><span class="adIconStatus corner5 status'.$row['status'].'"></span></a>
-					<a href="'.CONS_LINK_ADMIN.'/'.$navigator['url'].'/'.$para.'&id='.$row['id'].'" class="adEdit"><span class="adIconWhite corner5"></span></a>';
+					$link = CONS_LINK_ADMIN.'/'.$navigator['url'].'/'.$para.'&id='.$row['id'];
+					echo status_edit($row['status'], $link);
+					echo $btnDelete;
 					?>
-                	<a href="javascript:;" class="adDelete"><span class="adIconWhite corner5"></span></a>
                 </td>
             </tr>
         <?php }?>

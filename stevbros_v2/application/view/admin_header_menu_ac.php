@@ -1,7 +1,5 @@
 <div class="clear30"></div>
 <?php
-echo $c->viewTableHtml($table);
-
 $cF = new controlAdminForm;
 
 $id = $c->createEditData($table, $arrAction, $rowDetail);
@@ -136,7 +134,7 @@ $values = array();
 $values[] = array('name'=>'Doanh nghiệp', 'id'=>'1');
 $values[] = array('name'=>'Cá nhân', 'id'=>'2');
 $values[] = array('name'=>'No', 'id'=>'0');
-if($rowDetail[$name]=='') $valueCheck=1;
+if($rowDetail[$name]=='') $valueCheck=0;
 else $valueCheck=$rowDetail[$name];
 $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
 echo $cF->displayDiv('Có form đăng ký', $data);
@@ -162,10 +160,14 @@ $name = 'lang';
 $data = $cF->inputHidden($name, $lang, 'ad_field');
 echo $data;
 
-//echo '<tr><td colspan="2" id="ajaxViewFrmContent"></td></tr>';
+echo '<div id="ajaxViewFrmContent"></div>';
 
 $name = 'btnCancel';
 $btnCancel = $cF->btnCancel($name, 'Quay lại');
+
+$name = 'btnViewFrmContent';
+$btnContent = $cF->inputSubmit($name, 'Nhập nội dung', 'adBtnLarge bgColorGreen corner8');
+
 $name = 'btnSubmitAjax';
 $btnSubmit = $cF->inputSubmit($name, $arrAction['lable'], 'adBtnLarge bgColorBlue1 corner8');
-echo $cF->displayDiv(' ', $btnSubmit.$btnCancel);
+echo $cF->displayDiv(' ', $btnSubmit.$btnContent.$btnCancel);

@@ -18,7 +18,6 @@ $arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other
 
 echo $c->viewFormSearch($arrFrmSearch);
 
-echo $c->viewTableHtml($table);
 
 if($navigator['parameter']=='')
 	$para='?';

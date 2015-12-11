@@ -44,7 +44,9 @@ function SetFileField(fileUrl, data){
 </head>
 
 <body>
-
+<?php
+echo $c->viewTableHtml($table);
+?>
 <div id="wrapper">
     <div id="adTop">
         <div class="left iconLogin">Webmaster</div>
@@ -78,7 +80,7 @@ function SetFileField(fileUrl, data){
         <div id="navigator">
         	<a href=""><span class="adIconBlack adIconHome"></span></a>
             <span class="span">&gt;&gt;</span>
-            <?php echo '<a href="'.$navigator['url'].'/'.$navigator['parameter'].'" class="link">'.$navigator['name'].'</a>';?>
+            <?php echo '<a href="'.CONS_LINK_ADMIN.'/'.$navigator['url'].'/'.$navigator['parameter'].'" class="link">'.$navigator['name'].'</a>';?>
         </div>
         
 		<?php
@@ -100,8 +102,8 @@ function SetFileField(fileUrl, data){
         <div id="adMain">
         	<ul>
             	<?php
-				$controlAdmin = $c->listUserRule($_SESSION['adminRuleView']);
-				foreach($controlAdmin as $row){
+				$dataCatalogAdmin = $c->listViewCatalogAdmin();
+				foreach($dataCatalogAdmin as $row){
 					$link = CONS_LINK_ADMIN.'/'.$row['url'].'/'.$row['parameter'];
 					if($navigator['url']!=$row['url']) $actice=''; else $actice='class="active"';
 					if($row['ajax']!=1) $ajax=''; else $ajax='<span id="'.$row['url'].'" class="ajax_thongtin"></span>';
@@ -114,31 +116,73 @@ function SetFileField(fileUrl, data){
     
     <div id="adRight">
     	<?php
+		//view btn
+		$btnView=''; $btnCreate=''; $btnDelete='';
+		$roleView=0; $roleCreate=0; $roleEdit=0; $roleDelete=0;
+		
+		$adminRole = $_SESSION['adminRole'];
+		
+		if(isset($navigator)){
+			$roleView = $adminRole[$navigator['id']]['view'];
+			$roleCreate = $adminRole[$navigator['id']]['create'];
+			$roleEdit = $adminRole[$navigator['id']]['edit'];
+			$roleDelete = $adminRole[$navigator['id']]['delete'];
+		}
+		
+		if($roleView==1) $btnView = '<div class="quickView"></div>';
+		if($roleDelete==1) $btnDelete = '<a href="javascript:;" class="adDelete"><span class="adIconWhite corner5"></span></a>';
+		if($roleCreate==1){
+			if($navigator['parameter']=='') $idAdd='?&id=0'; else $idAdd=$navigator['parameter'].'&id=0';
+			$link = CONS_LINK_ADMIN.'/'.$navigator['url'].'/'.$idAdd;
+			$btnCreate = '<a href="'.$link.'" class="adCreate iconLogin">Thêm mới</a>';
+		}
+		if($roleEdit==1){
+			function status_edit($status, $link){
+				$str = '<a href="javascript:;" class="adStatus">
+					<span class="adIconStatus corner5 status'.$status.'"></span>
+				</a>
+				<a href="'.$link.'" class="adEdit">
+					<span class="adIconWhite corner5"></span>
+				</a>';
+				return $str;
+			}
+		}else{
+			function status_edit($status, $link){
+				return false;
+			}
+		}
+		//end view btn
+		
 		//header right
         if(!isset($_GET['id']) && $navigator['url']!='home' && $navigator['url']!='user'){
-			if($navigator['parameter']=='') $idAdd='?&id=0'; else $idAdd='&id=0';
-			$link = CONS_LINK_ADMIN.'/'.$navigator['url'].'/'.$navigator['parameter'].$idAdd;
 			echo '<div class="rightHeader">
-				<a href="'.$link.'" class="adCreate iconLogin">Thêm mới</a>
-				<div class="quickView"></div>
+				'.$btnCreate.$btnView.'
 				<div class="clear1"></div>
 			</div>';
 		}
 		//end header right
 		
-		$checkView = $c->checkRule($navigator['id'], $_SESSION['adminRuleView']);
-		$checkAction = $c->checkRule($navigator['id'], $_SESSION['adminRuleAction']);
-		if(!isset($_GET['id']) && $checkView==true){
-			$fileName = "admin_{$navigator['file']}.php";
-			if(file_exists('view/'.$fileName)) include_once($fileName);
-			else echo '<p class="error">'.ERROR_NOT_FOUND_FILE.$fileName.'</p>';
-		}elseif(isset($_GET['id']) && $checkAction==true){
-			$fileName = "admin_{$navigator['file']}_ac.php";
-			if(file_exists('view/'.$fileName)) include_once($fileName);
-			else echo '<p class="error">'.ERROR_NOT_FOUND_FILE.$fileName.'</p>';
-		}elseif($navigator['url']=='user'){
-			include_once('admin_account.php');
-		}else echo '<p class="error">Vui lòng liên hệ người quản trị để cấp quyền.</p>';
+		//content
+		//$c->_model->_print($_SERVER);
+		if( isset($adminRole[$navigator['id']]) ){
+			if( !isset($_GET['id']) && $roleView==1 ){
+				$_SESSION['linkBack'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+				$fileName = "admin_{$navigator['file']}.php";
+				if(file_exists('view/'.$fileName)) include_once($fileName);
+				else echo '<p class="error">'.ERROR_NOT_FOUND_FILE.$fileName.'</p>';
+			}else if(isset($_GET['id']) && $_GET['id']==0 && $roleCreate==1 ){
+				$fileName = "admin_{$navigator['file']}_ac.php";
+				if(file_exists('view/'.$fileName)) include_once($fileName);
+				else echo '<p class="error">'.ERROR_NOT_FOUND_FILE.$fileName.'</p>';
+			}else if(isset($_GET['id']) && $_GET['id']!=0 && $roleEdit==1 ){
+				$fileName = "admin_{$navigator['file']}_ac.php";
+				if(file_exists('view/'.$fileName)) include_once($fileName);
+				else echo '<p class="error">'.ERROR_NOT_FOUND_FILE.$fileName.'</p>';
+			}else{
+				echo '<p class="adError" style="padding:20px">'.CONS_MESSAGE_RULE_2.'</p>';
+			}
+		}
+		//end content
 		?>
         <div style="clear:both; height:30px"></div>
     </div>

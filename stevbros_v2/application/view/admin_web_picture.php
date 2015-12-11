@@ -5,17 +5,7 @@ $name = 'LIKE_name';
 if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mô tả');
 
-$name = 'type';
-$value = array();
-$value[0] = array('id'=>' ', 'name'=>'-- loại --');
-$value[1] = array('id'=>'1', 'name'=>'Catalog (danh mục)');
-$value[2] = array('id'=>'2', 'name'=>'Trang home');
-$value[3] = array('id'=>'3', 'name'=>'Khác');
-if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
-$arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
-
 echo $c->viewFormSearch($arrFrmSearch);
-
 
 if($navigator['parameter']=='')
 	$para='?';
@@ -24,40 +14,43 @@ else
 ?>
 <div id="adContent">
 	<div class="tagsHidden">
-        <p class="fieldQuickView" type="txt" name="id">ID</p>
-        <p class="fieldQuickView" type="txt" name="name">Mô tả</p>
-        <p class="fieldQuickView" type="txt" name="themes">Themes</p>
-        <p class="fieldQuickView" type="txt" name="type">Loại</p>
+    	<p class="fieldQuickView" type="img" name="img"></p>
+        <p class="fieldQuickView" type="txt" name="name">Name</p>
+        <p class="fieldQuickView" type="txt" name="nameFolder">Danh mục</p>
+        <p class="fieldQuickView" type="txt" name="datetime">Ngày</p>
     </div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
         	<th width="50">STT</th>
-            <th width="50">ID</th>
-            <th align="left">Mô tả</th>
-            <th width="20%" align="left">Loại</th>
-            <th width="15%" align="left">Themes website</th>
-            <th width="80">Thứ tự</th>
+            <th align="left">Name</th>
+            <th width="25%" align="left">Danh mục</th>
+            <th width="110">Ngày</th>
             <th width="100">Thao tác</th>
         </tr>
         <?php
 		$i = 0;
 		$arr = array(
-			//'lang'=>$lang,
-			'select'=>'`id`, `name`, `themes`, `type`, `order`, `status`',
-			'table'=>$table,
-			//'where'=>'',
-			'order'=>'`order`',
+			'lang'=>$lang,
+			'select'=>array(
+				'web_picture.id',
+				'web_picture.name',
+				'web_picture.img',
+				'web_picture.datetime',
+				'web_header.name as nameFolder',
+				'web_header.status',
+			),
+			'table'=>'`web_picture`, `web_header`',
+			'where'=>'AND `table_id`=`web_header`.`id` AND `type_id`=7',
+			'order'=>'web_header.name',
 		);
 		$data = $c->selectFromAll($arr);
 		foreach($data as $row){
 			$i++; ?>
             <tr class="row">
                 <td align="center"><?php echo $arr['startRow']+$i; ?></td>
-                <td align="center"><?php echo $row['id'];?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
-                <td><p class="height"><?php echo $value[$row['type']]['name'];?></p></td>
-                <td><p class="height"><?php echo $row['themes'];?></p></td>
-                <td align="center"><?php echo $row['order'];?></td>
+                <td><p class="height"><?php echo $row['nameFolder'];?></p></td>
+                <td><?php echo $c->viewDateTime($row['datetime']);?></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);

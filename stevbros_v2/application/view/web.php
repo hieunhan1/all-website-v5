@@ -32,6 +32,7 @@ echo $viewData;
 
 include_once('web_footer.php');
 ?>
+<div id="highlights"><a href="<?php echo CONS_BASE_URL;?>/online">Luyện thi PMP mỗi ngày</a></div>
 
 <script type="text/javascript" src="js/js_checks_field.js"></script>
 <script type="text/javascript" src="js/js_web.js"></script>

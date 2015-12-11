@@ -1,6 +1,5 @@
 <div class="clear30"></div>
 <?php
-echo $c->viewTableHtml($table);
 
 $cF = new controlAdminForm;
 
@@ -87,42 +86,6 @@ if($rowDetail[$name]=='') $valueCheck=1;
 else $valueCheck=$rowDetail[$name];
 $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
 echo $cF->displayDiv('Loại', $data);
-
-$name = 'view';
-$values = array();
-$values[] = array('name'=>'Yes', 'id'=>'1');
-$values[] = array('name'=>'No', 'id'=>'0');
-if($rowDetail[$name]=='') $valueCheck=1;
-else $valueCheck=$rowDetail[$name];
-$data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
-echo $cF->displayDiv('Button view', $data);
-
-$name = 'create';
-$values = array();
-$values[] = array('name'=>'Yes', 'id'=>'1');
-$values[] = array('name'=>'No', 'id'=>'0');
-if($rowDetail[$name]=='') $valueCheck=1;
-else $valueCheck=$rowDetail[$name];
-$data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
-echo $cF->displayDiv('Button create', $data);
-
-$name = 'edit';
-$values = array();
-$values[] = array('name'=>'Yes', 'id'=>'1');
-$values[] = array('name'=>'No', 'id'=>'0');
-if($rowDetail[$name]=='') $valueCheck=1;
-else $valueCheck=$rowDetail[$name];
-$data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
-echo $cF->displayDiv('Button edit', $data);
-
-$name = 'delete';
-$values = array();
-$values[] = array('name'=>'Yes', 'id'=>'1');
-$values[] = array('name'=>'No', 'id'=>'0');
-if($rowDetail[$name]=='') $valueCheck=1;
-else $valueCheck=$rowDetail[$name];
-$data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
-echo $cF->displayDiv('Button delete', $data);
 
 $name = 'order';
 $properties = array();

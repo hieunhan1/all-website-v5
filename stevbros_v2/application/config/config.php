@@ -1,4 +1,5 @@
 <?php
+include_once('configUpload.php');
 define('CONS_BASE_URL', 'http://localhost/all_v5/stevbros_v2');/*domain*/
 define('CONS_HOST', 'localhost');
 define('CONS_USER_DB', 'root');

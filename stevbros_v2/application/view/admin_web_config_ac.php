@@ -1,6 +1,5 @@
 <div class="clear30"></div>
 <?php
-echo $c->viewTableHtml($table);
 
 $cF = new controlAdminForm;
 

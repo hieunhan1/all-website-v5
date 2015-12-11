@@ -17,7 +17,6 @@ $arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other
 
 echo $c->viewFormSearch($arrFrmSearch);
 
-echo $c->viewTableHtml($table);
 
 if($navigator['parameter']=='')
 	$para='?';
@@ -31,7 +30,6 @@ else
         <p class="fieldQuickView" type="txt" name="parameter">Parameter</p>
         <p class="fieldQuickView" type="txt" name="file">File Include</p>
     </div>
-    <div id="urlImg" class="tagsHidden"><?php echo $urlImg[$navigator['url_img']]['url_img_thumb'];?></div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
         	<th width="50">STT</th>
@@ -73,10 +71,10 @@ else
 					}
 					$str=rtrim($str, ', ');
 					echo '<div class="data">{'.$str.'}</div>';
-					echo '<a href="javascript:;" class="adStatus"><span class="adIconStatus corner5 status'.$row['status'].'"></span></a>
-					<a href="'.CONS_LINK_ADMIN.'/'.$navigator['url'].'/'.$para.'&id='.$row['id'].'" class="adEdit"><span class="adIconWhite corner5"></span></a>';
+					$link = CONS_LINK_ADMIN.'/'.$navigator['url'].'/'.$para.'&id='.$row['id'];
+					echo status_edit($row['status'], $link);
+					echo $btnDelete;
 					?>
-                	<a href="javascript:;" class="adDelete"><span class="adIconWhite corner5"></span></a>
                 </td>
             </tr>
         <?php }?>

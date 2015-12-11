@@ -10,7 +10,7 @@ class modelUsers extends modelDB{
 	
 	public function _check_admin_login($user, $pass, $group){
 		$pass = md5($pass);
-		$sql = "SELECT `id`,`name`,`username`,`rule_view`,`rule_action` FROM `web_users` WHERE `username`='{$user}' AND `password`='{$pass}' AND `group_id`='{$group}' AND `status`=1 LIMIT 1";
+		$sql = "SELECT `id`,`name`,`username` FROM `web_users` WHERE `username`='{$user}' AND `password`='{$pass}' AND `group_id`='{$group}' AND `status`=1 LIMIT 1";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[] = $row;
@@ -99,6 +99,23 @@ class modelUsers extends modelDB{
 		return true;
 	}
 	/*end reset pass*/
+	
+	/*list Role*/
+	public function _listRole($user_id){
+		$sql = "SELECT `action_view`, `action_create`, `action_edit`, `action_delete`, `admin_id` FROM `web_users_role` WHERE `status`=1 AND `users_id`='{$user_id}' ORDER BY `admin_id`";
+		if(!$result = $this->db->query($sql)) die($this->db->error);
+		$data = array();
+		while($row = $result->fetch_assoc()){
+			$data[$row['admin_id']] = array(
+				'view'=>$row['action_view'],
+				'create'=>$row['action_create'],
+				'edit'=>$row['action_edit'],
+				'delete'=>$row['action_delete'],
+			);
+		}
+		return $data;
+	}
+	/*end list Role*/
 	
 	/*register*/
 	public function _checkUserEmail($data){
