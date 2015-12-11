@@ -253,7 +253,7 @@
 #imageUpload .imageSelect{width:90px; font-size:9px; text-align:center; color:#FFF; background-color:#333; padding:3px 0; position:absolute; cursor:pointer; opacity:0.7}
 #imageUpload .item{width:90px; height:95px; float:left; overflow:hidden; margin:0 10px 10px 0; background-color:#FFF; border:solid 1px #CCC}
 #imageUpload .img{height:60px; line-height:150%; text-align:center; overflow:hidden; text-align:center; margin:3px 3px 6px 3px}
-#imageUpload .img img{height:60px}
+#imageUpload .img img{max-height:100%}
 #imageUpload .copylink{width:auto; float:left; font-size:90%; color:#FFF; margin:0 0 0 3px; padding:3px 5px; background-color:#2283c5; border:solid 2px #2283c5; border-radius:3px; cursor:pointer}
 #imageUpload .copylink:hover{background-color:#045e9f}
 #imageUpload .imageDelete{width:auto; float:right; margin-right:3px; cursor:pointer}
