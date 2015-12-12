@@ -240,7 +240,7 @@ class modelDB{
 				$id = $this->db->insert_id;
 				$backup->_backupData($id, $name, $table);
 			}
-			$backup->_insertWebLog($name, $type, $table, $_SESSION['adminUser'], $content, $_SESSION['adminLang']);
+			$backup->_insertWebLog($name, $type, $table, $id, $_SESSION['adminUser'], $content, $_SESSION['adminLang']);
 			return $id;
 		}
 	}

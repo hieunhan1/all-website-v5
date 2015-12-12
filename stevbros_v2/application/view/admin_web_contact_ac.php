@@ -49,14 +49,17 @@ $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $propertie
 echo $cF->displayDiv('Phone', $data);
 
 $name = 'address';
-$properties = array();
-$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
-$value=$rowDetail[$name];
-$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
-echo $cF->displayDiv('Address', $data);
+if($rowDetail[$name]!=''){
+	$properties = array();
+	$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
+	$value=$rowDetail[$name];
+	$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
+	echo $cF->displayDiv('Address', $data);
+}
 
+$name = 'message';
+if(isset($rowDetail[$name])) $value=$rowDetail[$name]; else $value='';
 $name = 'ckeditor_message';
-if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
 $others = $cF->ckeditorCustom($name);
 $data = $cF->textArea($name, $value, 'textarea', NULL, $others);
 echo $cF->displayDiv('Lời nhắn', $data);

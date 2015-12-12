@@ -4,6 +4,10 @@
 #wrapper{width:100%}
 .container{width:100%}
 
+.seo{clear:both; margin-bottom:10px; padding:10px 0 1px 0; background-color:#FFD}
+
+.ajax_thongtin{color:#FFF; font-size:85%; margin-left:5px; padding:2px 5px; border-radius:100px}
+
 /*viewpost*/
 .viewpost{line-height:180%; font-size:100%}
 .viewpost h1{color:#333; line-height:150%; font-size:240%; font-weight:100; margin-bottom:5px; padding-bottom:15px; border-bottom:dashed 3px #CCC}
@@ -256,7 +260,7 @@
 #imageUpload .img img{max-height:100%}
 #imageUpload .copylink{width:auto; float:left; font-size:90%; color:#FFF; margin:0 0 0 3px; padding:3px 5px; background-color:#2283c5; border:solid 2px #2283c5; border-radius:3px; cursor:pointer}
 #imageUpload .copylink:hover{background-color:#045e9f}
-#imageUpload .imageDelete{width:auto; float:right; margin-right:3px; cursor:pointer}
+#imageUpload .imageDelete{width:auto; float:right; margin:2px 3px 0 0; cursor:pointer}
 #imageUpload .data{display:none}
 /*end upload img*/
 

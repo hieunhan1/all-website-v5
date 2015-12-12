@@ -1,14 +1,30 @@
-<div id="clearLogs" style="width:450px; text-align:center; font-weight:bold; color:#FFF; text-transform:uppercase; margin:0 auto 5px auto; padding:8px; background-color:#03F; border-radius:5px; cursor:pointer">Xóa logs và chỉ lưu lại trong 30 ngày, ấn vào đây.</div>
+<div class="btnClearLogs adBtnSmall bgColorRed corner8" style="margin-bottom:10px">Xóa logs, ấn vào đây.</div>
+
 <script type="text/javascript">
 $(document).ready(function(e) {
-    $("#clearLogs").click(function(){
+	$(".btnClearLogs").click(function(){
+		var str = '<div class="process">';
+			str+= '<p>Xóa logs và chỉ lưu logs trong 30 ngày gần đây?</p> <p class="clear20"></p>';
+			str+= '<p> <span id="clearLogs" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 closeDataAction">No</span> </p>';
+			str+= '<p class="clear1"></p> </div>';
+		$("#dataActionContent").html(str);
+		$("#dataAction").show(200);
+	});
+    $("#clearLogs").live("click", function(){
 		$.ajax({
 			url: 'ajax/',
 			type:'POST',
 			data:{clearLogs:31},
 			cache:false,
-			success: function(data) {
-				if(data=="1") alert('Xóa logs thành công.');
+			success: function(data) { console.log(data);
+				if(data==""){
+					var str = '<div class="process adMessage">Xóa logs thành công. Vui lòng đợi 3s để tải lại trang.</div>';
+					$("#dataActionContent").html(str);
+					$("#dataAction").show(200);
+					setTimeout(function(){
+						window.location.reload();
+					}, 3000);
+				}
 				return true;
 			}
 		});
@@ -28,7 +44,7 @@ $value = array();
 $value[] = array('id'=>'', 'name'=>'-- chọn hành động --');
 $value[] = array('id'=>'create', 'name'=>'Create - Hành động tạo mới');
 $value[] = array('id'=>'update', 'name'=>'Update - Hành động cập nhật');
-$value[] = array('id'=>'status', 'name'=>'Status - Thay đổi trạng thái');
+//$value[] = array('id'=>'status', 'name'=>'Status - Thay đổi trạng thái');
 $value[] = array('id'=>'delete', 'name'=>'Delete - Hành động xóa');
 if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
@@ -52,10 +68,10 @@ else
     	<tr class="header">
         	<th width="50">STT</th>
             <th align="left">Mô tả</th>
-            <th width="100" align="left">Action</th>
-            <th width="140" align="left">Table</th>
-            <th width="120" align="left">Date</th>
-            <th width="100" align="left">User</th>
+            <th width="80" align="left">Action</th>
+            <th width="100" align="left">Table</th>
+            <th width="110" align="left">Date</th>
+            <th width="80" align="left">User</th>
             <th width="100">Thao tác</th>
         </tr>
         <?php

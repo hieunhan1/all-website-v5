@@ -106,7 +106,9 @@ echo $c->viewTableHtml($table);
 				foreach($dataCatalogAdmin as $row){
 					$link = CONS_LINK_ADMIN.'/'.$row['url'].'/'.$row['parameter'];
 					if($navigator['url']!=$row['url']) $actice=''; else $actice='class="active"';
-					if($row['ajax']!=1) $ajax=''; else $ajax='<span id="'.$row['url'].'" class="ajax_thongtin"></span>';
+					if($row['ajax']!=1) $ajax='';
+					else $ajax='<span class="ajax_thongtin" id="'.$row['table'].'"></span>';
+					
 					echo '<li><a href="'.$link.'" '.$actice.'><span class="adIconBlack '.$row['img'].'"></span>'.$row['name'].$ajax.'</a></li>';
 				}
 				?>

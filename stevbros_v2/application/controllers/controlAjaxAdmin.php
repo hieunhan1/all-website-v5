@@ -17,8 +17,22 @@ if(isset($_POST['rejectDetele'])){
 	
 	$table = $c->_model->_changeDauNhay($_POST['table']);
 	$id = $c->_model->_changeDauNhay($_POST['id']); settype($id, "int");
+	
+	if($table=='web_picture'){
+		include_once('config/configUpload.php');
+		$ad = new modelAdmin();
+		$data = $ad->_viewEditDetail($table, $id);
+		if(count($data) > 0){
+			$urlImage = IMAGE_UPLOAD_URL.$data['img'];
+			$urlImageThumb = IMAGE_UPLOAD_URL_THUMB.$data['img'];
+			if(file_exists($urlImageThumb)) unlink($urlImageThumb);
+			if(file_exists($urlImage)) unlink($urlImage);
+		}
+	}
+	
 	if($table=='' || $id=='') return false;
 	$c->_model->_deleteOne($table, $id);
+	
 	return true;
 }
 
@@ -55,6 +69,7 @@ if(isset($_POST['checkAlias'])){
 	return true;
 }
 
+//phan quyen role
 if(isset($_POST['checksUsersRole'])){
 	$users_id = $c->_model->_changeDauNhay($_POST['users_id']); settype($users_id, 'int');
 	$admin_id = $c->_model->_changeDauNhay($_POST['admin_id']); settype($admin_id, 'int');
@@ -92,6 +107,7 @@ if(isset($_POST['rejectInsertListRole'])){
 		return false;
 	}
 }
+//end phan quyen role
 
 if(isset($_POST['ajaxRestore'])){
 	$id=$_POST['ajaxRestore']; settype($id, "int");
@@ -103,8 +119,7 @@ if(isset($_POST['clearLogs'])){
 	$soNgayLuuLai = $_POST['clearLogs']; settype($soNgayLuuLai, "int");
 	if($soNgayLuuLai < 30) return false;
 	$logs = new modelBackupRestore;
-	$data = $logs->_clearLogs($soNgayLuuLai);
-	echo 1;
+	$data = $logs->_clearLogs(0);
 	return true;
 }
 

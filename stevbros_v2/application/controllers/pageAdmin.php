@@ -31,6 +31,7 @@ class pageAdmin{
 					'id'=>$row['id'],
 					'name'=>$row['name'],
 					'url'=>$row['url'],
+					'table'=>$row['table'],
 					'parameter'=>$row['parameter'],
 					'img'=>$row['img'],
 					'ajax'=>$row['ajax'],

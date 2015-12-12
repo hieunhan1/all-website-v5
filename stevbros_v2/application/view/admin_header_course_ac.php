@@ -51,6 +51,7 @@ $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $others);
 echo $cF->displayDiv('Alias', $data.'<br /><span class="adError messageAlias"></span>');
 
+echo '<div class="seo">';
 $name = 'title';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'200');
@@ -73,6 +74,14 @@ $value=$rowDetail[$name];
 $others = $c->messageChange(CONS_ADMIN_AUTO_TAGS);
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $others);
 echo $cF->displayDiv('Tags (keyword)', $data);
+echo '</div>';
+
+$name = 'order';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'3');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Thứ tự', $data);
 
 //upload images
 $data = ob_start();
@@ -96,8 +105,9 @@ echo '<div id="idFirst" style="display:none">'.$value.'</div>';
 $value = '{"name":"header_id", "value":"'.$id.'"}';
 echo '<div id="idSecond" style="display:none">'.$value.'</div>';
 	
-$name = 'ckeditor_more';
+$name = 'more';
 if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
+$name = 'ckeditor_more';
 $others = $cF->ckeditorCustom($name);
 $data = $cF->textArea($name, $value, 'textarea', NULL, $others);
 echo $cF->displayDiv('Đặc tả', $data);
@@ -111,13 +121,6 @@ $others = $cF->ckeditorFull($name);
 $data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
 echo $cF->displayDiv('', $data);
 //-----end web_content Second-----//
-
-$name = 'order';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'3');
-$value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
-echo $cF->displayDiv('Thứ tự', $data);
 
 if(isset($_GET['type_id'])) $type_id=$_GET['type_id']; else $type_id='';
 $name = 'type_id';

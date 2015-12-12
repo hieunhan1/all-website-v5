@@ -69,6 +69,13 @@ if(isset($_POST['imageUpload'])){
 	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);
 	
 	$i=0; $arr=array();
+	
+	if($table='' || $table_id=='' || $table_id==0){
+		$arr[] = array('error'=>1, 'message'=>'Vui lòng thử lại.');
+		echo $c->exportError($arr);
+		return false;
+	}
+	
 	foreach($_FILES['photos']['name'] as $name=>$value){
 		$filename = stripslashes($_FILES['photos']['name'][$name]);
 		$size=filesize($_FILES['photos']['tmp_name'][$name]);
@@ -198,12 +205,36 @@ if(isset($_POST['uploadWebPicture'])){
 }
 
 if(isset($_POST['imageDelete'])){
-	$type = $c->_model->_changeDauNhay($_POST['imageDelete']);
-	$urlImg = $c->_model->_menuTypeOne($type);
-	$name = $c->_model->_changeDauNhay($_POST['name']);
-	$image = '../'.$urlImg['url_img'].$name;
-	$imageThumb = '../'.$urlImg['url_img_thumb'].$name;
-	if(file_exists($imageThumb)) unlink($imageThumb);
-	if(file_exists($image)) unlink($image);
-	return true;
+	$img = $c->_model->_changeDauNhay($_POST['img']);
+	$check = $c->_model->_changeDauNhay($_POST['check']);
+	if(strlen($img) < 14){
+		$arr = array('error'=>1, 'message'=>'Error');
+		echo $c->exportError($arr);
+		return false;
+	}
+	$urlImage = IMAGE_UPLOAD_URL.$img;
+	$urlImageThumb = IMAGE_UPLOAD_URL_THUMB.$img;
+	
+	$data = $c->_model->_checksWebPicture($img);
+	if(count($data) > 0){
+		$table = $data['table'];
+		$table_id = $data['table_id'];
+		if($check==1){
+			$c->_model->_updateImgTable($table, $table_id);
+		}
+		
+		$c->_model->_deleteImgTable($data['id']);
+		
+		if(file_exists($urlImageThumb)) unlink($urlImageThumb);
+		if(file_exists($urlImage)) unlink($urlImage);
+		
+		$arr = array('error'=>0, 'message'=>'Xóa thành công', 'table'=>$table, 'table_id'=>$table_id);
+		echo $c->exportError($arr);
+		
+		return true;
+	}else{
+		$arr = array('error'=>1, 'message'=>'Không tìm thấy hình này');
+		echo $c->exportError($arr);
+		return false;
+	}
 }

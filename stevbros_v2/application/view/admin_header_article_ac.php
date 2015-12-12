@@ -51,14 +51,15 @@ $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $others);
 echo $cF->displayDiv('Alias', $data.'<br /><span class="adError messageAlias"></span>');
 
-$name = 'url';
+/*$name = 'url';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'200');
 $others = $c->messageChange(CONS_ADMIN_AUTO_URL);
 $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $others);
-echo $cF->displayDiv('Link', $data);
+echo $cF->displayDiv('Link', $data);*/
 
+echo '<div class="seo">';
 $name = 'title';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'200');
@@ -81,6 +82,14 @@ $value=$rowDetail[$name];
 $others = $c->messageChange(CONS_ADMIN_AUTO_TAGS);
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $others);
 echo $cF->displayDiv('Tags (keyword)', $data);
+echo '</div>';
+
+$name = 'order';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'3');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Thứ tự', $data);
 
 /*$name = 'code';
 $properties = array();
@@ -141,13 +150,6 @@ $others = $cF->ckeditorFull($name);
 $data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
 echo $cF->displayDiv('', $data);
 //-----end web_content Second-----//
-
-$name = 'order';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'3');
-$value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
-echo $cF->displayDiv('Thứ tự', $data);
 
 if(isset($_GET['type_id'])) $type_id=$_GET['type_id']; else $type_id='';
 $name = 'type_id';

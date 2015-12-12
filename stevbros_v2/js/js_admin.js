@@ -93,12 +93,12 @@ $(document).ready(function(e) {
 	
 	//main
 	$("#adMain li a").mouseover(function(){
-		$(this).children("span").addClass("adIconWhite");
-		$(this).children("span").removeClass("adIconBlack");
+		$(this).children("span:first").addClass("adIconWhite");
+		$(this).children("span:first").removeClass("adIconBlack");
 	});
 	$("#adMain li a").mouseout(function(){
-		$(this).children("span").addClass("adIconBlack");
-		$(this).children("span").removeClass("adIconWhite");
+		$(this).children("span:first").addClass("adIconBlack");
+		$(this).children("span:first").removeClass("adIconWhite");
 	});
 	//end main
 	
@@ -169,7 +169,11 @@ $(document).ready(function(e) {
 				data:{ajaxNumberItem:1, table:table},
 				cache:false,
 				success: function(data) {
-					$("#" + table).html(" (" + data + ")");
+					if(data!="0"){
+						$("#" + table).html(data);
+						$("#" + table).css("background-color", "#F00");
+					}
+					else $("#" + table).hide();
 				}
 			});
 		});
@@ -350,7 +354,7 @@ $(document).ready(function(e) {
 	/*end checks box*/
 	
 	/*upload images*/
-	$('#imagePhoto, #uploadWebPicture').die('click').live('change', function(){
+	function uploadImage(){
 		$("#imageForm").ajaxForm({target: '#imageUpload',
 			beforeSubmit:function(){
 				//console.log();
@@ -369,30 +373,99 @@ $(document).ready(function(e) {
 			}
 		}).submit();
 		return true;
+	}
+	
+	$('#imagePhoto').die('click').live('change', function(){
+		var table_id = $("input[name=table_id]").val();
+		if(table_id=='' || table_id=='0'){
+			if(autoTableInsert()==false){
+				$("#imagePhoto").val('');
+				var str = '<div class="process adError">Vui lòng nhập dữ liệu trước khi upload.</div>';
+				$("#dataActionContent").html(str);
+				$("#dataAction").show(100);
+				setTimeout(function(){
+					$("#dataAction").hide(100);
+				}, 2000);
+				return false;
+			}
+		}
+		setTimeout(function(){
+			uploadImage();
+		}, 500);
+	});
+	
+	$('#uploadWebPicture').die('click').live('change', function(){
+		var name = $("#name").val();
+		var table_id = $("#table_id").val();
+		if(name.length<2 || table_id=='' || table_id=='0'){
+			if(autoTableInsert()==false){
+				$("#imagePhoto").val('');
+				var str = '<div class="process adError">Vui lòng nhập dữ liệu trước khi upload.</div>';
+				$("#dataActionContent").html(str);
+				$("#dataAction").show(100);
+				setTimeout(function(){
+					$("#dataAction").hide(100);
+				}, 2000);
+				return false;
+			}
+		}
+		setTimeout(function(){
+			uploadImage();
+		}, 500);
 	});
 	
 	$(".imageDelete").live("click", function(){
-		var table = $("input[name=imageUpload]").val();
-		var name = $(this).parent().attr("name");
-		var message = "Bạn có muốn xóa hình này?";
-		var arr_img = $("input[name=arr_img]").val();
-		var img = $("input[name=img]").val();
-		if(confirm(message)){
-			$(this).parent().hide();
-			$.ajax({
-				url: 'ajax/',
-				type:'POST',
-				data:{imageDelete:table, name:name},
-				cache:false,
-				success: function(data){ //$("body").html(data);
-					if(arr_img){
-						arr_img = arr_img.replace(name + ',', '');
-						$("input[name=arr_img]").val(arr_img);
-					}
-					if(name==img) $("input[name=img]").val('');
-				}
-			});
+		var data = $(this).parent().children(".data").html();
+		data = $.parseJSON(data);
+		$("#imageUpload .item").removeClass("selectImgDel");
+		$(this).parent().addClass("selectImgDel");
+		//console.log(data);
+		
+		var str = '<div class="process">';
+			str+= '<p>Bạn có muốn xóa hình "<span id="imgDel">' + data.img + '</span>"?</p> <p class="clear20"></p>';
+			str+= '<p> <span class="adBtnSmall bgColorRed corner5 btnImgDel">Yes</span> <span class="adBtnSmall bgColorGray corner5 closeDataAction">No</span> </p>';
+			str+= '<p class="clear1"></p> </div>';
+		$("#dataActionContent").html(str);
+		$("#dataAction").show(100);
+		return true;
+	});
+	
+	$(".btnImgDel").live("click", function(){
+		var checkImg='';
+		var img = $("#img").val();
+		var imgDel = $("#imgDel").html();
+		if(img != imgDel) checkImg=0;
+		else{
+			checkImg=1;
+			$("#img").val("");
 		}
+		$.ajax({
+			url: link_ajax,
+			type:'POST',
+			data:{imageDelete:1, img:imgDel, check:checkImg},
+			cache:false,
+			success: function(data){
+				data = $.parseJSON(data);
+				if(data.error==0){
+					$(".selectImgDel").hide();
+					$("#dataActionContent").html('<div class="process adMessage">' + data.message + '</div>');
+					setTimeout(function(){
+						$("#dataActionContent").html('');
+					}, 2000);
+					$("#dataAction").hide(2200);
+				}else{
+					$("#dataActionContent").html('<div class="process adError">' + data.message + '</div>');
+					setTimeout(function(){ $("#dataActionContent").html(''); }, 2000);
+					$("#dataAction").hide(2200);
+				}
+				return true;
+			}
+		});
+	});
+	
+	$(".closeDataAction, #dataActionBG").live("click", function(){
+		setTimeout(function(){ $("#dataActionContent").html(''); }, 200);
+		$("#dataAction").hide(200);
 	});
 	
 	$(".imageSelect").live("click", function(){

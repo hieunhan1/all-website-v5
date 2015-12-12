@@ -534,10 +534,14 @@ $.fn.ajaxSubmit = function(options) {
 				var row = data[key];
 				if(row.error==0){
 					itemData = '<div class="item">';
+					
+					if(row.from!='web_picture'){
+						itemData += '<div class="imageSelect">Chọn làm đại diện</div>';
+					}
+					
 					itemData += '<div class="img"><img src="' + row.img_url_thumb + row.img + '" /></div>';
 					
 					if(row.from!='web_picture'){//upload web_picture từ nơi khác
-						itemData += '<div class="imageSelect">Chọn làm đại diện</div>';
 						itemData += '<div class="copylink">Copy link</div>';
 						itemData += '<div class="imageDelete"><img src="themes/admin/img/delete.gif" /></div>';
 						itemData += '<div class="data">{"img":"' + row.img + '", "img_url":"' + row.img_url + '"}</div>';
@@ -559,6 +563,7 @@ $.fn.ajaxSubmit = function(options) {
 					
 					itemData += '</div>';
 				}else{
+					$("#imagePhoto").val('');
 					itemData = '<div class="item">';
 					itemData += '<div class="img">' + row.message + '</div>';
 					itemData += '</div>';
