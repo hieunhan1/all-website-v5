@@ -71,21 +71,18 @@ $(document).ready(function($){
 	
 	//why choose us
 	$("#whychooseus .tab .content").hide();
-	$("#whychooseus .tab .h3:first").addClass("active");
 	$("#whychooseus .tab .content:first").show();
-	$("#whychooseus .tab").click(function(){
-		$("#whychooseus .tab").children(".h3").removeClass("active");
-		$(this).children(".h3").addClass("active");
-		
+	$("#whychooseus .tab .h3").click(function(){
 		$("#whychooseus .tab .content").hide(200);
-		$(this).children(".content").show(200);
+		$(this).parent().children(".content").show(200);
 	});
 	
+	$(".register").html('Yêu cầu dịch vụ');
 	$(".register").click(function(){
 		var url = $(location).attr('pathname');
-		$(this).attr("href", url + "#register");
+		$(this).attr("href", url + "#request-for-service");
 		
-		$("#frmRegister input:first").select();
+		$("input[name=name]").focus();
 		return true;
 	});//btn register chuyen link
 	
@@ -104,7 +101,7 @@ $(document).ready(function($){
 			type: 'post',
 			data: fields,
 			cache:false,
-			success: function(data){ console.log(data);
+			success: function(data){ //console.log(data);
 				data = $.parseJSON(data);
 				var error = data.error;
 				var message = data.message;
@@ -130,6 +127,27 @@ $(document).ready(function($){
 		$(".pdf").html(data);
 		return true;
 	}
+	
+	$("#opinion .view, #right .itemRight .name").click(function(){
+		var id = $(this).parents(".box").attr("id_o");
+		
+		$.ajax({ 	
+			url: 'ajax',
+			type:'POST',
+			data:{opinionDetail:id},
+			cache:false,
+			success: function(data) { //console.log();
+				$("#opinionDetail .content").html(data);
+				$("#opinionDetail").show(200);
+				return true;
+			}
+		});
+	});
+	
+	$(".close").click(function(){
+		$("#opinionDetail").hide(200);
+		return true;
+	});
 	
 	//view mobile
 	function viewMobile480(){

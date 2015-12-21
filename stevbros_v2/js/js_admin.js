@@ -31,6 +31,16 @@ function remove_ky_tu_dac_biet(alias, dau_thaythe){
 	str= str.replace(/^\ +|\ +$/g,""); //cắt bỏ ký tự - ở đầu và cuối chuỗi
 	return str;
 }
+function viewDataAction(str){
+	$("#dataActionContent").html('<div class="process">' + str + '</div>');
+	$("#dataAction").show(200);
+	return true;
+}
+function closeDataAction(){
+	$("#dataActionContent").html('<div class="process"></div>');
+	$("#dataAction").hide(200);
+	return true;
+}
 
 $(document).ready(function(e) {
 	//fixed width, height
@@ -362,7 +372,7 @@ $(document).ready(function(e) {
 				$("#imageloadbutton").hide();
 			},
 			success:function(){ 
-				//console.log(data);
+				$("#imagePhoto").val('');
 				$("#imageloadstatus").hide();
 				$("#imageloadbutton").show();
 			},
@@ -380,12 +390,8 @@ $(document).ready(function(e) {
 		if(table_id=='' || table_id=='0'){
 			if(autoTableInsert()==false){
 				$("#imagePhoto").val('');
-				var str = '<div class="process adError">Vui lòng nhập dữ liệu trước khi upload.</div>';
-				$("#dataActionContent").html(str);
-				$("#dataAction").show(100);
-				setTimeout(function(){
-					$("#dataAction").hide(100);
-				}, 2000);
+				var str = '<b class="adError">Vui lòng nhập dữ liệu trước khi upload.</b>';
+				viewDataAction(str);
 				return false;
 			}
 		}
@@ -400,12 +406,8 @@ $(document).ready(function(e) {
 		if(name.length<2 || table_id=='' || table_id=='0'){
 			if(autoTableInsert()==false){
 				$("#imagePhoto").val('');
-				var str = '<div class="process adError">Vui lòng nhập dữ liệu trước khi upload.</div>';
-				$("#dataActionContent").html(str);
-				$("#dataAction").show(100);
-				setTimeout(function(){
-					$("#dataAction").hide(100);
-				}, 2000);
+				var str = '<b class="adError">Vui lòng nhập dữ liệu trước khi upload.</b>';
+				viewDataAction(str);
 				return false;
 			}
 		}
@@ -421,12 +423,10 @@ $(document).ready(function(e) {
 		$(this).parent().addClass("selectImgDel");
 		//console.log(data);
 		
-		var str = '<div class="process">';
-			str+= '<p>Bạn có muốn xóa hình "<span id="imgDel">' + data.img + '</span>"?</p> <p class="clear20"></p>';
+		var str = '<p>Bạn có muốn xóa hình "<b id="imgDel">' + data.img + '</b>"?</p> <p class="clear20"></p>';
 			str+= '<p> <span class="adBtnSmall bgColorRed corner5 btnImgDel">Yes</span> <span class="adBtnSmall bgColorGray corner5 closeDataAction">No</span> </p>';
-			str+= '<p class="clear1"></p> </div>';
-		$("#dataActionContent").html(str);
-		$("#dataAction").show(100);
+			str+= '<p class="clear1"></p>';
+		viewDataAction(str);
 		return true;
 	});
 	
@@ -448,24 +448,18 @@ $(document).ready(function(e) {
 				data = $.parseJSON(data);
 				if(data.error==0){
 					$(".selectImgDel").hide();
-					$("#dataActionContent").html('<div class="process adMessage">' + data.message + '</div>');
-					setTimeout(function(){
-						$("#dataActionContent").html('');
-					}, 2000);
-					$("#dataAction").hide(2200);
+					var str = '<b class="adMessage">' + data.message + '</b>';
 				}else{
-					$("#dataActionContent").html('<div class="process adError">' + data.message + '</div>');
-					setTimeout(function(){ $("#dataActionContent").html(''); }, 2000);
-					$("#dataAction").hide(2200);
+					var str = '<b class="adError">' + data.message + '</b>';
 				}
+				viewDataAction(str);
 				return true;
 			}
 		});
 	});
 	
 	$(".closeDataAction, #dataActionBG").live("click", function(){
-		setTimeout(function(){ $("#dataActionContent").html(''); }, 200);
-		$("#dataAction").hide(200);
+		closeDataAction();
 	});
 	
 	$(".imageSelect").live("click", function(){
@@ -523,12 +517,8 @@ $(document).ready(function(e) {
 	/*end copy link image*/
 	
 	/*auto insert data*/
-	function viewDataAction(){
-		$("#dataActionContent").html('<span class="process">Đang xử lý..</span>');
-		$("#dataAction").show(100);
-		return true;
-	}
-	function endDataAction(str){
+	
+	function endDataActionTableInsert(str){
 		setTimeout(function(){
 			$("#dataActionContent").html(str);
 		}, 500);
@@ -541,7 +531,7 @@ $(document).ready(function(e) {
 	function autoTableInsert(){
 		var fields = ajax_field_all(".ad_field");
 		if(typeof fields=='boolean') return false;
-		viewDataAction();
+		viewDataAction('Đang xử lý..');
 		
 		fields['rejectCreateData'] = '1';
 		fields['rejectTable'] = table;
@@ -551,7 +541,8 @@ $(document).ready(function(e) {
 			type: 'post',
 			data: fields,
 			cache: false,
-			success: function(data){ //console.log(data);
+			success: function(data){
+				console.log(data);
 				data = $.parseJSON(data); //console.log(data);
 				var error = parseInt(data.error);
 				if(error==0){
@@ -568,7 +559,7 @@ $(document).ready(function(e) {
 					strSearch = strSearch.slice(0, number);
 					window.history.pushState(null, 'Title', 'http://' + hostname + pathname + strSearch + id);
 					
-					endDataAction('<span class="message">' + data.message + '</span>');
+					endDataActionTableInsert('<span class="message">' + data.message + '</span>');
 				}
 				return true;
 			}
@@ -671,7 +662,7 @@ $(document).ready(function(e) {
 			success: function(data){
 				//console.log(data);
 				data = $.parseJSON(data);
-				endDataAction('<span class="message">' + data.message + '</span>');
+				endDataActionTableInsert('<span class="message">' + data.message + '</span>');
 				return true;
 			}
 		});
@@ -770,7 +761,7 @@ $(document).ready(function(e) {
 				if(data!='') $(".value_name").val(data);
 				else{
 					$(".value_name").val('');
-					alert("Không tìm thấy dữ liệu");
+					viewDataAction('<b class="adError">Không tìm thấy dữ liệu</b>');
 				}
 				return true;
 			}
@@ -783,24 +774,28 @@ $(document).ready(function(e) {
 			data:{searchName:name, table:table},
 			cache:false,
 			success: function(data) {
-				if(data!='') $("#value_view").html(data);
-				else alert("Không tìm thấy dữ liệu");
+				if(data!=''){
+					var str = '<p class="title">Dữ liệu tìm thấy:</p>';
+					$("#value_view").html(str + data);
+				}
+				else viewDataAction('<b class="adError">Không tìm thấy dữ liệu</b>');
 				return true;
 			}
 		});
 	}
-	$(".value_id").blur(function(){
+	$(".value_id").live("blur", function(){
 		var id = $(this).val();
 		var table = $("#value_view").attr("table");
 		searchID(id, table);
 		return true;
 	});
 	
-	$(".value_search").click(function(){
+	$(".value_search").live("click", function(){
 		var name = $.trim($(".value_name").val());
 		var table = $("#value_view").attr("table");
 		if(name.length < 3){
-			alert('Từ khóa phải hơn 2 ký tự');
+			var str = '<b class="adError">Từ khóa phải hơn 2 ký tự</b>';
+			viewDataAction(str);
 			$(".value_name").focus();
 			return false;
 		}
@@ -812,7 +807,7 @@ $(document).ready(function(e) {
 		var name = $(this).html();
 		$(".value_id").val(id);
 		$(".value_name").val(name);
-		$(".value_data").hide(100);
+		$("#value_view").hide(200);
 		return true;
 	});
 });
