@@ -18,7 +18,7 @@ else
         <p class="fieldQuickView" type="txt" name="id">ID</p>
         <p class="fieldQuickView" type="txt" name="name">Mô tả</p>
         <p class="fieldQuickView" type="txt" name="type">File type</p>
-        <p class="fieldQuickView" type="txt" name="table">Table</p>
+        <p class="fieldQuickView" type="txt" name="_table">Table</p>
     </div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
@@ -34,10 +34,10 @@ else
 		$i = 0;
 		$arr = array(
 			//'lang'=>$lang,
-			'select'=>'`id`, `name`, `type`, `table`, `order`, `status`',
+			'select'=>'`id`, `name`, `type`, `_table`, `_order`, `status`',
 			'table'=>$table,
 			//'where'=>'',
-			'order'=>'`order`',
+			'order'=>'`_order`',
 		);
 		$data = $c->selectFromAll($arr);
 		foreach($data as $row){
@@ -47,8 +47,8 @@ else
                 <td align="center"><?php echo $row['id']; ?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
                 <td><p class="height"><?php echo $row['type'];?></p></td>
-                <td><p class="height"><?php echo $row['table'];?></p></td>
-                <td align="center"><?php echo $row['order'];?></td>
+                <td><p class="height"><?php echo $row['_table'];?></p></td>
+                <td align="center"><?php echo $row['_order'];?></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);

@@ -36,7 +36,7 @@ $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'100');
 $properties[] = array('propertie'=>'placeholder', 'value'=>'Tên khóa học');
 $properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5px');
-$data .= $cF->inputText('', '', 'ad_field adInput value_name', $properties);
+$data .= $cF->inputText('', '', 'adInput value_name', $properties);
 $data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" />';
 $data .= '<div id="value_view" table="web_header"></div>';
 echo $cF->displayDiv('Khóa học', $data);
@@ -65,7 +65,7 @@ $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
 echo $cF->displayDiv('Thông tin khai giảng', $data);
 
-$name = 'order';
+$name = '_order';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];

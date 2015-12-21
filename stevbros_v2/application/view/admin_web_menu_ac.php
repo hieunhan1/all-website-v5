@@ -44,7 +44,7 @@ $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field', 1);
 echo $cF->displayDiv('Loại menu', '<div class="listCheckBox2">'.$data.'</div>');
 
 $name = 'parent';
-$where = "`id`<>'0'";
+$where = "`id`<>'{$id}'";
 $values = $c->menuList($lang, $where);
 array_unshift($values, array('name'=>'-- chọn danh mục gốc --', 'id'=>'0'));
 if($rowDetail[$name]!=''){
@@ -105,7 +105,7 @@ $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $propertie
 echo $cF->displayDiv('Tags (keyword)', $data);
 echo '</div>';
 
-$name = 'order';
+$name = '_order';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];

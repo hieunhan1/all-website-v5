@@ -33,7 +33,7 @@ else
 		$i = 0;
 		$arr = array(
 			'lang'=>$lang,
-			'select'=>'`id`, `name`, `name_var`, `value`, `order`, `status`',
+			'select'=>'`id`, `name`, `name_var`, `value`, `_order`, `status`',
 			'table'=>$table,
 			//'where'=>'',
 			//'order'=>'',
@@ -46,7 +46,7 @@ else
                 <td><p class="height"><?php echo $row['name'];?></p></td>
                 <td><p class="height"><?php echo $row['name_var'];?></p></td>
                 <td><p class="height"><?php echo $row['value'];?></p></td>
-                <td align="center"><?php echo $row['order'];?></td>
+                <td align="center"><?php echo $row['_order'];?></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);

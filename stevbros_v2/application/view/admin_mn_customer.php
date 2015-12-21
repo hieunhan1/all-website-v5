@@ -5,15 +5,13 @@ $name = 'LIKE_name';
 if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mô tả');
 
-$name = 'LIKE_position_id';
-$value = array();
-$value[] = array('id'=>'', 'name'=>'-- vị trí hiển thị --');
-$data = $c->_model->_webPositionList(3);
-foreach($data as $row){
-	$value[] = array('id'=>",{$row['id']},", 'name'=>$row['name']);
-}
-if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
-$arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
+$name = 'phone';
+if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
+$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Phone');
+
+$name = 'email';
+if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
+$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Email');
 
 echo $c->viewFormSearch($arrFrmSearch);
 
@@ -24,37 +22,38 @@ else
 ?>
 <div id="adContent">
 	<div class="tagsHidden">
-    	<p class="fieldQuickView" type="img" name="img"></p>
-        <p class="fieldQuickView" type="txt" name="name">Mô tả</p>
-        <p class="fieldQuickView" type="txt" name="url">Link</p>
-        <p class="fieldQuickView" type="txt" name="datetime">Ngày</p>
-        <p class="fieldQuickView" type="txt" name="order">Thứ tự</p>
+        <p class="fieldQuickView" type="txt" name="name">Name</p>
+        <p class="fieldQuickView" type="txt" name="phone">Phone</p>
+        <p class="fieldQuickView" type="txt" name="email">Email</p>
+        <p class="fieldQuickView" type="txt" name="company">Company</p>
+        <p class="fieldQuickView" type="des" name="address">Address</p>
     </div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
-            <th width="50">STT</th>
-            <th align="left">Mô tả</th>
-            <th width="250" align="left">Link</th>
-            <th width="80">Thứ tự</th>
+        	<!--<th width="50">STT</th>-->
+        	<th width="60">ID</th>
+            <th align="left">Name</th>
+            <th width="15%" align="left">Phone</th>
+            <th width="18%" align="left">Email</th>
+            <th width="18%" align="left">Address</th>
             <th width="100">Thao tác</th>
         </tr>
         <?php
 		$i = 0;
 		$arr = array(
-			'lang'=>$lang,
-			'select'=>'`id`, `name`, `img`, `url`, `order`, `datetime`, `status`',
+			'select'=>'`id`, `name`, `phone`, `email`, `address`, `company`, `status`',
 			'table'=>$table,
-			//'where'=>'',
-			//'order'=>'',
 		);
 		$data = $c->selectFromAll($arr);
 		foreach($data as $row){
 			$i++; ?>
             <tr class="row">
-                <td align="center"><?php echo $arr['startRow']+$i; ?></td>
+                <!--<td align="center"><?php echo $arr['startRow']+$i; ?></td>-->
+                <td align="center"><?php echo $row['id']; ?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
-                <td><p class="height"><?php echo $row['url'];?></p></td>
-                <td align="center"><?php echo $row['order'];?></td>
+                <td><?php echo $row['phone'];?></td>
+                <td><p class="height"><?php echo $row['email'];?></p></td>
+                <td><p class="height"><?php echo $row['address'];?></p></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);

@@ -9,7 +9,7 @@ if(isset($_POST['rejectContact'])){
 		echo $c->exportError($arr);
 		return false;
 	}
-	
+	$ipAddress = $_SERVER['REMOTE_ADDR'];
 	$check = $c->_model->_checksIpAddress($table, $ipAddress);
 	$check = time() - $check['datetime'];
 	if($check<30){
@@ -72,8 +72,16 @@ if(isset($_POST['google_map'])){
 
 if(isset($_POST['opinionDetail'])){
 	$id = $c->_model->_changeDauNhay($_POST['opinionDetail']); settype($id, 'int');
-	$data = $c->_model->_webContentID($id);
-	echo $data['content'];
+	$data = $c->_model->_webHeaderID($id);
+	if(count($data) > 0){
+		if($data['img']=='') $img='themes/website/img/avatar.png'; else $img=IMAGE_URL.$data['img'];
+		$content = $c->_model->_webContentID($id);
+		echo '<div class="img"><img src="'.$img.'" alt="'.$data['name'].'"/></div>
+        <div class="info viewpost">
+			'.$content['content'].'
+			<p style="text-align:right">'.$data['name'].'<br />'.date('M d, Y', $data['datetime']).'</p>
+		</div> <div class="clear1"></div>';
+	}
 	return true;
 }
 
@@ -93,7 +101,7 @@ if(isset($_POST['rejectRegister'])){
 		echo $c->exportError($arr);
 		return false;
 	}
-	
+	$ipAddress = $_SERVER['REMOTE_ADDR'];
 	$check = $c->_model->_checksIpAddress($table, $ipAddress);
 	$check = time() - $check['datetime'];
 	if($check<30){

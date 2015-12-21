@@ -15,7 +15,7 @@ if($currentPage['id']==''){
 
 $lang = $currentPage['lang'];
 $config = $c->config($lang);
-$language_var = $c->_model->_language_var($lang);
+$lang_var = $c->_model->_language_var($lang);
 
 $urlImg = $c->webType();
 
@@ -46,5 +46,10 @@ else{
 }
 $viewData = ob_get_clean();
 /*end view*/
+
+$logo = $c->logo($lang);
+$logoStevbros = $logo[0];
+$logoPMI = $logo[1];
+$logoStevbrosWhite = $logo[2];
 
 include_once('view/web.php');

@@ -1,8 +1,8 @@
 <?php
 $bd = (float) array_sum(explode(' ',microtime()));
 
-$cachedir = '../cache/'; // folder lưu các file cache
-$cachetime = 3600*12; // Thời gian (Số giây) lưu files cache 
+$cachedir = CONS_CACHE_URL_FILE; // folder lưu các file cache
+$cachetime = CONS_CACHE_TIME; // Thời gian (Số giây) lưu files cache 
 $cacheext = 'ch'; // phần mở rộng của file được cache 
 $page ='http://'. $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; 
 $pathfile = $cachedir . md5($page) . '.' . $cacheext; 

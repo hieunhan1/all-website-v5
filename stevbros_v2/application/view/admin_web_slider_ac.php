@@ -60,12 +60,14 @@ $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $others);
 echo $cF->displayDiv('Link', $data);
 
-/*$name = 'description';
+$name = 'description';
+if(isset($rowDetail[$name])) $value=$rowDetail[$name]; else $value='';
+$name = 'ckeditor_description';
 $properties = array();
-$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
-$value=$rowDetail[$name];
-$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
-echo $cF->displayDiv('Description', $data);*/
+$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
+$others = $cF->ckeditorCustom($name, "'Format'");
+$data = $cF->textArea($name, $value, 'ad_field', $properties, $others);
+echo $cF->displayDiv('Description', $data.'<div class="adNotes">Định dạng Slider HOME dùng H1 và H2, định dạng đặc biệt "Tô Đậm"</div>');
 
 /*$name = 'code';
 $properties = array();
@@ -74,7 +76,7 @@ $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
 echo $cF->displayDiv('Code', $data);*/
 
-$name = 'order';
+$name = '_order';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];

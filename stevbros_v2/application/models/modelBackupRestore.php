@@ -24,16 +24,21 @@ class modelBackupRestore extends modelDB{
 		return $str_keys.'fields%%%values'.$str_values;
 	}
 	public function _insertWebLog($name, $action, $table, $table_id, $user, $content, $lang){
-		if($table=='web_content' || $table=='web_picture') return false;
+		$arr = array(
+			'web_content',
+			'web_picture',
+			'mn_contract_customer',
+		);
+		if( in_array($table, $arr ) ) return false;
 		
 		$time = time();
-		$sql = "INSERT INTO `web_logs` (`name`, `action`, `table`, `table_id`, `datetime`, `username`, `content`, `lang`, `status`) VALUES ('{$name}', '{$action}', '{$table}', '{$table_id}', '{$time}', '{$user}', '{$content}', '{$lang}', '0')";
+		$sql = "INSERT INTO `web_logs` (`name`, `action`, `_table`, `table_id`, `datetime`, `username`, `content`, `lang`, `status`) VALUES ('{$name}', '{$action}', '{$table}', '{$table_id}', '{$time}', '{$user}', '{$content}', '{$lang}', '0')";
 		$this->db->query($sql);
 		return true;
 	}
 	
 	public function _restoreData($id){
-		$sql = "SELECT `action`, `table`, `content` FROM `web_logs` WHERE `id`='{$id}' LIMIT 1";
+		$sql = "SELECT `action`, `_table`, `content` FROM `web_logs` WHERE `id`='{$id}' LIMIT 1";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$row = $result->fetch_assoc();
 		$data = explode('fields%%%values', $row['content']);
@@ -50,7 +55,7 @@ class modelBackupRestore extends modelDB{
 		}elseif($row['action']=='update'){
 			$str_set='';
 			for($i=0; $i<count($data_keys); $i++){
-				if($data_keys[$i]!='`id`') $str_set .= "{$data_keys[$i]}='{$data_values[$i]}',";
+				if($data_keys[$i]!='id') $str_set .= "`{$data_keys[$i]}`='{$data_values[$i]}',";
 				else $id_restore = $data_values[$i];
 			}
 			$str_set = trim($str_set, ',');
@@ -83,7 +88,7 @@ class modelBackupRestore extends modelDB{
 				$table_id = $row['table_id'];
 				
 				//delete web_picture
-				$sql = "SELECT * FROM `web_picture` WHERE `table`='{$table}' AND `table_id`='{$table_id}' LIMIT 1";
+				$sql = "SELECT * FROM `web_picture` WHERE `_table`='{$table}' AND `table_id`='{$table_id}' LIMIT 1";
 				$result = $this->db->query($sql);
 				$data = $result->fetch_assoc();
 				if(count($data) > 0){

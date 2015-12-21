@@ -65,12 +65,12 @@ if(isset($_POST['imageUpload'])){
 	$img_name = $c->_model->_changeDauNhay($_POST['img_name']);
 	$img = $c->_model->_changeDauNhay($_POST['img']);
 	$original = $c->_model->_changeDauNhay($_POST['original']); // =0 xu ly img, =1 giu nguyen img
-	$table = $c->_model->_changeDauNhay($_POST['table']);
+	$table = $c->_model->_changeDauNhay($_POST['_table']);
 	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);
 	
 	$i=0; $arr=array();
 	
-	if($table='' || $table_id=='' || $table_id==0){
+	if($table=='' || $table_id=='' || $table_id==0){
 		$arr[] = array('error'=>1, 'message'=>'Vui lòng thử lại.');
 		echo $c->exportError($arr);
 		return false;
@@ -106,7 +106,7 @@ if(isset($_POST['imageUpload'])){
 					//insert database
 					$type='create'; $id=0;
 					$table_insert = 'web_picture';
-					$fields = array('name', 'img', 'datetime', 'table', 'table_id');
+					$fields = array('name', 'img', 'datetime', '_table', 'table_id');
 					$values = array($img['name'], $img['img'], date('Y-m-d H:i:s'), $table, $table_id);
 					$data = $c->_model->_getSql($type, $table_insert, $fields, $values, $id);
 					//end insert database
@@ -147,7 +147,7 @@ if(isset($_POST['uploadWebPicture'])){
 	}
 	$img_name = $c->_model->_changeDauNhay($_POST['name']);
 	$img = $c->_model->_changeDauNhay($_POST['img']);
-	$table = $c->_model->_changeDauNhay($_POST['table']);
+	$table = $c->_model->_changeDauNhay($_POST['_table']);
 	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);
 	$original = $c->_model->_changeDauNhay($_POST['original']); // =0 xu ly img, =1 giu nguyen img
 	
@@ -182,7 +182,7 @@ if(isset($_POST['uploadWebPicture'])){
 					//insert database
 					$type='create'; $id=0;
 					$table_insert = 'web_picture';
-					$fields = array('name', 'img', 'datetime', 'table', 'table_id');
+					$fields = array('name', 'img', 'datetime', '_table', 'table_id');
 					$values = array($img['name'], $img['img'], date('Y-m-d H:i:s'), $table, $table_id);
 					$data = $c->_model->_getSql($type, $table_insert, $fields, $values, $id);
 					//end insert database
@@ -217,7 +217,7 @@ if(isset($_POST['imageDelete'])){
 	
 	$data = $c->_model->_checksWebPicture($img);
 	if(count($data) > 0){
-		$table = $data['table'];
+		$table = $data['_table'];
 		$table_id = $data['table_id'];
 		if($check==1){
 			$c->_model->_updateImgTable($table, $table_id);

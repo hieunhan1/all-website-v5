@@ -1,86 +1,97 @@
+<div class="clear30"></div>
 <?php
 $cF = new controlAdminForm;
 
-$c->createEditData($table, $arrAction, $rowDetail);
+$id = $c->createEditData($table, $arrAction, $rowDetail);
+$data = $cF->inputHidden('id', $id, 'ad_field');
+echo $data;
 
-echo '<form name="form_action" method="post" action="">
-<table width="100%" border="0" cellpadding="0" cellspacing="10">';	
+$name = 'status';
+$values = array();
+$values[] = array('name'=>'Chưa phục hồi', 'id'=>'0');
+$values[] = array('name'=>'Đã phục hồi', 'id'=>'1');
+if($rowDetail[$name]=='') $valueCheck=1;
+else $valueCheck=$rowDetail[$name];
+$data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
+echo $cF->displayDiv('Trạng thái', $data);
+	
+echo $cF->displayDiv('Date', '<b class="label2">'.$c->viewDateTime($rowDetail['datetime']).'</b>' );
+echo $cF->displayDiv('User', '<b class="label2">'.$rowDetail['username'].'</b>' );
+echo $cF->displayDiv('Name', '<span class="label2">'.$rowDetail['name'].'</span>' );
+echo $cF->displayDiv('Action', '<span class="label2">'.$rowDetail['action'].'</span>' );
+echo $cF->displayDiv('Table', '<span class="label2">'.$rowDetail['_table'].'</span>' );
 
-	$name = 'status';
-	$values = array();
-	$values[] = array('name'=>'Chưa phục hồi', 'id'=>'0');
-	$values[] = array('name'=>'Đã phục hồi', 'id'=>'1');
-	$valueCheck=$rowDetail[$name];
-	$data = $cF->inputRadio($name, $values, $valueCheck, 'radio');
-	echo $cF->displayTable('Trạng thái', $data);
-	
-	echo $cF->displayTable('Date create', date('Y-m-d H:i:s', $rowDetail['datetime']));
-	echo $cF->displayTable('User create', $rowDetail['username']);
-	echo $cF->displayTable('Description', $rowDetail['name']);
-	echo $cF->displayTable('Action', $rowDetail['action']);
-	echo $cF->displayTable('Table', $rowDetail['table']);
-	
-	$btnSubmit='';
-	if($rowDetail['action']=='update' || $rowDetail['action']=='delete'){
-		if($rowDetail['status']==1){
-			echo $cF->displayTable('Date restore', date('Y-m-d H:i:s', $rowDetail['date_restore']));
-			echo $cF->displayTable('User restore', $rowDetail['user_restore']);
-		}else{
-			$name = 'btn_view_log';
-			$btnSubmit = $cF->inputButton($name, 'View log', 'submitAdmin');
-		}
-	}elseif($rowDetail['action']=='status'){
-		echo $cF->displayTable('Values', $rowDetail['content']);
-	}
-	
-	$name = 'btnCancel';
-    $btnCancel = $cF->btnCancel($name);
-	echo $cF->displayTable('', $btnSubmit.$btnCancel);
-	
-echo '</table></form>';
-?>
-<div id="view_log" style="display:none">
-	<hr />
-	<table width="100%" border="0" cellpadding="0" cellspacing="10" style="margin-bottom:50px">
-    <?php
-	$str='';
-    if(isset($rowDetail['content'])) $data = explode('fields%%%values', $rowDetail['content']);
+if(isset($rowDetail['content'])){
+	echo '<div id="viewLog" class="seo tagsHidden">';
+	$data = explode('fields%%%values', $rowDetail['content']);
 	if(count($data)==2){
 		$data_keys = explode(',', $data[0]);
 		$data_values = explode('%%%', $data[1]);
 		for($i=0; $i<count($data_keys); $i++){
-			$str.=$cF->displayTable(ucfirst(trim($data_keys[$i],'`')), $data_values[$i]);
+			$name = ucfirst(trim($data_keys[$i],'`'));
+			echo $cF->displayDiv($name, '<span class="label2">'.$data_values[$i].'</span>' );
 		}
-		echo $str;
 	}
-	$data = '<p style="font-size:110%; color:#F60">Phục hồi lại dữ liệu <b>'.$rowDetail['name'].'</b> trong bảng <b>'.$rowDetail['table'].'</b>? <a href="javascript:;" id="restore"><b>Ấn vào đây!</b></a></p>';
-	echo $cF->displayTable('', $data);
-	?>
-    </table>
-</div>
+	echo '</div>';
+}
+	
+$btnSubmit='';
+if($rowDetail['action']=='update' || $rowDetail['action']=='delete'){
+	if($rowDetail['status']==1){
+		echo $cF->displayDiv('Date restore', '<b class="label2 adMessage">'.$c->viewDateTime($rowDetail['date_restore']).'</b>' );
+		echo $cF->displayDiv('User restore', '<b class="label2 adMessage">'.$rowDetail['user_restore'].'</b>' );
+	}else{
+		$name = 'btnViewLog';
+		$btnSubmit = $cF->inputButton($name, 'View log', 'adBtnLarge bgColorBlue1 corner8');
+	}
+}
+
+$name = 'btnRestore';
+$btnRestore = $cF->inputButton($name, 'Phục hồi', 'adBtnLarge bgColorGreen corner8 tagsHidden');
+
+$name = 'btnCancel';
+$btnCancel = $cF->btnCancel($name, 'Quay lại');
+
+echo $cF->displayDiv(' ', $btnSubmit.$btnRestore.$btnCancel);
+?>
+
 <script type="text/javascript">
 $(document).ready(function() {
-    $('input[name=btn_view_log]').click(function(){
-		$('#view_log').toggle(100);
+    $('#btnViewLog').click(function(){
+		$(this).hide(100);
+		$('#viewLog').show(200);
+		$('#btnRestore').show(200);
 	});
 	
-	$("#restore").click(function(){
-		if(confirm('Bạn có chắc? Phục hồi lại dữ liệu `<?php echo $rowDetail['name']?>` trong bảng `<?php echo $rowDetail['table']?>`?')){
-			$.ajax({
-				url: 'ajax/',
-				type: 'POST',
-				data:{ajaxRestore:'<?php echo $rowDetail['id']?>'},
-				cache:false,
-				success: function(data){
-					if(data=='1'){
-						$("#status1").attr("checked", true);
-						$('#view_log').html('<p style="font-weight:bold; color:#00F; padding: 20px 0 30px 50px">Phục hồi thành công dữ liệu `<?php echo $rowDetail['name']?>` trong bảng `<?php echo $rowDetail['table']?>`.</p>');
-					}else{
-						$('#view_log').html('<p class="error">Lỗi: Vui lòng F5 kiểm tra lại</p>');
-					}
+	$("#btnRestore").click(function(){
+		var str = '<p>Phục hồi lại dữ liệu <em class="adMessage"><?php echo $rowDetail['name'];?></em> trong bảng <em class="adMessage"><?php echo $rowDetail['_table'];?></em>?</p> <p class="clear20"></p>';
+			str+= '<p> <span id="restore" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 closeDataAction">No</span> </p>';
+			str+= '<p class="clear1"></p>';
+		viewDataAction(str);
+	});
+	
+	$("#restore").live("click", function(){
+		$.ajax({
+			url: 'ajax/',
+			type: 'POST',
+			data:{ajaxRestore:'<?php echo $rowDetail['id']?>'},
+			cache:false,
+			success: function(data){
+				var str='';
+				if(data=='1'){
+					$("#status1").attr("checked", true);
+					str = 'Phục hồi <b class="adMessage">thành công</b> dữ liệu <em><?php echo $rowDetail['name'];?></em> trong bảng <em><?php echo $rowDetail['_table'];?></em>';
+				}else{
+					str = '<b class="adError">Lỗi: Vui lòng kiểm tra lại</b>';
 				}
-			});
-		}
+				
+				$("#btnRestore").hide(200);
+				viewDataAction(str);
+				setTimeout(function(){
+					closeDataAction();
+				}, 3000);
+			}
+		});
 	});
 });
 </script>

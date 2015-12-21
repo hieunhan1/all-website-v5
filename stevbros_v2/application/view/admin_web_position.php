@@ -43,10 +43,10 @@ else
 		$i = 0;
 		$arr = array(
 			//'lang'=>$lang,
-			'select'=>'`id`, `name`, `themes`, `type`, `order`, `status`',
+			'select'=>'`id`, `name`, `themes`, `type`, `_order`, `status`',
 			'table'=>$table,
 			//'where'=>'',
-			'order'=>'`order`',
+			'order'=>'`_order`',
 		);
 		$data = $c->selectFromAll($arr);
 		foreach($data as $row){
@@ -57,7 +57,7 @@ else
                 <td><p class="height"><?php echo $row['name'];?></p></td>
                 <td><p class="height"><?php echo $value[$row['type']]['name'];?></p></td>
                 <td><p class="height"><?php echo $row['themes'];?></p></td>
-                <td align="center"><?php echo $row['order'];?></td>
+                <td align="center"><?php echo $row['_order'];?></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);

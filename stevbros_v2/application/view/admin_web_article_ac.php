@@ -84,7 +84,7 @@ $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $propertie
 echo $cF->displayDiv('Tags (keyword)', $data);
 echo '</div>';
 
-$name = 'order';
+$name = '_order';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];
@@ -135,10 +135,13 @@ if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
 $data = $cF->inputText($name, $value, 'adInput adTxtMedium', $properties);
 echo $cF->displayDiv('Giá bán', $data);
 	
-$name = 'ckeditor_more';
+$name = 'more';
 if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
+$name = 'ckeditor_more';
+$properties = array();
+$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
 $others = $cF->ckeditorCustom($name);
-$data = $cF->textArea($name, $value, 'textarea', NULL, $others);
+$data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
 echo $cF->displayDiv('Thông tin khác', $data);*/
 	
 $name = 'content';

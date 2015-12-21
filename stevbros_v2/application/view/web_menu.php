@@ -6,7 +6,7 @@
 			'lang' => $lang,
 			'parent' => 0,
 			'position_id' => $position_id,
-			'order'=>'`order`',
+			'order'=>'`_order`',
 		);
 		$data = $c->_model->_headerData($arr);
 		foreach($data as $row){

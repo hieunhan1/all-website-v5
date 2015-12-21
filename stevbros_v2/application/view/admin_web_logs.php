@@ -3,12 +3,10 @@
 <script type="text/javascript">
 $(document).ready(function(e) {
 	$(".btnClearLogs").click(function(){
-		var str = '<div class="process">';
-			str+= '<p>Xóa logs và chỉ lưu logs trong 30 ngày gần đây?</p> <p class="clear20"></p>';
+		var str = '<p style="font-weight:bold">Xóa logs và chỉ lưu logs trong 30 ngày gần đây?</p> <p class="clear20"></p>';
 			str+= '<p> <span id="clearLogs" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 closeDataAction">No</span> </p>';
-			str+= '<p class="clear1"></p> </div>';
-		$("#dataActionContent").html(str);
-		$("#dataAction").show(200);
+			str+= '<p class="clear1"></p>';
+		viewDataAction(str);
 	});
     $("#clearLogs").live("click", function(){
 		$.ajax({
@@ -18,9 +16,8 @@ $(document).ready(function(e) {
 			cache:false,
 			success: function(data) { console.log(data);
 				if(data==""){
-					var str = '<div class="process adMessage">Xóa logs thành công. Vui lòng đợi 3s để tải lại trang.</div>';
-					$("#dataActionContent").html(str);
-					$("#dataAction").show(200);
+					var str = '<b class="adMessage">Xóa logs thành công. Vui lòng đợi 3s để tải lại trang.</b>';
+					viewDataAction(str);
 					setTimeout(function(){
 						window.location.reload();
 					}, 3000);
@@ -60,25 +57,27 @@ else
 <div id="adContent">
 	<div class="tagsHidden">
         <p class="fieldQuickView" type="txt" name="name">Mô tả</p>
-        <p class="fieldQuickView" type="txt" name="name_var">Tên biến</p>
-        <p class="fieldQuickView" type="txt" name="value">Giá trị</p>
-        <p class="fieldQuickView" type="txt" name="order">Thứ tự</p>
+        <p class="fieldQuickView" type="txt" name="action">Action</p>
+        <p class="fieldQuickView" type="txt" name="datetime">Date</p>
+        <p class="fieldQuickView" type="txt" name="username">User</p>
     </div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
         	<th width="50">STT</th>
             <th align="left">Mô tả</th>
-            <th width="80" align="left">Action</th>
-            <th width="100" align="left">Table</th>
+            <th width="70" align="left">Action</th>
+            <th width="90" align="left">Table</th>
             <th width="110" align="left">Date</th>
-            <th width="80" align="left">User</th>
-            <th width="100">Thao tác</th>
+            <th width="70" align="left">User</th>
+            <th width="92" align="left">Trạng thái</th>
+            <th width="80">Thao tác</th>
         </tr>
         <?php
+		$status = array('Chưa phục hồi', '<span class="adMessage">Đã phục hồi</span>');
 		$i = 0;
 		$arr = array(
 			'lang'=>$lang,
-			'select'=>'`id`, `name`, `action`, `table`, `datetime`, `username`, `status`',
+			'select'=>'`id`, `name`, `action`, `_table`, `datetime`, `username`, `status`',
 			'table'=>$table,
 			//'where'=>'',
 			//'order'=>'',
@@ -90,9 +89,10 @@ else
                 <td align="center"><?php echo $arr['startRow']+$i; ?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
                 <td><p class="height"><?php echo $row['action'];?></p></td>
-                <td><p class="height"><?php echo $row['table'];?></p></td>
+                <td><p class="height"><?php echo $row['_table'];?></p></td>
                 <td><?php echo $c->viewDateTime($row['datetime']);?></td>
                 <td><?php echo $row['username'];?></td>
+                <td><?php echo $status[$row['status']];?></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);
@@ -106,8 +106,7 @@ else
 					$str=rtrim($str, ', ');
 					echo '<div class="data">{'.$str.'}</div>';
 					$link = CONS_LINK_ADMIN.'/'.$navigator['url'].'/'.$para.'&id='.$row['id'];
-					echo status_edit($row['status'], $link);
-					echo $btnDelete;
+					echo status_edit(NULL, $link);
 					?>
                 </td>
             </tr>

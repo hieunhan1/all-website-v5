@@ -24,7 +24,7 @@ $data = $cF->inputText($name, $value, 'ad_field adInput adTxtSmall datetimepick'
 echo $cF->displayDiv('Ngày', $data);
 
 $name = 'menu_id';
-$where = "(type_id=1 OR type_id=3)";
+$where = "(type_id=4)";
 $values = $c->menuList($lang, $where);
 $valueCheck=$rowDetail[$name];
 $data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxMenu', 1);
@@ -76,7 +76,7 @@ $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $propertie
 echo $cF->displayDiv('Tags (keyword)', $data);
 echo '</div>';
 
-$name = 'order';
+$name = '_order';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];
@@ -104,13 +104,6 @@ echo '<div id="idFirst" style="display:none">'.$value.'</div>';
 
 $value = '{"name":"header_id", "value":"'.$id.'"}';
 echo '<div id="idSecond" style="display:none">'.$value.'</div>';
-	
-$name = 'more';
-if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
-$name = 'ckeditor_more';
-$others = $cF->ckeditorCustom($name);
-$data = $cF->textArea($name, $value, 'textarea', NULL, $others);
-echo $cF->displayDiv('Đặc tả', $data);
 	
 $name = 'content';
 if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';

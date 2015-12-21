@@ -26,44 +26,30 @@
 
 <body>
 <?php
-$arr = array(
-	1=>array('#287e7a', '#e48d3d', '#1a4d4a'),
-	2=>array('#97b09b', '#807759', '#688a6d'),
-	3=>array('#ea5b23', '#15305b', '#a93a10'),
-);
-$i = date('H')%4;
-if($i!=0){
-	$color = $arr[$i];
-	echo '<style>
-	#nav li ul a:hover {background-color:'.$color[0].'}
-	#top{background-color:'.$color[0].'}
-	#header{background-color:'.$color[1].'}
-	#menuH{background-color:'.$color[1].' !important}
-	#header #menuH .li:hover{border-bottom:solid 4px '.$color[0].'}
-	#header #menuH .active{border-bottom:solid 4px '.$color[0].'}
-	#highlights{background-color:'.$color[0].'}
-	#whychooseus .tab .h3:hover{background-color:'.$color[0].'; border:solid 1px '.$color[0].'}
-	#whychooseus .tab .active{background-color:'.$color[0].'; border:solid 1px '.$color[0].'}
-	#opening .header{background-color:'.$color[0].'}
-	#contact-frm .btn{background-color:'.$color[0].'}
-	#phantrang a:hover{background-color:'.$color[0].'}
-	#phantrang .current{background-color:'.$color[0].'}
-	#opinion .box:hover{background-color:'.$color[0].'}
-	#opinion .box .view{background-color:'.$color[0].'; border-bottom:solid 3px '.$color[2].'}
-	.btn-business-info{background-color:'.$color[0].'; border-bottom:solid 3px '.$color[2].'}
-	#frmRegister .btn{background-color:'.$color[0].'; border-bottom:solid 3px '.$color[2].'}
-	.register{background-color:'.$color[0].'; border-bottom:solid 3px '.$color[2].'}
-	</style>';
+if($currentPage['typeID']!=1){
+	include_once('web_header.php');
+	
+	$arr = array(
+		'parent' => 0,
+		'type_id' => 16,
+		'menu_id'=>$currentPage['rootID'],
+	);
+	$data = $c->_model->_headerData($arr);
+	if(count($data) > 0){
+		$row = $data[0];
+		
+		$navigator = $c->viewNavigator($lang, $currentPage['id']);
+		echo '<div id="slider-page">
+			'.$navigator.'
+			<div class="img"><img src="'.IMAGE_URL.$row['img'].'" alt="'.$row['name'].'" /></div>
+		</div>';
+	}
 }
-
-include_once('web_header.php'); flush();
 
 echo $viewData;
 
 include_once('web_footer.php');
 ?>
-<div id="highlights"><a href="<?php echo CONS_BASE_URL;?>/online">Luyện thi PMP mỗi ngày</a></div>
-
 <script type="text/javascript" src="js/js_checks_field.js"></script>
 <script type="text/javascript" src="js/js_web.js"></script>
 </body>

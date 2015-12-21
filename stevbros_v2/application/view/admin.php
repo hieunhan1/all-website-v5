@@ -140,13 +140,13 @@ echo $c->viewTableHtml($table);
 		}
 		if($roleEdit==1){
 			function status_edit($status, $link){
-				$str = '<a href="javascript:;" class="adStatus">
+				if($status!=NULL) $status='<a href="javascript:;" class="adStatus">
 					<span class="adIconStatus corner5 status'.$status.'"></span>
-				</a>
-				<a href="'.$link.'" class="adEdit">
+				</a>';
+				$edit='<a href="'.$link.'" class="adEdit">
 					<span class="adIconWhite corner5"></span>
 				</a>';
-				return $str;
+				return $status.$edit;
 			}
 		}else{
 			function status_edit($status, $link){

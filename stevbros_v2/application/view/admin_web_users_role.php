@@ -9,7 +9,7 @@ $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=
 $name = 'admin_id';
 $value = array();
 $value[] = array('id'=>'', 'name'=>'-- Mục quản trị --');
-$data = $c->_model->_listTable('web_admin', '`type`, `order`');
+$data = $c->_model->_listTable('web_admin', '`type`, `_order`');
 foreach($data as $row){
 	$value[] = array('id'=>"{$row['id']}", 'name'=>$row['name']);
 }

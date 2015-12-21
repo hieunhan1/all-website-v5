@@ -2,14 +2,14 @@
 class modelAdmin extends modelDB{
 	/*navigator menuAdmin languages*/
 	public function _listLanguages(){
-		$sql = "SELECT `id`, `name`, `code` FROM `web_language` WHERE `status`=1 ORDER BY `order` ";
+		$sql = "SELECT `id`, `name`, `code` FROM `web_language` WHERE `status`=1 ORDER BY `_order` ";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[] = $row;
 		return $data;
 	}
 	public function _listAdmin($type=1){
-		$sql = "SELECT * FROM `web_admin` WHERE `status`=1 AND `type`='{$type}' ORDER BY `order`";
+		$sql = "SELECT * FROM `web_admin` WHERE `status`=1 AND `type`='{$type}' ORDER BY `_order`";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[] = $row;
@@ -23,9 +23,10 @@ class modelAdmin extends modelDB{
 	/*end navigator menuAdmin languages*/
 	
 	/*view detail, list table*/
-	public function _listTable($table, $order=NULL, $where=NULL){
+	public function _listTable($table, $order=NULL, $where=NULL, $limit=NULL){
 		if($order==NULL) $order="ORDER BY `name`"; else $order="ORDER BY {$order}";
-		$sql = "SELECT `id`, `name` FROM `{$table}` WHERE `status`=1 {$where} {$order}";
+		if($limit!=NULL) $limit="LIMIT {$limit}";
+		$sql = "SELECT `id`, `name` FROM `{$table}` WHERE `status`=1 {$where} {$order} {$limit}";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[$row['id']] = $row;
@@ -48,7 +49,7 @@ class modelAdmin extends modelDB{
 	/*web_menu*/
 	public function _menuList($parent, $style, $arr, $where=''){	
 		if(!$arr) $arr = array();
-		$sql = "SELECT * FROM `web_header` WHERE `parent`='{$parent}' {$where} ORDER BY `order`";
+		$sql = "SELECT * FROM `web_header` WHERE `parent`='{$parent}' {$where} ORDER BY `_order`";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		
 		while($row = $result->fetch_assoc()){
@@ -59,7 +60,7 @@ class modelAdmin extends modelDB{
 				'url'=>$row['url'],
 				'img'=>$row['img'],
 				'tags'=>$row['tags'],
-				'order'=>$style.$row['order'],
+				'order'=>$style.$row['_order'],
 				'status'=>$row['status'],
 			);
 			$arr = $this->_menuList($row['id'], $style.'-- ', $arr, $where);
@@ -68,7 +69,7 @@ class modelAdmin extends modelDB{
 	}
 	
 	public function _webPositionList($type){
-		$sql = "SELECT * FROM `web_position` WHERE `status`=1 AND `type`='{$type}' ORDER BY `order`";
+		$sql = "SELECT * FROM `web_position` WHERE `status`=1 AND `type`='{$type}' ORDER BY `_order`";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[] = $row;
@@ -77,7 +78,7 @@ class modelAdmin extends modelDB{
 	
 	public function _webTypeList($other=''){
 		if($other!='') $other="AND `other`='{$other}'"; else $other='';
-		$sql = "SELECT `id`, `name`, `type`, `url_img`, `url_img_thumb` FROM `web_type` WHERE `status`=1 {$other} ORDER BY `order`";
+		$sql = "SELECT `id`, `name`, `type`, `url_img`, `url_img_thumb` FROM `web_type` WHERE `status`=1 {$other} ORDER BY `_order`";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[$row['id']] = $row;

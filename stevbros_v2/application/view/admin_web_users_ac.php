@@ -28,7 +28,7 @@ if($rowDetail['group_id']!=3 && $id!=0){
 }
 
 $name = 'group_id';
-$values = $c->_model->_listTable('web_users_group', '`order`');
+$values = $c->_model->_listTable('web_users_group', '`_order`');
 array_unshift($values, array('name'=>'-- chọn nhóm --', 'id'=>'0'));
 if($rowDetail[$name]!=''){
 	$valueCheck=$rowDetail[$name];

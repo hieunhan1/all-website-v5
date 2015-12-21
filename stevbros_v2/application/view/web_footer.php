@@ -1,122 +1,57 @@
-<div id="footer">
-	<div class="container">
-    	<div id="run_top">TOP</div>
-        
-        <div id="info-footer">
-        	<div id="bottomMenu" class="bottomLink">
-            	<h3 class="title" style="letter-spacing:0px"><?php echo $language_var['bottom_title'];?></h3>
-                <?php
-				$arr = array(
-					'lang' => $lang,
-					'parent' => 0,
-					'position_id' => 3,
-					'order'=>'`order`',
-				);
-				$data = $c->_model->_headerData($arr);
-				foreach($data as $row){
-					if($row['url']=='') $url=$row['name_alias']; else $url=$row['url'];
-					echo '<li class="li"><a href="'.$url.'" title="'.$row['title'].'"><span>&rsaquo;</span>'.$row['name'].'</a></li>';
-				}
-				?>
-            </div>
-            
-        	<div id="bottomNews" class="bottomLink">
-            	<h3 class="title"><?php echo $language_var['bottom_news'];?></h3>
-                <?php
-				$arr = array(
-					'lang'=>$lang,
-					'properties'=>2,
-					'order'=>'`datetime` DESC',
-					'limit'=>5,
-				);
-				$data = $c->_model->_headerData($arr);
-				foreach($data as $row){
-					echo '<li class="li"><a href="'.$row['name_alias'].'" title="'.$row['title'].'"><span>&rsaquo;</span>'.$row['name'].'</a></li>';
-				}
-				?>
-            </div>
-            
-        	<div id="bottomLink" class="bottomLink">
-            	<h3 class="title"><?php echo $language_var['bottom_link'];?></h3>
-                <?php
-				$arr = array(
-					'lang' => $lang,
-					'parent' => 0,
-					'position_id' => 15,
-					'order'=>'`order`',
-				);
-				$data = $c->_model->_headerData($arr);
-				foreach($data as $row){
-					if($row['url']=='') $url=$row['name_alias']; else $url=$row['url'];
-					echo '<li class="li"><a href="'.$url.'" title="'.$row['title'].'"><span>&rsaquo;</span>'.$row['name'].'</a></li>';
-				}
-				?>
-            </div>
-            
-        	<div id="bottomPhoto">
-            	<h3 class="title"><?php echo $language_var['bottom_photo'];?></h3>
-                <?php
-				$arr = array(
-					'lang' => $lang,
-					'parent' => 0,
-					'position_id' => 11,
-					'limit'=>1,
-				);
-				$data = $c->_model->_headerData($arr);
-				if(count($data)>0){
-				?>
-				<link rel="stylesheet" type="text/css" href="js/extension/source/jquery.fancybox.css?v=2.1.5" media="screen" />
-                <link rel="stylesheet" type="text/css" href="js/extension/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
-                <script type="text/javascript" src="js/extension/source/jquery.fancybox.js?v=2.1.5"></script>
-                <script type="text/javascript" src="js/extension/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
-                <script type="text/javascript" src="js/extension/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-                <script type="text/javascript">
-				$(document).ready(function() {
-					$('.fancybox').fancybox();
-					
-					$('.fancybox-buttons').fancybox({
-						openEffect  : 'none',
-						closeEffect : 'none',
-						
-						prevEffect : 'none',
-						nextEffect : 'none',
-						
-						closeBtn  : false,
-						
-						helpers : {
-							title : {
-								type : 'inside'
-							},
-							buttons	: {}
-						},
-						
-						afterLoad : function() {
-							this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
-						}
-					});
-				});
-				</script>
-                <div class="pictureLibrary">
-                	<?php
-                    $row = $data[0];
-					$data = $c->_model->_web_picture('web_header', $row['id']);
-					foreach($data as $row){
-						echo '<div class="img"><a class="fancybox-buttons" data-fancybox-group="button" href="'.IMAGE_URL.$row['img'].'"><img src="'.IMAGE_URL_THUMB.$row['img'].'" alt="'.$row['name'].'" /></a></div>';
-					}
-					?>
-                </div>
-                <?php } ?>
-            </div>
+<div id="footer"><div class="container">
+	<div class="logo-social">
+    	<div class="logo"><a href="<?php echo $logoStevbrosWhite['url'];?>" title="<?php echo $logoStevbrosWhite['title'];?>"><img src="<?php echo IMAGE_URL.$logoStevbrosWhite['img'];?>" alt="<?php echo $logoStevbrosWhite['title'];?>" /></a></div>
+        <div class="social">
+        	<?php
+            $arr = array(
+				'lang' => $lang,
+				'parent' => 0,
+				'position_id' => 6,
+				'order' => '`_order`',
+			);
+			$data = $c->_model->_headerData($arr);
+			foreach($data as $row){
+				echo '<a href="'.$row['url'].'" title="'.$row['name'].'" target="_blank"><span class="allIcon icon '.$row['tags'].'"></span></a>';
+			}
+			?>
         </div>
-        <div class="clear30"></div>
-        
-        <div class="clear1" style="background-color:#58595c"></div>
-        <div class="clear30"></div>
-        <div class="footer-left">
-            <p><?php echo $config['copyright'];?></p>
-            <p style="font-size:90%"><?php echo $config['pmi'];?></p>
-        </div>
-        <div id="socialBottom"><?php echo $strSocial;?></div>
-        <div class="clear10"></div>
     </div>
-</div>
+    
+    <?php
+	$position_id = 3;
+    $arr = array(
+		'lang' => $lang,
+		'parent' => 0,
+		'position_id' => $position_id,
+		'order' => '`_order`',
+	);
+	$dataFooter = $c->_model->_headerData($arr);
+	foreach($dataFooter as $rowFooter){
+		$str='';
+		$arr = array(
+			'lang' => $lang,
+			'parent' => $rowFooter['id'],
+			'position_id' => $position_id,
+			'order' => '`_order`',
+		);
+		$data = $c->_model->_headerData($arr);
+		foreach($data as $row){
+			if($row['url']=='') $url=array($row['name_alias'], ''); else $url=array($row['url'], 'target="_blank"');
+			$str.='<li><a href="'.$url[0].'" '.$url[1].'>'.$row['name'].'</a>';
+			$str.=$c->getSubMenu($lang, $row['id'], $position_id);
+			$str.='</li>';
+		}
+		echo '<div class="menu">
+			<ul class="nav">
+				<h5 class="h5">'.$rowFooter['name'].'</h5>
+				'.$str.'
+			</ul>
+		</div>';
+	}
+	?>
+    <div class="clear30"></div>
+    <div class="copyright">
+        <h6 class="h6"><?php echo $config['other'];?></h6>
+        <h6 class="h6_2"><?php echo $config['copyright'];?></h6>
+    </div>
+</div></div>

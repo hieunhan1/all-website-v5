@@ -8,7 +8,7 @@ $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=
 $name = 'group_id';
 $value = array();
 $value[] = array('id'=>'', 'name'=>'-- chọn nhóm --');
-$data = $c->_model->_listTable('web_users_group', '`order`');
+$data = $c->_model->_listTable('web_users_group', '`_order`');
 foreach($data as $row){
 	$value[] = array('id'=>$row['id'], 'name'=>$row['name']);
 }
@@ -40,7 +40,7 @@ else
             <th width="180" align="left">Email</th>
             <th width="110" align="left">Group</th>
             <th width="110" align="left">Ngày hết hạn</th>
-            <th width="100">Thao tác</th>
+            <th width="80">Thao tác</th>
         </tr>
         <?php
 		$i = 0;
@@ -83,7 +83,6 @@ else
 					echo '<div class="data">{'.$str.'}</div>';
 					$link = CONS_LINK_ADMIN.'/'.$navigator['url'].'/'.$para.'&id='.$row['id'];
 					echo status_edit($row['status'], $link);
-					echo $btnDelete;
 					?>
                 </td>
             </tr>

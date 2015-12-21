@@ -142,7 +142,7 @@ $data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
 echo $cF->displayDiv('', $data);
 //-----end web_content Second-----//
 
-$name = 'order';
+$name = '_order';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];

@@ -31,7 +31,7 @@ class pageAdmin{
 					'id'=>$row['id'],
 					'name'=>$row['name'],
 					'url'=>$row['url'],
-					'table'=>$row['table'],
+					'table'=>$row['_table'],
 					'parameter'=>$row['parameter'],
 					'img'=>$row['img'],
 					'ajax'=>$row['ajax'],
@@ -83,7 +83,6 @@ class pageAdmin{
 		$where .= $strSearch;
 		$where = ltrim($where, ' AND');
 		if(isset($arr['where'])) $where.=$arr['where'];
-		if($where=='') $where='`id`<>0';
 		
 		if(!isset($arr['order'])) $order = " `id` DESC "; else $order = " {$arr['order']}, `id` DESC ";
 		
@@ -225,13 +224,12 @@ class pageAdmin{
 	/*end other*/
 }
 include_once('config/configAdmin.php');
-include_once('message/admin.php');
 $c = new pageAdmin;
 $lang = $c->language();
 $urlImg = $c->_model->_webTypeList();
 $navigator = $c->_model->_navigator($arrUrl['link']);
 $_SESSION['currentPageAdmin'] = $navigator['id'];
-$table = $navigator['table'];
+$table = $navigator['_table'];
 
 $error='';
 if(isset($_POST['btnLogin']) && !isset($_SESSION['adminID'])){

@@ -40,18 +40,27 @@ class pageHome extends controlGerenal{
 	}
 }
 
+include_once('cache/cachebegin.php');
+
 if(!isset($lang)) $lang = CONS_DEFAULT_LANG;
 
 $c = new pageHome($lang);
 $config = $c->config($lang);
-$language_var = $c->_model->_language_var($lang);
+$lang_var = $c->_model->_language_var($lang);
 $currentPage = $c->currentHome();
 $tagHead = $c->tagHead($currentPage['title'], $currentPage['description'], $currentPage['tags'], $currentPage['img'], $currentPage['url']);
 
 $urlImg = $c->webType();
+
+$logo = $c->logo($lang);
+$logoStevbros = $logo[0];
+$logoPMI = $logo[1];
+$logoStevbrosWhite = $logo[2];
 
 $viewData = ob_start();
 include_once('view/web_home.php');
 $viewData = ob_get_clean();
 
 include_once('view/web.php');
+
+include_once('cache/cacheend.php');

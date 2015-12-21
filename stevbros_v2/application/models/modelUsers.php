@@ -77,18 +77,18 @@ class modelUsers extends modelDB{
 		return $result->fetch_assoc();
 	}
 	public function _insertResetEmail($name, $email, $ip_address, $key, $datetime){
-		$sql = "INSERT INTO `web_users_reset` (`name`, `email`, `ip_address`, `key`, `datetime`, `status`) VALUES ('{$name}', '{$email}', '{$ip_address}', '{$key}', '{$datetime}', '0')";
+		$sql = "INSERT INTO `web_users_reset` (`name`, `email`, `ip_address`, `_key`, `datetime`, `status`) VALUES ('{$name}', '{$email}', '{$ip_address}', '{$key}', '{$datetime}', '0')";
 		if(!$this->db->query($sql)) die($this->db->error);
 		return true;
 	}
 	
 	public function _keyResetPass($key, $email){
-		$sql = "SELECT * FROM `web_users_reset` WHERE `email`='{$email}' AND `key`='{$key}' LIMIT 1";
+		$sql = "SELECT * FROM `web_users_reset` WHERE `email`='{$email}' AND `_key`='{$key}' LIMIT 1";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		return $result->fetch_assoc();
 	}
 	public function _updateResetPassword($email, $key){
-		$sql = "UPDATE `web_users_reset` SET `status`=1 WHERE `email`='{$email}' AND `key`='{$key}' LIMIT 1";
+		$sql = "UPDATE `web_users_reset` SET `status`=1 WHERE `email`='{$email}' AND `_key`='{$key}' LIMIT 1";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		return true;
 	}

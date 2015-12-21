@@ -3,6 +3,8 @@ include_once('config/configAdmin.php');
 
 include_once('controlUpload.php');
 
+include_once('controlAjaxManager.php');
+
 if(isset($_POST['rejectStatus'])){
 	if($c->checkRole('edit')==false) return false;
 	
@@ -69,7 +71,7 @@ if(isset($_POST['checkAlias'])){
 	return true;
 }
 
-//phan quyen role
+/*phan quyen role*/
 if(isset($_POST['checksUsersRole'])){
 	$users_id = $c->_model->_changeDauNhay($_POST['users_id']); settype($users_id, 'int');
 	$admin_id = $c->_model->_changeDauNhay($_POST['admin_id']); settype($admin_id, 'int');
@@ -107,21 +109,24 @@ if(isset($_POST['rejectInsertListRole'])){
 		return false;
 	}
 }
-//end phan quyen role
+/*end phan quyen role*/
 
+/*logs*/
 if(isset($_POST['ajaxRestore'])){
 	$id=$_POST['ajaxRestore']; settype($id, "int");
 	$backup = new modelBackupRestore;
 	echo $backup->_restoreData($id);
 	return true;
 }
+
 if(isset($_POST['clearLogs'])){
 	$soNgayLuuLai = $_POST['clearLogs']; settype($soNgayLuuLai, "int");
 	if($soNgayLuuLai < 30) return false;
 	$logs = new modelBackupRestore;
-	$data = $logs->_clearLogs(0);
+	$data = $logs->_clearLogs($soNgayLuuLai);
 	return true;
 }
+/*end logs*/
 
 if(isset($_POST['ajaxNumberItem'])){
 	$table = $c->_model->_changeDauNhay($_POST['table']);
@@ -202,7 +207,7 @@ if(isset($_POST['viewFrmContent'])){
 	
 	$ad = new modelAdmin;
 	$where = " AND `city_id`='{$city_id}' ";
-	$data = $ad->_listTable('web_listdistrict', '`order`, `name`', $where);
+	$data = $ad->_listTable('web_listdistrict', '`_order`, `name`', $where);
 	foreach($data as $row){
 		if($row['id']!=$district_id) echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
 		else echo '<option value="'.$row['id'].'" selected="selected">'.$row['name'].'</option>';
@@ -225,14 +230,16 @@ if(isset($_POST['searchID'])){
 if(isset($_POST['searchName'])){
 	$name = $c->_model->_changeDauNhay($_POST['searchName']);
 	$table = $c->_model->_changeDauNhay($_POST['table']);
+	if(isset($_POST['limit'])) $limit = $c->_model->_changeDauNhay($_POST['limit']);
+	else $limit=20;
 	$where='';
 	if($table=='web_header') $where .= " AND `properties`=2 ";
 	
 	$ad = new modelAdmin;
 	$where .= "AND `name` LIKE '%{$name}%'";
-	$data =$ad->_listTable($table, NULL, $where);
+	$data =$ad->_listTable($table, NULL, $where, $limit);
 	foreach($data as $row){
-		echo '<p class="value_data" id="'.$row['id'].'">'.$row['name'].'</p>';
+		echo '<p class="value_data" id="'.$row['id'].'" title="Click để chọn">'.$row['name'].'</p>';
 	}
 	return true;
 }

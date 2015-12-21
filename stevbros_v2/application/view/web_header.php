@@ -1,63 +1,35 @@
-<div id="top">
-	<div class="container">
-        <?php include_once('web_menu.php'); ?>
-    	<div id="menuMobile">
-        	<div id="btnMobile"></div>
-            <ul id="viewMobile"></ul>
-        </div>
-        <div id="socialTop">
-			<?php
-			$strSocial='';
-            $arr = array(
-                'lang' => $lang,
-                'parent' => 0,
-                'position_id' => 6,
-                'order'=>'`order`',
-            );
-            $data = $c->_model->_headerData($arr);
-            foreach($data as $row){
-                $strSocial .= '<li class="li allIcon" style="'.$row['description'].'"><a href="'.$row['url'].'" title="'.$row['name'].'" target="_blank"> &nbsp; </a></li>';
-            }
-			echo $strSocial;
-            ?>
-        </div>
-    </div>
-    <div class="clear1"></div>
-</div>
-
+<div class="header-height"></div>
 <div id="header">
 	<div class="container">
-    	<div id="logo">
-        	<?php
-            $arr = array(
-                'lang' => $lang,
-                'parent' => 0,
-                'position_id' => 14,
-                'order'=>'`order`',
-            );
-            $data = $c->_model->_headerData($arr);
-            foreach($data as $row){
-				echo '<li class="li"><a href="'.$row['url'].'" title="'.$row['title'].'"><img src="'.$urlImg[15]['url_img'].$row['img'].'" alt="'.$row['title'].'" style="'.$row['description'].'" /></a></li>';
-            }
-            ?>
+        <div class="logo">
+            <a href="<?php echo $logoStevbros['url'];?>" title="<?php echo $logoStevbros['title'];?>"><img src="<?php echo IMAGE_URL.$logoStevbros['img'];?>" alt="<?php echo $logoStevbros['name'];?>" class="logo-1" /></a>
+            <a href="<?php echo $logoPMI['url'];?>" title="<?php echo $logoPMI['title'];?>" target="_blank"><img src="<?php echo IMAGE_URL.$logoPMI['img'];?>" alt="<?php echo $logoPMI['name'];?>" class="logo-2" /></a>
         </div>
-        
-        <div id="menuH">
-        	<?php
-            $arr = array(
-                'lang' => $lang,
-                'parent' => 0,
-                'position_id' => 2,
-                'order'=>'`order`',
-            );
-            $data = $c->_model->_headerData($arr);
-            foreach($data as $row){
-				if($row['id']!=$currentPage['rootID']) $style=''; else $style='active';
-				if($row['url']=='') $url=$row['name_alias']; else $url=$row['url'];
-				echo '<li class="li '.$style.'"><a href="'.$url.'" title="'.$row['title'].'">'.$row['name'].'<span>'.$row['title'].'</span></a></li>';
-            }
-            ?>
+    	
+        <div class="main">
+        	<div class="cart-user">
+                <a href="http://stevbros.com/" target="_blank" title="STEVBROS GLOBAL"><span class="allIcon icon cart"><span>0</span></span></a>
+                <span class="allIcon icon user">&nbsp;</span>
+            </div>
+            
+            <div class="menu">
+				<?php
+                $i=0;
+                $arr = array(
+                    'lang' => $lang,
+                    'parent' => 0,
+                    'position_id' => 2,
+                    'order'=>'`_order`',
+                );
+                $data = $c->_model->_headerData($arr);
+                foreach($data as $row){
+                    $i++;
+                    if($i!=1) $line='class="line"'; else $line='';
+                    if($row['url']=='') $url=$row['name_alias']; else $url=$row['url'];
+                    echo '<li><a href="'.$url.'" '.$line.'>'.$row['name'].'</a></li>';
+                }
+                ?>
+            </div>
         </div>
     </div>
-    <div class="clear1"></div>
 </div>

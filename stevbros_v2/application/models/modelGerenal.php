@@ -27,16 +27,17 @@ class modelGerenal extends modelDB{
 	}
 	
 	public function _listTagsKeyword($lang){
-		$sql = "SELECT * FROM `web_tags` WHERE `status`=1 AND `lang`='{$lang}' ORDER BY `order`";
+		$sql = "SELECT * FROM `web_tags` WHERE `status`=1 AND `lang`='{$lang}' ORDER BY `_order`";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[] = $row;
 		return $data;
 	}
 	
-	public function _web_picture($table, $table_id=NULL){
+	public function _web_picture($table, $table_id=NULL, $order=NULL){
 		if($table_id!=NULL) $table_id="AND `table_id`='{$table_id}'";
-		$sql = "SELECT * FROM `web_picture` WHERE `table`='{$table}' {$table_id} ORDER BY `order`, `datetime` DESC";
+		if($order==NULL) $order="`_order`, `datetime` DESC";
+		$sql = "SELECT * FROM `web_picture` WHERE `_table`='{$table}' {$table_id} ORDER BY {$order}";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[] = $row;

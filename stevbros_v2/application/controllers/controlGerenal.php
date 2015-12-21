@@ -39,7 +39,7 @@ class controlGerenal{
 		if($row['img']=='')
 			$img = CONS_BASE_URL.'/'.CONS_IMAGE_DEFAULT;
 		else
-			$img = CONS_BASE_URL.'/'.$typeMenu['url_img'].$row['img'];
+			$img = IMAGE_URL.$row['img'];
 		
 		if($row['url']=='')
 			$url=CONS_BASE_URL.'/'.$row['name_alias'];
@@ -76,9 +76,7 @@ class controlGerenal{
 			'datetime'=>$row['datetime'],
 			'typeID'=>$typeMenu['id'],
 			'type'=>$typeMenu['type'],
-			'table'=>$typeMenu['table'],
-			'url_img'=>$typeMenu['url_img'],
-			'url_img_thumb'=>$typeMenu['url_img_thumb'],
+			'table'=>$typeMenu['_table'],
 			'rootID'=>$root[0]['id'],
 			'rootName'=>$root[0]['name'],
 			'rootAlias'=>$root[0]['name_alias'],
@@ -168,6 +166,17 @@ class controlGerenal{
 		$menu_id = explode(',', $menu_id);
 		$menu_id = $menu_id[count($menu_id)-2];
 		return $this->_model->_headerIDAlias($menu_id);
+	}
+	
+	public function logo($lang){
+		$arr = array(
+			'lang' => $lang,
+			'parent' => 0,
+			'position_id' => 14,
+			'order'=>'`_order`',
+		);
+		$data = $this->_model->_headerData($arr);
+		return $data;
 	}
 }
 ?>

@@ -36,7 +36,7 @@ $data .= '<div id="value_view" table="web_users"></div>';
 echo $cF->displayDiv('User ID', $data);
 
 $name = 'admin_id';
-$values = $c->_model->_listTable('web_admin', '`type`, `order`');
+$values = $c->_model->_listTable('web_admin', '`type`, `_order`');
 array_unshift($values, array('name'=>'-- chọn mục quản trị --', 'id'=>''));
 $properties = array();
 $properties[] = array('propertie'=>'check', 'value'=>'1');
@@ -85,7 +85,7 @@ $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field insertListRole ad
 echo $cF->displayDiv('Quyền delete', $data);
 
 $name = 'btnViewListRole';
-$values = $c->_model->_listTable('web_admin', '`type`, `order`');
+$values = $c->_model->_listTable('web_admin', '`type`, `_order`');
 $data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxRole');
 $data = $cF->displayDiv('Chọn quyền', '<div class="listCheckBox2">'.$data.'</div>');
 $btn = $cF->inputSubmit($name, 'Thêm nhiều quyền cùng 1 lúc, ấn vào đây', 'adBtnSmall bgColorGreen corner8');

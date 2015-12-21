@@ -18,7 +18,7 @@
         }
 		
 		//form register
-		echo '<a name="register"></a>
+		echo '<a name="request-for-service"></a>
 		<div class="title"><h2>Yêu cầu dịch vụ</h2></div>
 		<div id="frmRegister">
             <div class="info">Stevbros là ủy quyền đào tạo toàn cầu của Viện Quản Lý Dự Án Hoa Kỳ PMI (Global PMI R.E.P)</div>
@@ -27,10 +27,10 @@
 				<div class="error errorContact"></div>
 				<div class="message messageContact"></div>
 				<div class="p"><input type="text" name="company" placeholder="Tên công ty (nếu có)" class="txt field_item" /></div>
-				<div class="p"><input type="text" name="name" placeholder="Họ tên" class="txt field_item" check="2" message="'.$language_var['error_name'].'" /><p class="error" style="margin:0"></p></div>
-				<div class="p"><input type="text" name="email" placeholder="Email" class="txt field_item" check="email" message="'.$language_var['error_email'].'" /><p class="error" style="margin:0"></p></div>
-				<div class="p"><input type="text" name="phone" placeholder="Điện thoại" class="txt field_item" check="phone" message="'.$language_var['error_phone'].'" /><p class="error" style="margin:0"></p></div>
-				<div class="p"><textarea type="text" name="message" placeholder="Nội dung yêu cầu" class="txtArea field_item" check="10" message="'.$language_var['error_message'].'"></textarea><p class="error" style="margin:0"></p></div>
+				<div class="p"><input type="text" name="name" placeholder="Họ tên" class="txt field_item" check="2" message="'.$lang_var['error_name'].'" /><p class="error" style="margin:0"></p></div>
+				<div class="p"><input type="text" name="email" placeholder="Email" class="txt field_item" check="email" message="'.$lang_var['error_email'].'" /><p class="error" style="margin:0"></p></div>
+				<div class="p"><input type="text" name="phone" placeholder="Điện thoại" class="txt field_item" check="phone" message="'.$lang_var['error_phone'].'" /><p class="error" style="margin:0"></p></div>
+				<div class="p"><textarea type="text" name="message" placeholder="Nội dung yêu cầu" class="txtArea field_item" check="10" message="'.$lang_var['error_message'].'"></textarea><p class="error" style="margin:0"></p></div>
 				<input type="hidden" name="datetime" class="field_item" value="'.date('Y-m-d H:i:s').'" />
             	<input type="hidden" name="ip_address" class="field_item" value="'.$_SERVER['REMOTE_ADDR'].'" />
 				<input type="hidden" name="header_id" class="field_item" value="'.$currentPage['id'].'" />
@@ -55,12 +55,12 @@
 	if(count($data)>1){
 		echo '<div class="clear20"></div><hr class="hr" />
 		<div id="courses" style="border:none">
-			<div class="h2-courses">'.$language_var['other_course'].'</div>';
+			<div class="h2-courses">'.$lang_var['other_course'].'</div>';
 			$i=0;
 			foreach($data as $row){
 				if($row['id']!=$currentPage['id']){
 					$i++;
-					$img = $currentPage['url_img'].$row['img'];
+					$img = IMAGE_URL.$row['img'];
 					if($row['img']=='') $img=CONS_IMAGE_DEFAULT;
 					if($i%2 == 1) $style='left'; else $style='right';
 					echo '<div class="box '.$style.'">
@@ -68,7 +68,7 @@
 						<div class="content">
 							<a href="'.$row['name_alias'].'" title="'.$row['name'].'" class="link"><h3 class="h3">'.$row['name'].'</h3></a>
 							<div class="p">'.$row['description'].'</div>
-							<a href="'.$row['name_alias'].'" class="view">'.$language_var['viewmore'].'</a>
+							<a href="'.$row['name_alias'].'" class="view">'.$lang_var['viewmore'].'</a>
 						</div>
 						<div class="clear1"></div>
 					</div>';

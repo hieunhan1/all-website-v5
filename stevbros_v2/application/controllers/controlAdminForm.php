@@ -149,12 +149,12 @@ class controlAdminForm{
 		return $str;
 	}
 
-	public function ckeditorCustom($name){
+	public function ckeditorCustom($name, $other=NULL){
 		$str = "<script>
 		CKEDITOR.replace( '{$name}', {
 			uiColor: '#E1E1E1',
 			toolbar: [
-				['Source','Paste','PasteText','PasteFromWord','Bold', 'Italic', '-','RemoveFormat','TextColor','BGColor','NumberedList','BulletedList','-','Outdent','Indent'],
+				['Source','Paste','PasteText','PasteFromWord','Bold', 'Italic', '-','RemoveFormat','TextColor','BGColor','NumberedList','BulletedList','-','Outdent','Indent',".$other."],
 			]
 		});
 		</script>";

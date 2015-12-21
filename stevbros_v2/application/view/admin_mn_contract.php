@@ -1,19 +1,17 @@
 <?php
 $arrFrmSearch = array();
 
+$name = 'code';
+if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
+$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mã hợp đồng');
+
 $name = 'LIKE_name';
 if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
-$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mô tả');
+$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Tên công ty');
 
-$name = 'type';
-$value = array();
-$value[] = array('id'=>'', 'name'=>'-- loại --');
-$value[] = array('id'=>'1', 'name'=>'Web');
-$value[] = array('id'=>'2', 'name'=>'Admin');
-$value[] = array('id'=>'3', 'name'=>'Manager');
-$value[] = array('id'=>'0', 'name'=>'No');
-if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
-$arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
+$name = 'tax_code';
+if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
+$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mã số thuế');
 
 echo $c->viewFormSearch($arrFrmSearch);
 
@@ -25,40 +23,40 @@ else
 ?>
 <div id="adContent">
 	<div class="tagsHidden">
-        <p class="fieldQuickView" type="txt" name="name">Mô tả</p>
-        <p class="fieldQuickView" type="txt" name="url">Link</p>
-        <p class="fieldQuickView" type="txt" name="parameter">Parameter</p>
-        <p class="fieldQuickView" type="txt" name="file">File Include</p>
+        <p class="fieldQuickView" type="txt" name="name">Name</p>
+        <p class="fieldQuickView" type="txt" name="surrogate">Người đại điện</p>
+        <p class="fieldQuickView" type="txt" name="tel">Tel</p>
+        <p class="fieldQuickView" type="txt" name="tax_code">Mã số thuế</p>
+        <p class="fieldQuickView" type="des" name="address">Address</p>
     </div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
         	<th width="50">STT</th>
-            <th align="left">Mô tả</th>
-            <th width="100" align="left">Url</th>
-            <th width="220" align="left">Parameter</th>
-            <th width="100" align="left">File Include</th>
-            <th width="80">Thứ tự</th>
+            <th width="80" align="left">Mã HĐ</th>
+            <th align="left">Company</th>
+            <th width="80" align="left">MST</th>
+            <th width="120" align="left">Đại điện</th>
+            <th width="80" align="left">Chức vụ</th>
+            <th width="80" align="left">Tel</th>
             <th width="100">Thao tác</th>
         </tr>
         <?php
 		$i = 0;
 		$arr = array(
-			//'lang'=>$lang,
-			'select'=>'`id`, `name`, `url`, `parameter`, `file`, `_order`, `status`',
+			'select'=>'`id`, `code`, `name`, `surrogate`, `regency`, `address`, `tax_code`, `tel`, `status`',
 			'table'=>$table,
-			//'where'=>'',
-			'order'=>'`type`, `_order`',
 		);
 		$data = $c->selectFromAll($arr);
 		foreach($data as $row){
 			$i++; ?>
             <tr class="row">
                 <td align="center"><?php echo $arr['startRow']+$i; ?></td>
+                <td><?php echo $row['code'];?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
-                <td><p class="height"><?php echo $row['url'];?></p></td>
-                <td><p class="height"><?php echo $row['parameter'];?></p></td>
-                <td><p class="height"><?php echo $row['file'];?></p></td>
-                <td align="center"><?php echo $row['_order'];?></td>
+                <td><?php echo $row['tax_code'];?></td>
+                <td><p class="height"><?php echo $row['surrogate'];?></p></td>
+                <td><?php echo $row['regency'];?></td>
+                <td><p class="height"><?php echo $row['tel'];?></p></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);

@@ -122,26 +122,26 @@ class modelDB{
 	public function _select($arr){
 		if(!isset($arr['select']) || !isset($arr['from'])) return false;
 		
-		if(count($arr['select'])==1) $select="{$arr['select']}";
+		if(!is_array($arr['select'])) $select="{$arr['select']}";
 		else{
 			$select='';
 			$arrSelect = $arr['select'];
-			for($i=0; $i<count($arrSelect); $i++) $select .= "{$arrSelect[$i]},";
-			$select = trim($select, ',');
+			for($i=0; $i<count($arrSelect); $i++) $select .= "{$arrSelect[$i]}, ";
+			$select = trim($select, ', ');
 		}
 		
-		if(count($arr['from'])==1) $from="{$arr['from']}";
+		if(!is_array($arr['from'])) $from="{$arr['from']}";
 		else{
 			$from='';
 			$arrFrom = $arr['from'];
-			for($i=0; $i<count($arrFrom); $i++) $from .= "`{$arrFrom[$i]}`,";
-			$from = trim($from, ',');
+			for($i=0; $i<count($arrFrom); $i++) $from .= "{$arrFrom[$i]}, ";
+			$from = trim($from, ', ');
 		}
 		
-		if(isset($arr['where']) && count($arr['where'])==1){
+		if(isset($arr['where']) && !is_array($arr['where'])){
 			$where = trim($arr['where'], 'AND');
 			$where="WHERE {$where}";
-		}else if(isset($arr['where']) && count($arr['where'])>1){
+		}else if(isset($arr['where']) && is_array($arr['where'])){
 			$where=''; $arrWhere = $arr['where'];
 			foreach($arrWhere as $key => $value){
 				$logic='AND';
@@ -155,21 +155,29 @@ class modelDB{
 					$key=str_replace('LIKE_', '', $key);
 					$value="%{$value}%";
 				}
-				$where .= "{$logic} `{$key}`{$compare}'{$value}' ";
+				$where .= "{$logic} {$key}{$compare}'{$value}' ";
 			}
 			$where = trim($where, 'AND');
 			$where = trim($where, 'OR');
 			$where = "WHERE {$where}";
 		}else $where='';
-		
-		if(isset($arr['limit'])){
-			if(count($arr['limit'])==1) $limit="LIMIT {$arr['limit']}";
-			else $limit="LIMIT {$arr['limit'][0]}, {$arr['limit'][1]}";
-		}else $limit='';
+		if(trim($where)=='WHERE') $where='';
 		
 		if(isset($arr['order'])){
-			$order="ORDER BY {$arr['order']}";
+			if(!is_array($arr['order'])) $order="ORDER BY {$arr['order']}";
+			else{
+				$order='';
+				$arrOrder = $arr['order'];
+				for($i=0; $i<count($arrOrder); $i++) $order .= "{$arrSelect[$i]}, ";
+				$order = 'ORDER BY '.trim($order, ', ');
+			}
 		}else $order='';
+		
+		if(isset($arr['limit'])){
+			if(!is_array($arr['limit'])) $limit="LIMIT {$arr['limit']}";
+			else if(count($arr['limit'])==1) $limit="LIMIT {$arr['limit'][0]}";
+			else $limit="LIMIT {$arr['limit'][0]}, {$arr['limit'][1]}";
+		}else $limit='';
 		
 		$sql = "SELECT {$select} FROM {$from} {$where} {$order} {$limit}";
 		//echo "<p>SQL: {$sql}</p>";
@@ -177,6 +185,69 @@ class modelDB{
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[] = $row;
 		return $data;
+	}
+	public function _select2($arr){
+		if(!isset($arr['select']) || !isset($arr['from'])) return false;
+		
+		if(!is_array($arr['select'])) $select="{$arr['select']}";
+		else{
+			$select='';
+			$arrSelect = $arr['select'];
+			for($i=0; $i<count($arrSelect); $i++) $select .= "{$arrSelect[$i]}, ";
+			$select = trim($select, ', ');
+		}
+		
+		if(!is_array($arr['from'])) $from="{$arr['from']}";
+		else{
+			$from='';
+			$arrFrom = $arr['from'];
+			for($i=0; $i<count($arrFrom); $i++) $from .= "{$arrFrom[$i]}, ";
+			$from = trim($from, ', ');
+		}
+		
+		if(isset($arr['where']) && !is_array($arr['where'])){
+			$where = trim($arr['where'], 'AND');
+			$where="WHERE {$where}";
+		}else if(isset($arr['where']) && is_array($arr['where'])){
+			$where=''; $arrWhere = $arr['where'];
+			foreach($arrWhere as $key => $value){
+				$logic='AND';
+				$compare='=';
+				if(preg_match("/^OR_/", $key)){
+					$logic='OR';
+					$key=str_replace('OR_', '', $key);
+				}
+				if(preg_match("/LIKE_/", $key)){
+					$compare=' LIKE ';
+					$key=str_replace('LIKE_', '', $key);
+					$value="%{$value}%";
+				}
+				$where .= "{$logic} {$key}{$compare}'{$value}' ";
+			}
+			$where = trim($where, 'AND');
+			$where = trim($where, 'OR');
+			$where = "WHERE {$where}";
+		}else $where='';
+		if(trim($where)=='WHERE') $where='';
+		
+		if(isset($arr['order'])){
+			if(!is_array($arr['order'])) $order="ORDER BY {$arr['order']}";
+			else{
+				$order='';
+				$arrOrder = $arr['order'];
+				for($i=0; $i<count($arrOrder); $i++) $order .= "{$arrSelect[$i]}, ";
+				$order = 'ORDER BY '.trim($order, ', ');
+			}
+		}else $order='';
+		
+		if(isset($arr['limit'])){
+			if(!is_array($arr['limit'])) $limit="LIMIT {$arr['limit']}";
+			else if(count($arr['limit'])==1) $limit="LIMIT {$arr['limit'][0]}";
+			else $limit="LIMIT {$arr['limit'][0]}, {$arr['limit'][1]}";
+		}else $limit='';
+		
+		$sql = "SELECT {$select} FROM {$from} {$where} {$order} {$limit}";
+		return $sql;
 	}
 	public function _create($table, $fields, $values){
 		$str_field='';

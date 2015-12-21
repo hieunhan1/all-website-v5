@@ -7,7 +7,7 @@ if(isset($rowDetail['img'])){
 		'select'=>'*',
 		'from'=>'web_picture',
 		'where'=>array(
-			'table'=>$table,
+			'_table'=>$table,
 			'table_id'=>$id,
 		),
 		'oder'=>'`id`'
@@ -38,7 +38,7 @@ if(isset($rowDetail['img'])){
     <input type="hidden" name="imageUpload" value="1" />
     <input type="hidden" name="img_name" id="img_name" value="" />
     <input type="hidden" name="img" value="<?php echo $img;?>" class="ad_field" id="img" />
-    <input type="hidden" name="table" value="<?php echo $table;?>" />
+    <input type="hidden" name="_table" value="<?php echo $table;?>" />
     <input type="hidden" name="table_id" value="<?php echo $id;?>" />
     <div class="checkbox">
     	<span class="b">Tự xử lý hình ảnh: </span>

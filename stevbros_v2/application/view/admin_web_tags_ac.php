@@ -40,7 +40,7 @@ $value=$rowDetail[$name];
 $data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
 echo $cF->displayDiv('Link', $data);
 
-$name = 'order';
+$name = '_order';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];

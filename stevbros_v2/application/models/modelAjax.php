@@ -40,8 +40,9 @@ class modelAjax extends modelDB{
 		return $result->fetch_assoc();
 	}
 	
-	public function _viewDetail($table, $id, $ipAddress){
-		$sql = "SELECT * FROM `{$table}` WHERE `id`='{$id}' AND `ip_address`='{$ipAddress}' LIMIT 1";
+	public function _viewDetail($table, $id, $ipAddress=NULL){
+		if($ipAddress!=NULL) $ipAddress="AND `ip_address`='{$ipAddress}'";
+		$sql = "SELECT * FROM `{$table}` WHERE `id`='{$id}' {$ipAddress} LIMIT 1";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		return $result->fetch_assoc();
 	}
@@ -54,7 +55,7 @@ class modelAjax extends modelDB{
 	
 	/*xu ly web_picture*/
 	public function _checksWebPicture($img){
-		$sql = "SELECT `id`, `table`, `table_id` FROM `web_picture` WHERE `img`='{$img}' LIMIT 1 ";
+		$sql = "SELECT `id`, `_table`, `table_id` FROM `web_picture` WHERE `img`='{$img}' LIMIT 1 ";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		return $result->fetch_assoc();
 	}

@@ -9,7 +9,7 @@
 	$data = $cF->inputHidden($name, $id, 'ad_field');
 	echo $data;
 	
-	$name = 'table';
+	$name = '_table';
 	$value = 'web_header';
 	$data = $cF->inputHidden($name, $value, 'ad_field');
 	echo $data;
@@ -47,7 +47,7 @@
 	$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 	echo $cF->displayDiv('Name', $data);
 	
-	$name = 'order';
+	$name = '_order';
 	$properties = array();
 	$properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 	$value=$rowDetail[$name];

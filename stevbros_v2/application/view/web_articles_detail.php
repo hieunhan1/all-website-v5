@@ -15,7 +15,7 @@
 		);
         $data = $c->_model->_headerData($arr);
         if(count($data)>1){
-            echo '<div class="clear20"></div><hr class="hr" /><div id="otherPost"><div class="titlePost">'.$language_var['other_post'].'</div>';
+            echo '<div class="clear20"></div><hr class="hr" /><div id="otherPost"><div class="titlePost">'.$lang_var['other_post'].'</div>';
             foreach($data as $row){
 				if($row['id']!=$currentPage['id'])
                 	echo '<li class="itemPost"><a href="'.$row['name_alias'].'" title="'.$row['name'].'" class="linkPost">'.$row['name'].'</a></li>';

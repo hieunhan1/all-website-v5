@@ -36,7 +36,7 @@ $other='<span class="error adError"></span>';
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Url', $data);
 
-$name = 'table';
+$name = '_table';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'20');
 $value=$rowDetail[$name];
@@ -87,7 +87,7 @@ else $valueCheck=$rowDetail[$name];
 $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
 echo $cF->displayDiv('Loại', $data);
 
-$name = 'order';
+$name = '_order';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];

@@ -102,7 +102,7 @@ class pageAjax{
 $c = new pageAjax;
 $lang = $c->_lang;
 $config = $c->config($lang);
-//$language_var = $c->_model->_language_var($lang);
+//$lang_var = $c->_model->_language_var($lang);
 
 /*admin*/
 if(isset($_SESSION['adminID'])){

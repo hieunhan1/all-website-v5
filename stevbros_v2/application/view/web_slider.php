@@ -20,7 +20,7 @@ if(count($data)>0){
             	<?php
 				foreach($data as $row){
 					echo'<li><img src="'.$urlSlider['url_img'].$row['img'].'" alt="'.$row['name'].'"  title="'.$row['name'].'" data-description="'.$row['description'].'" data-texteffect="Right text" />
-					<a href="'.$row['url'].'"><button class="as-btn-orange-medium">'.$language_var['viewmore'].'</button></a></li>';
+					<a href="'.$row['url'].'"><button class="as-btn-orange-medium">'.$lang_var['viewmore'].'</button></a></li>';
 				}
 				?>
             </ul>

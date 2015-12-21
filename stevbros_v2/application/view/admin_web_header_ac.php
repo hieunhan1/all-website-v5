@@ -97,7 +97,7 @@ if($rowDetail[$name]!=''){
 $data = $cF->select($name, $values, $valueCheck, 'ad_field adInput adTxtMedium');
 echo $cF->displayDiv('Danh mục gốc', $data);
 
-$name = 'order';
+$name = '_order';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];

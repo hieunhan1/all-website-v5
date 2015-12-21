@@ -31,10 +31,10 @@ else
 		$i = 0;
 		$arr = array(
 			//'lang'=>$lang,
-			'select'=>'`id`, `name`, `code`, `order`, `status`',
+			'select'=>'`id`, `name`, `code`, `_order`, `status`',
 			'table'=>$table,
 			//'where'=>'',
-			'order'=>'`order`',
+			'order'=>'`_order`',
 		);
 		$data = $c->selectFromAll($arr);
 		foreach($data as $row){
@@ -43,7 +43,7 @@ else
                 <td align="center"><?php echo $arr['startRow']+$i; ?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
                 <td align="center"><?php echo $row['code'];?></td>
-                <td align="center"><?php echo $row['order'];?></td>
+                <td align="center"><?php echo $row['_order'];?></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);
