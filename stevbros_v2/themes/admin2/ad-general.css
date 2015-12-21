@@ -75,7 +75,7 @@ input, textarea, select{color:#666; font-size:100%; font-family:"Arial", Helveti
 .adIconGroup{background-position:-408px -117px}
 .adIconContact{background-position:-24px -141px}
 .adIconLog{background-position:-48px -21px}
-.adIconUser{background-position:-166px 3px; opacity:0.6}
+.adIconUser{background-position:-168px 3px}
 .adIconLogOut{background-position:-380px 3px}
 .adIconPass{background-position:-235px -22px}
 .adIconSetting{background-position:-432px 3px}
@@ -85,6 +85,9 @@ input, textarea, select{color:#666; font-size:100%; font-family:"Arial", Helveti
 .adIconCourse{background-position:-72px -45px}
 .adIconOpinion{background-position:-120px 3px}
 .adIconOpening{background-position:-192px -117px}
+.adIconMoney{background-position:0 -165px}
+.adIconParts{background-position:-312px -21px}
+.adIconProcedure{background-position:-336px -117px}
 
 .adIconView{background-position:-45px 3px}
 .adIconEdit{background-position:-92px -69px}

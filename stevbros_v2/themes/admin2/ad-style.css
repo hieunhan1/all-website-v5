@@ -102,6 +102,7 @@
 #adTop{clear:both; height:45px; overflow:hidden; line-height:45px; padding:0 25px; background-color:#438eb9}
 #adTop .left{width:auto; float:left; color:#FFF; font-size:190%; letter-spacing:2px; padding-left:50px; background-position:0 -240px}
 #adTop .right{width:auto; float:right; color:#d3e4ef}
+#adTop .right .adIconUser{opacity:0.6}
 #adTop .right .b{margin-right:20px}
 #adTop .right .link{color:#FFF; margin:0 5px}
 /*end adTop*/
@@ -198,7 +199,7 @@
 /*adField*/
 .adField{clear:both; margin-bottom:15px}
 .adField .label{width:15%; float:left; line-height:150%; text-align:right; font-weight:bold; margin-right:15px; padding-top:5px}
-.adField .label2{line-height:220%}
+.adField .label2{line-height:230%}
 .adField .field{width:80%; float:left}
 .adField .field2{}
 
@@ -236,10 +237,10 @@
 /*dataAction*/
 #dataAction{display:none}
 #dataActionBG{display:block; width:100%; height:100%; position:fixed; top:0; left:0; z-index:30}
-#dataActionContent{width:auto; overflow:hidden; font-weight:bold; border:solid 1px #FFF; border-radius:10px; box-shadow:0px 0px 7px #333; position:fixed; top:35%; left:35%; z-index:31}
-#dataActionContent .process{display:block; padding:20px 30px; background-color:#FFF}
-#dataActionContent .message{display:block; color:#FFF; padding:20px 30px; background-color:#090}
-#dataActionContent .error{display:block; color:#FFF; padding:20px 30px; background-color:#F00}
+#dataActionContent{width:auto; overflow:hidden; border:solid 1px #FFF; border-radius:10px; box-shadow:0px 0px 7px #333; position:fixed; top:35%; left:35%; z-index:31}
+#dataActionContent .process{display:block; width:auto; padding:20px 30px; background-color:#FFF}
+#dataActionContent .message{display:block; width:auto; color:#FFF; padding:20px 30px; background-color:#090}
+#dataActionContent .error{display:block; width:auto; color:#FFF; padding:20px 30px; background-color:#B90000}
 /*end dataAction*/
 
 /*upload img*/
@@ -273,6 +274,7 @@
 
 /*other*/
 #value_view{line-height:22px}
-#value_view .value_data{color:#00F; cursor:pointer}
+#value_view .title{font-weight:bold; font-style:italic}
+#value_view .value_data{color:#00F; margin-left:25px; cursor:pointer}
 #value_view .value_data:hover{color:#F00}
 .saved{color:#666; background-color:#FFF; border:solid 1px #CCC}
