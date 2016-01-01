@@ -1,6 +1,6 @@
 <?php
 $c = new controlGerenal;
-$currentPage = $c->currentPage($arrUrl['link']); //$c->_model->_print($currentPage);
+$currentPage = $c->currentPage($arrUrl['link']);
 if($currentPage['id']==''){
 	$lang = $arrUrl['link'];
 	$checksLang = $c->_model->_language($lang);
@@ -14,10 +14,8 @@ if($currentPage['id']==''){
 }
 
 $lang = $currentPage['lang'];
-$config = $c->config($lang);
+$config = $c->_model->_config($lang);
 $lang_var = $c->_model->_language_var($lang);
-
-$urlImg = $c->webType();
 
 if($currentPage['properties']==1) $fileView = "web_{$currentPage['type']}_list.php";
 else if($currentPage['properties']==2){

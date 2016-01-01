@@ -226,7 +226,6 @@ class pageAdmin{
 include_once('config/configAdmin.php');
 $c = new pageAdmin;
 $lang = $c->language();
-$urlImg = $c->_model->_webTypeList();
 $navigator = $c->_model->_navigator($arrUrl['link']);
 $_SESSION['currentPageAdmin'] = $navigator['id'];
 $table = $navigator['_table'];

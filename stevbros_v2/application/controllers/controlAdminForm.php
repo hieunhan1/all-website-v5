@@ -125,12 +125,6 @@ class controlAdminForm{
 			height: 400,
 			filebrowserWindowWidth: '80%',
 			filebrowserWindowHeight: '70%',
-			filebrowserBrowseUrl: 		'".$dir."ckfinder/ckfinder.html',
-			filebrowserImageBrowseUrl: 	'".$dir."ckfinder/ckfinder.html?Type=Images',
-			filebrowserFlashBrowseUrl: 	'".$dir."ckfinder/ckfinder.html?Type=Flash',
-			//filebrowserUploadUrl: 		'".$dir."ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-			//filebrowserImageUploadUrl: 	'".$dir."ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-			//filebrowserFlashUploadUrl: 	'".$dir."ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash',
 			toolbar:
 			[
 			['Source','-','Maximize','ShowBlocks','-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
@@ -148,8 +142,31 @@ class controlAdminForm{
 		</script>";
 		return $str;
 	}
+	
+	public function ckeditorStandard($name, $dir='js/'){
+		$str = "<script>
+		CKEDITOR.replace( '{$name}', {
+			uiColor: '#E1E1E1',
+			height: 250,
+			filebrowserWindowWidth: '80%',
+			filebrowserWindowHeight: '70%',
+			toolbar:
+			[
+			['Source','-','Maximize','ShowBlocks','PasteText','PasteFromWord','RemoveFormat'],
+			['Link','Unlink','Iframe'],
+			['Image','Flash', 'Video', 'Table'],
+			['NumberedList','BulletedList','-','Outdent','Indent'],
+			['TextColor','BGColor','-','HorizontalRule','SpecialChar','PageBreak'],
+			['Format','Font','FontSize'],
+			['Bold','Italic','Underline'],
+			['JustifyLeft','JustifyCenter','JustifyRight'],
+			]
+			});
+		</script>";
+		return $str;
+	}
 
-	public function ckeditorCustom($name, $other=NULL){
+	public function ckeditorBasic($name, $other=NULL){
 		$str = "<script>
 		CKEDITOR.replace( '{$name}', {
 			uiColor: '#E1E1E1',

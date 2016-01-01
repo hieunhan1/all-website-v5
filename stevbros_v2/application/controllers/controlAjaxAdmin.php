@@ -45,13 +45,6 @@ if(isset($_POST['rejectCreateData'])){
 		echo $c->exportError($arr);
 		return false;
 	}
-	/*$check = $c->_model->_checksIpAddress($table, $ipAddress);
-	$check = time() - $check['datetime'];
-	if($check<30){
-		$arr = array('error'=>1, 'message'=>'You manipulate too fast, please try again after 30 seconds.');
-		echo $c->exportError($arr);
-		return false;
-	}*/
 	$data = $c->createEditData($table);
 	if($data!=false){
 		$arr = array('error'=>0, 'message'=>'Đã lưu vào database', 'id'=>$data);
@@ -127,6 +120,12 @@ if(isset($_POST['clearLogs'])){
 	return true;
 }
 /*end logs*/
+
+/*clearCache*/
+if(isset($_POST['clearCache'])){
+	$c->remove_dir(CONS_CACHE_URL_FILE);
+	return true;
+}
 
 if(isset($_POST['ajaxNumberItem'])){
 	$table = $c->_model->_changeDauNhay($_POST['table']);
@@ -233,7 +232,7 @@ if(isset($_POST['searchName'])){
 	if(isset($_POST['limit'])) $limit = $c->_model->_changeDauNhay($_POST['limit']);
 	else $limit=20;
 	$where='';
-	if($table=='web_header') $where .= " AND `properties`=2 ";
+	//if($table=='web_header') $where .= " AND `properties`=2 ";
 	
 	$ad = new modelAdmin;
 	$where .= "AND `name` LIKE '%{$name}%'";

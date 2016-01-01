@@ -12,11 +12,6 @@ class pageAjax{
 		else
 			return $_REQUEST['lang'];
 	}
-	public function config($lang){
-		$file_lang = "languages/lang_{$lang}.php";
-		if (file_exists($file_lang)) include_once($file_lang);
-		return $this->_model->_config($lang);
-	}
 	
 	public function checkRole($role){
 		$adminRole = $_SESSION['adminRole'];
@@ -77,6 +72,43 @@ class pageAjax{
 		return $result;
 	}
 	
+	public function remove_dir($dir = null) {
+		if (is_dir($dir)) {
+			$objects = scandir($dir);
+			foreach ($objects as $object) {
+				if ($object != "." && $object != ".." && $object != ".htaccess") {
+					if (filetype($dir."/".$object) == "dir") remove_dir($dir."/".$object);
+					else unlink($dir."/".$object);
+				}
+			}
+			reset($objects);
+			//rmdir($dir);
+		}
+	}
+	
+	public function checksIpAddress($time=1, $limit=5){
+		$ipAddress = $_SERVER['REMOTE_ADDR'];
+		$datetime = time() - $time*3600;
+		$data = $this->_model->_checksIpAddress($ipAddress, $datetime, $limit);
+		if(count($data) > 0){
+			$total = count($data);
+			$check = $data[0];
+			
+			$check = time() - $check['datetime'];
+			if($check<30){
+				$arr = array('error'=>1, 'message'=>'You manipulate too fast, please try again after 30 seconds.');
+				echo $this->exportError($arr);
+				return false;
+			}else if($total >= $limit){
+				$arr = array('error'=>1, 'message'=>'Trong '.$time.' tiếng bạn chỉ gửi liên hệ được '.$limit.' lần, tránh spam.');
+				echo $this->exportError($arr);
+				return false;
+			}
+		}
+		$this->_model->_insertIpAddress($ipAddress);
+		return $ipAddress;
+	}
+	
 	public function sendmail($title, $subject, $body, $add_address, $add_cc='', $add_bcc=''){
 		include_once('libraries/sendmail/class.phpmailer.php');
 		$mail = new PHPMailer();
@@ -101,7 +133,7 @@ class pageAjax{
 
 $c = new pageAjax;
 $lang = $c->_lang;
-$config = $c->config($lang);
+$config = $c->_model->_config($lang);
 //$lang_var = $c->_model->_language_var($lang);
 
 /*admin*/

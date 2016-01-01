@@ -5,10 +5,28 @@ class controlGerenal{
 		$this->_model = new modelGerenal;
 	}
 	
-	public function config($lang){
-		$file_lang = "languages/lang_{$lang}.php";
-		if(file_exists($file_lang)) include_once($file_lang);
-		return $this->_model->_config($lang);
+	public function cacheBegin(){
+		$bd = (float) array_sum(explode(' ', microtime()));
+		$page = 'http://'. $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$pathfile = CONS_CACHE_URL_FILE . md5($page) . '.' . CONS_CACHE_EXT;
+		$file_created = (file_exists($pathfile)) ? filemtime($pathfile) : 0;
+		if ( (time() - CONS_CACHE_TIME) < $file_created ) {
+			readfile($pathfile);
+			$kt = (float) array_sum(explode(' ', microtime()));
+			//echo "Xử lý trong cache: ". sprintf("%.5f", ($kt-$bd))." giây";
+			ob_end_flush();
+			return true;
+		}else
+			return false;
+	}
+	
+	public function cacheEnd(){
+		$page = 'http://'. $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$pathfile = CONS_CACHE_URL_FILE . md5($page) . '.' . CONS_CACHE_EXT;
+		$fp = fopen($pathfile, 'w');
+		fwrite($fp, ob_get_contents());
+		fclose($fp);
+		ob_end_flush();
 	}
 	
 	public function webType($id=NULL){
@@ -57,9 +75,9 @@ class controlGerenal{
 		else if($row['menu_id']!=''){
 			$menu_id = explode(',', $row['menu_id']);
 			$menu_id = $menu_id[count($menu_id)-2];
-			$root=$this->_model->_headerRoot($menu_id);
+			$root = $this->_model->_headerRoot($menu_id);
 		}else 
-			$root=$this->_model->_headerRoot($row['parent']);
+			$root = $this->_model->_headerRoot($row['parent']);
 			
 		$arr = array(
 			'id'=>$row['id'],

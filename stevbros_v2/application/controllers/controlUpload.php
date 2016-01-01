@@ -125,14 +125,6 @@ if(isset($_POST['imageUpload'])){
 	}//end foreach
 	
 	echo $c->exportError($arr);
-	
-	/*if($checkArray==0){
-		$data = $c->_model->_webHeaderID($id);
-		if($data['img']!=''){
-			if(file_exists($urlImg.$data['img'])) unlink($urlImg.$data['img']);
-			if(file_exists($urlImgThumb.$data['img'])) unlink($urlImgThumb.$data['img']);
-		}
-	}*/
 	return true;
 }
 

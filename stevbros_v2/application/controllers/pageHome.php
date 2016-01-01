@@ -1,15 +1,9 @@
 <?php
 class pageHome extends controlGerenal{
-	public $_lang;
-	public function __construct($lang){
-		parent::__construct();
-		$this->_lang = $lang;
-	}
-	
-	public function currentHome(){
+	public function currentHome($lang){
 		$typeId = 1; //type 1 home page
 		$arr = array(
-			'lang' => $this->_lang,
+			'lang' => $lang,
 			'type_id' => $typeId,
 			'limit' => 1,
 		);
@@ -19,38 +13,35 @@ class pageHome extends controlGerenal{
 		if($row['img']=='')
 			$img = CONS_BASE_URL.'/'.CONS_IMAGE_DEFAULT;
 		else
-			$img = CONS_BASE_URL.'/'.$typeMenu['url_img'].$row['img'];
+			$img = CONS_BASE_URL.'/'.IMAGE_URL.$row['img'];
 		
 		$arr = array(
 			'id'=>$row['id'],
 			'name'=>strip_tags($row['name']),
 			'title'=>strip_tags($row['title']),
 			'description'=>strip_tags($row['description']),
-			'tags'=>strip_tags($row['tags']),
+			'tags'=>$row['tags'],
 			'url'=>$row['url'],
 			'img'=>$img,
-			'lang'=>strip_tags($row['lang']),
+			'lang'=>$row['lang'],
 			'typeID'=>$typeMenu['id'],
 			'typeName'=>$typeMenu['name'],
-			'url_img'=>$typeMenu['url_img'],
-			'url_img_thumb'=>$typeMenu['url_img_thumb'],
 			'rootID'=>$row['id'],
 		);
 		return $arr;
 	}
 }
 
-include_once('cache/cachebegin.php');
+$lang = CONS_DEFAULT_LANG;
+$c = new pageHome();
 
-if(!isset($lang)) $lang = CONS_DEFAULT_LANG;
+//$cache = $c->cacheBegin();
+//if($cache==true) return true;
 
-$c = new pageHome($lang);
-$config = $c->config($lang);
+$config = $c->_model->_config($lang);
 $lang_var = $c->_model->_language_var($lang);
-$currentPage = $c->currentHome();
+$currentPage = $c->currentHome($lang);
 $tagHead = $c->tagHead($currentPage['title'], $currentPage['description'], $currentPage['tags'], $currentPage['img'], $currentPage['url']);
-
-$urlImg = $c->webType();
 
 $logo = $c->logo($lang);
 $logoStevbros = $logo[0];
@@ -63,4 +54,4 @@ $viewData = ob_get_clean();
 
 include_once('view/web.php');
 
-include_once('cache/cacheend.php');
+//$c->cacheEnd(); /*luu cache*/
