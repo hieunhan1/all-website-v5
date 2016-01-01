@@ -34,10 +34,19 @@ class modelAjax extends modelDB{
 		return $row[0];
 	}
 	
-	public function _checksIpAddress($table, $ipAddress){
-		$sql = "SELECT `datetime` FROM `{$table}` WHERE `ip_address`='{$ipAddress}' ORDER BY `datetime` DESC LIMIT 1";
+	public function _checksIpAddress($ipAddress, $datetime='', $limit=10){
+		if($datetime!='') $datetime="AND `datetime`>='{$datetime}'";
+		$sql = "SELECT `datetime` FROM `web_ip_address` WHERE `ip_address`='{$ipAddress}' {$datetime} ORDER BY `datetime` DESC LIMIT {$limit}";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
-		return $result->fetch_assoc();
+		$data = array();
+		while($row = $result->fetch_assoc()) $data[] = $row;
+		return $data;
+	}
+	
+	public function _insertIpAddress($ipAddress){
+		$datetime = time();
+		$sql = "INSERT INTO `web_ip_address` (`ip_address`, `datetime`) VALUES ('{$ipAddress}', '{$datetime}')";
+		if(!$result = $this->db->query($sql)) die($this->db->error);
 	}
 	
 	public function _viewDetail($table, $id, $ipAddress=NULL){
@@ -98,5 +107,30 @@ class modelAjax extends modelDB{
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		return $result->fetch_assoc();
 	}
+	
+	/*entry test*/
+	public function _entrytestList($menu_id){
+		$sql = "SELECT * FROM `web_entrytest` WHERE `status`=1 AND `menu_id` LIKE '%,{$menu_id},%' ORDER BY `_order`";
+		if(!$result = $this->db->query($sql)) die($this->db->error);
+		$data = array();
+		while($row = $result->fetch_assoc()) $data[] = $row;
+		return $data;
+	}
+	
+	public function _checkEntryTestUser($users_id, $menu_id, $entrytest_id=NULL){
+		if($entrytest_id!=NULL) $entrytest_id = "AND `entrytest_id`='{$entrytest_id}'";
+		$sql = "SELECT * FROM `web_entrytest_user` WHERE `users_id`='{$users_id}' AND `menu_id`='{$menu_id}' {$entrytest_id}";
+		if(!$result = $this->db->query($sql)) die($this->db->error);
+		$data = array();
+		while($row = $result->fetch_assoc()) $data[$row['entrytest_id']] = $row;
+		return $data;
+	}
+	
+	public function _insertEntryTestUser($users_id, $menu_id, $entrytest_id, $answers){
+		$datetime = time();
+		$sql = "INSERT INTO `web_entrytest_user` (`users_id`, `menu_id`, `entrytest_id`, `answers`, `datetime`) VALUES ('{$users_id}', '{$menu_id}', '{$entrytest_id}', '{$answers}', '{$datetime}')";
+		if(!$result = $this->db->query($sql)) die($this->db->error);
+	}
+	/*end entry test*/
 }
 ?>
