@@ -108,18 +108,29 @@ echo '<div id="idSecond" style="display:none">'.$value.'</div>';
 $name = 'more';
 if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
 $name = 'ckeditor_more';
-$others = $cF->ckeditorCustom($name);
-$data = $cF->textArea($name, $value, 'textarea', NULL, $others);
-echo $cF->displayDiv('Đặc tả', $data);
-	
+$properties = array();
+$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
+$others = $cF->ckeditorStandard($name);
+$data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
+echo $cF->displayDiv('Lợi ích', $data);
+
 $name = 'content';
 if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
 $name = 'ckeditor_content';
 $properties = array();
 $properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
-$others = $cF->ckeditorFull($name);
+$others = $cF->ckeditorStandard($name);
 $data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
-echo $cF->displayDiv('', $data);
+echo $cF->displayDiv('Nội dung khóa học', $data);
+
+$name = 'more2';
+if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
+$name = 'ckeditor_more2';
+$properties = array();
+$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
+$others = $cF->ckeditorStandard($name);
+$data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
+echo $cF->displayDiv('Mô tả', $data);
 //-----end web_content Second-----//
 
 if(isset($_GET['type_id'])) $type_id=$_GET['type_id']; else $type_id='';

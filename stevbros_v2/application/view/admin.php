@@ -14,7 +14,7 @@
 <script type="text/javascript" src="js/js_admin.js"></script>
 
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="js/ckfinder/ckfinder.js"></script>
+<!--<script type="text/javascript" src="js/ckfinder/ckfinder.js"></script>-->
 
 <link type="text/css" href="js/datetimepick/jquery.simple-dtpicker.css" rel="stylesheet" />
 <script type="text/javascript" src="js/datetimepick/jquery.simple-dtpicker.js"></script>
@@ -26,7 +26,7 @@
 	});
 </script>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
 function BrowseServer( startupPath, functionData ){
 	var finder = new CKFinder();
 	finder.basePath = 'ckfinder/';
@@ -39,7 +39,7 @@ function SetFileField(fileUrl, data){
 	var sFileName = this.getSelectedFile().name;
 	document.getElementById(data["selectActionData"]).value = sFileName;
 }
-</script>
+</script>-->
 
 </head>
 
@@ -78,7 +78,7 @@ echo $c->viewTableHtml($table);
         </div>
         
         <div id="navigator">
-        	<a href=""><span class="adIconBlack adIconHome"></span></a>
+        	<a href="<?php echo CONS_LINK_ADMIN;?>"><span class="adIconBlack adIconHome"></span></a>
             <span class="span">&gt;&gt;</span>
             <?php echo '<a href="'.CONS_LINK_ADMIN.'/'.$navigator['url'].'/'.$navigator['parameter'].'" class="link">'.$navigator['name'].'</a>';?>
         </div>

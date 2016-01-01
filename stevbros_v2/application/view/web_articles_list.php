@@ -33,7 +33,7 @@
 				<div class="content">
 					<a href="'.$row['name_alias'].'" title="'.$row['name'].'" class="link"><h3 class="h3">'.$row['name'].'</h3></a>
 					<div class="p">'.$row['description'].'</div>
-					<a href="'.$row['name_alias'].'" class="view">'.$lang_var['viewmore'].'</a>
+					<a href="'.$row['name_alias'].'" class="view adBtnSmall bgColorWhite corner5">'.$lang_var['viewmore'].'</a>
 				</div>
                 <div class="clear1"></div>
             </div>';
@@ -50,6 +50,6 @@
     ?>
     </div>
     
-    <?php include_once('web_right.php');?>
+    <?php include_once('web_articles_right.php');?>
 </div>
 <div class="clear1"></div>

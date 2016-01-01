@@ -1,28 +1,45 @@
 <?php
-$arrType = array(
-	1=>'Liên hệ',
-	2=>'Đăng ký',
-	3=>'Hợp tác',
+$type = array(
+	'0' => array('id'=>'', 'name'=>'-- chức vụ --'),
+	'1' => array('id'=>1, 'name'=>'Selected'),
+	'2' => array('id'=>2, 'name'=>'Associate'),
+	'3' => array('id'=>3, 'name'=>'Certified'),
+	'4' => array('id'=>4, 'name'=>'Senior'),
+	'5' => array('id'=>5, 'name'=>'Expert'),
 );
-		
+
+$price_level = array(
+	'0' => array('id'=>'', 'name'=>'-- mức giá --'),
+	'1' => array('id'=>1, 'name'=>'Low'),
+	'2' => array('id'=>2, 'name'=>'Medium'),
+	'3' => array('id'=>3, 'name'=>'High'),
+);
+
 $arrFrmSearch = array();
 
 $name = 'LIKE_name';
 if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mô tả');
 
-$name = 'type';
-$value = array();
-$value[] = array('id'=>'', 'name'=>'-- chọn loại --');
-$value[] = array('id'=>'1', 'name'=>'Liên hệ');
-$value[] = array('id'=>'2', 'name'=>'Đăng ký');
-$value[] = array('id'=>'3', 'name'=>'Hợp tác');
+$name = 'phone';
+if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
+$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Phone');
 
+$name = 'email';
+if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
+$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Email');
+
+$name = 'type';
+$value = $type;
+if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
+$arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
+
+$name = 'price_level';
+$value = $price_level;
 if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
 
 echo $c->viewFormSearch($arrFrmSearch);
-
 
 if($navigator['parameter']=='')
 	$para='?';
@@ -31,30 +48,26 @@ else
 ?>
 <div id="adContent">
 	<div class="tagsHidden">
-        <p class="fieldQuickView" type="txt" name="name">Họ tên</p>
-        <p class="fieldQuickView" type="txt" name="email">Email</p>
+        <p class="fieldQuickView" type="txt" name="name">Name</p>
         <p class="fieldQuickView" type="txt" name="phone">Phone</p>
-        <p class="fieldQuickView" type="txt" name="datetime">Ngày</p>
-        <p class="fieldQuickView" type="des" name="message">Lời nhắn</p>
+        <p class="fieldQuickView" type="txt" name="email">Email</p>
+        <p class="fieldQuickView" type="txt" name="address">Address</p>
     </div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
-            <th width="50">STT</th>
-            <th align="left">Họ tên</th>
-            <th width="110" align="left">Phone</th>
-            <th width="180" align="left">Email</th>
-            <th width="100" align="left">Type</th>
-            <th width="110" align="left">Ngày</th>
+        	<th width="50">STT</th>
+            <th align="left">Name</th>
+            <th width="13%" align="left">Phone</th>
+            <th width="18%" align="left">Email</th>
+            <th width="10%" align="left">Chức vụ</th>
+            <th width="10%" align="left">Mức giá</th>
             <th width="100">Thao tác</th>
         </tr>
         <?php
 		$i = 0;
 		$arr = array(
-			'lang'=>$lang,
-			'select'=>'`id`, `name`, `email`, `phone`, `address`, `message`, `datetime`, `status`, `type`',
+			'select'=>'`id`, `name`, `phone`, `email`, `address`, `type`, `price_level`, `status`',
 			'table'=>$table,
-			//'where'=>'',
-			//'order'=>'',
 		);
 		$data = $c->selectFromAll($arr);
 		foreach($data as $row){
@@ -62,10 +75,10 @@ else
             <tr class="row">
                 <td align="center"><?php echo $arr['startRow']+$i; ?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
-                <td><p class="height"><?php echo $row['phone'];?></p></td>
+                <td><?php echo $row['phone'];?></td>
                 <td><p class="height"><?php echo $row['email'];?></p></td>
-                <td><?php echo $arrType[$row['type']];?></td>
-                <td><?php echo $c->viewDateTime($row['datetime']);?></td>
+                <td><?php echo $type[$row['type']]['name'];?></td>
+                <td><?php echo $price_level[$row['price_level']]['name'];?></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);

@@ -8,7 +8,7 @@ $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=
 $name = 'LIKE_menu_id';
 $value = array();
 $value[] = array('id'=>'', 'name'=>'-- chọn danh mục --');
-$where = "(type_id=1 OR type_id=2 OR type_id=5)";
+$where = "(type_id=6)";
 $data = $c->menuList($lang, $where);
 foreach($data as $row){
 	$value[] = array('id'=>",{$row['id']},", 'name'=>$row['name']);
@@ -25,25 +25,23 @@ else
 ?>
 <div id="adContent">
 	<div class="tagsHidden">
-    	<p class="fieldQuickView" type="img" name="img"></p>
         <p class="fieldQuickView" type="txt" name="name">Mô tả</p>
-        <p class="fieldQuickView" type="txt" name="datetime">Ngày</p>
-        <p class="fieldQuickView" type="txt" name="tags">Từ khóa</p>
-        <p class="fieldQuickView" type="des" name="description">Thông tin</p>
+        <p class="fieldQuickView" type="txt" name="correct">Đáp án</p>
+        <!--<p class="fieldQuickView" type="des" name="question">Câu hỏi</p>-->
     </div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
         	<th width="50">STT</th>
             <th align="left">Mô tả</th>
-            <th width="150" align="left">Tên hình</th>
-            <th width="110">Ngày</th>
-            <th width="100">Thao tác</th>
+            <th width="20%">Đáp án</th>
+            <th width="100">Thứ tự</th>
+            <th width="110">Thao tác</th>
         </tr>
         <?php
 		$i = 0;
 		$arr = array(
-			'lang'=>$lang,
-			'select'=>'`id`, `name`, `img`, `description`, `tags`, `datetime`, `status`',
+			//'lang'=>$lang,
+			'select'=>'`id`, `name`, `correct`, `_order`, `status`',
 			'table'=>$table,
 			//'where'=>'',
 			//'order'=>'',
@@ -54,8 +52,8 @@ else
             <tr class="row">
                 <td align="center"><?php echo $arr['startRow']+$i; ?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
-                <td><?php echo $row['img'];?></td>
-                <td><?php echo $c->viewDateTime($row['datetime']);?></td>
+                <td align="center"><?php echo $row['correct'];?></td>
+                <td align="center"><?php echo $row['_order'];?></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);

@@ -7,7 +7,7 @@
                 <a href="http://stevbros.com/" target="_blank" title="STEVBROS GLOBAL"><span class="allIcon icon cart"><span>0</span></span></a>
                 <span class="allIcon icon user">&nbsp;</span>
             </div>
-            <div class="search"><input type="text" name="txtSearch" id="txtSearch" placeholder="Tìm kiếm" /></div>
+            <div class="search-header allIcon"><input type="text" name="txtSearch" id="txtSearch" placeholder="Tìm kiếm" /></div>
         </div>
 
         <div class="main">
@@ -97,6 +97,7 @@
 		</div>
 		<div class="home-courses">';
 		$arr = array(
+			'type_id'=>3,
 			'menu_id' => $rowCourse['id'],
 			'order'=>'`_order`',
 			'limit'=>'6',
@@ -105,11 +106,11 @@
 		foreach($data as $row){
 			$i++;
 			if($i%2==1) $float='left'; else $float='right';
-			$title = explode(' - ', $row['name'], 2);
+			$title = explode(',', $row['tags'], 2);
 			echo '<div class="box '.$float.'">
 				<div class="title">
 					<p class="number">'.$title[0].'</p>
-					<div class="name">'.$title[1].'</div>
+					<div class="name">'.$row['name'].'</div>
 				</div>
 				<div class="content">
 					<div class="p">'.$row['description'].'</div>
@@ -120,7 +121,7 @@
 		}
 		echo '<div class="clear20"></div> <div class="clear30"></div>
 			<div class="all">
-				<a href="'.$rowCourse['name_alias'].'" title"'.$rowCourse['title'].'">'.$lang_var['all_courses'].'</a>
+				<a href="'.$rowCourse['name_alias'].'" title"'.$rowCourse['title'].'" class="adBtnLarge bgColorOranges">'.$lang_var['all_courses'].'</a>
 			</div> <div class="clear1"></div>
 		</div>';
 	}
@@ -144,7 +145,7 @@ if(count($data)>0){
 		<div class="content">
 			<h3 class="h3"><strong>'.$title[0].'</strong> '.$title[1].'</h3>
 			<h4 class="h4">'.$row['description'].'</h4>
-			<a href="'.$row['url'].'" class="link">Yêu cầu dịch vụ</a>
+			<a href="'.$row['url'].'" class="link adBtnLarge bgColorOranges">'.$lang_var['request_for_service'].'</a>
 		</div>
 		<div class="img"><img src="'.IMAGE_URL.$row['img'].'" alt="'.$row['title'].'" /></div>
 	</div>';

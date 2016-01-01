@@ -14,6 +14,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link type="icon/x-icon" href="themes/website/img/favicon.ico" rel="shortcut icon" />
 <!--Insert CSS-->
+<link rel="stylesheet" type="text/css" href="themes/website/general.css" />
 <link rel="stylesheet" type="text/css" href="themes/website/style480.css" media="screen and (min-width:210px) and (max-width:480px)" />
 <link rel="stylesheet" type="text/css" href="themes/website/style768.css" media="screen and (min-width:480px) and (max-width:768px)" />
 <link rel="stylesheet" type="text/css" href="themes/website/style1024.css" media="screen and (min-width:768px) and (max-width:1024px)" />
@@ -22,6 +23,9 @@
 <link rel="stylesheet" type="text/css" href="themes/website/style.css" />
 <![endif]-->
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/js_checks_field.js"></script>
+<script type="text/javascript" src="js/js_web.js"></script>
+<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 </head>
 
 <body>
@@ -37,8 +41,8 @@ if($currentPage['typeID']!=1){
 	$data = $c->_model->_headerData($arr);
 	if(count($data) > 0){
 		$row = $data[0];
-		
-		$navigator = $c->viewNavigator($lang, $currentPage['id']);
+		if(!isset($currentMenu)) $id=$currentPage['id']; else $id=$currentMenu['id'];
+		$navigator = $c->viewNavigator($lang, $id);
 		echo '<div id="slider-page">
 			'.$navigator.'
 			<div class="img"><img src="'.IMAGE_URL.$row['img'].'" alt="'.$row['name'].'" /></div>
@@ -50,7 +54,5 @@ echo $viewData;
 
 include_once('web_footer.php');
 ?>
-<script type="text/javascript" src="js/js_checks_field.js"></script>
-<script type="text/javascript" src="js/js_web.js"></script>
 </body>
 </html>

@@ -56,14 +56,14 @@
 </div>
 <div class="clear30"></div>
 
-<div id="opinionDetail">
+<div id="popup">
 	<div class="bg"></div>
 	<div class="box">
-    	<div class="header"><span class="close">x</span></div>
+    	<div class="header"><span class="closePP">x</span></div>
     	<div class="content">
         	<div class="img"></div>
             <div class="info viewpost"></div>
         </div>
-    	<div class="footer"><span class="btn close">Đóng</span></div>
+    	<div class="footer"><span class="btn closePP">Đóng</span></div>
     </div>
 </div>

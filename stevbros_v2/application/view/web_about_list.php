@@ -1,5 +1,5 @@
 <div class="container">
-    <div id="article">
+    <div id="about-list">
     <?php
 	$arr = array(
 		'lang'=>$lang,
@@ -18,7 +18,7 @@
 	}else{
 		$row = $c->_model->_content($currentPage['id']);
 		echo '<h1 style="color:#333; font-weight:100">'.$currentPage['name'].'</h1>';
-		echo '<p class="meta">on <time datetime="'.date('Y-m-d', $currentPage['datetime']).'" pubdate>'.date('d F Y', $currentPage['datetime']).'</time>. Posted in <a href="'.$currentPage['rootAlias'].'">'.$currentPage['rootName'].'</a></p>';
+		echo '<p class="meta"><time datetime="'.date('Y-m-d', $currentPage['datetime']).'" pubdate>'.date('d F Y', $currentPage['datetime']).'</time> | <a href="'.$currentPage['rootAlias'].'">'.$currentPage['rootName'].'</a></p>';
 		echo '<div class="viewpost">'.$row['content'].'</div>';
 		
 		//danh sach giang vien
@@ -39,9 +39,22 @@
 		}
 	}
     ?>
+    <div class="clear30"></div> </div>
     
-    <div class="clear30"></div>
+    <div id="about-left">
+    	<?php
+        $arr = array(
+			'lang' => $lang,
+			'parent' => $currentPage['rootID'],
+			'properties' => 1,
+			'order'=>'`_order`',
+		);
+		$data = $c->_model->_headerData($arr);
+		foreach($data as $row){
+			if($row['id']!=$currentPage['id']) $active=''; else $active='active';
+			echo '<li class="li '.$active.'"><a href="'.$row['name_alias'].'" class="link" title="'.$row['title'].'">'.$row['name'].'</a></li>';
+		}
+		?>
     </div>
-    
-    <?php include_once('web_right.php');?>
+
 </div>

@@ -1,6 +1,5 @@
 <div class="clear30"></div>
 <?php
-
 $cF = new controlAdminForm;
 
 $id = $c->createEditData($table, $arrAction, $rowDetail);
@@ -17,29 +16,13 @@ $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
 echo $cF->displayDiv('Trạng thái', $data);
 
 $name = 'menu_id';
-$where = "(type_id=10)";
+$where = "(type_id=6)";
 $values = $c->menuList($lang, $where);
 $valueCheck=$rowDetail[$name];
-$data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxMenu', 1);
+$data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxMenu');
 if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
 $data .= $cF->inputHidden($name, $value, 'ad_field listValueMenu');
 echo $cF->displayDiv('Danh mục hiển thị', '<div class="listCheckBox">'.$data.'</div>');
-
-$name = 'header_id';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'5');
-$properties[] = array('propertie'=>'placeholder', 'value'=>'ID khóa học');
-$properties[] = array('propertie'=>'style', 'value'=>'width:70px');
-if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput value_id', $properties);
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
-$properties[] = array('propertie'=>'placeholder', 'value'=>'Tên khóa học');
-$properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5px');
-$data .= $cF->inputText('', '', 'adInput value_name', $properties);
-$data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" />';
-$data .= '<div id="value_view" table="web_header"></div>';
-echo $cF->displayDiv('Khóa học', $data);
 
 $name = 'name';
 $properties = array();
@@ -49,21 +32,51 @@ $properties[] = array('propertie'=>'message', 'value'=>'Nhập name');
 $value=$rowDetail[$name];
 $other='<span class="error adError"></span>';
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
-echo $cF->displayDiv('Mô tả', $data);
+echo $cF->displayDiv('Name', $data);
 
-$name = 'duration';
+$name = 'question';
+if(isset($rowDetail[$name])) $value=$rowDetail[$name]; else $value='';
+$name = 'ckeditor_question';
 $properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'50');
+$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
+$others = $cF->ckeditorBasic($name);
+$data = $cF->textArea($name, $value, 'ad_field', $properties, $others);
+echo $cF->displayDiv('Câu hỏi', $data);
+
+$name = 'answers_1';
+$properties = array();
+$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
+$value=$rowDetail[$name];
+$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
+echo $cF->displayDiv('Đáp án 1', $data);
+
+$name = 'answers_2';
+$properties = array();
+$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
+$value=$rowDetail[$name];
+$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
+echo $cF->displayDiv('Đáp án 2', $data);
+
+$name = 'answers_3';
+$properties = array();
+$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
+$value=$rowDetail[$name];
+$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
+echo $cF->displayDiv('Đáp án 3', $data);
+
+$name = 'answers_4';
+$properties = array();
+$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
+$value=$rowDetail[$name];
+$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
+echo $cF->displayDiv('Đáp án 4', $data);
+
+$name = 'correct';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'1');
 $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
-echo $cF->displayDiv('Thời lượng', $data);
-
-$name = 'opening';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
-$value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
-echo $cF->displayDiv('Thông tin khai giảng', $data);
+echo $cF->displayDiv('Đáp án chính xác', $data);
 
 $name = '_order';
 $properties = array();
@@ -71,10 +84,6 @@ $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
 echo $cF->displayDiv('Thứ tự', $data);
-
-$name = 'lang';
-$data = $cF->inputHidden($name, $lang, 'ad_field');
-echo $data;
 
 $name = 'btnCancel';
 $btnCancel = $cF->btnCancel($name, 'Quay lại');

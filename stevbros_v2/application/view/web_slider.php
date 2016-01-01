@@ -5,8 +5,7 @@ $arr = array(
 	'position_id'=>16,
 	'menu_id'=>$currentPage['id'],
 );
-$urlSlider = $urlImg[16];
-$data = $c->_model->_headerData($arr); //$c->_model->_print($urlImg);//echo $currentPage['id']; //
+$data = $c->_model->_headerData($arr);
 if(count($data)>0){
 ?>
 <link rel="stylesheet" type="text/css" href="js/slider/amazingslider-1.css">
@@ -19,7 +18,7 @@ if(count($data)>0){
             <ul class="amazingslider-slides" style="display:none;">
             	<?php
 				foreach($data as $row){
-					echo'<li><img src="'.$urlSlider['url_img'].$row['img'].'" alt="'.$row['name'].'"  title="'.$row['name'].'" data-description="'.$row['description'].'" data-texteffect="Right text" />
+					echo'<li><img src="'.IMAGE_URL.$row['img'].'" alt="'.$row['name'].'"  title="'.$row['name'].'" data-description="'.$row['description'].'" data-texteffect="Right text" />
 					<a href="'.$row['url'].'"><button class="as-btn-orange-medium">'.$lang_var['viewmore'].'</button></a></li>';
 				}
 				?>

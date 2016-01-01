@@ -190,7 +190,7 @@ if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
 $name = 'ckeditor_more';
 $properties = array();
 $properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
-$others = $cF->ckeditorCustom($name);
+$others = $cF->ckeditorBasic($name);
 $data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
 echo $cF->displayDiv('Thông tin khác', $data);
 	

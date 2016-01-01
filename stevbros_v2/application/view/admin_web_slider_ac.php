@@ -65,7 +65,7 @@ if(isset($rowDetail[$name])) $value=$rowDetail[$name]; else $value='';
 $name = 'ckeditor_description';
 $properties = array();
 $properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
-$others = $cF->ckeditorCustom($name, "'Format'");
+$others = $cF->ckeditorBasic($name, "'Format'");
 $data = $cF->textArea($name, $value, 'ad_field', $properties, $others);
 echo $cF->displayDiv('Description', $data.'<div class="adNotes">Định dạng Slider HOME dùng H1 và H2, định dạng đặc biệt "Tô Đậm"</div>');
 

@@ -1,83 +1,98 @@
 <div class="container">
-	<div class="clear30"></div>
-    <div id="article" class="viewpost">
+    <div id="course-detail" class="viewpost">
+    	<div class="header">
+        	<div class="img"><img src="<?php echo $currentPage['img'];?>" alt="<?php echo $currentPage['name'];?>" /></div>
+        	<h1><?php echo $currentPage['title'];?></h1>
+            <?php //echo '<p class="meta"><time datetime="'.date('Y-m-d', $currentPage['datetime']).'" pubdate>'.date('d F Y', $currentPage['datetime']).'</time> | <a href="'.$currentMenu['name_alias'].'">'.$currentMenu['name'].'</a></p>';?>
+            <h2><?php echo $currentPage['description'];?></h2>
+            <a href="lien-he" class="action"><?php echo $lang_var['request_for_service'];?></a>
+            <div class="clear1"></div>
+        </div>
+        
         <?php
-        echo "<h1>{$currentPage['name']}</h1>";
-		echo '<p class="meta">on <time datetime="'.date('Y-m-d', $currentPage['datetime']).'" pubdate>'.date('d F Y', $currentPage['datetime']).'</time>. Posted in <a href="'.$currentPage['rootAlias'].'">'.$currentPage['rootName'].'</a></p>';
-        echo $rowDetail['content'];
+        if($rowDetail['more']!=''){
+			echo '<div class="content">
+				<div class="left">Lợi ích</div>
+				<div class="right viewpost">'.$rowDetail['more'].'</div>
+				<div class="clear1"></div>
+			</div>';
+		}
 		
-		//lich khai giang
-        $data = $c->_model->_listOpening(NULL, $currentPage['id']);
-		if(count($data) > 0){
-            echo '<div class="title"><h2>Lịch khai giảng</h2></div>
-            <ul>';
+        if($rowDetail['content']!=''){
+			echo '<div class="content">
+				<div class="left">Nội dung khóa học</div>
+				<div class="right viewpost">'.$rowDetail['content'].'</div>
+				<div class="clear1"></div>
+			</div>';
+		}
+		
+        if($rowDetail['more2']!=''){
+			echo '<div class="content">
+				<div class="left">Mô tả khóa học</div>
+				<div class="right viewpost">'.$rowDetail['more2'].'</div>
+				<div class="clear1"></div>
+			</div>';
+		}
+		?>
+    </div>
+    
+    <div id="course-more" style="float:right">
+    	<div class="box">
+        	<div class="search-header allIcon"><input type="text" name="txtSearch" id="txtSearch" placeholder="Tìm kiếm" /></div>
+        </div>
+        
+		<?php
+		//khoa hoc pho bien
+        $arr = array(
+			'parent'=>0,
+            'position_id'=>5,
+            'properties'=>1,
+            'order'=>'`_order`',
+        );
+        $dataRight = $c->_model->_headerData($arr);
+        foreach($dataRight as $rowRight){
+            echo '<div class="box"><h3 class="h3">'.$rowRight['name'].'</h3>';
+            $i=0;
+            $arr = array(
+                'menu_id'=>$rowRight['id'],
+                'properties'=>2,
+                'order'=>'`_order`',
+                'limit'=>'5',
+            );
+            $data = $c->_model->_headerData($arr);
             foreach($data as $row){
-                echo '<li>Khai giảng: '.$row['opening'].'. Thời lượng: '.$row['duration'].'</li>';
+				$i++;
+				if($i!=1) $border='border'; else $border='';
+				$name = explode(',', $row['tags'], 2);
+				echo '<div class="item '.$border.'">
+					<div class="left">'.$name[0].'</div>
+					<h5 class="h5"><a href="'.$row['name_alias'].'" title="'.$row['title'].'">'.$row['name'].'</a></h5>
+					<div class="clear1"></div>
+				</div>';
             }
-            echo '</ul>';
+            echo '</div>';
         }
-		
-		//form register
-		echo '<a name="request-for-service"></a>
-		<div class="title"><h2>Yêu cầu dịch vụ</h2></div>
-		<div id="frmRegister">
-            <div class="info">Stevbros là ủy quyền đào tạo toàn cầu của Viện Quản Lý Dự Án Hoa Kỳ PMI (Global PMI R.E.P)</div>
-			<div id="ajaxRegister">
-				<div class="loading"><img src="themes/website/img/loader.gif" /></div>
-				<div class="error errorContact"></div>
-				<div class="message messageContact"></div>
-				<div class="p"><input type="text" name="company" placeholder="Tên công ty (nếu có)" class="txt field_item" /></div>
-				<div class="p"><input type="text" name="name" placeholder="Họ tên" class="txt field_item" check="2" message="'.$lang_var['error_name'].'" /><p class="error" style="margin:0"></p></div>
-				<div class="p"><input type="text" name="email" placeholder="Email" class="txt field_item" check="email" message="'.$lang_var['error_email'].'" /><p class="error" style="margin:0"></p></div>
-				<div class="p"><input type="text" name="phone" placeholder="Điện thoại" class="txt field_item" check="phone" message="'.$lang_var['error_phone'].'" /><p class="error" style="margin:0"></p></div>
-				<div class="p"><textarea type="text" name="message" placeholder="Nội dung yêu cầu" class="txtArea field_item" check="10" message="'.$lang_var['error_message'].'"></textarea><p class="error" style="margin:0"></p></div>
-				<input type="hidden" name="datetime" class="field_item" value="'.date('Y-m-d H:i:s').'" />
-            	<input type="hidden" name="ip_address" class="field_item" value="'.$_SERVER['REMOTE_ADDR'].'" />
-				<input type="hidden" name="header_id" class="field_item" value="'.$currentPage['id'].'" />
-				<div class="p"><input type="button" name="btnRegister" value="Gửi" class="btn" /></div>
-			</div>
-        </div>';
-	?>
-    </div><!--end viewpost-->
-    
-	<?php include_once('web_right.php');?>
-    
-    <?php
-	//khoa hoc khac
-	$arr = array(
-		'lang'=>$lang,
-		'menu_id'=>$currentMenu['id'],
-		'properties'=>2,
-		'limit'=>5,
-		'order'=>'rand()',
-	);
-	$data = $c->_model->_headerData($arr);
-	if(count($data)>1){
-		echo '<div class="clear20"></div><hr class="hr" />
-		<div id="courses" style="border:none">
-			<div class="h2-courses">'.$lang_var['other_course'].'</div>';
+        ?>
+    	
+    	<div class="box">
+            <h3 class="h3"><?php echo '<a href="'.$currentPage['rootAlias'].'" title="'.$currentPage['rootName'].'">'.$currentPage['rootName'].'</a>';?></h3>
+            <?php
 			$i=0;
-			foreach($data as $row){
-				if($row['id']!=$currentPage['id']){
-					$i++;
-					$img = IMAGE_URL.$row['img'];
-					if($row['img']=='') $img=CONS_IMAGE_DEFAULT;
-					if($i%2 == 1) $style='left'; else $style='right';
-					echo '<div class="box '.$style.'">
-						<div class="img effect"><a href="'.$row['name_alias'].'"><img src="'.$img.'" alt="'.$row['name'].'" /></a></div>
-						<div class="content">
-							<a href="'.$row['name_alias'].'" title="'.$row['name'].'" class="link"><h3 class="h3">'.$row['name'].'</h3></a>
-							<div class="p">'.$row['description'].'</div>
-							<a href="'.$row['name_alias'].'" class="view">'.$lang_var['viewmore'].'</a>
-						</div>
-						<div class="clear1"></div>
-					</div>';
-				}
-			}
-		echo '<div class="clear1"></div></div>';
-	}
-	?>
-    
-
+            $arr = array(
+                'parent'=>$currentPage['rootID'],
+                'properties'=>1,
+                'type_id'=>3,
+                'position_id'=>5,
+                'order'=>'`_order`',
+            );
+            $data = $c->_model->_headerData($arr); //$c->_model->_print($data);
+            foreach($data as $row){
+				$i++;
+				if($i!=1) $border='border'; else $border='';
+                echo '<h4 class="h4 '.$border.'"><a href="'.$row['name_alias'].'" title="'.$row['title'].'">'.$row['name'].'</a></h4>';
+            }
+            ?>
+        </div>
+    </div>
 </div>
 <div class="clear30"></div>

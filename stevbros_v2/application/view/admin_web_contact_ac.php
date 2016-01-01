@@ -1,5 +1,18 @@
 <div class="clear30"></div>
 <?php
+$arrType = array(
+	1=>'Liên hệ',
+	2=>'Đăng ký',
+	3=>'Hợp tác',
+);
+$number = array(
+	'0' => array('id'=>0, 'name'=>'No'),
+	'1' => array('id'=>1, 'name'=>'Dưới 10 người'),
+	'2' => array('id'=>2, 'name'=>'Từ 10 đến 19 người'),
+	'3' => array('id'=>3, 'name'=>'Từ 20 đến 25 người'),
+	'4' => array('id'=>4, 'name'=>'Từ 26 đến 30 người'),
+	'5' => array('id'=>5, 'name'=>'Hơn 30 người'),
+);
 
 $cF = new controlAdminForm;
 
@@ -7,8 +20,7 @@ $id = $c->createEditData($table, $arrAction, $rowDetail);
 $data = $cF->inputHidden('id', $id, 'ad_field');
 echo $data;
 
-if($rowDetail['type']==1) $data='Liên hệ'; else $data='Đăng ký';
-echo $cF->displayDiv('Type', '<p class="adMessage label2">'.$data.'</p>' );
+echo $cF->displayDiv('Type', '<p class="adMessage label2">'.$arrType[$rowDetail['type']].'</p>' );
 if($rowDetail['header_id']!=''){
 	$data = $c->_model->_viewEditDetail('web_header', $rowDetail['header_id']);
 	echo $cF->displayDiv('Khóa học', '<p class="adMessage label2">'.$data['name'].'</p>' );
@@ -57,12 +69,42 @@ if($rowDetail[$name]!=''){
 	echo $cF->displayDiv('Address', $data);
 }
 
+$name = 'company';
+if($rowDetail[$name]!=''){
+	$properties = array();
+	$properties[] = array('propertie'=>'maxlength', 'value'=>'150');
+	$value=$rowDetail[$name];
+	$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+	echo $cF->displayDiv('Company', $data);
+}
+
+$name = 'parts';
+if($rowDetail[$name]!=''){
+	$properties = array();
+	$properties[] = array('propertie'=>'maxlength', 'value'=>'50');
+	$value=$rowDetail[$name];
+	$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+	echo $cF->displayDiv('Bộ phận làm việc', $data);
+}
+
+$name = 'number';
+if($rowDetail[$name]!=0){
+	$values = $number;
+	if($rowDetail[$name]!=''){
+		$valueCheck=$rowDetail[$name];
+	}else $valueCheck=0;
+	$data = $cF->select($name, $values, $valueCheck, 'ad_field adInput adTxtMedium');
+	echo $cF->displayDiv('Số học viên tham dự', $data);
+}
+
 $name = 'message';
-if(isset($rowDetail[$name])) $value=$rowDetail[$name]; else $value='';
-$name = 'ckeditor_message';
-$others = $cF->ckeditorCustom($name);
-$data = $cF->textArea($name, $value, 'textarea', NULL, $others);
-echo $cF->displayDiv('Lời nhắn', $data);
+if($rowDetail[$name]!=''){
+	if(isset($rowDetail[$name])) $value=$rowDetail[$name]; else $value='';
+	$name = 'ckeditor_message';
+	$others = $cF->ckeditorBasic($name);
+	$data = $cF->textArea($name, $value, 'textarea', NULL, $others);
+	echo $cF->displayDiv('Lời nhắn', $data);
+}
 
 $name = 'lang';
 $data = $cF->inputHidden($name, $lang, 'ad_field');

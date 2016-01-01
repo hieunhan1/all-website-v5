@@ -1,22 +1,11 @@
-<div id="contact">
-	<div class="content"><div class="container">
-        <div id="contact-info">
-        	<h1 class="h1"><?php echo $currentPage['name'];?></h1>
-            <div class="icon send allIcon">&nbsp;</div>
-            <div class="item phone"><?php echo $config['tel'];?></div>
-            <div class="item phone"><?php echo $config['hotline'];?></div>
-            <div class="item email"><a href="mailto:<?php echo $config['email'];?>"><?php echo $config['email'];?></a></div>
-            <div class="clear30"></div>
-            <div class="icon point allIcon">&nbsp;</div>
-            <div class="item">
-                <?php
-                $data = $c->_model->_content($currentPage['id']);
-                echo $data['content'];
-                ?>
-            </div>
+<div class="container">
+	<div id="cooperate">
+    	<div class="viewpost">
+            <h1><?php echo $currentPage['title'];?></h1>
+            <h2 style="font-size:120%"><?php echo $currentPage['description'];?></h2>
         </div>
         
-        <div id="contact-frm" class="frm-loading">
+        <div id="contact-frm" class="frm-loading" style="width:60%; float:none">
             <div class="loading"></div>
             <div class="error errorGeneral"></div>
             <div class="row">
@@ -34,26 +23,26 @@
             <div class="row">
                 <div class="field2"><textarea type="textarea" name="message" class="textarea field_item" check="10" message="<?php echo $lang_var['error_message'];?>" placeholder="<?php echo $lang_var['message'];?>"></textarea><p class="error" id="messageContact"></p></div>
                 <input type="hidden" name="datetime" class="field_item" value="<?php echo date('Y-m-d H:i:s');?>" />
+                <input type="hidden" name="ip_address" class="field_item" value="<?php echo $_SERVER['REMOTE_ADDR'];?>" />
                 <div class="clear1"></div>
             </div>
             <div class="row">
-                <div class="field2"><input type="button" name="btnSendContact" id="btnSendContact" class="btn" value="<?php echo $lang_var['send'];?>" /></div>
+                <div class="field2"><input type="button" name="btnSend" class="btn" value="<?php echo $lang_var['send'];?>" /></div>
             </div>
+            <div class="clear1"></div>
         </div>
-        
-        <div class="clear30"></div>
-    </div></div>
-	<div class="img"><img src="<?php echo $currentPage['img'];?>" alt="<?php echo $currentPage['name'];?>" /></div>
+    </div>
 </div>
+
 <script type="text/javascript">
 $(document).ready(function(e) {
-	$("#btnSendContact").click(function(){
+	$("input[name=btnSend]").click(function(){
 		var fields = ajax_field_all(".field_item");
 		if(typeof fields=='boolean') return false;
 		fields['rejectContact'] = '1';
-		fields['type'] = '1';
+		fields['type'] = '3';
 		
-		$("#btnSendContact, .field_item").attr("disabled", true);
+		$("#btnSend, .field_item").attr("disabled", true);
 		formLoading(1, '', '')
 		
 		$.ajax({ 	
@@ -61,8 +50,7 @@ $(document).ready(function(e) {
 			type: 'post',
 			data: fields,
 			cache:false,
-			success: function(data){
-				//console.log(data);
+			success: function(data){ console.log(data);
 				data = $.parseJSON(data);
 				var error = data.error;
 				var message = data.message;

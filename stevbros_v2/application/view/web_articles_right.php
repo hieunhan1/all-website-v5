@@ -1,10 +1,10 @@
 <div id="right">
 	<?php
-	if(isset($currentMenu) && $currentMenu['type_id']==3){
+	/*if(isset($currentMenu) && $currentMenu['type_id']==3){
 		echo '<div class="boxCourse">
 			<div class="img effect"><img src="'.$currentPage['img'].'" alt="'.$currentPage['name'].'" /></div>
 			<div class="content">'.$rowDetail['more'].'</div>
-			<a class="register">Yêu cầu dịch vụ</a>
+			<a class="register">'.$lang_var['request_for_service'].'</a>
 		</div>';
 	}
 	
@@ -22,7 +22,7 @@
 			echo '<li class="li '.$active.'"><a href="'.$row['name_alias'].'" class="link" title="'.$row['title'].'">'.$row['name'].'</a></li>';
 		}
 		echo '</div>';
-	}
+	}*/
 	
 	//y kien khach hang
 	$str='';
