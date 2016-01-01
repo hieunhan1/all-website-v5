@@ -136,16 +136,17 @@ $(document).ready(function($){
 			type:'POST',
 			data:{opinionDetail:id},
 			cache:false,
-			success: function(data) { //console.log();
-				$("#opinionDetail .content").html(data);
-				$("#opinionDetail").show(200);
+			success: function(data) {
+				//console.log(data);
+				$("#popup .content").html(data);
+				$("#popup").show(200);
 				return true;
 			}
 		});
 	});
 	
-	$(".close").click(function(){
-		$("#opinionDetail").hide(200);
+	$(".closePP").click(function(){
+		$("#popup").hide(200);
 		return true;
 	});
 	

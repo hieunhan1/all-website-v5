@@ -98,6 +98,47 @@ function checks_user(name_check,name_message,message_error){
 	}
 }
 
+function check_text_length_ckeditor(name_check, name_message, message_error, condition){
+	var str = CKEDITOR.instances[name_check].getData();
+	if(str.length < condition){
+		$(name_message).html(message_error);
+		return false;
+	}else{
+		$(name_message).html('');
+		return str;
+	}
+}
+
+function checkValidDate(strDate){
+	var regex = /^([1-9]\d{3}((0[1-9]|1[012])(0[1-9]|1\d|2[0-8])|(0[13456789]|1[012])(29|30)|(0[13578]|1[02])31)|(([2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00))0229)$/;
+    if(!(regex.test(strDate))) return false;
+	
+	return true;
+}
+
+function getDateTime(year, month, date, view){
+	$( date + ", " + month + ", " + year ).live("change", function(){
+		var valueDate = $(date).val();
+		var valueMonth = $(month).val();
+		var valueYear = $(year).val();
+		var datetime = valueYear + valueMonth + valueDate;
+		if( checkValidDate(datetime)==true ){
+			datetime = valueYear + '-' + valueMonth + '-' + valueDate;
+			$(view).val(datetime);
+			return true;
+		}else{
+			$(view).val('');
+			return false;
+		}
+	});
+}
+
+function formLoading(display, error, message){
+	if(display==1) display='block'; else display='none';
+	$(".frm-loading .loading").css("display", display);
+	$(".frm-loading .errorGeneral").html(error);
+}
+
 function ajax_field_all(nameSelect){
 	var fields = new Object();
 	var error;
@@ -111,17 +152,21 @@ function ajax_field_all(nameSelect){
 			var check = $(this).attr('check');
 			var message = $(this).attr('message');
 			if(check=='phone'){
-				if( check_phone($(this), $(this).parent().children('.error'), message) == false )
-					error = true;
+				value = check_phone($(this), $(this).parent().children('.error'), message);
+				if(value == false) error=true;
 			}else if(check=='email'){
-				if( check_email($(this), $(this).parent().children('.error'), message) == false )
-					error = true;
+				value = check_email($(this), $(this).parent().children('.error'), message);
+				if(value == false) error=true;
 			}else if(check=='user'){
-				if( checks_user($(this), $(this).parent().children('.error'), message) == false )
-					error = true;
+				value = checks_user($(this), $(this).parent().children('.error'), message);
+				if(value == false) error=true;
 			}else if(!isNaN(check)){
-				if( check_text_length($(this), $(this).parent().children('.error'), message, check)  == false )
-					error = true;
+				if(type!='ckeditor'){
+					value = check_text_length($(this), $(this).parent().children('.error'), message, check);
+				}else{
+					value = check_text_length_ckeditor(name, $(this).parent().children('.error'), message, check);
+				}
+				if(value == false) error=true;
 			}
 		}
 		
