@@ -8,8 +8,9 @@ define('CONS_NAME_DB', 'stevbros_v2');
 define('CONS_DEFAULT_LANG', 'vi');
 
 /*cache*/
-define('CONS_CACHE_URL_FILE', 'cache/files/');
+define('CONS_CACHE_URL_FILE', 'cache/');
 define('CONS_CACHE_TIME', 3600*12);
+define('CONS_CACHE_EXT', 'ch');
 
 /*SEND MAIL*/
 define('CONS_HOST_SMTP_SERVER', 'localhost');
@@ -29,7 +30,7 @@ define('CONS_FILE_HOME', 'pageHome');
 define('CONS_FILE_AJAX', 'pageAjax');
 define('CONS_FILE_ADMIN', 'pageAdmin');
 define('CONS_FILE_PAGE', 'pageAll');
-define('CONS_FILE_MANAGER_APPS', 'pageApps');
+define('CONS_FILE_DETAIL', 'pageDetail');
 
 /*WEBSITE*/
 define('ERROR_NOT_FOUND_CONTROLLER', 'Not found controller: ');
