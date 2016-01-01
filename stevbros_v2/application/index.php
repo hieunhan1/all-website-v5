@@ -1,6 +1,6 @@
 <?php
 session_start();
-ob_start();
+ob_start('ob_gzhandler');
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 include_once('config/config.php');
@@ -18,10 +18,6 @@ function tachUrl($url){
 		case CONS_LINK_ADMIN :
 			$arr['control'] = CONS_FILE_ADMIN;
 			if(!isset($urlArr[1]) || $urlArr[1]=='') $arr['link'] = 'home'; else $arr['link'] = $urlArr[1];
-			return $arr;
-		case CONS_LINK_MANAGER_APPS :
-			$arr['control'] = CONS_FILE_MANAGER_APPS;
-			if(!isset($urlArr[1]) || $urlArr[1]=='') $arr['link'] = 'fanpage'; else $arr['link'] = $urlArr[1];
 			return $arr;
 		default : 
 			$regex='/(.*)*.html$/';
@@ -48,9 +44,9 @@ if(file_exists($fileController))
 else
 	echo ERROR_NOT_FOUND_CONTROLLER.$fileController;
 
-function __autoload($class) {
-	$fileControl = "controllers/{$class}.php";
-	$fileModel = "models/{$class}.php";
+function __autoload($fileName) {
+	$fileControl = "controllers/{$fileName}.php";
+	$fileModel = "models/{$fileName}.php";
 	if(file_exists($fileControl)) include_once($fileControl); 
 	if(file_exists($fileModel)) include_once($fileModel); 
 }
