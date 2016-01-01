@@ -1,16 +1,20 @@
 <?php
 include_once('configUpload.php');
-define('CONS_BASE_URL', 'http://localhost/all_v5/stevbros_v2');/*domain*/
+define('CONS_BASE_URL', 'http://www.iappscode.com/stevbros');/*domain*/
 define('CONS_HOST', 'localhost');
-define('CONS_USER_DB', 'root');
-define('CONS_PASS_DB', '');
-define('CONS_NAME_DB', 'stevbros_v2');
+define('CONS_USER_DB', 'iappscod_test');
+define('CONS_PASS_DB', 'iappscod_test#123*');
+define('CONS_NAME_DB', 'iappscod_test');
 define('CONS_DEFAULT_LANG', 'vi');
 
 /*cache*/
 define('CONS_CACHE_URL_FILE', 'cache/');
 define('CONS_CACHE_TIME', 3600*12);
 define('CONS_CACHE_EXT', 'ch');
+
+/*cache*/
+define('CONS_CACHE_URL_FILE', 'cache/files/');
+define('CONS_CACHE_TIME', 3600*12);
 
 /*SEND MAIL*/
 define('CONS_HOST_SMTP_SERVER', 'localhost');
@@ -30,7 +34,7 @@ define('CONS_FILE_HOME', 'pageHome');
 define('CONS_FILE_AJAX', 'pageAjax');
 define('CONS_FILE_ADMIN', 'pageAdmin');
 define('CONS_FILE_PAGE', 'pageAll');
-define('CONS_FILE_DETAIL', 'pageDetail');
+define('CONS_FILE_MANAGER_APPS', 'pageApps');
 
 /*WEBSITE*/
 define('ERROR_NOT_FOUND_CONTROLLER', 'Not found controller: ');
