@@ -45,18 +45,18 @@
         <div class="txt"><input type="text" name="exp_work" class="field_item adInput" maxlength="3" check="1" message="Nhập số năm kinh nghiệm" placeholder="Số năm kinh nghiệm làm việc" /><p class="error"></p></div>
         <div class="txt"><input type="text" name="exp_project" class="field_item adInput" maxlength="3" check="1" message="Nhập số năm kinh nghiệm quản lý dự án" placeholder="Số năm kinh nghiệm quản lý dự án" /><p class="error"></p></div>
         
-    	<h4 class="h4">Lĩnh vực chuyên môn các dự án bạn quản lý</h4>
+    	<h4 class="h4">Lĩnh vực chuyên môn các dự án bạn quản lý <span>(ví dụ: Xây Dựng, Dầu Khí, Ngân Hàng, Phần Mềm, Dịch Vụ, …)</span></h4>
     	<div class="txta"><textarea type="ckeditor" name="ckeditor_areas_expertise" id="ckeditor_areas_expertise" class="field_item" check="50" message="Lĩnh vực chuyên môn các dự án bạn quản lý phải hơn 50 ký tự"></textarea><p class="error"></p></div>
-    	<h4 class="h4">Giới thiệu bản thân</h4>
+    	<h4 class="h4">Giới thiệu bản thân <span>(giới thiệu chung, ít hơn 250 từ)</span></h4>
     	<div class="txta"><textarea type="ckeditor" name="ckeditor_yourself" id="ckeditor_yourself" class="field_item" check="50" message="Giới thiệu bản thân phải hơn 50 ký tự"></textarea><p class="error"></p></div>
-    	<h4 class="h4">Bằng cấp</h4>
+    	<h4 class="h4">Bằng cấp <span>(ví dụ: Tiến sỹ, Thạc sỹ,...)</span></h4>
     	<div class="txta"><textarea type="ckeditor" name="ckeditor_diploma" id="ckeditor_diploma" class="field_item" check="20" message="Bằng cấp phải hơn 20 ký tự"></textarea><p class="error"></p></div>
-        <h4 class="h4">Chứng chỉ</h4>
+        <h4 class="h4">Chứng chỉ <span>(ví dụ: PMP, CSM, CSPO, CSP,...)</span></h4>
     	<div class="txta"><textarea type="ckeditor" name="ckeditor_certificate" id="ckeditor_certificate" class="field_item" check="20" message="Chứng chỉ phải hơn 20 ký tự"></textarea><p class="error"></p></div>
-        <h4 class="h4">Kinh nghiệm</h4>
+        <h4 class="h4">Kinh nghiệm <span>(giới thiệu chi tiết quá trình làm việc và nghiên cứu)</span></h4>
     	<div class="txta"><textarea type="ckeditor" name="ckeditor_experience" id="ckeditor_experience" class="field_item" check="50" message="Kinh nghiệm phải hơn 50 ký tự"></textarea><p class="error"></p></div>
         
-    	<div class="btn"><input type="button" name="btnSubmit" class="adBtnSmall bgColorBlue corner5" value="Gửi" /></div>
+    	<div><input type="button" name="btnSubmit" class="adBtnSmall bgColorBlue corner5 btn" value="GỬI" /></div>
     </div>
 </div>
 <div class="clear30"></div>

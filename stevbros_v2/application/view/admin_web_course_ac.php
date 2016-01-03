@@ -30,7 +30,7 @@ $valueCheck=$rowDetail[$name];
 $data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxMenu', 1);
 if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
 $data .= $cF->inputHidden($name, $value, 'ad_field listValueMenu');
-echo $cF->displayDiv('Danh mục hiển thị', '<div class="listCheckBox" style="height:100px">'.$data.'</div>');
+echo $cF->displayDiv('Danh mục hiển thị', '<div class="listCheckBox">'.$data.'</div>');
 
 $name = 'name';
 $properties = array();

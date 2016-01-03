@@ -75,8 +75,16 @@ $name = 'correct';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'1');
 $value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+$other = '<span class="adNotes">Gõ 1, 2, 3, 4</span>';
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Đáp án chính xác', $data);
+
+$name = 'notes';
+$properties = array();
+$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
+$value=$rowDetail[$name];
+$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
+echo $cF->displayDiv('Giải thích', $data);
 
 $name = '_order';
 $properties = array();

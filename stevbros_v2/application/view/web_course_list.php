@@ -40,7 +40,7 @@
                 <div class="img"><img src="'.$img.'" alt="'.$row['name'].'" /></div>
 				<h3 class="h3"><a href="'.$row['name_alias'].'" title="'.$row['title'].'">'.$row['name'].'</a></h3>
 				<div class="p">'.$row['description'].'</div>
-				<div class="action"><a href="lien-he"><span>&rarr;</span>'.$lang_var['request_for_service'].'</a></div>
+				<div class="action"><a href="lien-he/'.$row['id'].'"><span>&rarr;</span>'.$lang_var['request_for_service'].'</a></div>
                 <div class="clear1"></div>
             </div>';
         }

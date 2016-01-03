@@ -8,7 +8,7 @@
     	
         <div class="main">
         	<div class="cart-user">
-                <a href="http://stevbros.com/" target="_blank" title="STEVBROS GLOBAL"><span class="allIcon icon cart"><span>0</span></span></a>
+                <!--<a href="http://stevbros.com/" target="_blank" title="STEVBROS GLOBAL"><span class="allIcon icon cart"><span>0</span></span></a>-->
                 <span class="allIcon icon user">&nbsp;</span>
             </div>
             

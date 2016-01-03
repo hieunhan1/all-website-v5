@@ -4,7 +4,7 @@
         <div class="top">
             <div class="logo"><?php echo '<a href="'.$logoPMI['url'].'" target="_blank"><img src="'.IMAGE_URL.$logoPMI['img'].'" alt="'.$logoPMI['title'].'" /></a>';?></div>
             <div class="cart-user">
-                <a href="http://stevbros.com/" target="_blank" title="STEVBROS GLOBAL"><span class="allIcon icon cart"><span>0</span></span></a>
+                <!--<a href="http://stevbros.com/" target="_blank" title="STEVBROS GLOBAL"><span class="allIcon icon cart"><span>0</span></span></a>-->
                 <span class="allIcon icon user">&nbsp;</span>
             </div>
             <div class="search-header allIcon"><input type="text" name="txtSearch" id="txtSearch" placeholder="Tìm kiếm" /></div>
@@ -165,7 +165,7 @@ if(count($dataWhy)>0){
 	$dataWhy = $dataWhy[0];
 	$str = '<div id="whychooseus">
 		<div class="home-title">
-			<h2 class="h2" style="font-size:220%">'.$dataWhy['title'].'</h2>
+			<h2 class="h2">'.$dataWhy['title'].'</h2>
 			<h3 class="h3">'.$dataWhy['description'].'</h3>
 		</div>';
 	$arr = array(
@@ -197,10 +197,14 @@ if(count($data)>0){
 	$arr = array(
 		'menu_id' => $row['id'],
 		'order'=>'datetime DESC',
-		'limit'=>'3',
+		'limit'=>'2',
 	);
 	$data = $c->_model->_headerData($arr);
-	$str.='<div id="postnew">';
+	$str.='<div id="postnew">
+		<div class="home-title">
+			<h2 class="h2">'.$row['title'].'</h2>
+			<h3 class="h3">'.$row['description'].'</h3>
+		</div>';
 	foreach($data as $row){
 		$img = IMAGE_URL_THUMB.$row['img'];
 		if($row['img']=='') $img=CONS_IMAGE_DEFAULT;
@@ -323,7 +327,8 @@ if(count($data) > 0){
 	echo '<div id="home-footer" class="container">';
 	foreach($data as $row){
 		echo '<div class="box">
-			<h5 class="h5"><span class="icon '.$row['tags'].'"></span>'.$row['name'].'</h5>
+			<h5 class="h5"><span class="icon '.$row['tags'].'"></span><p class="clear">&nbsp;</p>'.$row['title'].'</h5>
+			<div class="clear10"></div>
 			<div class="content">'.$row['description'].'</div>
 		</div>';
 	}

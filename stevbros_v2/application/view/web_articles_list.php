@@ -50,6 +50,6 @@
     ?>
     </div>
     
-    <?php include_once('web_articles_right.php');?>
+    <?php include_once('web_right.php');?>
 </div>
 <div class="clear1"></div>

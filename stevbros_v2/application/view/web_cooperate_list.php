@@ -5,8 +5,8 @@
             <h2 style="font-size:120%"><?php echo $currentPage['description'];?></h2>
         </div>
         
-        <div id="contact-frm" class="frm-loading" style="width:60%; float:none">
-            <div class="loading"></div>
+        <div id="contact-frm" class="frm-loading" style="width:80%; float:none">
+            <div class="loading" style="width:44%"></div>
             <div class="error errorGeneral"></div>
             <div class="row">
                 <div class="field2"><input type="text" name="name" class="txt field_item" maxlength="50" check="2" message="<?php echo $lang_var['error_name'];?>" placeholder="<?php echo $lang_var['name'];?>" /><p class="error" id="nameContact"></p></div>
@@ -23,7 +23,6 @@
             <div class="row">
                 <div class="field2"><textarea type="textarea" name="message" class="textarea field_item" check="10" message="<?php echo $lang_var['error_message'];?>" placeholder="<?php echo $lang_var['message'];?>"></textarea><p class="error" id="messageContact"></p></div>
                 <input type="hidden" name="datetime" class="field_item" value="<?php echo date('Y-m-d H:i:s');?>" />
-                <input type="hidden" name="ip_address" class="field_item" value="<?php echo $_SERVER['REMOTE_ADDR'];?>" />
                 <div class="clear1"></div>
             </div>
             <div class="row">
@@ -50,7 +49,8 @@ $(document).ready(function(e) {
 			type: 'post',
 			data: fields,
 			cache:false,
-			success: function(data){ console.log(data);
+			success: function(data){
+				//console.log(data);
 				data = $.parseJSON(data);
 				var error = data.error;
 				var message = data.message;

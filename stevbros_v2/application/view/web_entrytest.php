@@ -21,6 +21,8 @@
 	#messagePP .content{top:35%; left:33%; padding:25px 50px}
 }
 
+.hidden{display:none}
+
 #header{clear:both; width:100%; margin-bottom:30px; padding:10px 0}
 #header .logo{width:auto; float:left}
 #header .logo .logo-1{height:70px; float:left; margin:10px 30px 0 0}
@@ -34,22 +36,23 @@
 #loading{display:none; width:100%; height:100%; top:0; left:0; position:fixed; background:url(themes/website/img/loader.gif) no-repeat center; background-size:5%; background-color:rgba(255,255,255,0.5)}
 
 #entrytest{clear:both; line-height:160%; margin:30px 0 50px 0}
-#entrytest .box{clear:both; margin-bottom:20px}
+#entrytest .box{display:none; clear:both; margin-bottom:20px}
 #entrytest .box .question{clear:both; margin-bottom:5px}
-#entrytest .box .question em{color:#00F}
 #entrytest .box .answers{clear:both; margin-left:5%}
 #entrytest .box .answers .item{clear:both}
 #entrytest .box .answers .item .input{width:4%; float:left; margin:5px 1% 0 0}
 #entrytest .box .answers .item .input input{cursor:pointer}
 #entrytest .box .answers .item .lable{width:80%; float:left}
+#entrytest .box .explain{color:#999; font-size:90%; margin:10px}
+#entrytest .control{text-align:right}
 #entrytest .result{font-size:140%; text-align:center; padding:10px 20px; background-color:#FF9; border:solid 1px #999}
 #entrytest .result em{font-size:80%}
 
 #messagePP{display:none}
 #messagePP .bg{width:100%; height:100%; top:0; left:0; position:fixed; background-color:rgba(255,255,255,0.5)}
 #messagePP .content{position:fixed; background-color:#FFF; border:solid 1px #999; box-shadow:1px 1px 3px #666}
-#messagePP .close{color:#FFF; padding:10px 20px; background-color:#999; cursor:pointer}
-#messagePP .close:hover{background-color:#666}
+#messagePP .close{color:#FFF; padding:10px 20px; background-color:#BBB; cursor:pointer}
+#messagePP .close:hover{background-color:#999}
 </style>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -78,14 +81,19 @@
 			if($checkTotal==0){
 				$disable = '';
 				function viewAnswers($answers){};
+				function viewNotes($notes){};
 			}else{
 				$disable = 'disabled="disabled"';
-				function viewAnswers($answers){
-					return '<em>Đáp án đúng là '.$answers.'</em>';
+				function viewAnswers($answers, $style){
+					return '<em class="'.$style.'">Đáp án đúng là '.$answers.'</em>';
+				}
+				function viewNotes($notes){
+					return '<div class="explain"><b>Giải thích:</b> '.$notes.'</div>';
 				}
 			}
 			
             $i = 0;
+			$style = '';
 			$numberCorrect = 0;
 			$data = $c->_model->_entrytestList($currentPage['id']);
 			$total = count($data);
@@ -96,7 +104,12 @@
 				$answers = '';
 				if( isset($check[$row['id']]['answers']) ){
 					$answers = $check[$row['id']]['answers'];
-					if($answers==$row['correct']) $numberCorrect++;
+					if($answers==$row['correct']){
+						$numberCorrect++;
+						$style='message';
+					}else{
+						$style='error';
+					}
 				}
 				for($j=1; $j<=4; $j++){
 					if($j!=$answers) $select=''; else $select=' checked="checked"';
@@ -107,18 +120,25 @@
 					</div>';
 				}
 				echo '<div class="box">
-					<div class="question"><b>Câu '.$i.':</b> '.viewAnswers($labelAnswers[$row['correct']]).$row['question'].'</div>
-					<div class="answers">'.$strAnswers.'</div>
+					<div class="question"><b>Câu '.$i.':</b> '.viewAnswers($labelAnswers[$row['correct']], $style).$row['question'].'</div>
+					<div class="answers">'.$strAnswers.'</div>'.viewNotes($row['notes']).'
 				</div>';
 			}
 			
 			if($checkTotal==0){
-				echo '<div class="box"><input type="button" name="btnSubmit" id="btnSubmit" value="Hoàn tất" allquestion="'.$total.'" class="adBtnSmall bgColorBlue corner5" /></div>';
+				$btnPre = '';
+				$result = '<input type="button" name="btnSubmit" id="btnSubmit" value="Xem kết quả" allquestion="'.$total.'" class="adBtnSmall bgColorBlue corner5 hidden" />';
 			}else{
+				$btnPre = '<input type="button" name="btnPre" value="&larr; &nbsp; Câu trước" class="adBtnSmall bgColorBlue corner5" />';
 				$result = round($numberCorrect / $total * 100, 2);
-				echo '<div class="box result corner8">Kết quả: '.$result.'% <em>(đúng '.$numberCorrect.' câu trong '.$total.' câu.)</em></div>';
+				$result = '<div class="result corner8">Kết quả: '.$result.'% <em>(đúng '.$numberCorrect.' câu trong '.$total.' câu.)</em></div><div class="clear30"></div>';
 			}
 			?>
+            <div class="control">
+            	<span class="number hidden">0</span>
+                <?php echo $result.$btnPre;?>
+            	<input type="button" name="btnNext" value="Câu kế &nbsp; &rarr;" class="adBtnSmall bgColorBlue corner5" />
+            </div>
         </div>
     </div>
     
@@ -127,6 +147,54 @@
         <div class="content corner10"></div>
     </div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(e) {
+	function viewQuestion(number){
+		var tags = '.box:eq(' + number + ')';
+		$(".box").hide();
+		$(tags).show(100);
+		if(number==0) $("input[name=btnPre]").hide();
+		else $("input[name=btnPre]").show(100);
+	}
+	function checkQuestion(number){
+		var tags = '.box:eq(' + number + ')';
+		if( $(tags + ' input:checked').length ) return true;
+		else return false;
+	}
+	viewQuestion(0);
+	$("input[name=btnNext]").click(function(){ 
+		var number = parseInt( $(".number").html() );
+		var total = parseInt(<?php echo $total;?>) - 2;
+		if(number >= total){
+			$(this).hide(100);
+			$("#btnSubmit").show(100);
+		}
+		
+		var check = checkQuestion(number);
+		if(check==false){
+			$("#messagePP .content").html('<b class="error">Bạn chưa chọn câu trả lời.</b><p class="clear30"></p><span class="corner5 close">Close</span><p class="clear10"></p>');
+			$("#messagePP").show(100);
+			return false;
+		}
+		
+		number++;
+		viewQuestion(number);
+		$(".number").html(number);
+	});
+	$("input[name=btnPre]").click(function(){
+		var number = parseInt( $(".number").html() );
+		if(number == 0){
+			$(this).hide(100);
+			return false;
+		}
+		$("input[name=btnNext]").show(100);
+		number--;
+		viewQuestion(number);
+		$(".number").html(number);
+	});
+});
+</script>
 
 <?php if($checkTotal==0){?>
 <script type="text/javascript">
@@ -139,7 +207,7 @@ $(document).ready(function(e) {
 		var allquestion = parseInt( $(this).attr("allquestion") );
 		var currentCheck = parseInt( $('.field_all:checked').length );
 		if(allquestion != currentCheck){
-			$("#messagePP .content").html('<p>Bạn chưa trả lời hết các câu hỏi.</p><p class="clear30"></p><span class="corner5 close">Close</span><p class="clear10"></p>');
+			$("#messagePP .content").html('<b class="error">Bạn chưa chọn câu trả lời.</b><p class="clear30"></p><span class="corner5 close">Close</span><p class="clear10"></p>');
 			$("#messagePP").show(100);
 			return false;
 		}

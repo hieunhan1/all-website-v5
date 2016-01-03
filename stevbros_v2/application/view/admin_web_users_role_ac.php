@@ -28,7 +28,7 @@ $other='<span class="error adError"></span>';
 $data = $cF->inputText($name, $value, 'ad_field insertListRole adInput value_id', $properties, $other);
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'100');
-$properties[] = array('propertie'=>'placeholder', 'value'=>'Mục quản trị');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'Nhập tên');
 $properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5px');
 $data .= $cF->inputText('', '', 'adInput value_name', $properties);
 $data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" />';
