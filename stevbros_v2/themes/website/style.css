@@ -124,6 +124,7 @@
 #footer{clear:both; color:#FFF; padding:30px 0; background-color:#444}
 #footer .logo-social{width:30%; float:left}
 #footer .logo-social .logo{clear:both; margin-bottom:20px}
+#footer .logo-social .logo img{height:78px}
 #footer .logo-social .social{clear:both}
 #footer .logo-social .social .icon{display:block; width:40px; height:40px; float:left; overflow:hidden; margin-right:2px}
 #footer .logo-social .social .facebook{background-position:0px -300px}
@@ -220,8 +221,8 @@
 .home-courses .box{width:48%; margin-bottom:25px}
 
 .home-courses .box .title{width:20%; float:left; text-align:center}
-.home-courses .box .title .number{color:#005aab; font-size:200%; font-weight:bold; margin-bottom:10px}
-.home-courses .box .title .name{line-height:20px; height:80px; overflow:hidden; color:#FFF; font-size:90%; padding:5px; background-color:#ff9500}
+.home-courses .box .title .number{color:#005aab; font-size:160%; font-weight:bold; margin-bottom:4px}
+.home-courses .box .title .name{line-height:20px; height:100px; overflow:hidden; color:#FFF; font-size:90%; padding:5px; background-color:#ff9500}
 
 .home-courses .box .content{width:68%; float:right; padding:4%; background-color:#f8f8f8}
 .home-courses .box .content .p{line-height:22px; height:66px; overflow:hidden; margin-bottom:15px}
@@ -238,7 +239,7 @@
 .home-contact .content .h4{color:#FFF; font-weight:100; font-size:130%; letter-spacing:2px; word-spacing:3px; margin-bottom:60px}
 .home-contact .content .link{text-transform:uppercase; letter-spacing:2px}
 
-#whychooseus{width:55%; float:left}
+#whychooseus{width:47%; float:left}
 #whychooseus .tab{clear:both; margin-bottom:8px}
 #whychooseus .tab .h3{font-size:110%; padding:12px 20px; background-color:#FFF; border:solid 1px #CCC; cursor:pointer}
 #whychooseus .tab .h3:hover{color:#FFF; background-color:#005aab; border:solid 1px #005aab}
@@ -246,11 +247,11 @@
 #whychooseus .tab .close:hover{color:#179bd7; background-color:#FFF; border-radius:3px}
 #whychooseus .tab .content{margin-bottom:30px; padding-right:20px}
 
-#postnew{width:42%; float:right; padding-top:20px}
+#postnew{width:48%; float:right}
 #postnew .box{height:180px; overflow:hidden; margin-bottom:20px}
 #postnew .box .img{width:35%; float:left; overflow:hidden; text-align:center}
 #postnew .box .img img{max-width:100%}
-#postnew .box .content{width:60%; float:right}
+#postnew .box .content{width:62%; float:right}
 #postnew .box .h3{line-height:130%; font-weight:100; font-size:130%; margin-bottom:10px}
 #postnew .box .p{height:88px; overflow:hidden; line-height:22px; margin-bottom:20px}
 
@@ -272,8 +273,9 @@
 
 #home-footer{clear:both; margin-bottom:50px}
 #home-footer .box{width:31%; float:left; margin:0 1%}
-#home-footer .box .h5{line-height:65px; color:#005aab; text-transform:uppercase; font-size:110%; margin-bottom:10px}
-#home-footer .box .content{line-height:150%}
+#home-footer .box .clear{height:20px}
+#home-footer .box .h5{height:45px; line-height:25px; color:#005aab; text-transform:uppercase; font-size:110%}
+#home-footer .box .content{clear:both; line-height:150%}
 #home-footer .box .icon{display:block; width:65px; height:65px; float:left; margin-right:5px; background:url(img/footer.png) no-repeat}
 #home-footer .box .pmp{background-position:-5px -10px}
 #home-footer .box .pmbook{background-position:-5px -75px}
@@ -400,17 +402,18 @@
 /*end cooperate*/
 
 /*recruit*/
-#recruit{width:40%; float:left; color:#666}
+#recruit{width:80%; clear:both; color:#666; margin:auto auto 30px auto}
 #recruit h1{color:#333; font-weight:100; font-size:140%; text-transform:uppercase}
 
-#frm-submission{width:55%; float:right; color:#888}
+#frm-submission{width:60%; clear:both; color:#888; margin:auto}
 #frm-submission .loading{width:45%; height:980px; background-color:rgba(255,255,255,0.6)}
 
-#frm-submission .h4{text-transform:uppercase; font-size:120%; font-weight:100; margin-bottom:10px}
-#frm-submission .txt{width:98%; margin-bottom:10px}
+#frm-submission .h4{line-height:150%; text-transform:uppercase; font-size:120%; font-weight:100; margin-bottom:5px; padding-top:10px}
+#frm-submission .h4 span{text-transform:none}
+#frm-submission .txt{width:102%; margin-bottom:10px}
 #frm-submission .date{width:80px; margin-right:10px}
 #frm-submission .txta{margin-bottom:10px}
-#frm-submission .btn{}
+#frm-submission .btn{padding:15px 25px; letter-spacing:1px; font-size:110%}
 /*end recruit*/
 
 /*opening*/
