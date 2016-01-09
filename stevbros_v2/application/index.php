@@ -29,6 +29,9 @@ function tachUrl($url){
 				$arr['control'] = CONS_FILE_DETAIL;
 				$arr['link'] = $urlArr[0];
 				$arr['page'] = str_replace('.html', '', $urlArr[1]);
+				header('HTTP/1.1 301 Moved Permanently');
+				header('location: '.CONS_BASE_URL.'/'.$arr['page']);
+				return true;
 			}
 			return $arr;
 	}
