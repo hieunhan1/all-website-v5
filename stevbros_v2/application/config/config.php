@@ -14,10 +14,12 @@ define('CONS_CACHE_EXT', 'ch');
 
 /*SEND MAIL*/
 define('CONS_HOST_SMTP_SERVER', 'localhost');
-define('CONS_SEND_MAIL_ACCOUNT', 'no-reply@localhost.com');
+define('CONS_SEND_MAIL_ACCOUNT', 'no-reply@iappscode.com');
 define('CONS_SEND_MAIL_PASSWORD', 'no-reply#123*');
+define('CONS_SEND_MAIL_FROM', 'admin@iappscode.com');
+define('CONS_SEND_MAIL_FROM_NAME', 'Admin');
 define('CONS_RECEIVE_MAIL_ACCOUNT', 'hieunhan112@gmail.com');
-define('CONS_RECEIVE_MAIL_NAME', 'Admin');
+define('CONS_RECEIVE_MAIL_NAME', 'No name');
 
 /*CONTROL LINK*/
 define('CONS_LINK_HOME', '');
