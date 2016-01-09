@@ -107,7 +107,7 @@ echo $c->viewTableHtml($table);
 					$link = CONS_LINK_ADMIN.'/'.$row['url'].'/'.$row['parameter'];
 					if($navigator['url']!=$row['url']) $actice=''; else $actice='class="active"';
 					if($row['ajax']!=1) $ajax='';
-					else $ajax='<span class="ajax_thongtin" id="'.$row['table'].'"></span>';
+					else $ajax='<span class="ajax_thongtin" id="ajax'.$row['url'].'" table="'.$row['table'].'" parameter="'.$row['parameter'].'"></span>';
 					
 					echo '<li><a href="'.$link.'" '.$actice.'><span class="adIconBlack '.$row['img'].'"></span>'.$row['name'].$ajax.'</a></li>';
 				}

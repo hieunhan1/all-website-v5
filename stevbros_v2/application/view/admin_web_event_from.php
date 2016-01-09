@@ -5,18 +5,18 @@ $name = 'LIKE_name';
 if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mô tả');
 
-$name = 'LIKE_menu_id';
+$name = 'type';
 $value = array();
-$value[] = array('id'=>'', 'name'=>'-- chọn danh mục --');
-$where = "(type_id=1 OR type_id=3 OR type_id=10)";
-$data = $c->menuList($lang, $where);
-foreach($data as $row){
-	$value[] = array('id'=>",{$row['id']},", 'name'=>$row['name']);
+$value[] = array('id'=>'', 'name'=>'-- type --');
+$dataType = $c->_model->_webTypeList(1);
+foreach($dataType as $row){
+	$value[] = $row;
 }
 if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
 
 echo $c->viewFormSearch($arrFrmSearch);
+
 
 if($navigator['parameter']=='')
 	$para='?';
@@ -25,25 +25,24 @@ else
 ?>
 <div id="adContent">
 	<div class="tagsHidden">
-    	<p class="fieldQuickView" type="img" name="img"></p>
-        <p class="fieldQuickView" type="txt" name="name">Mô tả</p>
-        <p class="fieldQuickView" type="txt" name="datetime">Ngày</p>
-        <p class="fieldQuickView" type="txt" name="tags">Từ khóa</p>
-        <p class="fieldQuickView" type="des" name="description">Thông tin</p>
+        <p class="fieldQuickView" type="txt" name="name">Name</p>
+        <p class="fieldQuickView" type="txt" name="subject">subject</p>
+        <p class="fieldQuickView" type="txt" name="email">Email thông báo</p>
     </div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
-        	<th width="50">STT</th>
-            <th align="left">Mô tả</th>
-            <th width="150" align="left">Tên hình</th>
-            <th width="110">Ngày</th>
-            <th width="100">Thao tác</th>
+        	<th width="60">STT</th>
+            <th align="left" width="25%">Name</th>
+            <th align="left">Subject</th>
+            <th align="left" width="120">Email thông báo</th>
+            <th align="left" width="100">Type</th>
+            <th width="120">Thao tác</th>
         </tr>
         <?php
 		$i = 0;
 		$arr = array(
-			'lang'=>$lang,
-			'select'=>'`id`, `name`, `img`, `description`, `tags`, `datetime`, `status`',
+			//'lang'=>$lang,
+			'select'=>'`id`, `name`, `subject`, `email`, `type`, `status`',
 			'table'=>$table,
 			//'where'=>'',
 			//'order'=>'',
@@ -54,8 +53,9 @@ else
             <tr class="row">
                 <td align="center"><?php echo $arr['startRow']+$i; ?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
-                <td><?php echo $row['img'];?></td>
-                <td><?php echo $c->viewDateTime($row['datetime']);?></td>
+                <td><p class="height"><?php echo $row['subject'];?></p></td>
+                <td><p class="height"><?php echo $row['email'];?></p></td>
+                <td><p class="height"><?php echo $dataType[$row['type']]['name'];?></p></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);

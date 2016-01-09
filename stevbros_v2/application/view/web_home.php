@@ -7,7 +7,7 @@
                 <!--<a href="http://stevbros.com/" target="_blank" title="STEVBROS GLOBAL"><span class="allIcon icon cart"><span>0</span></span></a>-->
                 <span class="allIcon icon user">&nbsp;</span>
             </div>
-            <div class="search-header allIcon"><input type="text" name="txtSearch" id="txtSearch" placeholder="Tìm kiếm" /></div>
+            <div class="search-header allIcon"><input type="text" name="txtSearch" id="txtSearch" placeholder="Tìm kiếm khóa học" /></div>
         </div>
 
         <div class="main">
@@ -31,6 +31,10 @@
 					}
 					?>
                 </div>
+                <div id="menuMobile" style="margin:5px 20px 0 0">
+                    <div id="btnMobile"></div>
+                    <div id="viewMobile" style="top:80px"></div>
+                </div>
             </div>
         </div>
         
@@ -45,8 +49,8 @@
 			$data = $c->_model->_headerData($arr);
 			if(count($data) > 0){
 				$slider = $data[0];
-				$data = $c->_model->_web_picture('web_header', $slider['id'], 'rand()');
-				$sliderImg = $data[0];
+				$dataSlider = $c->_model->_web_picture('web_header', $slider['id'], 'rand()');
+				//$sliderImg = $data[0];
 				echo $slider['description'];
 			}
 			?>
@@ -55,14 +59,13 @@
     
 	<div class="img">
     	<?php
-        if(isset($sliderImg)){
-			$name=$sliderImg['name'];
-			$img=IMAGE_URL.$sliderImg['img'];
+        if(isset($dataSlider)){
+			foreach($dataSlider as $row){
+				echo '<div class="itemSlider" style="display:none">'.IMAGE_URL.$row['img'].'</div>';
+			}
 		}else{
-			$name='STEVBROS TRAINING & CONSULTANCY';
-			$img='themes/website/img/bg-home-default.jpg';
+			echo '<div class="itemSlider" style="display:none">themes/website/img/bg-home-default.jpg</div>';
 		}
-		echo '<img src="'.$img.'" alt="'.$name.'" />';
 		?>
     </div>
 </div>
@@ -75,6 +78,11 @@
 				$('.home-header .main').removeClass('home-header-fix');
 			}
 		});
+		var minNumber = 0;
+		var maxNumber = parseInt( $(".itemSlider").length ) - 1;
+		var slider = Math.floor(Math.random()*(maxNumber-minNumber+1)+minNumber);
+		var img = $(".itemSlider:eq(" + slider + ")").html();
+		$(".home-header .img").html('<img src="' + img + '" alt="<?php echo $slider['name'];?>" />');
     });
 </script>
 <?php flush();?>
@@ -114,7 +122,7 @@
 				</div>
 				<div class="content">
 					<div class="p">'.$row['description'].'</div>
-					<a href="'.$row['name_alias'].'" title="'.$row['name'].'" class="viewmore">View more <span>&rsaquo;&rsaquo;</span></a>
+					<a href="'.$row['name_alias'].'" title="'.$row['name'].'" class="viewmore">Chi tiết khóa học <span>&rsaquo;&rsaquo;</span></a>
 				</div>
 				<div class="clear1"></div>
 			</div>';
@@ -145,10 +153,11 @@ if(count($data)>0){
 		<div class="content">
 			<h3 class="h3"><strong>'.$title[0].'</strong> '.$title[1].'</h3>
 			<h4 class="h4">'.$row['description'].'</h4>
-			<a href="'.$row['url'].'" class="link adBtnLarge bgColorOranges">'.$lang_var['request_for_service'].'</a>
+			<span class="request_for_service adBtnLarge bgColorOranges">'.$lang_var['request_for_service'].'</span>
 		</div>
 		<div class="img"><img src="'.IMAGE_URL.$row['img'].'" alt="'.$row['title'].'" /></div>
 	</div>';
+	include_once('web_course_request.php');
 }
 
 $str='';
@@ -184,7 +193,7 @@ if(count($dataWhy)>0){
 	$str.='</div>';
 }
 
-//bai viet moi
+//2 khoa hoc khai giang
 $arr = array(
 	'lang' => $lang,
 	'parent' => 0,
@@ -195,8 +204,9 @@ $data = $c->_model->_headerData($arr);
 if(count($data)>0){
 	$row = $data[0];
 	$arr = array(
-		'menu_id' => $row['id'],
-		'order'=>'datetime DESC',
+		'position_id' => 10,
+		'type_id' => 10,
+		'order'=>'`_order`',
 		'limit'=>'2',
 	);
 	$data = $c->_model->_headerData($arr);
@@ -206,13 +216,21 @@ if(count($data)>0){
 			<h3 class="h3">'.$row['description'].'</h3>
 		</div>';
 	foreach($data as $row){
-		$img = IMAGE_URL_THUMB.$row['img'];
+		$arr = array(
+			'type_id' => 3,
+			'menu_id' => $row['id'],
+			'limit'=>'1',
+		);
+		$dataContent = $c->_model->_headerData($arr);
+		$rowContent = $dataContent[0];
+		$img = IMAGE_URL_THUMB.$rowContent['img'];
 		if($row['img']=='') $img=CONS_IMAGE_DEFAULT;
 		$str.='<div class="box">
-			<div class="img"><a href="'.$row['name_alias'].'"><img src="'.$img.'" alt="'.$row['name'].'" /></a></div>
+			<div class="img"><a href="'.$row['name_alias'].'"><img src="'.$img.'" alt="'.$rowContent['name'].'" /></a></div>
 			<div class="content">
-				<a href="'.$row['name_alias'].'" title="'.$row['name'].'" class="link"><h3 class="h3">'.$row['name'].'</h3></a>
-				<div class="p">'.$row['description'].'</div>
+				<a href="'.$row['name_alias'].'" title="'.$rowContent['title'].'" class="link"><h3 class="h3">'.$rowContent['title'].'</h3></a>
+				<div class="p">'.$rowContent['description'].'</div>
+				<p style="text-align:right"><a href="'.$row['name_alias'].'" class="adBtnSmall bgColorBlue corner5">Chi tiết</a></p>
 			</div>
 			<div class="clear1"></div>
 		</div>';

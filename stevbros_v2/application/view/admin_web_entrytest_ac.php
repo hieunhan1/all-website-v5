@@ -80,10 +80,12 @@ $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $propertie
 echo $cF->displayDiv('Đáp án chính xác', $data);
 
 $name = 'notes';
+if(isset($rowDetail[$name])) $value=$rowDetail[$name]; else $value='';
+$name = 'ckeditor_notes';
 $properties = array();
-$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
-$value=$rowDetail[$name];
-$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
+$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
+$others = $cF->ckeditorBasic($name);
+$data = $cF->textArea($name, $value, 'ad_field', $properties, $others);
 echo $cF->displayDiv('Giải thích', $data);
 
 $name = '_order';

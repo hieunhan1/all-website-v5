@@ -93,21 +93,15 @@ $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Số năm kinh nghiệm', $data);
 
-$name = 'exp_project';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'3');
-$value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
-echo $cF->displayDiv('Số năm quản lý dự án', $data);
-
-$name = 'areas_expertise';
-$value=$rowDetail[$name];
-$name = 'ckeditor_areas_expertise';
-$properties = array();
-$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
-$others = $cF->ckeditorStandard($name);
-$data = $cF->textArea($name, $value, 'ad_field', $properties, $others);
-echo $cF->displayDiv('Lĩnh vực chuyên môn', $data);
+$name = 'courses_id';
+$value = $rowDetail[$name];
+$value = explode(',', $value);
+$data = '';
+for($i=1; $i<=count($value)-2; $i++){
+	$row = $c->_model->_viewEditDetail('web_header', $value[$i]);
+	$data .= '<p class="adMessage label2">'.$row['name'].'</p>';
+}
+echo $cF->displayDiv('Đào tạo lĩnh vực', $data);
 
 $name = 'yourself';
 $value=$rowDetail[$name];

@@ -138,7 +138,7 @@ $data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
 echo $cF->displayDiv('', $data);*/
 //-----end web_content Second-----//
 
-$name = 'other';
+/*$name = 'other';
 $values = array();
 $values[] = array('name'=>'Doanh nghiệp', 'id'=>'1');
 $values[] = array('name'=>'Cá nhân', 'id'=>'2');
@@ -146,7 +146,7 @@ $values[] = array('name'=>'No', 'id'=>'0');
 if($rowDetail[$name]=='') $valueCheck=0;
 else $valueCheck=$rowDetail[$name];
 $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
-echo $cF->displayDiv('Có form đăng ký', $data);
+echo $cF->displayDiv('Có form đăng ký', $data);*/
 
 //upload images
 $data = ob_start();

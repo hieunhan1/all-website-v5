@@ -1,6 +1,6 @@
 <div id="course-more" style="float:right">
     <div class="box">
-        <div class="search-header allIcon"><input type="text" name="txtSearch" id="txtSearch" placeholder="Tìm kiếm" /></div>
+        <div class="search-header allIcon"><input type="text" name="txtSearch" id="txtSearch" placeholder="Tìm kiếm khóa học" /></div>
     </div>
     
     <?php
@@ -37,9 +37,7 @@
 			foreach($data as $row){
 				$i++;
 				if($i!=1) $border='border'; else $border='';
-				$name = explode(',', $row['tags'], 2);
 				echo '<div class="item '.$border.'">
-					<div class="left">'.$name[0].'</div>
 					<h5 class="h5"><a href="'.$row['name_alias'].'" title="'.$row['title'].'">'.$row['name'].'</a></h5>
 					<div class="clear1"></div>
 				</div>';

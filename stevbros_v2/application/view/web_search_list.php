@@ -1,14 +1,14 @@
 <div class="container">
 	<div id="course-more" style="float:left">
-    	<h1 class="h1"><?php echo '<a href="'.$currentPage['rootAlias'].'" title="'.$currentPage['rootName'].'">'.$currentPage['rootName'].'</a>';?></h1>
+    	<h1 class="h1"><a>Đào tạo doanh nghiệp</a></h1>
     	<?php
         $arr = array(
-            'parent'=>$currentPage['rootID'],
+            'parent'=>70,
             'position_id'=>4,
             'properties'=>1,
             'order'=>'`_order`',
         );
-        $data = $c->_model->_headerData($arr); //$c->_model->_print($data);
+        $data = $c->_model->_headerData($arr);
         foreach($data as $row){
 			if($row['id']!=$currentPage['id']) $active=''; else $active='class="active"';
 			echo '<h2 class="h2"><a href="'.$row['name_alias'].'" title="'.$row['title'].'" '.$active.'>'.$row['name'].'</a></h2>';
@@ -17,18 +17,22 @@
     </div>
     <div id="course-list">
 		<?php
-		$i=0;
-        $arr = array(
-            'lang'=>$lang,
-            'menu_id'=>$currentPage['id'],
-            'properties'=>2,
-            'type_id'=>3,
-            'order'=>'`_order`',
+		$i=0; $name=''; $alias='';
+		if(isset($_GET['txt'])){
+			$name = $c->_model->_removeDauNhay($_GET['txt']);
+			$alias = $c->_model->_changeAlias($name);
+		}
+		
+		$arr = array(
+            'select'=>'*',
+			'from'=>'web_header',
+            'where'=>"`lang`='{$lang}' AND `properties`='2' AND `type_id`='3' AND (`name` LIKE '%{$name}%' OR `name_alias` LIKE '%{$alias}%')",
+            'order'=>'`id` DESC',
         );
-        $data = $c->_model->_headerData($arr);
+        $data = $c->_model->_select($arr);
 		echo '<div class="total">
-			<div class="result-search">'.count($data).' khóa học</div>
 			<div class="search-header allIcon"><input type="text" name="txtSearch" id="txtSearch" placeholder="Tìm kiếm khóa học" /></div>
+			<div class="result-search">Tìm thấy '.count($data).' khóa học cho từ khóa &quot;'.$name.'&quot;</div>
 			<div class="clear1"></div>
 		</div>';
         foreach($data as $row){

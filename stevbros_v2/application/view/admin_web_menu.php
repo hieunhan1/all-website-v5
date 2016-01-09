@@ -1,10 +1,6 @@
 <?php
 $arrFrmSearch = array();
 
-$name = 'LIKE_name';
-if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
-$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mô tả');
-
 $name = 'LIKE_position_id';
 $value = array();
 $value[] = array('id'=>'', 'name'=>'-- vị trí hiển thị --');

@@ -6,13 +6,14 @@ if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mô tả');
 
 $name = 'LIKE_menu_id';
-$value = array();
-$value[] = array('id'=>'', 'name'=>'-- chọn danh mục --');
-$where = "(type_id=4)";
-$data = $c->menuList($lang, $where);
-foreach($data as $row){
-	$value[] = array('id'=>",{$row['id']},", 'name'=>$row['name']);
-}
+$arr = array(
+	'select'=>'`id`, `name`',
+	'from'=>'web_header',
+	'where'=>'`properties`=1 AND `type_id`=4',
+	'order'=>'_order'
+);
+$value = $c->_model->_select($arr);
+array_unshift($value, array('id'=>'0', 'name'=>'-- chọn danh mục --'));
 if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
 
@@ -25,17 +26,16 @@ else
 ?>
 <div id="adContent">
 	<div class="tagsHidden">
-    	<p class="fieldQuickView" type="img" name="img"></p>
         <p class="fieldQuickView" type="txt" name="name">Mô tả</p>
+        <p class="fieldQuickView" type="txt" name="other">Công ty</p>
         <p class="fieldQuickView" type="txt" name="datetime">Ngày</p>
-        <p class="fieldQuickView" type="txt" name="tags">Từ khóa</p>
         <p class="fieldQuickView" type="des" name="description">Thông tin</p>
     </div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
         	<th width="50">STT</th>
             <th align="left">Mô tả</th>
-            <th width="150" align="left">Tên hình</th>
+            <th width="25%" align="left">Công ty</th>
             <th width="110">Ngày</th>
             <th width="100">Thao tác</th>
         </tr>
@@ -43,7 +43,7 @@ else
 		$i = 0;
 		$arr = array(
 			'lang'=>$lang,
-			'select'=>'`id`, `name`, `img`, `description`, `tags`, `datetime`, `status`',
+			'select'=>'`id`, `name`, `description`, `tags`, `other`, `datetime`, `status`',
 			'table'=>$table,
 			//'where'=>'',
 			//'order'=>'',
@@ -54,7 +54,7 @@ else
             <tr class="row">
                 <td align="center"><?php echo $arr['startRow']+$i; ?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
-                <td><?php echo $row['img'];?></td>
+                <td><p class="height"><?php echo $row['other'];?></p></td>
                 <td><?php echo $c->viewDateTime($row['datetime']);?></td>
                 <td align="center" class="adAction">
                 	<?php

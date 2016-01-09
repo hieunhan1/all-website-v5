@@ -8,6 +8,7 @@
 	
 	$arr = array(
 		'lang'=>$lang,
+		'type_id'=>2,
 		'menu_id'=>$currentPage['id'],
 		'properties'=>2,
 		'select'=>'count(`id`) as `totalRows`',
@@ -17,6 +18,7 @@
 	
 	$arr = array(
 		'lang'=>$lang,
+		'type_id'=>2,
 		'menu_id'=>$currentPage['id'],
 		'properties'=>2,
 		'order'=>'`datetime` DESC',

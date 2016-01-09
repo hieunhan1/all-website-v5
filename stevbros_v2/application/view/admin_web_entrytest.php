@@ -44,7 +44,7 @@ else
 			'select'=>'`id`, `name`, `correct`, `_order`, `status`',
 			'table'=>$table,
 			//'where'=>'',
-			//'order'=>'',
+			'order'=>'`_order`, `menu_id`',
 		);
 		$data = $c->selectFromAll($arr);
 		foreach($data as $row){

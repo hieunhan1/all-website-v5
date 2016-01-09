@@ -1,8 +1,10 @@
 <?php
 $arrType = array(
-	1=>'Liên hệ',
-	2=>'Đăng ký',
-	3=>'Hợp tác',
+	0 => array('id'=>'', 'name'=>'-- chọn loại --'),
+	1 => array('id'=>'1', 'name'=>'Liên hệ'),
+	2 => array('id'=>'2', 'name'=>'Đăng ký cá nhân'),
+	3 => array('id'=>'3', 'name'=>'Đăng ký doanh nghiệp'),
+	4 => array('id'=>'4', 'name'=>'Hợp tác'),
 );
 		
 $arrFrmSearch = array();
@@ -12,12 +14,7 @@ if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mô tả');
 
 $name = 'type';
-$value = array();
-$value[] = array('id'=>'', 'name'=>'-- chọn loại --');
-$value[] = array('id'=>'1', 'name'=>'Liên hệ');
-$value[] = array('id'=>'2', 'name'=>'Đăng ký');
-$value[] = array('id'=>'3', 'name'=>'Hợp tác');
-
+$value = $arrType;
 if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
 
@@ -35,15 +32,14 @@ else
         <p class="fieldQuickView" type="txt" name="email">Email</p>
         <p class="fieldQuickView" type="txt" name="phone">Phone</p>
         <p class="fieldQuickView" type="txt" name="datetime">Ngày</p>
-        <p class="fieldQuickView" type="des" name="message">Lời nhắn</p>
     </div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
             <th width="50">STT</th>
             <th align="left">Họ tên</th>
-            <th width="110" align="left">Phone</th>
-            <th width="180" align="left">Email</th>
-            <th width="100" align="left">Type</th>
+            <th width="100" align="left">Phone</th>
+            <th width="170" align="left">Email</th>
+            <th width="150" align="left">Type</th>
             <th width="110" align="left">Ngày</th>
             <th width="100">Thao tác</th>
         </tr>
@@ -51,7 +47,7 @@ else
 		$i = 0;
 		$arr = array(
 			'lang'=>$lang,
-			'select'=>'`id`, `name`, `email`, `phone`, `address`, `message`, `datetime`, `status`, `type`',
+			'select'=>'`id`, `name`, `email`, `phone`, `address`, `datetime`, `status`, `type`',
 			'table'=>$table,
 			//'where'=>'',
 			//'order'=>'',
@@ -64,7 +60,7 @@ else
                 <td><p class="height"><?php echo $row['name'];?></p></td>
                 <td><p class="height"><?php echo $row['phone'];?></p></td>
                 <td><p class="height"><?php echo $row['email'];?></p></td>
-                <td><?php echo $arrType[$row['type']];?></td>
+                <td><?php echo $arrType[$row['type']]['name'];?></td>
                 <td><?php echo $c->viewDateTime($row['datetime']);?></td>
                 <td align="center" class="adAction">
                 	<?php

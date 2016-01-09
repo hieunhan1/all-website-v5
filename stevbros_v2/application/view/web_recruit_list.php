@@ -8,7 +8,7 @@
     </div>
     
     <div id="frm-submission" class="frm-loading">
-    	<div class="loading"></div>
+    	<div class="loading" style="width:65%; height:1500px"></div>
         <div class="error errorGeneral"></div>
     	<h4 class="h4">Thông tin cá nhân</h4>
     	<div class="txt"><input type="text" name="name" class="field_item adInput" maxlength="60" check="2" message="<?php echo $lang_var['error_name'];?>" placeholder="<?php echo $lang_var['name'];?>" /><p class="error"></p></div>
@@ -43,10 +43,27 @@
     	<div class="txt"><input type="text" name="email" class="field_item adInput" maxlength="60" check="email" message="<?php echo $lang_var['error_email'];?>" placeholder="Email" /><p class="error"></p></div>
     	<div class="txt"><input type="text" name="address" class="field_item adInput" maxlength="200" check="5" message="<?php echo $lang_var['error_address'];?>" placeholder="<?php echo $lang_var['address'];?>" /><p class="error"></p></div>
         <div class="txt"><input type="text" name="exp_work" class="field_item adInput" maxlength="3" check="1" message="Nhập số năm kinh nghiệm" placeholder="Số năm kinh nghiệm làm việc" /><p class="error"></p></div>
-        <div class="txt"><input type="text" name="exp_project" class="field_item adInput" maxlength="3" check="1" message="Nhập số năm kinh nghiệm quản lý dự án" placeholder="Số năm kinh nghiệm quản lý dự án" /><p class="error"></p></div>
+        <!--
+        ckeditor_areas_expertise
+        exp_project
+        -->
+        <h4 class="h4">Bạn muốn hợp tác đào tạo và tư vấn ở lĩnh vực nào?</h4>
+        <div class="txt" style="line-height:150%; margin-left:30px">
+        	<?php
+            $arr = array(
+				'parent'=>70,
+				'properties'=>1,
+				'order'=>'`_order`',
+			);
+			$data = $c->_model->_headerData($arr);
+			foreach($data as $row){
+				echo '<p><input type="checkbox" name="courses_id" class="checkBox" value="'.$row['id'].'" style="float:left; margin:5px 10px 0 0" /> '.$row['name'].'</p>';
+			}
+			?>
+            <input type="hidden" name="courses_id" class="field_item listValueMenu" maxlength="30" check="2" message="Chọn khóa đào tạo" />
+        	<p class="error"></p>
+        </div>
         
-    	<h4 class="h4">Lĩnh vực chuyên môn các dự án bạn quản lý <span>(ví dụ: Xây Dựng, Dầu Khí, Ngân Hàng, Phần Mềm, Dịch Vụ, …)</span></h4>
-    	<div class="txta"><textarea type="ckeditor" name="ckeditor_areas_expertise" id="ckeditor_areas_expertise" class="field_item" check="50" message="Lĩnh vực chuyên môn các dự án bạn quản lý phải hơn 50 ký tự"></textarea><p class="error"></p></div>
     	<h4 class="h4">Giới thiệu bản thân <span>(giới thiệu chung, ít hơn 250 từ)</span></h4>
     	<div class="txta"><textarea type="ckeditor" name="ckeditor_yourself" id="ckeditor_yourself" class="field_item" check="50" message="Giới thiệu bản thân phải hơn 50 ký tự"></textarea><p class="error"></p></div>
     	<h4 class="h4">Bằng cấp <span>(ví dụ: Tiến sỹ, Thạc sỹ,...)</span></h4>
@@ -63,13 +80,6 @@
 <div class="clear30"></div>
 
 <script type="text/javascript">
-CKEDITOR.replace( 'ckeditor_areas_expertise', {
-	uiColor: '#E1E1E1',
-	height: 120,
-	toolbar: [
-		['RemoveFormat','PasteFromWord','Bold', 'Italic', 'Underline', 'FontSize', 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock', '-','TextColor','BGColor','NumberedList','BulletedList','-','Outdent','Indent',],
-	]
-});
 CKEDITOR.replace( 'ckeditor_yourself', {
 	uiColor: '#E1E1E1',
 	height: 120,
@@ -118,7 +128,9 @@ CKEDITOR.replace( 'ckeditor_experience', {
 				type: 'post',
 				data: fields,
 				cache:false,
-				success: function(data){ console.log(data);
+				success: function(data){
+					//console.log(data);
+					data = data.replace(/\n/g, "");
 					data = $.parseJSON(data);
 					var error = data.error;
 					var message = data.message;

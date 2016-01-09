@@ -8,7 +8,7 @@ $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=
 $name = 'LIKE_menu_id';
 $value = array();
 $value[] = array('id'=>'', 'name'=>'-- chọn danh mục --');
-$where = "(type_id=2 OR type_id=4)";
+$where = "(type_id=10)";
 $data = $c->menuList($lang, $where);
 foreach($data as $row){
 	$value[] = array('id'=>",{$row['id']},", 'name'=>$row['name']);
@@ -34,8 +34,7 @@ else
     	<tr class="header">
         	<th width="50">STT</th>
             <th align="left">Mô tả</th>
-            <th width="250" align="left">Khai giảng</th>
-            <th width="120" align="left">Thời lượng</th>
+            <th width="150" align="left">Ngày khai giảng</th>
             <th width="60">Thứ tự</th>
             <th width="90">Thao tác</th>
         </tr>
@@ -43,7 +42,7 @@ else
 		$i = 0;
 		$arr = array(
 			'lang'=>$lang,
-			'select'=>'`id`, `name`, `opening`, `duration`, `_order`, `status`',
+			'select'=>'`id`, `name`, `date_opening`, `_order`, `status`',
 			'table'=>$table,
 			//'where'=>'',
 			//'order'=>'',
@@ -54,8 +53,7 @@ else
             <tr class="row">
                 <td align="center"><?php echo $arr['startRow']+$i; ?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
-                <td><p class="height"><?php echo $row['opening'];?></p></td>
-                <td><p class="height"><?php echo $row['duration'];?></p></td>
+                <td><?php echo date('Y-m-d', $row['date_opening']);?></td>
                 <td align="center"><?php echo $row['_order'];?></td>
                 <td align="center" class="adAction">
                 	<?php

@@ -24,8 +24,13 @@ $data = $cF->inputText($name, $value, 'ad_field adInput adTxtSmall datetimepick'
 echo $cF->displayDiv('Ngày', $data);
 
 $name = 'menu_id';
-$where = "(type_id=4)";
-$values = $c->menuList($lang, $where);
+$arr = array(
+	'select'=>'`id`, `name`',
+	'from'=>'web_header',
+	'where'=>'`properties`=1 AND `type_id`=4',
+	'order'=>'_order'
+);
+$values = $c->_model->_select($arr);
 $valueCheck=$rowDetail[$name];
 $data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxMenu', 1);
 if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
@@ -41,6 +46,13 @@ $value=$rowDetail[$name];
 $other='<span class="error adError"></span>';
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Name', $data);
+
+$name = 'other';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'200');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Company', $data);
 
 $name = 'name_alias';
 $properties = array();

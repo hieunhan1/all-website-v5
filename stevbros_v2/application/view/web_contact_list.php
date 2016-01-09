@@ -34,13 +34,6 @@
             <div class="row">
                 <div class="field2"><textarea type="textarea" name="message" class="textarea field_item" check="10" message="<?php echo $lang_var['error_message'];?>" placeholder="<?php echo $lang_var['message'];?>"></textarea><p class="error" id="messageContact"></p></div>
                 <input type="hidden" name="datetime" class="field_item" value="<?php echo date('Y-m-d H:i:s');?>" />
-                <?php
-				$type = 1;
-                if($arrUrl['page']!=1){
-					$type = 2;
-					echo '<input type="hidden" name="header_id" class="field_item" value="'.$arrUrl['page'].'" />';
-				}
-				?>
                 <div class="clear1"></div>
             </div>
             <div class="row">
@@ -58,7 +51,7 @@ $(document).ready(function(e) {
 		var fields = ajax_field_all(".field_item");
 		if(typeof fields=='boolean') return false;
 		fields['rejectContact'] = '1';
-		fields['type'] = '<?php echo $type;?>';
+		fields['type'] = '1';
 		
 		$("#btnSendContact, .field_item").attr("disabled", true);
 		formLoading(1, '', '')
@@ -70,6 +63,7 @@ $(document).ready(function(e) {
 			cache:false,
 			success: function(data){
 				//console.log(data);
+				data = data.replace(/\n/g, "");
 				data = $.parseJSON(data);
 				var error = data.error;
 				var message = data.message;

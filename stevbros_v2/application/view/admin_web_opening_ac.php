@@ -25,7 +25,7 @@ if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
 $data .= $cF->inputHidden($name, $value, 'ad_field listValueMenu');
 echo $cF->displayDiv('Danh mục hiển thị', '<div class="listCheckBox">'.$data.'</div>');
 
-$name = 'header_id';
+/*$name = 'header_id';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'5');
 $properties[] = array('propertie'=>'placeholder', 'value'=>'ID khóa học');
@@ -39,7 +39,7 @@ $properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5
 $data .= $cF->inputText('', '', 'adInput value_name', $properties);
 $data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" />';
 $data .= '<div id="value_view" table="web_header"></div>';
-echo $cF->displayDiv('Khóa học', $data);
+echo $cF->displayDiv('Khóa học', $data);*/
 
 $name = 'name';
 $properties = array();
@@ -51,19 +51,23 @@ $other='<span class="error adError"></span>';
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Mô tả', $data);
 
-$name = 'duration';
+$name = 'date_opening';
 $properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'50');
-$value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
-echo $cF->displayDiv('Thời lượng', $data);
+$properties[] = array('propertie'=>'maxlength', 'value'=>'16');
+if($rowDetail[$name]==0) $value=date('Y-m-d 23:30', time());
+else $value=date('Y-m-d H:i', $rowDetail[$name]);
+$other = '<span class="adNotes">Chọn giờ 23:30</span>';
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtSmall datetimepick', $properties, $other);
+echo $cF->displayDiv('Ngày khai giảng', $data);
 
-$name = 'opening';
+$name = 'schedule';
+if(isset($rowDetail[$name])) $value=$rowDetail[$name]; else $value='';
+$name = 'ckeditor_schedule';
 $properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
-$value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
-echo $cF->displayDiv('Thông tin khai giảng', $data);
+$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
+$others = $cF->ckeditorBasic($name);
+$data = $cF->textArea($name, $value, 'ad_field', $properties, $others);
+echo $cF->displayDiv('Description', $data);
 
 $name = '_order';
 $properties = array();

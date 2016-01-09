@@ -24,7 +24,7 @@ $data = $cF->inputText($name, $value, 'ad_field adInput adTxtSmall datetimepick'
 echo $cF->displayDiv('Ngày', $data);
 
 $name = 'menu_id';
-$where = "(type_id=1 OR type_id=3)";
+$where = "(type_id=1 OR type_id=3 OR type_id=10)";
 $values = $c->menuList($lang, $where);
 $valueCheck=$rowDetail[$name];
 $data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxMenu', 1);
@@ -61,10 +61,12 @@ $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $propertie
 echo $cF->displayDiv('Title', $data);
 
 $name = 'description';
+if(isset($rowDetail[$name])) $value=$rowDetail[$name]; else $value='';
+$name = 'ckeditor_description';
 $properties = array();
-$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
-$value=$rowDetail[$name];
-$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
+$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
+$others = $cF->ckeditorBasic($name);
+$data = $cF->textArea($name, $value, 'ad_field', $properties, $others);
 echo $cF->displayDiv('Description', $data);
 
 $name = 'tags';
@@ -82,6 +84,13 @@ $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
 echo $cF->displayDiv('Thứ tự', $data);
+
+$name = 'code';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'30');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Code video youtube', $data);
 
 //upload images
 $data = ob_start();
@@ -112,7 +121,16 @@ $properties = array();
 $properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
 $others = $cF->ckeditorStandard($name);
 $data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
-echo $cF->displayDiv('Lợi ích', $data);
+echo $cF->displayDiv('Mục tiêu', $data);
+
+$name = 'more2';
+if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
+$name = 'ckeditor_more2';
+$properties = array();
+$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
+$others = $cF->ckeditorStandard($name);
+$data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
+echo $cF->displayDiv('Đối tượng', $data);
 
 $name = 'content';
 if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
@@ -123,14 +141,32 @@ $others = $cF->ckeditorStandard($name);
 $data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
 echo $cF->displayDiv('Nội dung khóa học', $data);
 
-$name = 'more2';
+$name = 'more3';
 if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
-$name = 'ckeditor_more2';
+$name = 'ckeditor_more3';
 $properties = array();
 $properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
 $others = $cF->ckeditorStandard($name);
 $data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
-echo $cF->displayDiv('Mô tả', $data);
+echo $cF->displayDiv('Chứng chỉ', $data);
+
+$name = 'more5';
+if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
+$name = 'ckeditor_more5';
+$properties = array();
+$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
+$others = $cF->ckeditorStandard($name);
+$data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
+echo $cF->displayDiv('Câu hỏi thường gặp', $data);
+
+$name = 'more4';
+if(isset($rowContent[$name])) $value=$rowContent[$name]; else $value='';
+$name = 'ckeditor_more4';
+$properties = array();
+$properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
+$others = $cF->ckeditorStandard($name);
+$data = $cF->textArea($name, $value, 'ad_field_second', $properties, $others);
+echo $cF->displayDiv('Quy trình', $data);
 //-----end web_content Second-----//
 
 if(isset($_GET['type_id'])) $type_id=$_GET['type_id']; else $type_id='';

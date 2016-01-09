@@ -207,6 +207,7 @@ $(document).ready(function(e) {
 			cache:false,
 			success: function(data) {
 				//console.log(data);
+				data = data.replace(/\n/g, "");
 				data = $.parseJSON(data);
 				var str = '';
 				if(data.error==0){

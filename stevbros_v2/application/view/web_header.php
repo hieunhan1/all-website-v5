@@ -30,6 +30,11 @@
                 }
                 ?>
             </div>
+            
+            <div id="menuMobile">
+            	<div id="btnMobile"></div>
+                <div id="viewMobile"></div>
+            </div>
         </div>
     </div>
 </div>

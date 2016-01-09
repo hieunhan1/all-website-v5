@@ -42,6 +42,22 @@ $other='<span class="error adError"></span>';
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Name', $data);
 
+$name = 'authors';
+if($rowDetail[$name]!=''){
+	$properties = array();
+	$properties[] = array('propertie'=>'maxlength', 'value'=>'50');
+	$value=$rowDetail[$name];
+	$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+	echo $cF->displayDiv('Tác giả', $data);
+	
+	$name = 'other';
+	$properties = array();
+	$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+	$value=$rowDetail[$name];
+	$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+	echo $cF->displayDiv('Email', $data);
+}
+
 $name = 'name_alias';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'200');
