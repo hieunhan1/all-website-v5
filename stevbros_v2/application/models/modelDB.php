@@ -63,6 +63,12 @@ class modelDB{
 		return $str;
 	}
 	
+	public function _removeNewLine($str){
+		//$str = str_replace(PHP_EOL, '', $str);
+		$str = preg_replace("/[\n\r]/", "", $str);
+		return $str;
+	}
+	
 	public function _randString($length){
 		$str = '';
 		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; 
@@ -106,7 +112,7 @@ class modelDB{
 			'U'=>'Ú|Ù|Ủ|Ũ|Ụ|Ư|Ứ|Ừ|Ử|Ữ|Ự',
 			'y'=>'ý|ỳ|ỷ|ỹ|ỵ',
 			'Y'=>'Ý|Ỳ|Ỷ|Ỹ|Ỵ',
-			'' =>"`|~|!|@|#|$|%|^|&|*|(|)|-|_|+|=|\|[|]|{|}|:|;|\"|'|,|.|/|<|>|?|“|”|  ",
+			'' =>"`|~|!|@|®|#|$|%|^|&|*|(|)|-|_|+|=|\|[|]|{|}|:|;|\"|'|,|.|/|<|>|?|“|”|  ",
 			'-'=>"| "
 		);
 		foreach($unicode as $khongdau=>$codau) {
@@ -186,7 +192,7 @@ class modelDB{
 		while($row = $result->fetch_assoc()) $data[] = $row;
 		return $data;
 	}
-	public function _select2($arr){
+	public function _selectSQL($arr){
 		if(!isset($arr['select']) || !isset($arr['from'])) return false;
 		
 		if(!is_array($arr['select'])) $select="{$arr['select']}";
@@ -311,7 +317,9 @@ class modelDB{
 				$id = $this->db->insert_id;
 				$backup->_backupData($id, $name, $table);
 			}
-			$backup->_insertWebLog($name, $type, $table, $id, $_SESSION['adminUser'], $content, $_SESSION['adminLang']);
+			if(isset($_SESSION['adminUser'])) $user=$_SESSION['adminUser']; else $user='customer';
+			if(isset($_SESSION['adminLang'])) $lang=$_SESSION['adminLang']; else $lang=CONS_DEFAULT_LANG;
+			$backup->_insertWebLog($name, $type, $table, $id, $user, $content, $lang);
 			return $id;
 		}
 	}

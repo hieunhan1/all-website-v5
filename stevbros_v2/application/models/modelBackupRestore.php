@@ -7,20 +7,22 @@ class modelBackupRestore extends modelDB{
 	*/
 	public function _backupData($id, &$name, $table){
 		if($table=='web_content') return false;
-		
+		$str_keys='';
+		$str_values='';
 		$sql = "SELECT * FROM `{$table}` WHERE `id`='{$id}' LIMIT 1";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$row = $result->fetch_assoc();
-		if(isset($row['name'])) $name=$row['name']; else $name='';
-		$str_keys=''; $str_values='';
-		$row_keys = array_keys($row);
-		$row_values = array_values($row);
-		for($i=0; $i<count($row_keys); $i++){
-			$str_keys .= "{$row_keys[$i]},";
-			$str_values .= "{$row_values[$i]}%%%";
+		if(count($row) > 0){
+			if(isset($row['name'])) $name=$row['name']; else $name='';
+			$row_keys = array_keys($row);
+			$row_values = array_values($row);
+			for($i=0; $i<count($row_keys); $i++){
+				$str_keys .= "{$row_keys[$i]},";
+				$str_values .= "{$row_values[$i]}%%%";
+			}
+			$str_keys = trim($str_keys,',');
+			$str_values = trim($str_values,'%%%');
 		}
-		$str_keys = trim($str_keys,',');
-		$str_values = trim($str_values,'%%%');
 		return $str_keys.'fields%%%values'.$str_values;
 	}
 	public function _insertWebLog($name, $action, $table, $table_id, $user, $content, $lang){

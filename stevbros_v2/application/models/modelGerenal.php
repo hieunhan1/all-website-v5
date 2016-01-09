@@ -34,10 +34,11 @@ class modelGerenal extends modelDB{
 		return $data;
 	}
 	
-	public function _web_picture($table, $table_id=NULL, $order=NULL){
+	public function _web_picture($table, $table_id=NULL, $order=NULL, $limit=NULL){
 		if($table_id!=NULL) $table_id="AND `table_id`='{$table_id}'";
 		if($order==NULL) $order="`_order`, `datetime` DESC";
-		$sql = "SELECT * FROM `web_picture` WHERE `_table`='{$table}' {$table_id} ORDER BY {$order}";
+		if($limit!=NULL) $limit="LIMIT {$limit}";
+		$sql = "SELECT * FROM `web_picture` WHERE `_table`='{$table}' {$table_id} ORDER BY {$order} {$limit}";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[] = $row;
@@ -107,7 +108,9 @@ class modelGerenal extends modelDB{
 		$where='';
 		if($menu_id!=NULL) $where.=" AND `menu_id` LIKE '%,{$menu_id},%' ";
 		if($header_id!=NULL) $where.=" AND `header_id`='{$header_id}' ";
-		$sql = "SELECT * FROM `web_opening` WHERE `status`=1 {$where}";
+		$datetime = time();
+		$where.=" AND `date_opening`>'{$datetime}' ";
+		$sql = "SELECT * FROM `web_opening` WHERE `status`=1 {$where} ORDER BY `_order`";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[] = $row;

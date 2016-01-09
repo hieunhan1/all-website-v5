@@ -20,8 +20,8 @@ class modelAjax extends modelDB{
 		return true;
 	}
 	
-	public function _ajaxNumberItem($table){
-		$sql = "SELECT count(*) FROM `{$table}` WHERE `status`=0";
+	public function _ajaxNumberItem($table, $where=NULL){
+		$sql = "SELECT count(*) FROM `{$table}` WHERE `status`=0 ".$where;
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$row = $result->fetch_row();
 		return $row[0];
@@ -82,7 +82,6 @@ class modelAjax extends modelDB{
 	}
 	/*end xu ly web_picture*/
 	
-	/*new*/
 	public function _menuTypeOne($data){
 		if(is_numeric($data)) $data=" AND `id`='{$data}' "; else $data=" AND `type`='{$data}' ";
 		$sql = "SELECT * FROM `web_type` WHERE `status`=1 {$data} LIMIT 1";
@@ -104,6 +103,12 @@ class modelAjax extends modelDB{
 	
 	public function _checksUsersRole($users_id, $admin_id){
 		$sql = "SELECT `id` FROM `web_users_role` WHERE `users_id`='{$users_id}' AND `admin_id`='{$admin_id}' ";
+		if(!$result = $this->db->query($sql)) die($this->db->error);
+		return $result->fetch_assoc();
+	}
+	
+	public function _typeEvent($type){
+		$sql = "SELECT * FROM `web_event_from` WHERE `type`='{$type}' AND `status`=1 LIMIT 1";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		return $result->fetch_assoc();
 	}
@@ -130,6 +135,14 @@ class modelAjax extends modelDB{
 		$datetime = time();
 		$sql = "INSERT INTO `web_entrytest_user` (`users_id`, `menu_id`, `entrytest_id`, `answers`, `datetime`) VALUES ('{$users_id}', '{$menu_id}', '{$entrytest_id}', '{$answers}', '{$datetime}')";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
+	}
+	
+	public function _parent($menu_id){
+		$sql = "SELECT `id`, `name` FROM `web_header` WHERE `status`=1 AND `parent`='{$menu_id}' ORDER BY `_order`";
+		if(!$result = $this->db->query($sql)) die($this->db->error);
+		$data = array();
+		while($row = $result->fetch_assoc()) $data[] = $row;
+		return $data;
 	}
 	/*end entry test*/
 }
