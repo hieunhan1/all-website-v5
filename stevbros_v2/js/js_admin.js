@@ -156,6 +156,7 @@ $(document).ready(function(e) {
 		$(this).addClass("active");
 		
 		var data = $(this).children(".adAction").children(".data").html();
+		data = data.replace(/\n/g, "");
 		data = $.parseJSON(data);
 		//console.log(data);
 		var url = $(this).children(".adAction").children(".adEdit").attr("href");
@@ -172,18 +173,23 @@ $(document).ready(function(e) {
 	//ajax_number_item
 	function ajax_number_item(){
 		$(".ajax_thongtin").each(function(i, val){
-			var table = $(this).attr('id');
+			var id = $(this).attr('id');
+			var table = $(this).attr('table');
+			var parameter = $(this).attr('parameter');
+			if(parameter!=''){
+				parameter = parameter.replace('?', '');
+			}
 			$.ajax({ 	
 				url: link_ajax,
 				type:'POST',
-				data:{ajaxNumberItem:1, table:table},
+				data:{ajaxNumberItem:1, table:table, parameter:parameter},
 				cache:false,
 				success: function(data) {
 					if(data!="0"){
-						$("#" + table).html(data);
-						$("#" + table).css("background-color", "#F00");
+						$("#" + id).html(data);
+						$("#" + id).css("background-color", "#F00");
 					}
-					else $("#" + table).hide();
+					else $("#" + id).hide();
 				}
 			});
 		});

@@ -47,6 +47,14 @@ function SearchGoogle(id_txt_search){
 	return false;
 }
 
+function SearchWebsite(id_txt_search){
+	var key = document.getElementById(id_txt_search).value;
+	var site = document.domain;
+	var url = 'http://' + site + '/search/?txt=' + key;
+	window.location = url;
+	return true;
+}
+
 function sroll_top(){
 	$("html, body").animate({ scrollTop: 0 }, 500);
 	return false;
@@ -59,7 +67,7 @@ function isInt(num){
 
 $(document).ready(function($){
 	$("#txtSearch").keydown(function(e){
-		if(e.keyCode==13) SearchGoogle("txtSearch");
+		if(e.keyCode==13) SearchWebsite("txtSearch");
 	});
 	$("input[name=btnSearch]").click(function(){
 		SearchGoogle("txtSearch");
@@ -77,16 +85,16 @@ $(document).ready(function($){
 		$(this).parent().children(".content").show(200);
 	});
 	
-	$(".register").html('Yêu cầu dịch vụ');
+	/*$(".register").html('Yêu cầu dịch vụ');
 	$(".register").click(function(){
 		var url = $(location).attr('pathname');
 		$(this).attr("href", url + "#request-for-service");
 		
 		$("input[name=name]").focus();
 		return true;
-	});//btn register chuyen link
+	});//btn register chuyen link*/
 	
-	$("input[name=btnRegister]").click(function(){
+	/*$("input[name=btnRegister]").click(function(){
 		var fields = ajax_field_all(".field_item");
 		if(typeof fields=='boolean') return false;
 		fields['rejectRegister'] = '1';
@@ -101,7 +109,9 @@ $(document).ready(function($){
 			type: 'post',
 			data: fields,
 			cache:false,
-			success: function(data){ //console.log(data);
+			success: function(data){
+				//console.log(data);
+				data = data.replace(/\n/g, "");
 				data = $.parseJSON(data);
 				var error = data.error;
 				var message = data.message;
@@ -117,7 +127,7 @@ $(document).ready(function($){
 				},500);
 			}
 		});
-	});//register
+	});//register*/
 	
 	if($(".pdf").length){
 		var link = $(".pdf a").attr("href");
@@ -150,27 +160,44 @@ $(document).ready(function($){
 		return true;
 	});
 	
+	function checks_box_item(list_check, list_view){
+		$(list_check).change(function(){
+			var str=",";
+			$(list_check + ':checked').each(function(i,val){
+				str += $(this).val() + ',';
+			});
+			$(list_view).attr('value',str);
+		});
+		return true;
+	};
+	checks_box_item('.checkBox', '.listValueMenu');
+	
 	//view mobile
-	function viewMobile480(){
+	function viewMobile650(){
 		var width = parseInt($(window).width());
-		if(width<=480){
-			var top = $("#nav").html();
-			var main = $("#menuH").html();
+		if(width<=650){
+			$("#menuMobile").show();
+			var main = '';
+			if( $(".home-header .main .menu").length ){
+				main = $(".home-header .main .menu").html();
+				$(".home-header .main .menu").hide();
+			}else{
+				main = $("#header .main .menu").html();
+				$("#header .main .menu").hide();
+			}
+			
 			var close1 = '<div class="closeMobile" style="top:0"></div>';
-			var close2 = '<div class="closeMobile" style="bottom:0"></div>';
-			
-			$("#nav").hide(); $("#menuH").hide();
-			
-			$("#viewMobile").html(close1 + top + main + close2);
+			$("#viewMobile").html(close1 + main);
 		}else{
-			$("#nav").show();
-			$("#menuH").show();
+			$("#menuMobile").hide();
+			$(".home-header .main .menu").show();
+			$("#header .main .menu").show();
 			$("#viewMobile").html('');
 		}
 	}
-	viewMobile480();
+	viewMobile650();
 	$(window).bind("resize", function(){
-		viewMobile480();
+		viewMobile650();
 	});
 	$("#btnMobile").live("click", function(){
 		$("#viewMobile").show(100);
