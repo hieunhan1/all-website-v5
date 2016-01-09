@@ -12,7 +12,7 @@
 .viewpost h2, .viewpost h3, .viewpost h4, .viewpost h5, .viewpost h6 {line-height:180%; font-weight:100; font-size:100%; margin:15px 0}
 .viewpost p, .viewpost div {margin:15px 0}
 .viewpost li{padding:0; margin:5px 0}
-.viewpost img{max-width:100%}
+.viewpost img{max-width:100%; height:auto !important}
 .viewpost iframe{max-width:100%}
 .viewpost blockquote{font-style:italic; margin-left:30px; padding-left:15px; border-left:solid 3px #CCC}
 
@@ -73,7 +73,7 @@
 
 /*contact*/
 #contact-frm{width:35%; float:right; padding:6% 7%; background-color:rgba(153,153,153,0.3)}
-#contact-frm .loading{width:31.8%; height:422px}
+#contact-frm .loading{width:32%; height:422px}
 
 #contact-frm .txt{width:95%; padding:12px; background-color:#FFF; border:none}
 #contact-frm .textarea{width:95%; height:180px; line-height:22px; resize:none; overflow:auto; padding:12px; background-color:#FFF; border:none}
@@ -82,7 +82,7 @@
 
 #contact{clear:both; color:#FFF; position:relative; z-index:1}
 #contact .img{clear:both; position:relative; z-index:1}
-#contact .img img{max-width:100%}
+#contact .img img{max-height:630px}
 #contact .content{width:100%; margin-top:30px; position:absolute; z-index:2}
 
 #contact-info{width:45%; float:left}
@@ -90,7 +90,7 @@
 #contact-info .icon{width:65px; height:65px; float:left; margin-right:20px}
 #contact-info .send{margin-top:10px; background-position:0 -400px}
 #contact-info .point{margin-top:20px; background-position:-100px -400px}
-#contact-info .item{width:80%; float:left; line-height:180%}
+#contact-info .item{width:78%; float:left; line-height:180%}
 #contact-info .phone{font-weight:bold; font-size:130%}
 #contact-info .email{font-size:130%}
 #contact-info .email a{color:#337ab7; text-decoration:underline}
@@ -121,10 +121,10 @@
 .nav li li li li:hover ul {display:block}
 
 /*footer*/
-#footer{clear:both; color:#FFF; padding:30px 0; background-color:#444}
-#footer .logo-social{width:30%; float:left}
-#footer .logo-social .logo{clear:both; margin-bottom:20px}
-#footer .logo-social .logo img{height:78px}
+#footer{clear:both; color:#FFF; font-size:90%; padding:30px 0; background-color:#444}
+#footer .logo-social{width:20%; float:left}
+#footer .logo-social .logo{clear:both; margin-bottom:20px; padding-right:5%}
+#footer .logo-social .logo img{max-width:100%}
 #footer .logo-social .social{clear:both}
 #footer .logo-social .social .icon{display:block; width:40px; height:40px; float:left; overflow:hidden; margin-right:2px}
 #footer .logo-social .social .facebook{background-position:0px -300px}
@@ -140,10 +140,16 @@
 #footer .logo-social .social .youtube{background-position:-160px -300px}
 #footer .logo-social .social .youtube:hover{background-position:-160px -340px}
 
-#footer .menu{width:21%; float:left; font-size:90%; margin:0 1%}
-#footer .menu .h5{font-size:100%; text-transform:uppercase; margin-bottom:5px}
+#footer .menu-footer{width:65%; float:left}
+#footer .menu-footer .menu{width:31%; float:left; margin:0 1%}
+#footer .menu-footer .menu .h5{font-size:100%; text-transform:uppercase; margin-bottom:5px}
 
-#footer .copyright{line-height:150%; font-size:90%; text-align:center}
+#footer .widget{width:15%; float:right}
+#footer .widget .logo{clear:both; margin:5px 0 20px 0}
+#footer .widget .logo img{max-width:100%}
+#footer .widget .photos{display:block; color:#FFF; font-weight:bold; text-transform:uppercase; text-align:center; padding:5px 0; background-color:#ff9500}
+
+#footer .copyright{line-height:150%; text-align:center}
 #footer .h6{color:#ff9500; font-size:100%; font-weight:100; margin-bottom:10px}
 #footer .h6_2{color:#999; font-size:100%; font-weight:100;}
 /*end footer*/
@@ -236,7 +242,7 @@
 .home-contact .content{width:100%; text-align:center; position:absolute; z-index:2; margin-top:60px}
 .home-contact .content .h3{color:#ff9500; font-weight:100; font-size:150%; text-transform:uppercase; letter-spacing:2px; margin-bottom:30px}
 .home-contact .content .h3 strong{display:block; color:#FFF; font-size:200%; letter-spacing:11px}
-.home-contact .content .h4{color:#FFF; font-weight:100; font-size:130%; letter-spacing:2px; word-spacing:3px; margin-bottom:60px}
+.home-contact .content .h4{color:#FFF; font-weight:100; font-size:130%; letter-spacing:1px; word-spacing:1px; margin-bottom:60px}
 .home-contact .content .link{text-transform:uppercase; letter-spacing:2px}
 
 #whychooseus{width:47%; float:left}
@@ -248,11 +254,11 @@
 #whychooseus .tab .content{margin-bottom:30px; padding-right:20px}
 
 #postnew{width:48%; float:right}
-#postnew .box{height:180px; overflow:hidden; margin-bottom:20px}
-#postnew .box .img{width:35%; float:left; overflow:hidden; text-align:center}
-#postnew .box .img img{max-width:100%}
-#postnew .box .content{width:62%; float:right}
-#postnew .box .h3{line-height:130%; font-weight:100; font-size:130%; margin-bottom:10px}
+#postnew .box{height:240px; overflow:hidden; margin-bottom:30px}
+#postnew .box .img{width:42%; float:left; overflow:hidden; text-align:center}
+#postnew .box .img img{max-height:100%}
+#postnew .box .content{width:55%; float:right}
+#postnew .box .h3{line-height:150%; font-weight:100; font-size:130%; margin-bottom:10px}
 #postnew .box .p{height:88px; overflow:hidden; line-height:22px; margin-bottom:20px}
 
 #home-opinion{clear:both; margin-bottom:50px; position:relative; z-index:1}
@@ -282,7 +288,7 @@
 #home-footer .box .agile{background-position:-5px -212px}
 /*end home*/
  
-#article{width:70%; float:left}
+#article{width:70%; float:left; margin-top:50px}
 #article .box{clear:both; margin-bottom:40px}
 #article .box .img{width:46%; max-height:350px; float:left; overflow:hidden; text-align:center; margin-right:25px}
 #article .box .img img{max-width:100%}
@@ -301,7 +307,8 @@
 /*end list article*/
 
 /*page courses*/
-#course-more{width:25%; line-height:150%}
+.fix-course-more{position:fixed; top:90px}
+#course-more{width:25%; line-height:150%; margin-top:30px}
 #course-more .h1{font-size:100%; margin-bottom:10px; padding:10px 0 10px 10px; background-color:#f9f9f9; border-left:solid 3px #CCC}
 #course-more .h1 a{color:#999}
 #course-more .h2{font-size:100%; font-weight:100; padding:10px 0 10px 20px}
@@ -319,40 +326,49 @@
 #course-more .box .h4{font-size:110%; font-weight:100; padding:12px 0}
 #course-more .box .h4 a{color:#888}
 #course-more .item{clear:both; padding:15px 0}
-#course-more .item .left{width:50px; height:50px; float:left; line-height:25px; color:#609ed5; font-size:120%; text-align:center; margin-right:10px; padding:5px; background-color:#e5eef6}
+/*#course-more .item .left{width:50px; height:50px; float:left; line-height:25px; color:#609ed5; font-size:120%; text-align:center; margin-right:10px; padding:5px; background-color:#e5eef6}*/
 #course-more .item .h5{font-weight:100; font-size:110%}
 #course-more .item .h5 a{color:#888}
 
-#course-list{width:70%; float:right}
+#course-list{width:70%; float:right; margin-top:30px}
 #course-list .total{margin-bottom:20px; padding-bottom:3px; border-bottom:solid 2px #333}
 #course-list .result-search{width:auto; float:left; font-weight:bold; margin-top:22px}
 #course-list .border{border-top:solid 1px #CCC}
-#course-list .box{clear:both; height:120px; padding:25px 0}
-#course-list .box .img{width:120px; height:120px; float:left; overflow:hidden; margin-right:30px}
+#course-list .box{clear:both; height:140px; padding:25px 0}
+#course-list .box .img{width:140px; height:140px; float:left; overflow:hidden; margin-right:20px}
 #course-list .box .img img{max-height:100%}
 #course-list .box .h3{font-size:120%; line-height:25px; height:25px; overflow:hidden; margin-bottom:10px}
-#course-list .box .p{line-height:22px; height:44px; overflow:hidden; margin-bottom:10px}
-#course-list .box .action{width:auto; float:right; padding:5px 20px 8px 20px; border:solid 2px #e5eef6}
-#course-list .box .action a{color:#005aab; text-transform:uppercase; font-size:80%; font-weight:bold;}
+#course-list .box .p{line-height:20px; height:60px; overflow:hidden; margin-bottom:10px}
+#course-list .box .action{width:auto; float:right; color:#005aab; padding:5px 20px 8px 20px; border:solid 3px #e5eef6; cursor:pointer}
 #course-list .box .action span{font-weight:bold; font-size:150%; margin-right:10px}
-#course-list .box .action:hover{background-color:#005aab; border:solid 2px #005aab}
-#course-list .box .action:hover a{color:#FFF}
+#course-list .box .action:hover{color:#FFF; background-color:#005aab; border:solid 3px #005aab}
 
-#course-detail{width:70%; float:left}
-#course-detail .header{padding-bottom:30px; border-bottom:solid 1px #CCC}
+.course-opening{float:none !important; margin:auto}
+#course-detail{width:70%; float:left; margin-top:30px}
+#course-detail .header{padding-bottom:30px}
 #course-detail .header h1{padding-top:10px}
 #course-detail .header .img{width:250px; height:250x; float:left; margin-right:30px}
-#course-detail .header .action{color:#FFF; text-transform:uppercase; font-weight:bold; padding:10px 30px; background-color:#005aab}
-#course-detail .content{clear:both; margin-bottom:30px}
-#course-detail .content .left{width:20%; float:left; font-weight:bold; color:#999; text-transform:uppercase; margin-top:30px}
-#course-detail .content .right{width:75%; float:right}
+#course-detail .header .left{width:45%; float:left}
+#course-detail .header .right{width:54%; float:right}
+#course-detail .header .right .box{width:48%; float:right; margin:0 0.9%}
+#course-detail .header .right span{display:block; text-align:center; margin:0 0 3px 0; padding:3px 10px !important}
+#course-detail .header .right b{display:block; text-align:right}
+#course-detail .action{color:#FFF; text-transform:uppercase; font-size:110%; padding:10px 30px; background-color:#005aab; cursor:pointer}
+#course-detail .content{clear:both; margin-bottom:10px}
+#course-detail .content .title{clear:both; font-size:130%; color:#666; padding:8px 20px; border:solid 1px #CCC; cursor:pointer}
+#course-detail .content .title:hover{color:#FFF; background-color:#005aab; border:solid 1px #005aab}
+#course-detail .content .info{clear:both; margin:0 21px 30px 21px}
 /*end page courses*/
 
 /*page about*/
-#about-list{width:70%; float:right}
+#about-list{width:70%; float:right; margin-top:30px}
 #about-list .meta{text-align:right}
 
-#about-left{width:26%; float:left; margin-bottom:50px}
+#about-list .partner{clear:both; margin:30px 0}
+#about-list .partner .img{width:23%; height:180px; float:left; margin:2% 1%}
+#about-list .partner .img img{max-width:100%}
+
+#about-left{width:26%; float:left; margin-bottom:50px; margin-top:30px}
 #about-left .li{list-style:none; line-height:150%; text-align:right; padding:15px 20px 15px 10px; border-right:solid 3px #CCC}
 #about-left .link{color:#999; font-weight:bold}
 #about-left .active{border-right:solid 3px #ff9500}
@@ -360,17 +376,21 @@
 /*end page about*/
 
 /*opinion*/
-#opinion{clear:both; width:70%; margin:auto}
+#opinion{clear:both; width:70%; margin:auto; margin-top:30px}
+#opinion .btnOpinion{width:auto; float:right; font-size:120%}
+#opinion .btnOpinion b{width:auto; font-size:180%; font-family:Arial, Helvetica, sans-serif}
+#opinion .btnOpinion .left{}
+#opinion .btnOpinion .right{}
 #opinion .h1{font-weight:100; font-size:250%; margin-bottom:30px}
 #opinion .box{clear:both; padding:10px}
-#opinion .box:hover{color:#FFF; background-color:#179bd7}
+#opinion .box:hover{color:#FFF; background-color:#005aab}
 #opinion .box:hover .view{color:#333; background-color:#FFF}
 #opinion .box .img{width:15%; height:20%; float:left; overflow:hidden; margin-right:2%}
 #opinion .box .img img{max-width:100%}
 #opinion .box .content{width:70%; float:left; line-height:180%}
 #opinion .box .name{text-align:right; margin-top:10px}
 #opinion .box .date{width:12%; float:right; text-align:center; font-weight:bold; padding-top:4px}
-#opinion .box .view{width:100%; color:#FFF; margin-top:25px; padding:6px 0; background-color:#179bd7; border-bottom:solid 3px #17376e; border-radius:5px; cursor:pointer}
+#opinion .box .view{width:100%; color:#FFF; margin-top:25px; padding:8px 0; background-color:#005aab; border-radius:5px; cursor:pointer}
 
 #popup{display:none}
 #popup .bg{width:100%; height:100%; position:fixed; left:0; top:0; background-color:#333; opacity:0.5; z-index:10}
@@ -402,23 +422,35 @@
 /*end cooperate*/
 
 /*recruit*/
-#recruit{width:80%; clear:both; color:#666; margin:auto auto 30px auto}
+#recruit{width:80%; clear:both; color:#666; margin:30px auto 30px auto}
 #recruit h1{color:#333; font-weight:100; font-size:140%; text-transform:uppercase}
 
-#frm-submission{width:60%; clear:both; color:#888; margin:auto}
+#frm-submission{width:68%; clear:both; color:#888; margin:auto}
 #frm-submission .loading{width:45%; height:980px; background-color:rgba(255,255,255,0.6)}
 
 #frm-submission .h4{line-height:150%; text-transform:uppercase; font-size:120%; font-weight:100; margin-bottom:5px; padding-top:10px}
 #frm-submission .h4 span{text-transform:none}
 #frm-submission .txt{width:102%; margin-bottom:10px}
+#frm-submission .txt textarea{resize:vertical}
 #frm-submission .date{width:80px; margin-right:10px}
 #frm-submission .txta{margin-bottom:10px}
 #frm-submission .btn{padding:15px 25px; letter-spacing:1px; font-size:110%}
 /*end recruit*/
 
 /*opening*/
-#opening{clear:both; margin-bottom:50px}
-#opening .left{float:left}
+#opening{clear:both; position:relative; z-index:1; margin-top:30px}
+#opening .img{width:90%; text-align:center; position:absolute; z-index:1}
+#opening .img img{max-width:100%}
+#opening .content{color:#FFF; height:400px; position:relative; z-index:2}
+#opening .content .h2{font-size:140%; font-weight:100; margin-bottom:10px}
+#opening .content .h3{font-size:100%; font-weight:100; line-height:180%}
+#opening .content .box{width:320px; padding:15px 20px; box-shadow:0px 0px 5px #000}
+#opening .content .left{float:left; margin:120px 0 0 0}
+#opening .content .right{float:right; margin:120px 0 0 0}
+#opening .content .iconLeft{width:40px; height:40px; margin-left:80%; background-position:0px -150px}
+#opening .content .iconRight{width:40px; height:40px; margin-left:10%; background-position:0px -200px}
+#opening .content a{color:#FFF}
+/*#opening .left{float:left}
 #opening .right{float:right}
 #opening .box{width:48%}
 #opening .box .h2{font-weight:100; font-size:180%; margin-bottom:10px}
@@ -427,7 +459,7 @@
 #opening .box .img img{max-width:100%}
 #opening .box .opening{clear:both; line-height:150%}
 #opening .box .opening li{margin-bottom:30px; padding-left:15px}
-#opening .box .request_for_service{padding:5px 15px}
+#opening .box .request_for_service{padding:5px 15px}*/
 
 #request-frm{}
 #request-frm .loading{width:97%; height:470px; background-size:20%}
@@ -436,7 +468,7 @@
 /*end opening*/
 
 /*right*/
-#right{width:26%; float:right}
+#right{width:26%; float:right; margin-top:30px}
 
 #right .boxCourse{clear:both; margin-bottom:30px; padding-bottom:30px; border-bottom:dashed 2px #CCC}
 #right .boxCourse .img{margin-bottom:10px; overflow:hidden}
@@ -466,7 +498,7 @@
 #left .boxLeft .itemLeft2 a:hover{color:#333}*/
 
 /*slider-page*/
-#slider-page{clear:both; margin-bottom:50px; position:relative; z-index:1}
+#slider-page{clear:both; position:relative; z-index:1}
 #slider-page .img{position:relative; z-index:1}
 #slider-page .img img{max-width:100%}
 
