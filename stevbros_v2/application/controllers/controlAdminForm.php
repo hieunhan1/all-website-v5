@@ -170,6 +170,7 @@ class controlAdminForm{
 		$str = "<script>
 		CKEDITOR.replace( '{$name}', {
 			uiColor: '#E1E1E1',
+			height: 120,
 			toolbar: [
 				['Source','Paste','PasteText','PasteFromWord','Bold', 'Italic', '-','RemoveFormat','TextColor','BGColor','NumberedList','BulletedList','-','Outdent','Indent',".$other."],
 			]

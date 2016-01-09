@@ -150,8 +150,10 @@ class pageAdmin{
 				$option='';
 				$values = $arr[$i]['value'];
 				for($j=0; $j<count($values); $j++){
-					if($values[$j]['id'] != $arr[$i]['other']) $check=''; else $check='selected="selected"';
-					$option .= '<option value="'.$values[$j]['id'].'" '.$check.'>'.$values[$j]['name'].'</option>';
+					if(isset($values[$j])){
+						if($values[$j]['id'] != $arr[$i]['other']) $check=''; else $check='selected="selected"';
+						$option .= '<option value="'.$values[$j]['id'].'" '.$check.'>'.$values[$j]['name'].'</option>';
+					}
 				}
 				$str.='<select class="select" name="'.$arr[$i]['name'].'">'.$option.'</select>';
 			}

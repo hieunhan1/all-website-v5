@@ -47,6 +47,7 @@ class pageAjax{
 		}
 		return $str;
 	}
+	
 	public function createEditData($table, $method='POST'){
 		if(!isset($_REQUEST['id']) || $_REQUEST['id']==0 || $_REQUEST['id']==''){
 			if($this->checkRole('create')==false) return false;
@@ -58,6 +59,23 @@ class pageAjax{
 			if($id==0) return false;
 			$type = 'update';
 		}
+		
+		if($method=='POST'){
+			$fields = array_keys($_POST);
+			$values = array_values($_POST);
+		}else if($method=='GET'){
+			$fields = array_keys($_GET);
+			$values = array_values($_GET);
+		}
+		$result = $this->_model->_getSql($type, $table, $fields, $values, $id);
+		
+		if($result==false) echo $result;
+		return $result;
+	}
+	
+	public function createEditDataUser($table, $method='POST'){
+		$id=0;
+		$type = 'create';
 		
 		if($method=='POST'){
 			$fields = array_keys($_POST);
@@ -86,7 +104,7 @@ class pageAjax{
 		}
 	}
 	
-	public function checksIpAddress($time=1, $limit=5){
+	public function checksIpAddress($time=1, $limit=10){
 		$ipAddress = $_SERVER['REMOTE_ADDR'];
 		$datetime = time() - $time*3600;
 		$data = $this->_model->_checksIpAddress($ipAddress, $datetime, $limit);
@@ -109,25 +127,82 @@ class pageAjax{
 		return $ipAddress;
 	}
 	
-	public function sendmail($title, $subject, $body, $add_address, $add_cc='', $add_bcc=''){
-		include_once('libraries/sendmail/class.phpmailer.php');
-		$mail = new PHPMailer();
-		$mail->IsSMTP(); // Gọi đến class xử lý SMTP
-		$mail->Host = CONS_HOST_SMTP_SERVER; // tên SMTP server
-		$mail->SMTPDebug = 2; // enables SMTP debug information (for testing): 1 = errors and messages, 2 = messages only
-		$mail->SMTPAuth = true; // Sử dụng đăng nhập vào account
-		$mail->Port = 25; // Thiết lập cổng gửi email của máy
-		$mail->Username = CONS_SEND_MAIL_ACCOUNT; // SMTP account username
-		$mail->Password = CONS_SEND_MAIL_PASSWORD; // SMTP account password
-		$mail->IsHTML(true);
-		$mail->SetFrom(CONS_SEND_MAIL_ACCOUNT, $title); //Thiet lap thong tin nguoi gui va email nguoi gui
-		foreach($add_address as $row) $mail->AddAddress($row['email'],$row['name']); //Thiết lập thông tin người nhận
-		if($add_cc!='') foreach($add_cc as $row) $mail->AddCC($row['email'],$row['name']);
-		if($add_bcc!='') foreach($add_bcc as $row) $mail->AddBCC($row['email'],$row['name']);
-		$mail->CharSet = "utf-8";
-		$mail->Subject = $subject; //Thiết lập tiêu đề
-		$mail->Body = $body; //Thiết lập nội dung chính của email
-		if($mail->Send()) return true;
+	public function sendMail($arr, $type=0){
+		if(!is_array($arr)) return false;
+		/*$arr = array(
+			'AddAddress' => '',
+			'AddCC' => '',
+			'AddBCC' => '',
+			'AddAttachment' => array('../public/files/brochure.pdf'),
+			'AddEmbeddedImage' => '',
+			'Subject' => 'Subject Thử gửi mail support UTF-8',
+			'Body' => '<h1>Test mail</h1> <p>This is a test picture: <img src="cid:insertImage" /></p>',
+		);*/
+		include_once('libraries/phpmailer/PHPMailerAutoload.php');
+		$mailer = new PHPMailer();
+		$mailer->IsSMTP();
+		$mailer->Host = CONS_HOST_SMTP_SERVER;
+		if($type==1){
+			$mailer->SMTPSecure = 'ssl';
+			$mailer->Port = 465;
+		}else if($type==2){
+			$mailer->SMTPSecure = 'tsl';
+			$mailer->Port = 587;
+		}else{
+			$mailer->Port = 25;
+		}
+		$mailer->SMTPAuth = true;
+		$mailer->Username = CONS_SEND_MAIL_ACCOUNT;
+		$mailer->Password = CONS_SEND_MAIL_PASSWORD;
+		$mailer->From = CONS_SEND_MAIL_FROM;
+		$mailer->FromName = CONS_SEND_MAIL_FROM_NAME;
+		$mailer->SetFrom(CONS_SEND_MAIL_FROM, CONS_SEND_MAIL_FROM_NAME);
+		$mailer->SMTPDebug = 1;
+		$mailer->WordWrap = 50;
+		$mailer->CharSet="utf-8";
+		$mailer->IsHTML(true);
+		$mailer->Debugoutput = 'html';
+		
+		$arrField = array_keys($arr);
+		if($arrField==0) return false;
+		
+		for($i=0; $i<count($arrField); $i++){
+			$field = $arrField[$i];
+			$data = $arr[$field];
+			if(is_array($data)){//checks array
+				if(isset($data['field'])){
+					$row = $data;
+					$mailer->$field($row['field'], $row['name']);
+					//echo "{$field} -> {$row['field']} - {$row['name']} <br>";
+				}else{
+					foreach($data as $row){
+						$mailer->$field($row['field'], $row['name']);
+						//echo "{$field} -> {$row['field']} - {$row['name']} <br>";
+					}
+				}
+			}else{//khong pha array
+				$mailer->$field = $data;
+				//echo "{$field} -> {$data}<br>";
+			}
+		}//end for
+		
+		$str = ob_start();
+		if(!$mailer->Send()){
+			echo $mailer->ErrorInfo;
+		}
+		$str = ob_get_clean();
+		return $str;
+	}
+	
+	public function contentReplace($content, $arr=''){
+		if(is_array($arr)){
+			$field = array_keys($arr);
+			$value = array_values($arr);
+			for($i=0; $i<count($arr); $i++){
+				$content = str_replace($field[$i], $value[$i], $content);
+			}
+		}
+		return '<div style="line-height:180%">'.$content.'</div>';
 	}
 }
 
@@ -135,6 +210,51 @@ $c = new pageAjax;
 $lang = $c->_lang;
 $config = $c->_model->_config($lang);
 //$lang_var = $c->_model->_language_var($lang);
+
+if(isset($_GET['sendMailNew'])){
+	$AddAddress = array();
+	$AddAddress[] = array('field'=>'hieunhan112@gmail.com', 'name'=>'Hiếu Nhân');
+	$AddAddress[] = array('field'=>'admin@dayamthuc.vn', 'name'=>'day');
+	$AddAddress = array('field'=>'nhan300489@gmail.com', 'name'=>'Nhân');
+	
+	$AddCC = array();
+	//$AddCC[] = array('field'=>'hieunhan112@gmail.com', 'name'=>'CC Hiếu Nhân');
+	$AddCC[] = array('field'=>'admin@dayamthuc.vn', 'name'=>'CC day');
+	//$AddCC = array('field'=>'nhan300489@gmail.com', 'name'=>'CC Nhân');
+	
+	$AddBCC = array();
+	$AddBCC[] = array('field'=>'hieunhan112@gmail.com', 'name'=>'BCC Hiếu Nhân');
+	$AddBCC[] = array('field'=>'admin@dayamthuc.vn', 'name'=>'BCC day');
+	//$AddBCC = array('field'=>'nhan300489@gmail.com', 'name'=>'BCC Nhân');
+	
+	$AddEmbeddedImage = array();
+	$AddEmbeddedImage[] = array('field'=>'../public/_thumbs/Images/1451839895.jpg', 'name'=>'insertImage1');
+	$AddEmbeddedImage[] = array('field'=>'../public/_thumbs/Images/1451839458.jpg', 'name'=>'insertImage2');
+	$AddEmbeddedImage = array('field'=>'../public/_thumbs/Images/1451839895.jpg', 'name'=>'insertImage1');
+	
+	$AddAttachment = array();
+	$AddAttachment[] = array('field'=>'../public/files/text1.txt', 'name'=>'text1.txt');
+	$AddAttachment[] = array('field'=>'../public/files/text2.txt', 'name'=>'text2.txt');
+	$AddAttachment = array('field'=>'../public/files/text3.txt', 'name'=>'text3.txt');
+	
+	$AddReplyTo = array('field'=>'replyto@iappscode.com', 'name'=>'ReplyTo');
+	
+	$arr = array(
+		'AddAddress' => $AddAddress,
+		'AddCC' => $AddCC,
+		//'AddBCC' => $AddBCC,
+		'AddReplyTo' => $AddReplyTo,
+		'AddAttachment' => $AddAttachment,
+		'AddEmbeddedImage' => $AddEmbeddedImage,
+		'Subject' => 'Subject Thử gửi mail support UTF-8',
+		'Body' => '<h1>Test mail of PHPMailer html</h1>
+			<p>This is a test picture: <img src="cid:insertImage1" /></p>
+			<p>This is a test picture: <img src="cid:insertImage2" /></p>',
+	);
+	
+	//$c->sendMail($arr, 1);
+	return true;
+}
 
 /*admin*/
 if(isset($_SESSION['adminID'])){

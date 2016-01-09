@@ -129,8 +129,19 @@ if(isset($_POST['clearCache'])){
 
 if(isset($_POST['ajaxNumberItem'])){
 	$table = $c->_model->_changeDauNhay($_POST['table']);
+	$para = $c->_model->_changeDauNhay($_POST['parameter']);
 	if($table=='') return false;
-	echo $c->_model->_ajaxNumberItem($table);
+	
+	$str = '';
+	if($para!=''){
+		$para = explode('&', $para);
+		for($i=0; $i<count($para); $i++){
+			$m = explode('=', $para[$i]);
+			$str .= " AND `{$m[0]}`='{$m[1]}' ";
+		}
+	}
+	
+	echo $c->_model->_ajaxNumberItem($table, $str);
 	return true;
 }
 
@@ -199,20 +210,20 @@ if(isset($_POST['viewFrmContent'])){
 	return true;
 }
 
-/*if(isset($_POST['city_id'])){
-	$city_id = $c->_model->_changeDauNhay($_POST['city_id']);
-	$district_id = $c->_model->_changeDauNhay($_POST['district_id']);
-	if($city_id=='') return false;
-	
-	$ad = new modelAdmin;
-	$where = " AND `city_id`='{$city_id}' ";
-	$data = $ad->_listTable('web_listdistrict', '`_order`, `name`', $where);
-	foreach($data as $row){
-		if($row['id']!=$district_id) echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
-		else echo '<option value="'.$row['id'].'" selected="selected">'.$row['name'].'</option>';
-	}
-	return true;
-}*/
+//if(isset($_POST['city_id'])){
+//	$city_id = $c->_model->_changeDauNhay($_POST['city_id']);
+//	$district_id = $c->_model->_changeDauNhay($_POST['district_id']);
+//	if($city_id=='') return false;
+//	
+//	$ad = new modelAdmin;
+//	$where = " AND `city_id`='{$city_id}' ";
+//	$data = $ad->_listTable('web_listdistrict', '`_order`, `name`', $where);
+//	foreach($data as $row){
+//		if($row['id']!=$district_id) echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
+//		else echo '<option value="'.$row['id'].'" selected="selected">'.$row['name'].'</option>';
+//	}
+//	return true;
+//}
 
 if(isset($_POST['searchID'])){
 	$id = $c->_model->_changeDauNhay($_POST['searchID']);
@@ -239,6 +250,39 @@ if(isset($_POST['searchName'])){
 	$data =$ad->_listTable($table, NULL, $where, $limit);
 	foreach($data as $row){
 		echo '<p class="value_data" id="'.$row['id'].'" title="Click để chọn">'.$row['name'].'</p>';
+	}
+	return true;
+}
+
+if(isset($_POST['testSendEmail'])){
+	$email = $c->_model->_checkEmail($_POST['email']);
+	$subject = $c->_model->_changeDauNhay($_POST['subject']);
+	$content = $c->_model->_changeDauNhay($_POST['content'], 0);
+	if($email==false || $subject=='' || $content==''){ echo 'Error: Content'; return false; }
+	
+	$AddAddress = array('field'=>$email, 'name'=>'Test email');
+	$arr = array(
+		'{_name}' => 'Stevbros Test',
+		'{_birthday}' => date('d/m'),
+		'{_email}' => 'email@stevbros.edu.vn',
+		'{_phone}' => '0988388388',
+		'{_message}' => 'Khóa học rất hay, cảm ơn Stevbros',
+		'{_course}' => 'Khóa học Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK®',
+		'{_date}' => date('d/m/Y'),
+	);
+	$content = $c->contentReplace($content, $arr);
+	
+	$arr = array(
+		'AddAddress' => $AddAddress,
+		'Subject' => $subject,
+		'Body' => $content,
+	);
+	$data = $c->sendMail($arr, 1);
+	
+	if(!preg_match("/error:/i", $data)){
+		echo 1;
+	}else{
+		echo $data;
 	}
 	return true;
 }

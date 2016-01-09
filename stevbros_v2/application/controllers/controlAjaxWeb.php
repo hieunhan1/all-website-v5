@@ -2,9 +2,10 @@
 if(isset($_POST['rejectContact'])){
 	$table = 'web_contact';
 	$name = $c->_model->_changeDauNhay($_POST['name']);
-	$email = $c->_model->_changeDauNhay($_POST['email']);
+	$email = $c->_model->_checkEmail($_POST['email']);
 	$message = $c->_model->_changeDauNhay($_POST['message']);
-	if($name=='' || $email==''){
+	$type = $c->_model->_changeDauNhay($_POST['type']);
+	if($name=='' || $type=='' || $email==false){
 		$arr = array('error'=>1, 'message'=>'Error: Please press F5 key to try again');
 		echo $c->exportError($arr);
 		return false;
@@ -12,28 +13,57 @@ if(isset($_POST['rejectContact'])){
 	$ipAddress=$c->checksIpAddress();
 	if( $ipAddress==false ) return false;
 	
-	$data = $c->createEditData($table);
+	$data = $c->createEditDataUser($table);
 	if($data!=false){
-		$title = $name;
-		$subject = 'No-reply | Contact';
-		$body = '<div style="line-height:20px; color:#333; font-size:12pt">
-			<h3 style="font-size:150%; margin-bottom:20px">Chào ban quản trị website.</h3>
-			<p>Bạn  <span style="text-transform:uppercase; font-weight:bold">'.$name.'</span> để lại lời nhắn sau:</p>
-			<p style="color:#666; margin-bottom:20px">'.$message.'</p>
-			<p style="font-weight:bold; font-style:italic">Thông tin người liên hệ: <a href="'.CONS_BASE_URL.'/ajax/?idContact='.$data.'&ipAddress='.$ipAddress.'">Click vào đây để xem thông tin</a></p>
-		</div>';
-		$add_address = array();
-		$add_address[] = array('email'=>$config['email'], 'name'=>'Admin');
-		/*$add_cc = array();
-		$add_cc[] = array('email'=>'hieunhan112@gmail.com','name'=>'Tran Nhan');
-		$add_bcc = array();
-		$add_bcc[] = array('email'=>'tanhao.lee@gmail.com','name'=>'Hao Le');*/
-		/*ob_start();
-		$c->sendmail($title, $subject, $body, $add_address);
-		ob_get_clean();*/
+		$courseName = '';
+		$date = '';
 		
-		$str = "<div class='messageContact viewpost'><p class='title'>Contact Success</p><p>Please notify that you have contacted successfully to <b>{$config['sitename']}</b> website. We will reply to you soon.</p><p>Respect,</p></div>";
-		$arr = array('error'=>0, 'message'=>$str);
+		if($type==1){
+			$type = 17;
+		}else if($type==2 || $type==3){
+			if($type==2) $type = 10;
+			if(isset($_POST['header_id'])){
+				$header_id = $c->_model->_changeDauNhay($_POST['header_id']);
+				$dataHeader = $c->_model->_webHeaderID($header_id);
+				$courseName = $dataHeader['name'];
+				if(isset($_POST['date_trienkhai'])) $date = date('d/m/Y', strtotime($_POST['date_trienkhai']));
+			}
+		}else if($type==4){
+			$type = 9;
+			if(isset($_POST['courses_id'])){
+				$courses = $c->_model->_changeDauNhay($_POST['courses_id']);
+				$courses = explode(',', $courses);
+				for($i=1; $i<=count($courses)-2; $i++){
+					$row = $c->_model->_webHeaderID($courses[$i]);
+					$courseName .= $row['name'].'<br />';
+				}
+			}
+		}else return false;
+		
+		$dataEvent = $c->_model->_typeEvent($type);
+		$AddBCC = '';
+		$AddAddress = array('field'=>$email, 'name'=>$name);
+		if(trim($dataEvent['email'])!='') $AddBCC = array('field'=>$dataEvent['email'], 'name'=>'Stevbros');
+		$arr = array(
+			'{_name}' => $name,
+			'{_course}' => $courseName,
+			'{_date}' => $date,
+			'{_message}' => $message,
+		);
+		$content = $c->contentReplace($dataEvent['content'], $arr);
+		$arrSend = array(
+			'AddAddress' => $AddAddress,
+			'AddBCC' => $AddBCC,
+			'Subject' => $dataEvent['subject'],
+			'Body' => $content,
+		);
+		
+		$data = $c->sendMail($arrSend, 1);
+		
+		$notify = '<div class="messageContact viewpost">'.$dataEvent['notification'].'</div>';
+		$notify = str_replace('"', "'", $notify);
+		$notify = $c->_model->_removeNewLine($notify);
+		$arr = array('error'=>0, 'message'=>$notify);
 		echo $c->exportError($arr);
 		return true;
 	}else{
@@ -69,11 +99,12 @@ if(isset($_POST['opinionDetail'])){
 	$data = $c->_model->_webHeaderID($id);
 	if(count($data) > 0){
 		if($data['img']=='') $img='themes/website/img/avatar.png'; else $img=IMAGE_URL.$data['img'];
+		if($data['other']!='') $company = ' - '.$data['other']; else $company='';
 		$content = $c->_model->_webContentID($id);
 		echo '<div class="img"><img src="'.$img.'" alt="'.$data['name'].'"/></div>
         <div class="info viewpost">
 			'.$content['content'].'
-			<p style="text-align:right">'.$data['name'].'<br />'.date('M d, Y', $data['datetime']).'</p>
+			<p style="text-align:right">'.$data['name'].$company.'<br />'.date('M d, Y', $data['datetime']).'</p>
 		</div> <div class="clear1"></div>';
 	}
 	return true;
@@ -85,7 +116,7 @@ if(isset($_GET['viewPDF'])){
 	return true;
 }
 
-if(isset($_POST['rejectRegister'])){
+/*if(isset($_POST['rejectRegister'])){
 	$table = 'web_contact';
 	$name = $c->_model->_changeDauNhay($_POST['name']);
 	$email = $c->_model->_changeDauNhay($_POST['email']);
@@ -98,26 +129,8 @@ if(isset($_POST['rejectRegister'])){
 	$ipAddress=$c->checksIpAddress();
 	if( $ipAddress==false ) return false;
 	
-	$data = $c->createEditData($table);
+	$data = $c->createEditDataUser($table);
 	if($data!=false){
-		$title = $name;
-		$subject = 'No-reply | Contact';
-		$body = '<div style="line-height:20px; color:#333; font-size:12pt">
-			<h3 style="font-size:150%; margin-bottom:20px">Chào ban quản trị website.</h3>
-			<p>Bạn  <span style="text-transform:uppercase; font-weight:bold">'.$name.'</span> để lại lời nhắn sau:</p>
-			<p style="color:#666; margin-bottom:20px">'.$message.'</p>
-			<p style="font-weight:bold; font-style:italic">Thông tin người liên hệ: <a href="'.CONS_BASE_URL.'/ajax/?idContact='.$data.'&ipAddress='.$ipAddress.'">Click vào đây để xem thông tin</a></p>
-		</div>';
-		$add_address = array();
-		$add_address[] = array('email'=>$config['email'], 'name'=>'Admin');
-		/*$add_cc = array();
-		$add_cc[] = array('email'=>'hieunhan112@gmail.com','name'=>'Tran Nhan');
-		$add_bcc = array();
-		$add_bcc[] = array('email'=>'tanhao.lee@gmail.com','name'=>'Hao Le');*/
-		/*ob_start();
-		$c->sendmail($title, $subject, $body, $add_address);
-		ob_get_clean();*/
-		
 		$str = "<div class='messageContact viewpost'><p class='title'>Contact Success</p><p>Please notify that you have contacted successfully to <b>{$config['sitename']}</b> website. We will reply to you soon.</p><p>Respect,</p></div>";
 		$arr = array('error'=>0, 'message'=>$str);
 		echo $c->exportError($arr);
@@ -127,26 +140,110 @@ if(isset($_POST['rejectRegister'])){
 		echo $c->exportError($arr);
 		return false;
 	}
-}
+}*/
 
 if(isset($_POST['rejectLecturer'])){
 	$table = 'mn_lecturer';
-	if(count($_POST) < 7){
-		$arr = array('error'=>1, 'message'=>'Error: Please press F5 key to try again');
+	$name = $c->_model->_changeDauNhay($_POST['name']);
+	$email = $c->_model->_checkEmail($_POST['email']);
+	if($name=='' || $email==false){
+		$arr = array('error'=>1, 'message'=>'Error 01: Please press F5 key to try again');
 		echo $c->exportError($arr);
 		return false;
 	}
 	$ipAddress=$c->checksIpAddress();
 	if( $ipAddress==false ) return false;
 	
-	$data = $c->createEditData($table);
+	$data = $c->createEditDataUser($table);
 	if($data!=false){
-		$str = "<div class='messageContact viewpost'><p class='title'>Contact Success</p><p>Please notify that you have contacted successfully to <b>{$config['sitename']}</b> website. We will reply to you soon.</p><p>Respect,</p></div>";
-		$arr = array('error'=>0, 'message'=>$str);
+		$dataEvent = $c->_model->_typeEvent(8);
+		$AddBCC = '';
+		$AddAddress = array('field'=>$email, 'name'=>$name);
+		if(trim($dataEvent['email'])!='') $AddBCC = array('field'=>$dataEvent['email'], 'name'=>'Stevbros');
+		$arr = array(
+			'{_name}' => $name,
+		);
+		$content = $c->contentReplace($dataEvent['content'], $arr);
+		$arrSend = array(
+			'AddAddress' => $AddAddress,
+			'AddBCC' => $AddBCC,
+			'Subject' => $dataEvent['subject'],
+			'Body' => $content,
+		);
+		
+		$data = $c->sendMail($arrSend, 1);
+		
+		$notify = '<div class="messageContact viewpost">'.$dataEvent['notification'].'</div>';
+		$notify = str_replace('"', "'", $notify);
+		$notify = $c->_model->_removeNewLine($notify);
+		$arr = array('error'=>0, 'message'=>$notify);
 		echo $c->exportError($arr);
 		return true;
 	}else{
-		$arr = array('error'=>1, 'message'=>'Error: Please press F5 key to try again');
+		$arr = array('error'=>1, 'message'=>'Error 02: Please press F5 key to try again');
+		echo $c->exportError($arr);
+		return false;
+	}
+}
+
+if(isset($_POST['rejectOpinion'])){ /*viet Blog và Y kien*/
+	$table = 'web_header';
+	$name = $c->_model->_changeDauNhay($_POST['name']);
+	$authors = $c->_model->_changeDauNhay($_POST['authors']);
+	$other = $c->_model->_changeDauNhay($_POST['other']);
+	$content = $c->_model->_changeDauNhay($_POST['rejectcontent']);
+	if($name=='' || $authors=='' || $content=='' || $other==''){
+		$arr = array('error'=>1, 'message'=>'Error 01: Please press F5 key to try again');
+		echo $c->exportError($arr);
+		return false;
+	}
+	
+	$ipAddress=$c->checksIpAddress();
+	if( $ipAddress==false ) return false;
+	
+	$data = $c->createEditDataUser($table);
+	if($data!=false){
+		/*insert web_content*/
+		$type = 'create';
+		$table = 'web_content';
+		$fields = array('content', 'header_id');
+		$values = array($content, $data);
+		$id = $c->_model->_getSql($type, $table, $fields, $values);
+		
+		/*get notify*/
+		if($_POST['rejectOpinion']==1) $type = 11;
+		else if($_POST['rejectOpinion']==2) $type = 4;
+		else return false;
+		$dataEvent = $c->_model->_typeEvent($type);
+		
+		/*send mail*/
+		$email = $c->_model->_checkEmail($other);
+		if($email!=false){
+			$AddBCC = '';
+			$AddAddress = array('field'=>$email, 'name'=>$name);
+			if(trim($dataEvent['email'])!='') $AddBCC = array('field'=>$dataEvent['email'], 'name'=>'Stevbros');
+			$arr = array(
+				'{_name}' => $authors,
+			);
+			$content = $c->contentReplace($dataEvent['content'], $arr);
+			$arrSend = array(
+				'AddAddress' => $AddAddress,
+				'AddBCC' => $AddBCC,
+				'Subject' => $dataEvent['subject'],
+				'Body' => $content,
+			);
+			
+			$data = $c->sendMail($arrSend, 1);
+		}
+		
+		$notify = '<div class="messageContact viewpost">'.$dataEvent['notification'].'</div>';
+		$notify = str_replace('"', "'", $notify);
+		$notify = $c->_model->_removeNewLine($notify);
+		$arr = array('error'=>0, 'message'=>$notify);
+		echo $c->exportError($arr);
+		return true;
+	}else{
+		$arr = array('error'=>1, 'message'=>'Error 02: Please press F5 key to try again');
 		echo $c->exportError($arr);
 		return false;
 	}
@@ -155,8 +252,8 @@ if(isset($_POST['rejectLecturer'])){
 /*entrytest*/
 if(isset($_GET['entrytest'])){
 	if(!isset($_GET['menu_id']) || !isset($_GET['users_id'])) return false;
-	$menu_id = $_GET['menu_id']; settype($menu_id, "int");
-	$users_id = $_GET['users_id']; settype($users_id, "int");
+	$menu_id = $c->_model->_changeDauNhay($_GET['menu_id']); settype($menu_id, "int");
+	$users_id = $c->_model->_changeDauNhay($_GET['users_id']); settype($users_id, "int");
 	
 	$cG = new controlGerenal;
 	
