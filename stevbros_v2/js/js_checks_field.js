@@ -1,25 +1,45 @@
 /*popup*/
-function centerPopup() {
-    var windowWidth = document.documentElement.clientWidth;
-    var windowHeight = document.documentElement.clientHeight;
-    var popupWidth = $(".containerPopup").width();
-    var popupHeight = $(".containerPopup").height();
-	var width = parseInt((windowWidth - popupWidth) / 2);
-	var height = parseInt((windowHeight - popupHeight - 200) / 2);
-	$(".containerPopup").css({
-		"top": height,
-		"left": width
+function popupAutoSize(){
+	var data_w = parseInt( $("#popupContent").width() );
+	var data_h = parseInt( $("#popupContent").height() );
+	var window_w = parseInt( $(window).width() );
+	var window_h = parseInt( $(window).height() );
+	
+	if(window_w > data_w){
+		var width = parseInt( (window_w - data_w) / 2 );
+		$("#popupContent").css("left", width);
+	}else{
+		$("#popupContent").css({"left":"5%", "width":"80%"});
+	}
+	
+	if(window_h > data_h){
+		var height = parseInt( (window_h - data_h - 50) / 2 );
+		$("#popupContent").css("top", height);
+	}else{
+		$("#popupContent").css({"top":"5%", "position":"absolute"});
+	}
+	return true;
+}
+
+function popupLoad(str){
+	$("#popupContent").html('<div class="process">' + str + '</div>');
+	$("#popup").fadeIn("slow");
+	popupAutoSize();
+}
+
+function popupClose(){
+	$("#popup").fadeOut("slow");
+	setTimeout(function(){
+		$("#popupContent").html('<div class="process"></div>');
+	}, 500);
+	return true;
+}
+
+function popupCloseBG(){
+	$("#popupBG").live("click", function(){
+		popupClose();
 	});
 }
-function loadPopup() {
-    $("#adPopup").fadeIn("slow");
-}
-function closePopup() {
-    $("#adPopup").fadeOut("slow");
-}
-$(".closePopup, #adBgPopup").live("click", function(){
-	closePopup("#adPopup");
-});
 /*end popup*/
 
 function check_text_length(name_check,name_message,message_error,condition){
@@ -194,3 +214,46 @@ function ajax_field_all(nameSelect){
 	if(error==true) return false;
 	return fields;
 }
+
+function change_alias(alias, dau_thaythe){
+	var str = alias;
+	str= str.toLowerCase();
+	str= str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");
+	str= str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e");
+	str= str.replace(/ì|í|ị|ỉ|ĩ/g,"i");
+	str= str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o");
+	str= str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u");
+	str= str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y");
+	str= str.replace(/đ/g,"d");
+	str= str.replace(/!|®|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|–|_|-/g, dau_thaythe);
+	str= str.replace(/\\|\$|\||\{|\}|\`/g, dau_thaythe);
+	/* tìm và thay thế các kí tự đặc biệt trong chuỗi sang kí tự - */
+	str= str.replace(/-+-/g, dau_thaythe); //thay thế 2 - thành 1- 
+	str= str.replace(/ + /g, dau_thaythe); //thay thế 2 - thành 1- 
+	str= str.replace(/^\-+|\-+$/g,""); //cắt bỏ ký tự - ở đầu và cuối chuỗi
+	str= str.replace(/^\ +|\ +$/g,""); //cắt bỏ ký tự - ở đầu và cuối chuỗi
+	return str;
+}
+
+function remove_ky_tu_dac_biet(alias, dau_thaythe){
+	var str = alias;
+	str= str.toLowerCase();
+	str= str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|_|-/g, dau_thaythe);
+	str= str.replace(/\\|\$|\||\{|\}|\`/g, dau_thaythe);
+	/* tìm và thay thế các kí tự đặc biệt trong chuỗi sang kí tự - */
+	str= str.replace(/-+-/g, dau_thaythe); //thay thế 2 - thành 1- 
+	str= str.replace(/ + /g, dau_thaythe); //thay thế 2 - thành 1- 
+	str= str.replace(/^\-+|\-+$/g,""); //cắt bỏ ký tự - ở đầu và cuối chuỗi
+	str= str.replace(/^\ +|\ +$/g,""); //cắt bỏ ký tự - ở đầu và cuối chuỗi
+	return str;
+}
+
+$(document).ready(function(e) {
+	$(".popupClose").live("click", function(){
+		popupClose();
+	});
+	
+	$(".popupCloseReload").live("click", function(){
+		window.location.reload();
+	});
+});

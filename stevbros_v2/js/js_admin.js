@@ -1,47 +1,4 @@
 // JavaScript Document
-/*bien doi alias*/
-function change_alias(alias, dau_thaythe){
-	var str = alias;
-	str= str.toLowerCase();
-	str= str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");
-	str= str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e");
-	str= str.replace(/ì|í|ị|ỉ|ĩ/g,"i");
-	str= str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o");
-	str= str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u");
-	str= str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y");
-	str= str.replace(/đ/g,"d");
-	str= str.replace(/!|®|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|–|_|-/g, dau_thaythe);
-	str= str.replace(/\\|\$|\||\{|\}|\`/g, dau_thaythe);
-	/* tìm và thay thế các kí tự đặc biệt trong chuỗi sang kí tự - */
-	str= str.replace(/-+-/g, dau_thaythe); //thay thế 2 - thành 1- 
-	str= str.replace(/ + /g, dau_thaythe); //thay thế 2 - thành 1- 
-	str= str.replace(/^\-+|\-+$/g,""); //cắt bỏ ký tự - ở đầu và cuối chuỗi
-	str= str.replace(/^\ +|\ +$/g,""); //cắt bỏ ký tự - ở đầu và cuối chuỗi
-	return str;
-}
-function remove_ky_tu_dac_biet(alias, dau_thaythe){
-	var str = alias;
-	str= str.toLowerCase();
-	str= str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|_|-/g, dau_thaythe);
-	str= str.replace(/\\|\$|\||\{|\}|\`/g, dau_thaythe);
-	/* tìm và thay thế các kí tự đặc biệt trong chuỗi sang kí tự - */
-	str= str.replace(/-+-/g, dau_thaythe); //thay thế 2 - thành 1- 
-	str= str.replace(/ + /g, dau_thaythe); //thay thế 2 - thành 1- 
-	str= str.replace(/^\-+|\-+$/g,""); //cắt bỏ ký tự - ở đầu và cuối chuỗi
-	str= str.replace(/^\ +|\ +$/g,""); //cắt bỏ ký tự - ở đầu và cuối chuỗi
-	return str;
-}
-function viewDataAction(str){
-	$("#dataActionContent").html('<div class="process">' + str + '</div>');
-	$("#dataAction").show(200);
-	return true;
-}
-function closeDataAction(){
-	$("#dataActionContent").html('<div class="process"></div>');
-	$("#dataAction").hide(200);
-	return true;
-}
-
 $(document).ready(function(e) {
 	//fixed width, height
 	function autoWidthLeftRight(){
@@ -79,7 +36,6 @@ $(document).ready(function(e) {
 	autoWidthLeftRight();
 	$(window).bind("resize", function(){
 		autoWidthLeftRight();
-		centerPopup();
 	});
 	
 	$(window).bind('scroll', function () {
@@ -202,8 +158,6 @@ $(document).ready(function(e) {
 	$(".adStatus").live("click", function(){
 		var data = $(this).parent().children(".data").html();
 		data = $.parseJSON(data);
-		var btnStatus = '<span class="adBtnSmall bgColorGreen corner8 btnStatus">Yes</span>';
-		var btnCancel = '<span class="adBtnSmall bgColorGray corner8 closePopup">Cancel</span>';
 		
 		var status = $(this).children("span").attr("class");
 		status = status.split(' status');
@@ -219,11 +173,13 @@ $(document).ready(function(e) {
 			status = 1;
 			nameStatus='hiện';
 		}
-		var field = '<div id="fieldActive" style="display:none">{"id":"' +data.id+ '", "status":"' +status+ '"}</div>';
-		$(".titlePopup").html('Thay đổi trạng thái');
-		$(".contentPopup").html('<div class="viewpost">Bạn có muốn <b>' +nameStatus+ '</b>: <em>' +data.name+ '</em>?<div>' + btnStatus + btnCancel + field);
-		centerPopup();
-		loadPopup();
+		
+		var str = '<div class="viewpost">Bạn có muốn <b>' + nameStatus + '</b>: <em>' + data.name + '</em>?<div>';
+			str+= '<span class="adBtnSmall bgColorGreen corner8 btnStatus">Yes</span>';
+			str+= '<span class="adBtnSmall bgColorGray corner8 popupClose">Cancel</span>';
+			str+= '<div id="fieldActive" style="display:none">{"id":"' +data.id+ '", "status":"' +status+ '"}</div>';
+			str+= '<div class="clear1"></div>';
+		popupLoad(str);
 		
 		return true;
 	});
@@ -246,7 +202,7 @@ $(document).ready(function(e) {
 				$(".statusActive span").removeClass("status0");
 				$(".statusActive span").removeClass("status1");
 				$(".statusActive span").addClass("status" + data.status);
-				closePopup();
+				popupClose();
 				return true;
 			}
 		});
@@ -257,17 +213,16 @@ $(document).ready(function(e) {
 	$(".adDelete").live("click", function(){
 		var data = $(this).parent().children(".data").html();
 		data = $.parseJSON(data);
-		var btnStatus = '<span class="adBtnSmall bgColorRed corner8 btnDelete">Yes</span>';
-		var btnCancel = '<span class="adBtnSmall bgColorGray corner8 closePopup">Cancel</span>';
 		
 		$(".adDelete").removeClass("statusActive");
 		$(this).addClass("statusActive");
 		
-		var field = '<div id="fieldActive" style="display:none">' +data.id+ '</div>';
-		$(".titlePopup").html('Xóa dữ liệu');
-		$(".contentPopup").html('<div class="viewpost">Bạn có muốn <b>xóa</b>: <em>' +data.name+ '</em>?<div>' + btnStatus + btnCancel + field);
-		centerPopup();
-		loadPopup();
+		var str = '<div class="viewpost">Bạn có muốn <b>xóa</b>: <em>' +data.name+ '</em>?<div>';
+			str+= '<span class="adBtnSmall bgColorRed corner8 btnDelete">Yes</span>';
+			str+= '<span class="adBtnSmall bgColorGray corner8 popupClose">Cancel</span>';
+			str+= '<div id="fieldActive" style="display:none">' +data.id+ '</div>';
+			str+= '<div class="clear1"></div>';
+		popupLoad(str);
 		
 		return true;
 	});
@@ -281,7 +236,7 @@ $(document).ready(function(e) {
 			success: function(str) {
 				if(str!='') alert(str);
 				$(".statusActive").parents(".row").hide(100);
-				closePopup();
+				popupClose();
 				return true;
 			}
 		});
@@ -373,7 +328,6 @@ $(document).ready(function(e) {
 	function uploadImage(){
 		$("#imageForm").ajaxForm({target: '#imageUpload',
 			beforeSubmit:function(){
-				//console.log();
 				$("#imageloadstatus").show();
 				$("#imageloadbutton").hide();
 			},
@@ -383,7 +337,6 @@ $(document).ready(function(e) {
 				$("#imageloadbutton").show();
 			},
 			error:function(){ 
-				//console.log(data);
 				$("#imageloadstatus").hide();
 				$("#imageloadbutton").show();
 			}
@@ -397,7 +350,8 @@ $(document).ready(function(e) {
 			if(autoTableInsert()==false){
 				$("#imagePhoto").val('');
 				var str = '<b class="adError">Vui lòng nhập dữ liệu trước khi upload.</b>';
-				viewDataAction(str);
+				popupLoad(str);
+				popupCloseBG();
 				return false;
 			}
 		}
@@ -411,9 +365,10 @@ $(document).ready(function(e) {
 		var table_id = $("#table_id").val();
 		if(name.length<2 || table_id=='' || table_id=='0'){
 			if(autoTableInsert()==false){
-				$("#imagePhoto").val('');
+				$("#uploadWebPicture").val('');
 				var str = '<b class="adError">Vui lòng nhập dữ liệu trước khi upload.</b>';
-				viewDataAction(str);
+				popupLoad(str);
+				popupCloseBG();
 				return false;
 			}
 		}
@@ -430,9 +385,9 @@ $(document).ready(function(e) {
 		//console.log(data);
 		
 		var str = '<p>Bạn có muốn xóa hình "<b id="imgDel">' + data.img + '</b>"?</p> <p class="clear20"></p>';
-			str+= '<p> <span class="adBtnSmall bgColorRed corner5 btnImgDel">Yes</span> <span class="adBtnSmall bgColorGray corner5 closeDataAction">No</span> </p>';
+			str+= '<p> <span class="adBtnSmall bgColorRed corner5 btnImgDel">Yes</span> <span class="adBtnSmall bgColorGray corner5 popupClose">No</span> </p>';
 			str+= '<p class="clear1"></p>';
-		viewDataAction(str);
+		popupLoad(str);
 		return true;
 	});
 	
@@ -458,14 +413,11 @@ $(document).ready(function(e) {
 				}else{
 					var str = '<b class="adError">' + data.message + '</b>';
 				}
-				viewDataAction(str);
+				popupLoad(str);
+				popupCloseBG();
 				return true;
 			}
 		});
-	});
-	
-	$(".closeDataAction, #dataActionBG").live("click", function(){
-		closeDataAction();
 	});
 	
 	$(".imageSelect").live("click", function(){
@@ -526,18 +478,18 @@ $(document).ready(function(e) {
 	
 	function endDataActionTableInsert(str){
 		setTimeout(function(){
-			$("#dataActionContent").html(str);
+			popupLoad(str);
 		}, 500);
 		setTimeout(function(){
 			if( $("#btnSubmitAjax").length ) $("#btnSubmitAjax").val("Đã lưu");
-			$("#dataAction").hide(100);
-		}, 1100);
+			popupClose();
+		}, 1200);
 		return true;
 	}
 	function autoTableInsert(){
 		var fields = ajax_field_all(".ad_field");
 		if(typeof fields=='boolean') return false;
-		viewDataAction('Đang xử lý..');
+		popupLoad('Đang xử lý..');
 		
 		fields['rejectCreateData'] = '1';
 		fields['rejectTable'] = table;
@@ -565,7 +517,7 @@ $(document).ready(function(e) {
 					strSearch = strSearch.slice(0, number);
 					window.history.pushState(null, 'Title', 'http://' + hostname + pathname + strSearch + id);
 					
-					endDataActionTableInsert('<span class="message">' + data.message + '</span>');
+					endDataActionTableInsert('<p class="adMessage">' + data.message + '</p>');
 				}
 				return true;
 			}
@@ -593,7 +545,8 @@ $(document).ready(function(e) {
 			data: fields,
 			cache: false,
 			success: function(data2){
-				data2 = $.parseJSON(data2);//console.log(data2);
+				//console.log(data2);
+				data2 = $.parseJSON(data2);
 				var error = parseInt(data2.error);
 				if(error==0){
 					var id = data2.id;
@@ -653,7 +606,7 @@ $(document).ready(function(e) {
 	function autoInsertRoleList(admin_id, id){
 		var fields = ajax_field_all(".insertListRole");
 		if(typeof fields=='boolean') return false;
-		viewDataAction();
+		popupLoad();
 		
 		fields['rejectCreateData'] = '1';
 		fields['rejectTable'] = 'web_users_role';
@@ -756,64 +709,76 @@ $(document).ready(function(e) {
 		listDistrict();
 	});*/
 	
-	function searchID(id, table){
-		if(id=='') return false;
-		$.ajax({
-			url: link_ajax,
-			type:'POST',
-			data:{searchID:id, table:table},
-			cache:false,
-			success: function(data) {
-				if(data!='') $(".value_name").val(data);
-				else{
-					$(".value_name").val('');
-					viewDataAction('<b class="adError">Không tìm thấy dữ liệu</b>');
+	function searchID(){
+		$(".value_id").live("blur", function(){
+			$(".value_id").parent().removeClass("activeSearch");
+			$(this).parent().addClass("activeSearch");
+			
+			var id = $(this).val();
+			var table = $(".activeSearch .value_view").attr("table");
+			if(id=='' || table=='') return false;
+			
+			$.ajax({
+				url: link_ajax,
+				type:'POST',
+				data:{searchID:id, table:table},
+				cache:false,
+				success: function(data) {
+					if(data!=''){
+						$(".activeSearch .value_name").val(data);
+					}else{
+						$(".activeSearch .value_name").val('');
+						popupLoad('<p class="adError">Không tìm thấy dữ liệu</p> <p class="clear10"></p> <p class="adBtnSmall bgColorGray corner5 popupClose">Close</p> <p class="clear1"></p></p>');
+					}
+					return true;
 				}
-				return true;
-			}
+			});
 		});
 	}
-	function searchName(name, table){
-		$.ajax({
-			url: link_ajax,
-			type:'POST',
-			data:{searchName:name, table:table},
-			cache:false,
-			success: function(data) {
-				if(data!=''){
-					var str = '<p class="title">Dữ liệu tìm thấy:</p>';
-					$("#value_view").html(str + data);
-				}
-				else viewDataAction('<b class="adError">Không tìm thấy dữ liệu</b>');
-				return true;
-			}
-		});
-	}
-	$(".value_id").live("blur", function(){
-		var id = $(this).val();
-		var table = $("#value_view").attr("table");
-		searchID(id, table);
-		return true;
-	});
+	searchID();
 	
-	$(".value_search").live("click", function(){
-		var name = $.trim($(".value_name").val());
-		var table = $("#value_view").attr("table");
-		if(name.length < 3){
-			var str = '<b class="adError">Từ khóa phải hơn 2 ký tự</b>';
-			viewDataAction(str);
-			$(".value_name").focus();
-			return false;
-		}
-		searchName(name, table);
-		return true;
-	});
-	$(".value_data").live("click", function(){
-		var id = $(this).attr("id");
-		var name = $(this).html();
-		$(".value_id").val(id);
-		$(".value_name").val(name);
-		$("#value_view").hide(200);
-		return true;
-	});
+	function searchName(name, table){
+		$(".value_search").live("click", function(){
+			$(".value_search").parent().removeClass("activeSearch");
+			$(this).parent().addClass("activeSearch");
+			
+			var name = check_text_length(".activeSearch .value_name", ".activeSearch .value_name_error", "Từ khóa phải hơn 2 ký tự", 2);
+			var table = $(".activeSearch .value_view").attr("table");
+			if(name==false || table=='') return false;
+			$.ajax({
+				url: link_ajax,
+				type:'POST',
+				data:{searchName:name, table:table},
+				cache:false,
+				success: function(data) {
+					//console.log(data);
+					if(data!=''){
+						data = '<p class="title">Dữ liệu tìm thấy:</p>' + data;
+						$(".activeSearch .value_view").html(data);
+						$(".activeSearch .value_view").show(200);
+					}
+					else{
+						popupLoad('<p class="adError">Không tìm thấy dữ liệu</p> <p class="clear10"></p> <p class="adBtnSmall bgColorGray corner5 popupClose">Close</p> <p class="clear1"></p></p>');
+					}
+					return true;
+				}
+			});
+		});
+	}
+	searchName();
+	
+	function getValueData(){
+		$(".value_data").live("click", function(){
+			$(".value_data").parent().removeClass("activeSearch");
+			$(this).parent().addClass("activeSearch");
+			
+			var id = $(this).attr("id");
+			var name = $(this).html();
+			$(".activeSearch .value_id").val(id);
+			$(".activeSearch .value_name").val(name);
+			$(".activeSearch .value_view").hide(200);
+			return true;
+		});
+	}
+	getValueData();
 });
