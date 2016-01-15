@@ -65,9 +65,9 @@ $(document).ready(function() {
 	
 	$("#btnRestore").click(function(){
 		var str = '<p>Phục hồi lại dữ liệu <em class="adMessage"><?php echo $rowDetail['name'];?></em> trong bảng <em class="adMessage"><?php echo $rowDetail['_table'];?></em>?</p> <p class="clear20"></p>';
-			str+= '<p> <span id="restore" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 closeDataAction">No</span> </p>';
+			str+= '<p> <span id="restore" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 popupClose">No</span> </p>';
 			str+= '<p class="clear1"></p>';
-		viewDataAction(str);
+		popupLoad(str);
 	});
 	
 	$("#restore").live("click", function(){
@@ -86,9 +86,9 @@ $(document).ready(function() {
 				}
 				
 				$("#btnRestore").hide(200);
-				viewDataAction(str);
+				popupLoad(str);
 				setTimeout(function(){
-					closeDataAction();
+					popupClose();
 				}, 3000);
 			}
 		});

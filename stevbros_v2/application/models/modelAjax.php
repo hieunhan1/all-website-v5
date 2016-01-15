@@ -108,7 +108,7 @@ class modelAjax extends modelDB{
 	}
 	
 	public function _typeEvent($type){
-		$sql = "SELECT * FROM `web_event_from` WHERE `type`='{$type}' AND `status`=1 LIMIT 1";
+		$sql = "SELECT * FROM `web_event_form` WHERE `type_id`='{$type}' AND `status`=1 LIMIT 1";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		return $result->fetch_assoc();
 	}
@@ -122,18 +122,18 @@ class modelAjax extends modelDB{
 		return $data;
 	}
 	
-	public function _checkEntryTestUser($users_id, $menu_id, $entrytest_id=NULL){
+	public function _checkEntryTestUser($menu_id, $table, $table_date, $entrytest_id=NULL){
 		if($entrytest_id!=NULL) $entrytest_id = "AND `entrytest_id`='{$entrytest_id}'";
-		$sql = "SELECT * FROM `web_entrytest_user` WHERE `users_id`='{$users_id}' AND `menu_id`='{$menu_id}' {$entrytest_id}";
+		$sql = "SELECT * FROM `web_entrytest_user` WHERE `menu_id`='{$menu_id}' AND `_table`='{$table}' AND `table_date`='{$table_date}' {$entrytest_id}";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[$row['entrytest_id']] = $row;
 		return $data;
 	}
 	
-	public function _insertEntryTestUser($users_id, $menu_id, $entrytest_id, $answers){
+	public function _insertEntryTestUser($menu_id, $table, $table_date, $entrytest_id, $answers){
 		$datetime = time();
-		$sql = "INSERT INTO `web_entrytest_user` (`users_id`, `menu_id`, `entrytest_id`, `answers`, `datetime`) VALUES ('{$users_id}', '{$menu_id}', '{$entrytest_id}', '{$answers}', '{$datetime}')";
+		$sql = "INSERT INTO `web_entrytest_user` (`menu_id`, `_table`, `table_date`, `entrytest_id`, `answers`, `datetime`) VALUES ('{$menu_id}', '{$table}', '{$table_date}', '{$entrytest_id}', '{$answers}', '{$datetime}')";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 	}
 	

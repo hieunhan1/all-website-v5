@@ -7,8 +7,6 @@ $arrType = array(
 	3 => array('id'=>'3', 'name'=>'Đăng ký doanh nghiệp'),
 	4 => array('id'=>'4', 'name'=>'Hợp tác'),
 );
-
-
 $number = array(
 	'0' => array('id'=>0, 'name'=>'No'),
 	'1' => array('id'=>1, 'name'=>'1 người'),
@@ -27,6 +25,13 @@ $number = array(
 	'14' => array('id'=>14, 'name'=>'Từ 26 đến 30 người'),
 	'15' => array('id'=>15, 'name'=>'Hơn 30 người'),
 );
+$arrStatus = array(
+	1 => array('id'=>'0', 'name'=>'Chưa xem'),
+	2 => array('id'=>'2', 'name'=>'Đã hành động'),
+	3 => array('id'=>'3', 'name'=>'Đợi phản hồi'),
+	4 => array('id'=>'1', 'name'=>'Hoàn thành'),
+	5 => array('id'=>'4', 'name'=>'Error'),
+);
 
 $cF = new controlAdminForm;
 
@@ -37,14 +42,12 @@ echo $data;
 echo $cF->displayDiv('Type', '<p class="adMessage label2">'.$arrType[$rowDetail['type']]['name'].'</p>' );
 if($rowDetail['header_id']!=''){
 	$data = $c->_model->_viewEditDetail('web_header', $rowDetail['header_id']);
-	echo $cF->displayDiv('Khóa học', '<p class="adMessage label2">'.$data['name'].'</p>' );
+	echo $cF->displayDiv('Khóa học', '<p class="adMessage label2 header_id">'.$data['name'].'</p>' );
 }
 echo $cF->displayDiv('Ngày', '<b class="label2">'.$c->viewDateTime($rowDetail['datetime']).'</b>' );
 
 $name = 'status';
-$values = array();
-$values[] = array('name'=>'Chưa xem', 'id'=>'0');
-$values[] = array('name'=>'Đã xem', 'id'=>'1');
+$values = $arrStatus;
 if($rowDetail[$name]=='') $valueCheck=1;
 else $valueCheck=$rowDetail[$name];
 $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
@@ -112,7 +115,7 @@ if($rowDetail[$name]!=''){
 	echo $cF->displayDiv('Company', $data);
 }
 
-$name = 'tax_code';
+$name = 'taxcode';
 if($rowDetail[$name]!=''){
 	$properties = array();
 	$properties[] = array('propertie'=>'maxlength', 'value'=>'20');
@@ -155,7 +158,7 @@ if($rowDetail[$name]!=''){
 	$data = '';
 	for($i=1; $i<=count($value)-2; $i++){
 		$row = $c->_model->_viewEditDetail('web_header', $value[$i]);
-		$data .= '<p class="adMessage label2">'.$row['name'].'</p>';
+		$data .= '<p class="adMessage label2 courses_id">'.$row['name'].'</p>';
 	}
 	echo $cF->displayDiv('Hợp tác khoá học', $data);
 }
@@ -223,6 +226,10 @@ echo $data;
 
 $name = 'btnCancel';
 $btnCancel = $cF->btnCancel($name, 'Quay lại');
+$name = 'btnActionAjax';
+$btnActionAjax = $cF->inputButton($name, 'Tương tác với khách hàng', 'adBtnLarge bgColorGreen corner8');
 $name = 'btnSubmitAjax';
-$btnSubmit = $cF->inputSubmit($name, $arrAction['lable'], 'adBtnLarge bgColorBlue1 corner8');
-echo $cF->displayDiv(' ', $btnSubmit.$btnCancel);
+$btnSubmit = $cF->inputButton($name, $arrAction['lable'], 'adBtnLarge bgColorBlue1 corner8');
+echo $cF->displayDiv(' ', $btnSubmit.$btnActionAjax.$btnCancel);
+
+include_once('admin_mn_action.php');

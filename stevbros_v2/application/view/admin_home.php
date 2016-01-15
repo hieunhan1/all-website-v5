@@ -5,9 +5,9 @@
 $(document).ready(function(e) {
 	$(".btnClearCache").click(function(){
 		var str = '<p style="font-weight:bold">Xóa cache, khi có cập nhật trong quản trị?</p> <p class="clear20"></p>';
-			str+= '<p> <span id="clearCache" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 closeDataAction">No</span> </p>';
+			str+= '<p> <span id="clearCache" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 popupClose">No</span> </p>';
 			str+= '<p class="clear1"></p>';
-		viewDataAction(str);
+		popupLoad(str);
 	});
     $("#clearCache").live("click", function(){
 		$.ajax({
@@ -22,10 +22,11 @@ $(document).ready(function(e) {
 				}else{
 					str = '<b class="adError">Error: ' + data + '</b>';
 				}
-				viewDataAction(str);
+				popupLoad(str);
 				return true;
 			}
 		});
 	});
+	popupCloseBG();
 });
 </script>

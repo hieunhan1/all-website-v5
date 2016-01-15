@@ -253,38 +253,5 @@ if(isset($_POST['searchName'])){
 	}
 	return true;
 }
-
-if(isset($_POST['testSendEmail'])){
-	$email = $c->_model->_checkEmail($_POST['email']);
-	$subject = $c->_model->_changeDauNhay($_POST['subject']);
-	$content = $c->_model->_changeDauNhay($_POST['content'], 0);
-	if($email==false || $subject=='' || $content==''){ echo 'Error: Content'; return false; }
-	
-	$AddAddress = array('field'=>$email, 'name'=>'Test email');
-	$arr = array(
-		'{_name}' => 'Stevbros Test',
-		'{_birthday}' => date('d/m'),
-		'{_email}' => 'email@stevbros.edu.vn',
-		'{_phone}' => '0988388388',
-		'{_message}' => 'Khóa học rất hay, cảm ơn Stevbros',
-		'{_course}' => 'Khóa học Quản Lý Dự Án Theo Tiêu Chuẩn Quốc Tế PMBOK®',
-		'{_date}' => date('d/m/Y'),
-	);
-	$content = $c->contentReplace($content, $arr);
-	
-	$arr = array(
-		'AddAddress' => $AddAddress,
-		'Subject' => $subject,
-		'Body' => $content,
-	);
-	$data = $c->sendMail($arr, 1);
-	
-	if(!preg_match("/error:/i", $data)){
-		echo 1;
-	}else{
-		echo $data;
-	}
-	return true;
-}
 /*end other*/
 ?>

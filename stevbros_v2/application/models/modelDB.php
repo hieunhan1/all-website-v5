@@ -94,7 +94,7 @@ class modelDB{
         return true; 
 	}
 	
-	public function _changeAlias($alias){
+	public function _changeAlias($alias, $dau=NULL){
 		if(!$alias) return false;
 		$str = $alias;
 		$unicode = array(
@@ -113,13 +113,13 @@ class modelDB{
 			'y'=>'ý|ỳ|ỷ|ỹ|ỵ',
 			'Y'=>'Ý|Ỳ|Ỷ|Ỹ|Ỵ',
 			'' =>"`|~|!|@|®|#|$|%|^|&|*|(|)|-|_|+|=|\|[|]|{|}|:|;|\"|'|,|.|/|<|>|?|“|”|  ",
-			'-'=>"| "
 		);
+		if($dau==NULL) $unicode['-'] = "| ";
 		foreach($unicode as $khongdau=>$codau) {
-			$arr=explode("|",$codau);
-			$str = str_replace($arr,$khongdau,$str);
-			$str = str_replace('|','',$str);
-			$str = trim($str,'-');
+			$arr = explode("|", $codau);
+			$str = str_replace($arr, $khongdau, $str);
+			$str = str_replace('|', '', $str);
+			$str = trim($str);
 		}
 		return strtolower($str);
 	}
@@ -193,8 +193,6 @@ class modelDB{
 		return $data;
 	}
 	public function _selectSQL($arr){
-		if(!isset($arr['select']) || !isset($arr['from'])) return false;
-		
 		if(!is_array($arr['select'])) $select="{$arr['select']}";
 		else{
 			$select='';

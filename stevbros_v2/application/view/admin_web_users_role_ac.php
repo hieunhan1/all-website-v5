@@ -31,8 +31,8 @@ $properties[] = array('propertie'=>'maxlength', 'value'=>'100');
 $properties[] = array('propertie'=>'placeholder', 'value'=>'Nhập tên');
 $properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5px');
 $data .= $cF->inputText('', '', 'adInput value_name', $properties);
-$data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" />';
-$data .= '<div id="value_view" table="web_users"></div>';
+$data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" /> <p class="adError error value_name_error" style="margin-left:90px"></p>';
+$data .= '<div class="value_view" table="web_users"></div>';
 echo $cF->displayDiv('User ID', $data);
 
 $name = 'admin_id';

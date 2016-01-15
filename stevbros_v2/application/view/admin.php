@@ -67,7 +67,7 @@ echo $c->viewTableHtml($table);
 			);
 			$link = CONS_BASE_URL.'/'.CONS_LINK_ADMIN.'/?adminType=';
 			$data = array();
-			$data[] = array('id'=>1, 'name'=>'Info');
+			$data[] = array('id'=>1, 'name'=>'Web');
 			$data[] = array('id'=>2, 'name'=>'Admin');
 			$data[] = array('id'=>3, 'name'=>'Manager');
 			foreach($data as $row){
@@ -190,22 +190,9 @@ echo $c->viewTableHtml($table);
     </div>
 </div>
 
-<div id="dataAction">
-	<div id="dataActionContent"><span class="process">Lưu thành công</span></div>
-    <div id="dataActionBG"></div>
-</div>
-
-<div id="adPopup">
-    <div id="adBgPopup"></div>
-    <div class="containerPopup corner8">
-        <div class="headerPopup">
-            <h3 class="titlePopup"></h3>
-            <div class="close closePopup">x</div>
-            <div class="clear1"></div>
-        </div>
-        <div class="contentPopup"></div>
-        <div class="clear20"></div>
-    </div>
+<div id="popup">
+	<div id="popupContent"><div class="process">Lưu thành công</div></div>
+    <div id="popupBG"></div>
 </div>
 
 </body>

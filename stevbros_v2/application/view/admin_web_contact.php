@@ -6,6 +6,15 @@ $arrType = array(
 	3 => array('id'=>'3', 'name'=>'Đăng ký doanh nghiệp'),
 	4 => array('id'=>'4', 'name'=>'Hợp tác'),
 );
+
+$arrStatus = array(
+	0 => array('id'=>'', 'name'=>'-- trạng thái --'),
+	1 => array('id'=>'0', 'name'=>'Chưa xem'),
+	2 => array('id'=>'2', 'name'=>'Đã hành động'),
+	3 => array('id'=>'3', 'name'=>'Đợi phản hồi'),
+	4 => array('id'=>'1', 'name'=>'Hoàn thành'),
+	5 => array('id'=>'4', 'name'=>'Error'),
+);
 		
 $arrFrmSearch = array();
 
@@ -15,6 +24,11 @@ $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=
 
 $name = 'type';
 $value = $arrType;
+if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
+$arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
+
+$name = 'status';
+$value = $arrStatus;
 if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
 

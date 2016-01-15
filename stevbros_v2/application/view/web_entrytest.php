@@ -115,7 +115,7 @@
 				return $str;
 			}
 			
-			$dataUserAnswers = $c->_model->_checkEntryTestUser($users_id, $currentPage['id']);
+			$dataUserAnswers = $c->_model->_checkEntryTestUser($currentPage['id'], $table, $table_date);
 			if(count($dataUserAnswers)==0){
 				$disable = '';
 				function viewAnswers($answers){};
@@ -339,18 +339,22 @@ $(document).ready(function(e) {
 		$(this).attr("disabled", true);
 		
 		$('.field_all:checked').each(function(i, val){
-			var answers = $(this).val();
-			var users_id = <?php echo $users_id;?>;
-			var menu_id = <?php echo $currentPage['id'];?>;
 			var entrytest_id = $(this).attr("name");
 			entrytest_id = entrytest_id.split('_');
 			entrytest_id = entrytest_id[1];
 			
+			var fields = new Object();
+			fields['entrytestUser'] = 1;
+			fields['answers'] = $(this).val();
+			fields['table'] = "<?php echo $table;?>";
+			fields['table_date'] = "<?php echo $table_date;?>";
+			fields['menu_id'] = "<?php echo $currentPage['id'];?>";
+			fields['entrytest_id'] = entrytest_id;
 			$.ajax({ 	
 				url: 'ajax',
-				type:'POST',
-				data:{entrytestUser:1, entrytest_id:entrytest_id, menu_id:menu_id, users_id:users_id, answers:answers},
-				cache:false,
+				type: 'POST',
+				data: fields,
+				cache: false,
 				success: function(data) {
 					console.log(data);
 				}

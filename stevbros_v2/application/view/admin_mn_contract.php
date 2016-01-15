@@ -9,7 +9,7 @@ $name = 'LIKE_name';
 if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Tên công ty');
 
-$name = 'tax_code';
+$name = 'taxcode';
 if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mã số thuế');
 
@@ -24,26 +24,26 @@ else
 <div id="adContent">
 	<div class="tagsHidden">
         <p class="fieldQuickView" type="txt" name="name">Name</p>
-        <p class="fieldQuickView" type="txt" name="surrogate">Người đại điện</p>
+        <p class="fieldQuickView" type="txt" name="represented">Người đại điện</p>
         <p class="fieldQuickView" type="txt" name="tel">Tel</p>
-        <p class="fieldQuickView" type="txt" name="tax_code">Mã số thuế</p>
+        <p class="fieldQuickView" type="txt" name="taxcode">Mã số thuế</p>
         <p class="fieldQuickView" type="des" name="address">Address</p>
     </div>
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
         	<th width="50">STT</th>
-            <th width="80" align="left">Mã HĐ</th>
+            <th width="70" align="left">Mã HĐ</th>
             <th align="left">Company</th>
-            <th width="80" align="left">MST</th>
+            <th width="70" align="left">MST</th>
             <th width="120" align="left">Đại điện</th>
-            <th width="80" align="left">Chức vụ</th>
-            <th width="80" align="left">Tel</th>
+            <th width="100" align="left">Chức vụ</th>
+            <th width="80" align="left">Điện thoại</th>
             <th width="100">Thao tác</th>
         </tr>
         <?php
 		$i = 0;
 		$arr = array(
-			'select'=>'`id`, `code`, `name`, `surrogate`, `regency`, `address`, `tax_code`, `tel`, `status`',
+			'select'=>'`id`, `code`, `name`, `represented`, `position`, `address`, `taxcode`, `tel`, `status`',
 			'table'=>$table,
 		);
 		$data = $c->selectFromAll($arr);
@@ -53,9 +53,9 @@ else
                 <td align="center"><?php echo $arr['startRow']+$i; ?></td>
                 <td><?php echo $row['code'];?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
-                <td><?php echo $row['tax_code'];?></td>
-                <td><p class="height"><?php echo $row['surrogate'];?></p></td>
-                <td><?php echo $row['regency'];?></td>
+                <td><?php echo $row['taxcode'];?></td>
+                <td><p class="height"><?php echo $row['represented'];?></p></td>
+                <td><p class="height"><?php echo $row['position'];?></p></td>
                 <td><p class="height"><?php echo $row['tel'];?></p></td>
                 <td align="center" class="adAction">
                 	<?php

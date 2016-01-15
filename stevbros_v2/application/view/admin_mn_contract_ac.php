@@ -6,6 +6,15 @@ $id = $c->createEditData($table, $arrAction, $rowDetail);
 $data = $cF->inputHidden('id', $id, 'ad_field');
 echo $data;
 
+$name = 'typeform';
+$values = array();
+$values[] = array('name'=>'Song ngữ', 'id'=>'1');
+$values[] = array('name'=>'Tiếng Anh', 'id'=>'2');
+if($rowDetail[$name]=='') $valueCheck=1;
+else $valueCheck=$rowDetail[$name];
+$data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
+echo $cF->displayDiv('Loại form', $data);
+
 $name = 'status';
 $values = array();
 $values[] = array('name'=>'Enable', 'id'=>'1');
@@ -15,37 +24,110 @@ else $valueCheck=$rowDetail[$name];
 $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
 echo $cF->displayDiv('Status', $data);
 
+$name = 'code';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'10');
+$properties[] = array('propertie'=>'readonly', 'value'=>'readonly');
+$properties[] = array('propertie'=>'style', 'value'=>'background-color:#F1F1F1');
+if($id==0){
+	$action = 'ad_field';
+	$arr = array(
+		'select' => '`code`',
+		'from' => '`mn_contract`',
+		'order' => '`code` DESC',
+		'limit' => '1',
+	);
+	$data = $c->_model->_select($arr);
+	$value = explode('-', $data[0]['code']);
+	$value = $value[0] + 1;
+	if($value < 1000) $value = $value + 1000;
+	$value = $value.'-'.date('Y');
+}else{
+	$action = '';
+	$value = $rowDetail[$name];
+}
+$data = $cF->inputText($name, $value, $action.' adInput adTxtSmall', $properties);
+echo $cF->displayDiv('Mã hợp đồng', $data.'&nbsp;/STEVBROS');
+
 $name = 'datetime';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'16');
 if($rowDetail[$name]==0) $value=date('Y-m-d H:i', time());
 else $value=date('Y-m-d H:i', $rowDetail[$name]);
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtSmall datetimepick', $properties);
-echo $cF->displayDiv('Ngày', $data);
-
-$name = 'code';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'10');
-$properties[] = array('propertie'=>'check', 'value'=>'10');
-$properties[] = array('propertie'=>'message', 'value'=>'Nhập mã hợp đồng');
-if($arrAction['disabled']!='') $properties[] = $arrAction['disabled'];
-$other='<span class="error adError"></span>';
-if($id=='0') $value=CONS_CODE_CONTRACT;
-else $value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
-echo $cF->displayDiv('Mã hợp đồng', $data);
+echo $cF->displayDiv('Ngày lập', $data);
 
 $name = 'name';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'200');
-$properties[] = array('propertie'=>'check', 'value'=>'10');
-$properties[] = array('propertie'=>'message', 'value'=>'Nhập tên công ty');
-$other='<span class="error adError"></span>';
+$properties[] = array('propertie'=>'placeholder', 'value'=>'English');
 $value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium fieldEnglish', $properties);
+$name = 'name_vi';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'200');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'Tiếng việt');
+$value=$rowDetail[$name];
+$data .= '<br />'.$cF->inputText($name, $value, 'ad_field adInput adTxtMedium fieldVietnamese', $properties);
 echo $cF->displayDiv('Company', $data);
 
-$name = 'tax_code';
+$name = 'address';
+$properties = array();
+$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'English');
+$value=$rowDetail[$name];
+$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea fieldEnglish', $properties);
+$name = 'address_vi';
+$properties = array();
+$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'Tiếng việt');
+$value=$rowDetail[$name];
+$data .= '<br />'.$cF->textArea($name, $value, 'ad_field adInput adTextArea fieldVietnamese', $properties);
+echo $cF->displayDiv('Address', $data);
+
+$name = 'tel';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'15');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Điện thoại', $data);
+
+$name = 'fax';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'15');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Fax (nếu có)', $data);
+
+$name = 'represented';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'English');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium fieldEnglish', $properties);
+$name = 'represented_vi';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'Tiếng việt');
+$value=$rowDetail[$name];
+$data .= '<br />'.$cF->inputText($name, $value, 'ad_field adInput adTxtMedium fieldVietnamese', $properties);
+echo $cF->displayDiv('Người đại diện', $data);
+
+$name = 'position';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'30');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'English');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium fieldEnglish', $properties);
+$name = 'position_vi';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'30');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'Tiếng việt');
+$value=$rowDetail[$name];
+$data .= '<br />'.$cF->inputText($name, $value, 'ad_field adInput adTxtMedium fieldVietnamese', $properties);
+echo $cF->displayDiv('Chức vụ', $data);
+
+$name = 'taxcode';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'10');
 $properties[] = array('propertie'=>'check', 'value'=>'9');
@@ -55,50 +137,6 @@ $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Mã số thuế', $data);
 
-$name = 'surrogate';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
-$properties[] = array('propertie'=>'check', 'value'=>'5');
-$properties[] = array('propertie'=>'message', 'value'=>'Nhập người đại diện');
-$other='<span class="error adError"></span>';
-$value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
-echo $cF->displayDiv('Người đại diện', $data);
-
-$name = 'regency';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'30');
-$properties[] = array('propertie'=>'check', 'value'=>'3');
-$properties[] = array('propertie'=>'message', 'value'=>'Nhập chức vụ');
-$other='<span class="error adError" style="display:block"></span>';
-$value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
-echo $cF->displayDiv('Chức vụ', $data);
-
-$name = 'address';
-$properties = array();
-$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
-$properties[] = array('propertie'=>'check', 'value'=>'10');
-$properties[] = array('propertie'=>'message', 'value'=>'Nhập địa chỉ');
-$other='<span class="error adError"></span>';
-$value=$rowDetail[$name];
-$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
-echo $cF->displayDiv('Address', $data);
-
-$name = 'tel';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'15');
-$value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
-echo $cF->displayDiv('Điện thoại', $data);
-
-$name = 'fax';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'15');
-$value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
-echo $cF->displayDiv('Fax (nếu có)', $data);
-
 $name = 'web';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'50');
@@ -106,7 +144,51 @@ $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Website (nếu có)', $data);
 
-$name = 'contract_value';
+$name = 'quantity';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'English');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium fieldEnglish', $properties);
+$name = 'quantity_vi';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'Tiếng việt');
+$value=$rowDetail[$name];
+$data .= '<br />'.$cF->inputText($name, $value, 'ad_field adInput adTxtMedium fieldVietnamese', $properties);
+echo $cF->displayDiv('Số lượng đào tạo', $data);
+
+$name = 'duration';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'150');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'English');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium fieldEnglish', $properties);
+$name = 'duration_vi';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'150');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'Tiếng việt');
+$value=$rowDetail[$name];
+$data .= '<br />'.$cF->inputText($name, $value, 'ad_field adInput adTxtMedium fieldVietnamese', $properties);
+echo $cF->displayDiv('Thời gian đào tạo', $data);
+
+$name = 'trainer_id';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'5');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'ID giảng viên');
+$properties[] = array('propertie'=>'style', 'value'=>'width:80px');
+if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput value_id', $properties);
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'Tên giảng viên');
+$properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5px');
+$data .= $cF->inputText('', '', 'adInput value_name', $properties);
+$data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" /> <p class="adError error value_name_error" style="margin-left:100px"></p>';
+$data .= '<div class="value_view" table="mn_trainer"></div>';
+echo $cF->displayDiv('Giảng viên', $data);
+
+$name = 'price';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'10');
 $properties[] = array('propertie'=>'check', 'value'=>'6');
@@ -133,45 +215,55 @@ echo $data;
 
 $name = 'btnCancel';
 $btnCancel = $cF->btnCancel($name, 'Quay lại');
-
 $name = 'btnViewAddCustomer';
-$btnAddCustomer = $cF->inputButton($name, 'Đưa k.hàng vào HĐ', 'adBtnLarge bgColorGreen corner8');
+$btnAddCustomer = $cF->inputButton($name, 'Đưa k.hàng vào HĐ', 'adBtnLarge bgColorOranges corner8');
+$name = 'btnViewContract';
+$btnViewContract = $cF->inputButton($name, 'Xem HĐ', 'adBtnLarge bgColorGreen corner8');
 
 $name = 'btnSubmitAjax';
 $btnSubmit = $cF->inputButton($name, $arrAction['lable'], 'adBtnLarge bgColorBlue1 corner8');
-echo $cF->displayDiv(' ', $btnSubmit.$btnAddCustomer.$btnCancel);
+echo $cF->displayDiv(' ', $btnSubmit.$btnAddCustomer.$btnViewContract.$btnCancel);
 ?>
 
 <script type="text/javascript">
 $(document).ready(function(e) {
+	$("input[name=typeform]").click(function(){
+		var type = $("input[name=typeform]:checked").val();
+		if(type==2){
+			$(".fieldVietnamese").hide(200);
+		}else{
+			$(".fieldVietnamese").show(200);
+		}
+	});
+	
 	$("#btnViewAddCustomer").click(function(){
 		var str = '<?php
 		$name = 'customer_id';
 		$properties = array();
 		$properties[] = array('propertie'=>'maxlength', 'value'=>'10');
 		$properties[] = array('propertie'=>'placeholder', 'value'=>'ID khách hàng');
-		$data = $cF->inputText($name, '', 'adInput adTxtMedium value_id', $properties);
-		echo $cF->displayDiv('', $data);
+		$data = $cF->inputText($name, '', 'adInput adTxtMedium value_id', $properties).'<div class="clear10"></div>';
 		
 		$name = 'customer_name';
 		$properties = array();
 		$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
 		$properties[] = array('propertie'=>'placeholder', 'value'=>'Nhập tên khách hàng và ấn nút TÌM KIẾM');
-		$data = $cF->inputText($name, '', 'adInput adTxtMedium value_name', $properties);
-		echo $cF->displayDiv('', $data);
+		$other = '<p class="adError error value_name_error"></p>';
+		$data .= $cF->inputText($name, '', 'adInput adTxtMedium value_name', $properties, $other);
 		
-		$data = '<div id="value_view" table="mn_customer"></div>';
-		echo $cF->displayDiv('', $data);
+		$data .= '<div class="value_view" table="mn_customer"></div> <div class="clear20"></div>';
 		
 		$name = 'btnSearchCustomer';
 		$properties = array();
 		$properties[] = array('propertie'=>'style', 'value'=>'width:auto; float:left');
-		$data = $cF->inputButton($name, 'Tìm kiếm', 'adBtnSmall bgColorBlue1 corner5 value_search');
+		$data .= $cF->inputButton($name, 'Tìm kiếm', 'adBtnSmall bgColorBlue1 corner5 value_search');
 		$name = 'btnAddCustomer';
 		$data .= $cF->inputButton($name, 'Thêm vào hợp đồng', 'adBtnSmall bgColorOranges corner5', $properties);
+		$name = 'btnClose';
+		$data .= $cF->inputButton($name, 'Close', 'adBtnSmall bgColorGray corner5 popupClose', $properties);
 		echo $cF->displayDiv('', $data);
 		?>';
-		viewDataAction(str);
+		popupLoad(str);
 	});
 	
 	$("#btnAddCustomer").live("click", function(){
@@ -181,18 +273,20 @@ $(document).ready(function(e) {
 		var contract_id = $.trim($("#id").val());
 		if(contract_id=='' || contract_id=='0' || code==''){
 			var str = '<b class="adError">Vui lòng nhập thông tin hợp đồng trước.</b>';
-			viewDataAction(str);
+			popupLoad(str);
+			popupCloseBG();
 			return false;
 		}else if(id=='' || name==''){
 			var str = '<b class="adError">Vui lòng nhập ID khách hàng.</b>';
-			viewDataAction(str);
+			popupLoad(str);
+			popupCloseBG();
 			return false;
 		}
 		
 		var str = '<p>Bạn có muốn thêm khách hàng <b>"' +name+ '"</b> vào hợp đồng <b>"'+code+'"</b>?</p> <p class="clear20"></p>';
-			str+= '<p> <span id="insertCustomer" customer_id="' + id + '" customer_name="' + name + '" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 closeDataAction">No</span> </p>';
+			str+= '<p> <span id="insertCustomer" customer_id="' + id + '" customer_name="' + name + '" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 popupClose">No</span> </p>';
 			str+= '<p class="clear1"></p>';
-		viewDataAction(str);
+		popupLoad(str);
 	});
 	
 	$("#insertCustomer").live("click", function(){
@@ -211,16 +305,24 @@ $(document).ready(function(e) {
 				data = $.parseJSON(data);
 				var str = '';
 				if(data.error==0){
-					str = '<b class="adMessage">' +data.message+ '</b>';
+					str = '<p class="adMessage">' +data.message+ '</p>';
 					var number = parseInt($("#listCustomer .item").length) + 1;
 					var insert = '<p class="item">' + number + '. ' + customer_name + '</p>';
 					$("#listCustomer").append(insert);
 				}else{
-					str = '<b class="adError">' +data.message+ '</b>';
+					str = '<p class="adError">' +data.message+ '</p>';
 				}
-				viewDataAction(str);
+				
+				str += '<p class="clear10"></p> <p class="adBtnSmall bgColorGray corner5 popupClose">Close</p> <p class="clear1"></p></p>';
+				popupLoad(str);
 			}
 		});
+	});
+	
+	$("#btnViewContract").live("click", function(){
+		var data = '<div><span class="adBtnSmall bgColorGray corner8 popupCloseReload">[ x ] Close</span></div> <div class="clear10"></div>';
+			data+= '<iframe src="ajax/?loadFormEvent=5&table=<?php echo $table;?>&id=<?php echo $id;?>" style="width:700px; height:500px; border:none"></iframe>';
+		popupLoad(data);
 	});
 });
 </script>

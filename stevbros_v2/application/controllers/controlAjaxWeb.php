@@ -60,7 +60,8 @@ if(isset($_POST['rejectContact'])){
 		
 		$data = $c->sendMail($arrSend, 1);
 		
-		$notify = '<div class="messageContact viewpost">'.$dataEvent['notification'].'</div>';
+		$notify = $c->contentReplace($dataEvent['notification'], $arr);
+		$notify = '<div class="messageContact viewpost">'.$notify.'</div>';
 		$notify = str_replace('"', "'", $notify);
 		$notify = $c->_model->_removeNewLine($notify);
 		$arr = array('error'=>0, 'message'=>$notify);
@@ -142,8 +143,8 @@ if(isset($_GET['viewPDF'])){
 	}
 }*/
 
-if(isset($_POST['rejectLecturer'])){
-	$table = 'mn_lecturer';
+if(isset($_POST['rejectTrainer'])){
+	$table = 'mn_trainer';
 	$name = $c->_model->_changeDauNhay($_POST['name']);
 	$email = $c->_model->_checkEmail($_POST['email']);
 	if($name=='' || $email==false){
@@ -173,7 +174,8 @@ if(isset($_POST['rejectLecturer'])){
 		
 		$data = $c->sendMail($arrSend, 1);
 		
-		$notify = '<div class="messageContact viewpost">'.$dataEvent['notification'].'</div>';
+		$notify = $c->contentReplace($dataEvent['notification'], $arr);
+		$notify = '<div class="messageContact viewpost">'.$notify.'</div>';
 		$notify = str_replace('"', "'", $notify);
 		$notify = $c->_model->_removeNewLine($notify);
 		$arr = array('error'=>0, 'message'=>$notify);
@@ -236,7 +238,8 @@ if(isset($_POST['rejectOpinion'])){ /*viet Blog và Y kien*/
 			$data = $c->sendMail($arrSend, 1);
 		}
 		
-		$notify = '<div class="messageContact viewpost">'.$dataEvent['notification'].'</div>';
+		$notify = $c->contentReplace($dataEvent['notification'], $arr);
+		$notify = '<div class="messageContact viewpost">'.$notify.'</div>';
 		$notify = str_replace('"', "'", $notify);
 		$notify = $c->_model->_removeNewLine($notify);
 		$arr = array('error'=>0, 'message'=>$notify);
@@ -251,9 +254,21 @@ if(isset($_POST['rejectOpinion'])){ /*viet Blog và Y kien*/
 
 /*entrytest*/
 if(isset($_GET['entrytest'])){
-	if(!isset($_GET['menu_id']) || !isset($_GET['users_id'])) return false;
+	if(!isset($_GET['menu_id']) || !isset($_GET['type']) || !isset($_GET['date'])) return false;
 	$menu_id = $c->_model->_changeDauNhay($_GET['menu_id']); settype($menu_id, "int");
-	$users_id = $c->_model->_changeDauNhay($_GET['users_id']); settype($users_id, "int");
+	$table = $c->_model->_changeDauNhay($_GET['type']);
+	$table_date = $c->_model->_changeDauNhay($_GET['date']);
+	
+	$arr = array(
+		"select" => "`id`",
+		"from" => "`{$table}`",
+		"where" => "`datetime`='{$table_date}'",
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data)==0){
+		echo 'Khong ton tai bai test nay.';
+		return false;
+	}
 	
 	$cG = new controlGerenal;
 	
@@ -269,29 +284,30 @@ if(isset($_GET['entrytest'])){
 }
 
 if(isset($_POST['entrytestUser'])){
-	if( !isset($_POST['users_id']) || !isset($_POST['menu_id']) || !isset($_POST['entrytest_id']) || !isset($_POST['answers']) ){
+	if( !isset($_POST['table']) || !isset($_POST['table_date']) || !isset($_POST['menu_id']) || !isset($_POST['entrytest_id']) || !isset($_POST['answers']) ){
 		$arr = array('error'=>1, 'message'=>'Error 01: Please press F5 key to try again');
 		echo $c->exportError($arr);
 		return false;
 	}
-	$users_id = $_POST['users_id']; settype($users_id, 'int');
+	$table = $c->_model->_changeDauNhay($_POST['table']);
+	$table_date = $c->_model->_changeDauNhay($_POST['table_date']);
 	$menu_id = $_POST['menu_id']; settype($menu_id, 'int');
 	$entrytest_id = $_POST['entrytest_id']; settype($entrytest_id, 'int');
 	$answers = $_POST['answers']; settype($answers, 'int');
-	if($users_id==0 || $menu_id==0 || $entrytest_id==0 || $answers==0){
+	if($table=='' || $table_date=='' || $menu_id==0 || $entrytest_id==0 || $answers==0){
 		$arr = array('error'=>1, 'message'=>'Error 02: Please press F5 key to try again');
 		echo $c->exportError($arr);
 		return false;
 	}
 	
-	$check = $c->_model->_checkEntryTestUser($users_id, $menu_id, $entrytest_id);
+	$check = $c->_model->_checkEntryTestUser($menu_id, $table, $table_date, $entrytest_id);
 	if( count($check)!=0 ){
 		$arr = array('error'=>1, 'message'=>'Error 03: Please press F5 key to try again');
 		echo $c->exportError($arr);
 		return false;
 	}
 	
-	$c->_model->_insertEntryTestUser($users_id, $menu_id, $entrytest_id, $answers);
+	$c->_model->_insertEntryTestUser($menu_id, $table, $table_date, $entrytest_id, $answers);
 	$arr = array('error'=>0, 'message'=>'Success');
 	echo $c->exportError($arr);
 }

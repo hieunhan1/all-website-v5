@@ -86,7 +86,7 @@
                 <p class="error"></p>
             </div>
             <div class="txt">
-                <input type="text" name="tax_code" class="field_item adInput" maxlength="20" placeholder="Mã số thuế" />
+                <input type="text" name="taxcode" class="field_item adInput" maxlength="20" placeholder="Mã số thuế" />
                 <p class="error"></p>
             </div>
         </div>

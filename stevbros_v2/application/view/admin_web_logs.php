@@ -4,9 +4,9 @@
 $(document).ready(function(e) {
 	$(".btnClearLogs").click(function(){
 		var str = '<p style="font-weight:bold">Xóa logs và chỉ lưu logs trong 30 ngày gần đây?</p> <p class="clear20"></p>';
-			str+= '<p> <span id="clearLogs" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 closeDataAction">No</span> </p>';
+			str+= '<p> <span id="clearLogs" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 popupClose">No</span> </p>';
 			str+= '<p class="clear1"></p>';
-		viewDataAction(str);
+		popupLoad(str);
 	});
     $("#clearLogs").live("click", function(){
 		$.ajax({
@@ -17,7 +17,7 @@ $(document).ready(function(e) {
 			success: function(data) { console.log(data);
 				if(data==""){
 					var str = '<b class="adMessage">Xóa logs thành công. Vui lòng đợi 3s để tải lại trang.</b>';
-					viewDataAction(str);
+					popupLoad(str);
 					setTimeout(function(){
 						window.location.reload();
 					}, 3000);

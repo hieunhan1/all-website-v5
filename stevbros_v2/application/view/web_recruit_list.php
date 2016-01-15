@@ -118,7 +118,7 @@ CKEDITOR.replace( 'ckeditor_experience', {
         $("input[name=btnSubmit]").live("click", function(){
             var fields = ajax_field_all(".field_item"); //console.log(fields);
 			if(typeof fields=='boolean') return false;
-			fields['rejectLecturer'] = '1';
+			fields['rejectTrainer'] = '1';
 			
 			$(".field_item").attr("disabled", true);
 			formLoading(1, '', '');

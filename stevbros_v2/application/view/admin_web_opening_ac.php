@@ -25,22 +25,6 @@ if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
 $data .= $cF->inputHidden($name, $value, 'ad_field listValueMenu');
 echo $cF->displayDiv('Danh mục hiển thị', '<div class="listCheckBox">'.$data.'</div>');
 
-/*$name = 'header_id';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'5');
-$properties[] = array('propertie'=>'placeholder', 'value'=>'ID khóa học');
-$properties[] = array('propertie'=>'style', 'value'=>'width:70px');
-if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput value_id', $properties);
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
-$properties[] = array('propertie'=>'placeholder', 'value'=>'Tên khóa học');
-$properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5px');
-$data .= $cF->inputText('', '', 'adInput value_name', $properties);
-$data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" />';
-$data .= '<div id="value_view" table="web_header"></div>';
-echo $cF->displayDiv('Khóa học', $data);*/
-
 $name = 'name';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'200');

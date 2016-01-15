@@ -202,7 +202,7 @@ class pageAjax{
 				$content = str_replace($field[$i], $value[$i], $content);
 			}
 		}
-		return '<div style="line-height:180%">'.$content.'</div>';
+		return '<div style="line-height:150%">'.$content.'</div>';
 	}
 }
 
@@ -210,6 +210,18 @@ $c = new pageAjax;
 $lang = $c->_lang;
 $config = $c->_model->_config($lang);
 //$lang_var = $c->_model->_language_var($lang);
+
+/*admin*/
+if(isset($_SESSION['adminID'])){
+	include_once('controlAjaxAdmin.php');
+}
+/*end admin*/
+
+/*web*/
+include_once('controlAjaxWeb.php');
+/*end web*/
+
+
 
 if(isset($_GET['sendMailNew'])){
 	$AddAddress = array();
@@ -256,12 +268,115 @@ if(isset($_GET['sendMailNew'])){
 	return true;
 }
 
-/*admin*/
-if(isset($_SESSION['adminID'])){
-	include_once('controlAjaxAdmin.php');
+if(isset($_GET['nhanMail'])){
+	//include_once('libraries/emailReader.php');
+	//$email = new emailReader;
+	
+	include_once('libraries/email5.php');
+	$host = 'imap.gmail.com';
+	$port = '993';
+	$user = 'no-reply@stevbros.com';
+	$pass = 'No-reply#123*';
+	
+	$connection = pop3_login($host, $port, $user, $pass, $folder="INBOX", $ssl=true);
+	
+	$pop3_stat = pop3_stat($connection);
+	$c->_model->_print($pop3_stat);
+	
+	$pop3_list = pop3_list($connection);
+	$row_pop3_list = $pop3_list[5];
+	$c->_model->_print($row_pop3_list);
+	
+	$mid = $row_pop3_list['msgno'];
+	
+	$pop3_retr = pop3_retr($connection, $mid);
+	//$c->_model->_print($pop3_retr);
+	
+	/*$pop3_dele = pop3_retr($connection, $row_pop3_list['msgno']);
+	$c->_model->_print($pop3_dele);*/
+	
+	$mail_parse_headers = mail_parse_headers($pop3_retr);
+	$c->_model->_print($mail_parse_headers);
+	
+	$mail_mime_to_array = mail_mime_to_array($connection, $mid, true);
+	$c->_model->_print($mail_mime_to_array);
+	
+	$part = imap_fetchstructure($connection, $mid); 
+	$mail_get_parts = mail_get_parts($connection, $mid, $part, 0);
+	$c->_model->_print($mail_get_parts);
+	
+	$mail_decode_part = mail_decode_part($connection, $mid, $part, 0);
+	$c->_model->_print($mail_decode_part);
 }
-/*end admin*/
 
-/*web*/
-include_once('controlAjaxWeb.php');
-/*end web*/
+if(isset($_GET['nhanMail2'])){
+	include_once('libraries/MixiPOP3/mixipop3.php');
+}
+
+function encoding($encoding, $text){
+	switch ($encoding) {
+		# 7BIT
+		case 0:
+			return $text;
+		# 8BIT
+		case 1:
+			return quoted_printable_decode($text);
+		# BINARY
+		case 2:
+			return imap_binary($text);
+		# BASE64
+		case 3:
+			return imap_base64($text);
+		# QUOTED-PRINTABLE
+		case 4:
+			return imap_utf8($text);
+		# OTHER
+		case 5:
+			return mb_decode_mimeheader($text);
+		# UNKNOWN
+		case 6:
+			return chunk_split(base64_encode($text));
+		# UNKNOWN
+		case 7:
+			return imap_utf8(imap_base64($text));
+		# QUOTED-PRINTABLE
+		case 1:
+			return quoted_printable_decode($text);
+		# BINARY
+		default:
+			return $text;
+	}
+}
+
+function decode7Bit($text) {
+	// If there are no spaces on the first line, assume that the body is
+	// actually base64-encoded, and decode it.
+	$lines = explode("\r\n", $text);
+	$first_line_words = explode(' ', $lines[0]);
+	if ($first_line_words[0] == $lines[0]) {
+		$text = base64_decode($text);
+	}
+	
+	// Manually convert common encoded characters into their UTF-8 equivalents.
+	$characters = array(
+		'=20' => ' ', // space.
+		'=E2=80=99' => "'", // single quote.
+		'=0A' => "\r\n", // line break.
+		'=A0' => ' ', // non-breaking space.
+		'=C2=A0' => ' ', // non-breaking space.
+		"=\r\n" => '', // joined line.
+		'=E2=80=A6' => '…', // ellipsis.
+		'=E2=80=A2' => '•', // bullet.
+	);
+	
+	// Loop through the encoded characters and replace any that are found.
+	foreach ($characters as $key => $value) {
+		$text = str_replace($key, $value, $text);
+	}
+	
+	return $text;
+}
+
+if(isset($_GET['nhanMail3'])){
+	include_once('libraries/nhanmail/index.php');
+}

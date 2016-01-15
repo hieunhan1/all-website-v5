@@ -6,14 +6,12 @@ if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mô tả');
 
 $name = 'type';
-$value = array();
-$value[] = array('id'=>'', 'name'=>'-- type --');
-$dataType = $c->_model->_webTypeList(1);
-foreach($dataType as $row){
-	$value[] = $row;
-}
+$dataType = array();
+$dataType[] = array('id'=>'', 'name'=>'-- Loại form --');
+$dataType[] = array('id'=>'1', 'name'=>'Website');
+$dataType[] = array('id'=>'2', 'name'=>'Quản lý');
 if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
-$arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
+$arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$dataType, 'other'=>$other);
 
 echo $c->viewFormSearch($arrFrmSearch);
 
@@ -32,10 +30,10 @@ else
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
         	<th width="60">STT</th>
-            <th align="left" width="25%">Name</th>
+            <th align="left" width="20%">Name</th>
             <th align="left">Subject</th>
             <th align="left" width="120">Email thông báo</th>
-            <th align="left" width="100">Type</th>
+            <th align="left" width="100">Loại form</th>
             <th width="120">Thao tác</th>
         </tr>
         <?php
@@ -45,7 +43,7 @@ else
 			'select'=>'`id`, `name`, `subject`, `email`, `type`, `status`',
 			'table'=>$table,
 			//'where'=>'',
-			//'order'=>'',
+			'order'=>'`type` DESC',
 		);
 		$data = $c->selectFromAll($arr);
 		foreach($data as $row){
