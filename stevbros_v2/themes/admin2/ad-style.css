@@ -186,6 +186,7 @@
 .adTable .status1{background-position:50% -45px}
 .adTable .status2{background-position:50% -95px}
 .adTable .status3{background-position:50% -145px}
+.adTable .status4{background-position:50% -195px}
 /*adTable*/
 
 /*pageList*/
@@ -222,27 +223,6 @@
 .listCheckBox2 .span input{float:left; margin:7px 5px 0 8px}
 /*end adField*/
 
-/*adPopup*/
-#adPopup{display:none}
-#adBgPopup{width:100%; height:100%; position:fixed; top:0; left:0; z-index:20; background-color:#FFF; filter:alpha(opacity=30); opacity:0.3}
-#adPopup .containerPopup{width:500px; height:auto; overflow:auto; position:fixed; z-index:21; background-color:#FFF; border:solid 1px #666; box-shadow:1px 1px 3px #666}
-#adPopup .headerPopup{clear:both; padding:0 15px; background-color:#438eb9}
-#adPopup .bgRed{background-color:#b74635 !important}
-#adPopup .contentPopup{clear:both; padding:10px 15px}
-#adPopup .titlePopup{width:92%; height:35px; float:left; line-height:35px; overflow:hidden; color:#FFF; font-weight:100; font-size:120%}
-#adPopup .close{width:auto; float:right; overflow:hidden; color:#FFF; margin-top:8px; padding:0px 4px 2px 4px; border:solid 1px #FFF; border-radius:3px; cursor:pointer}
-#adPopup .close:hover{color:#333; background-color:#FFF}
-/*end adPopup*/
-
-/*dataAction*/
-#dataAction{display:none}
-#dataActionBG{display:block; width:100%; height:100%; position:fixed; top:0; left:0; z-index:30}
-#dataActionContent{width:auto; overflow:hidden; border:solid 1px #FFF; border-radius:10px; box-shadow:0px 0px 7px #333; position:fixed; top:35%; left:35%; z-index:31}
-#dataActionContent .process{display:block; width:auto; padding:20px 30px; background-color:#FFF}
-#dataActionContent .message{display:block; width:auto; color:#FFF; padding:20px 30px; background-color:#090}
-#dataActionContent .error{display:block; width:auto; color:#FFF; padding:20px 30px; background-color:#B90000}
-/*end dataAction*/
-
 /*upload img*/
 #imageForm{}
 #imageForm .checkbox{clear:both; margin:6px 0}
@@ -273,8 +253,11 @@
 /*end copy*/
 
 /*other*/
-#value_view{line-height:22px}
-#value_view .title{font-weight:bold; font-style:italic}
-#value_view .value_data{color:#00F; margin-left:25px; cursor:pointer}
-#value_view .value_data:hover{color:#F00}
+.value_view{line-height:22px}
+.value_view .title{font-weight:bold; font-style:italic}
+.value_view .value_data{color:#00F; margin-left:25px; cursor:pointer}
+.value_view .value_data:hover{color:#F00}
 .saved{color:#666; background-color:#FFF; border:solid 1px #CCC}
+
+#loadingIframe{display:none}
+#loadingIframe .loading{display:block; width:100%; height:100%; position:fixed; top:0; left:0; z-index:1; background:url(../website/img/loader.gif) center no-repeat; background-size:10%; background-color:rgba(255,255,255,0.5)}

@@ -127,9 +127,3 @@ hr{border: solid 2px #F3A972}
 #copyData .js-btn button{margin-right:5px; padding:5px 10px}
 #copyData .js-message{display:none}
 /*end copy*/
-
-#dataAction{display:none; width:auto; overflow:hidden; font-weight:bold; border:solid 1px #FFF; border-radius:10px; box-shadow:0px 0px 7px #333; position:fixed; top:40%; left:42%; z-index:3}
-#dataAction .process{display:block; padding:20px 30px; background-color:#FFF}
-#dataAction .message{display:block; color:#FFF; padding:20px 30px; background-color:#090}
-#dataAction .error{display:block; color:#FFF; padding:20px 30px; background-color:#F00}
-#dataActionBG{display:none; width:100%; height:100%; position:fixed; top:0; left:0; z-index:1}
