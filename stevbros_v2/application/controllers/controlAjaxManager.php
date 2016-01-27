@@ -76,6 +76,7 @@ if(isset($_POST['formType'])){
 			'2' => 'Phân tích',
 			'3' => 'Entry test',
 			'5' => 'Hợp đồng đào tạo',
+			'10' => 'Form mẫu thông báo',
 		);
 		$key = array_keys($arr);
 		for($i=0; $i<count($key); $i++){
@@ -96,7 +97,7 @@ if(isset($_GET['loadFormEvent'])){
 	switch($type){
 		case 1: include_once('view/admin_mn_action_baogia.php'); break;
 		case 2: include_once('view/admin_mn_action_entry.php'); break;
-		case 3: include_once('view/admin_mn_action_phantich.php'); break;
+		case 3: include_once('view/admin_mn_action_khaosat.php'); break;
 		case 5: include_once('view/admin_mn_action_hopdong.php'); break;
 	}
 }
@@ -109,29 +110,55 @@ if(isset($_POST['loadFormTemplate'])){
 	$subject = str_replace('"', "'", $subject);
 	$subject = $c->_model->_removeNewLine($subject);
 	
-	$name=''; $course=''; $date=''; $price=''; $message=''; $link='';
+	$name=''; $course=''; $date=''; $message=''; $link=''; $datecurrent='';
+	$totalusd=0; $totalvnd=0; $price=0; $exchangerate=0;
 	if(isset($_POST['name'])) $name=$c->_model->_changeDauNhay($_POST['name']);
 	if(isset($_POST['course'])) $course=$c->_model->_changeDauNhay($_POST['course']);
 	if(isset($_POST['date'])) $date=date('d-m-Y', strtotime($_POST['date']));
-	if(isset($_POST['price'])) $price=$c->_model->_changeDauNhay($_POST['price']);
 	if(isset($_POST['message'])) $message=$c->_model->_changeDauNhay($_POST['message']);
 	if(isset($_POST['link_entry'])){
 		if(!isset($_POST['table']) || !isset($_POST['table_id'])) return false;
 		$rowInfo = $c->_model->_viewDetail($_POST['table'], $_POST['table_id']);
-		$link = CONS_BASE_URL.'/ajax/?entrytest=1&menu_id=286&type='.$_POST['table'].'&date='.$rowInfo['datetime'];
+		$link = CONS_BASE_URL.'/ajax/?entrytest=1&menu_id='.$_POST['link_entry'].'&type='.$_POST['table'].'&date='.$rowInfo['datetime'];
 		$link = '<a href="'.$link.'">ấn vào đây</a>';
+	}
+	if(isset($_POST['link_khaosat'])){
+		if(!isset($_POST['table']) || !isset($_POST['table_id'])) return false;
+		$rowInfo = $c->_model->_viewDetail($_POST['table'], $_POST['table_id']);
+		$link = CONS_BASE_URL.'/ajax/?TrainingNeedAssessment=1&type='.$_POST['table'].'&date='.$rowInfo['datetime'];
+		$link = '<a href="'.$link.'">ấn vào đây</a>';
+	}
+	if(isset($_POST['price'])){
+		$price = $c->_model->_changeDauNhay($_POST['price']); settype($price, 'int');
+		$price = number_format($price, 0, ',', '.');
+	}
+	if(isset($_POST['totalusd'])){
+		$datecurrent = date('d/m/Y');
+		$totalusd = $c->_model->_changeDauNhay($_POST['totalusd']); settype($totalusd, 'float');
+		if(isset($_POST['exchangerate'])){
+			$exchangerate = $c->_model->_changeDauNhay($_POST['exchangerate']); settype($exchangerate, 'int');
+			$totalvnd = $totalusd * $exchangerate; settype($totalvnd, 'float');
+		}
+		$totalusd = number_format($totalusd, 2, ',', '.');
+		$totalvnd = number_format($totalvnd, 2, ',', '.');
+		$exchangerate = number_format($exchangerate, 0, ',', '.');
 	}
 	
 	$arr = array(
 		'{_name}' => $name,
 		'{_course}' => $course,
 		'{_date}' => $date,
-		'{_price}' => number_format($price, 0, ',', '.').'đ',
+		'{_price}' => $price,
 		'{_link}' => $link,
+		'{_exchangerate}' => $exchangerate,
+		'{_datecurrent}' => $datecurrent,
+		'{_totalusd}' => $totalusd,
+		'{_totalvnd}' => $totalvnd,
 		'{_message}' => $message,
 	);
 	$content = $c->contentReplace($row['content'], $arr);
 	$content = str_replace('"', "'", $content);
+	$content = str_replace('	', "", $content);
 	$content = $c->_model->_removeNewLine($content);
 	
 	$arr = array('error'=>0, 'subject'=>$subject, 'content'=>$content, 'email'=>$row['email']);

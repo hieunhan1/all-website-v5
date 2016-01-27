@@ -294,22 +294,179 @@ if(isset($_POST['entrytestUser'])){
 	$menu_id = $_POST['menu_id']; settype($menu_id, 'int');
 	$entrytest_id = $_POST['entrytest_id']; settype($entrytest_id, 'int');
 	$answers = $_POST['answers']; settype($answers, 'int');
-	if($table=='' || $table_date=='' || $menu_id==0 || $entrytest_id==0 || $answers==0){
-		$arr = array('error'=>1, 'message'=>'Error 02: Please press F5 key to try again');
+	
+	//kiem tra có trong danh sach lien he
+	$arr = array(
+		"select" => "`id`, `name`, `email`",
+		"from" => "`{$table}`",
+		"where" => "`datetime`='{$table_date}'",
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data)==0){
+		$arr = array('error'=>1, 'message'=>'Error 02');
 		echo $c->exportError($arr);
 		return false;
 	}
+	$table_id = $data[0]['id'];
+	$table_email = $data[0]['email'];
+	$table_name = $data[0]['name'];
 	
+	//insert data
 	$check = $c->_model->_checkEntryTestUser($menu_id, $table, $table_date, $entrytest_id);
 	if( count($check)!=0 ){
 		$arr = array('error'=>1, 'message'=>'Error 03: Please press F5 key to try again');
 		echo $c->exportError($arr);
 		return false;
 	}
-	
 	$c->_model->_insertEntryTestUser($menu_id, $table, $table_date, $entrytest_id, $answers);
+	
 	$arr = array('error'=>0, 'message'=>'Success');
 	echo $c->exportError($arr);
+	return true;
+}
+
+if(isset($_POST['entrytestThongBao'])){
+	$table = $c->_model->_changeDauNhay($_POST['table']);
+	$table_date = $c->_model->_changeDauNhay($_POST['table_date']);
+	$arr = array(
+		"select" => "`id`, `name`, `email`",
+		"from" => "`{$table}`",
+		"where" => "`datetime`='{$table_date}'",
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data)==0){
+		$arr = array('error'=>1, 'message'=>'Error');
+		echo $c->exportError($arr);
+		return false;
+	}
+	$table_id = $data[0]['id'];
+	$table_email = $data[0]['email'];
+	$table_name = $data[0]['name'];
+	
+	//thay doi status
+	$c->_model->_updateStatus($table, $table_id, $status=3);
+	
+	//gui mail thong bao
+	$arr = array(
+		"select" => "`subject`, `content`",
+		"from" => "`web_event_form`",
+		"where" => "`id`='13' AND `status`=1", //id=14 entry test
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data) > 0){
+		$AddAddress = array('field'=>$table_email, 'name'=>$table_name);
+		$arr = array( '{_name}' => $table_name );
+		$subject = $data[0]['subject'];
+		$content = $c->contentReplace($data[0]['content'], $arr);
+		$arr = array(
+			'AddAddress' => $AddAddress,
+			'Subject' => $subject,
+			'Body' => $content,
+		);
+		$data = $c->sendMail($arr, 2);
+	}
+	return true;
 }
 /*end entrytest*/
+
+/*TrainingNeedAssessment khảo sát*/
+if(isset($_GET['TrainingNeedAssessment'])){
+	if(!isset($_GET['type']) || !isset($_GET['date'])) return false;
+	$table = $c->_model->_changeDauNhay($_GET['type']);
+	$table_date = $c->_model->_changeDauNhay($_GET['date']);
+	
+	$_SESSION['table_khaosat'] = $table;
+	$_SESSION['table_date_khaosat'] = $table_date;
+	
+	$arr = array(
+		"select" => "`id`",
+		"from" => "`{$table}`",
+		"where" => "`datetime`='{$table_date}'",
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data)==0){
+		echo 'Khong ton tai bai test nay.';
+		return false;
+	}
+	
+	$cG = new controlGerenal;
+	
+	$logo = $cG->logo($lang);
+	$logoStevbros = $logo[0];
+	$logoPMI = $logo[1];
+	
+	include_once('view/web_khaosat.php');
+	return true;
+}
+
+if(isset($_POST['rejectKhaoSat'])){
+	$table = $_SESSION['table_khaosat'];
+	$table_date = $_SESSION['table_date_khaosat'];
+	
+	$arr = array(
+		"select" => "`id`, `name`, `email`",
+		"from" => "`{$table}`",
+		"where" => "`datetime`='{$table_date}'",
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data)==0){
+		$arr = array('error'=>1, 'message'=>'Error 01');
+		echo $c->exportError($arr);
+		return false;
+	}
+	$table_id = $data[0]['id'];
+	$table_email = $data[0]['email'];
+	$table_name = $data[0]['name'];
+	
+	$arr = array(
+		"select" => "`id`",
+		"from" => "`web_khaosat`",
+		"where" => "`_table`='{$table}' AND `table_date`='{$table_date}'",
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data)>0){
+		$arr = array('error'=>0, 'message'=>'<p>You have completed the survey. Stevbros checks and contact you soon.<br /><em>Bạn đã hoàn thành bản khảo sát. Stevbros sẽ kiểm tra và liên hệ với bạn sớm nhất.</em></p><p>Respect,</p>');
+		echo $c->exportError($arr);
+		return false;
+	}
+	
+	//insert data
+	$keys = array_keys($_POST);
+	$values = array_values($_POST);
+	for($i=0; $i<count($keys); $i++){
+		if(!preg_match("/^reject/i", $keys[$i])){
+			$name = $keys[$i];
+			$answer = $values[$i];
+			$c->_model->_insertKhaoSat($name, $answer, $table, $table_date);
+		}
+	}
+	
+	//thay doi status
+	$c->_model->_updateStatus($table, $table_id, $status=3);
+	
+	//gui mail thong bao
+	$arr = array(
+		"select" => "`subject`, `content`",
+		"from" => "`web_event_form`",
+		"where" => "`id`='14' AND `status`=1", //id=14 khao sat
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data) > 0){
+		$AddAddress = array('field'=>$table_email, 'name'=>$table_name);
+		$arr = array( '{_name}' => $table_name );
+		$subject = $data[0]['subject'];
+		$content = $c->contentReplace($data[0]['content'], $arr);
+		$arr = array(
+			'AddAddress' => $AddAddress,
+			'Subject' => $subject,
+			'Body' => $content,
+		);
+		$data = $c->sendMail($arr, 2);
+	}
+	
+	$arr = array('error'=>0, 'message'=>'<p>You have completed the survey. Stevbros checks and contact you soon.<br /><em>Bạn đã hoàn thành bản khảo sát. Stevbros sẽ kiểm tra và liên hệ với bạn sớm nhất.</em></p><p>Respect,</p>');
+	echo $c->exportError($arr);
+	return true;
+}
+/*end TrainingNeedAssessment khảo sát*/
 ?>
