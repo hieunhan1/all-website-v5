@@ -308,22 +308,6 @@ $(document).ready(function(e) {
 	});
 	/*end biến đổi, kiểm tra alias, auto title key*/
 	
-	/*checks box*/
-	function checks_box_item(list_check, list_view){
-		$(list_check).change(function(){
-			var str=",";
-			$(list_check + ':checked').each(function(i,val){
-				str += $(this).val() + ',';
-			});
-			$(list_view).attr('value',str);
-		});
-		return true;
-	};
-	checks_box_item('.checkBoxMenu', '.listValueMenu');
-	checks_box_item('.checkBoxPosition', '.listValuePosition');
-	checks_box_item('.checkBoxItem', '.listValueItem');
-	/*end checks box*/
-	
 	/*upload images*/
 	function uploadImage(){
 		$("#imageForm").ajaxForm({target: '#imageUpload',

@@ -153,6 +153,20 @@ function getDateTime(year, month, date, view){
 	});
 }
 
+function checks_box_item(){
+	$(".checkBoxItem").live("change", function(){
+		$(".checkBoxItem").parents("div").removeClass("activeCheckBox");
+		$(this).parents("div:first").addClass("activeCheckBox");
+		
+		var str = ",";
+		$('.activeCheckBox .checkBoxItem:checked').each(function(i,val){
+			str += $(this).val() + ',';
+		});
+		
+		$(".activeCheckBox .listValueItem").val(str);
+	});
+}
+
 function formLoading(display, error, message){
 	if(display==1) display='block'; else display='none';
 	$(".frm-loading .loading").css("display", display);
@@ -249,6 +263,8 @@ function remove_ky_tu_dac_biet(alias, dau_thaythe){
 }
 
 $(document).ready(function(e) {
+	checks_box_item(); //class checkbox: checkBoxItem | class value: listValueItem
+	
 	$(".popupClose").live("click", function(){
 		popupClose();
 	});

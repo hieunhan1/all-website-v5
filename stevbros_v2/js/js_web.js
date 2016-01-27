@@ -160,18 +160,6 @@ $(document).ready(function($){
 		return true;
 	});
 	
-	function checks_box_item(list_check, list_view){
-		$(list_check).change(function(){
-			var str=",";
-			$(list_check + ':checked').each(function(i,val){
-				str += $(this).val() + ',';
-			});
-			$(list_view).attr('value',str);
-		});
-		return true;
-	};
-	checks_box_item('.checkBox', '.listValueMenu');
-	
 	//view mobile
 	function viewMobile650(){
 		var width = parseInt($(window).width());
