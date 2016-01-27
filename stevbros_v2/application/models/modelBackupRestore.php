@@ -53,7 +53,7 @@ class modelBackupRestore extends modelDB{
 				$str_values .= "'{$data_values[$i]}',";
 			}
 			$str_keys = trim($str_keys, ','); $str_values = trim($str_values, ',');
-			$str_sql = "INSERT INTO `{$row['table']}` ({$str_keys}) VALUES ({$str_values})";
+			$str_sql = "INSERT INTO `{$row['_table']}` ({$str_keys}) VALUES ({$str_values})";
 		}elseif($row['action']=='update'){
 			$str_set='';
 			for($i=0; $i<count($data_keys); $i++){
@@ -61,7 +61,7 @@ class modelBackupRestore extends modelDB{
 				else $id_restore = $data_values[$i];
 			}
 			$str_set = trim($str_set, ',');
-			$str_sql = "UPDATE `{$row['table']}` SET {$str_set} WHERE `id`='{$id_restore}'";
+			$str_sql = "UPDATE `{$row['_table']}` SET {$str_set} WHERE `id`='{$id_restore}'";
 		}else return false;
 		
 		if(!$this->db->query($str_sql)) die($this->db->error);
@@ -86,7 +86,7 @@ class modelBackupRestore extends modelDB{
 			$this->db->query($sql);
 			
 			if($row['action']=='delete' && $row['status']==0){
-				$table = $row['table'];
+				$table = $row['_table'];
 				$table_id = $row['table_id'];
 				
 				//delete web_picture
@@ -104,8 +104,9 @@ class modelBackupRestore extends modelDB{
 				}
 				
 				//delete web_content
-				if($row['table']=='web_header'){
+				if($row['_table']=='web_header'){
 					$sql = "SELECT * FROM `web_content` WHERE `header_id`='{$table_id}' LIMIT 1";
+
 					$result = $this->db->query($sql);
 					$data = $result->fetch_assoc();
 					if(count($data) > 0){

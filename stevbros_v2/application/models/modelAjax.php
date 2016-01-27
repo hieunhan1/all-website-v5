@@ -56,8 +56,8 @@ class modelAjax extends modelDB{
 		return $result->fetch_assoc();
 	}
 	
-	public function _updateStatus($table, $id){
-		$sql = "UPDATE `{$table}` SET `status`=1 WHERE `id`='{$id}' LIMIT 1";
+	public function _updateStatus($table, $id, $status=1){
+		$sql = "UPDATE `{$table}` SET `status`='{$status}' WHERE `id`='{$id}' LIMIT 1";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		return true;
 	}
@@ -145,5 +145,13 @@ class modelAjax extends modelDB{
 		return $data;
 	}
 	/*end entry test*/
+	
+	/*khao sat*/
+	public function _insertKhaoSat($name, $answer, $table, $table_date){
+		$datetime = time();
+		$sql = "INSERT INTO `web_khaosat` (`name`, `answer`, `_table`, `table_date`, `datetime`) VALUES ('{$name}', '{$answer}', '{$table}', '{$table_date}', '{$datetime}')";
+		if(!$result = $this->db->query($sql)) die($this->db->error);
+	}
+	/*end khao sat*/
 }
 ?>
