@@ -245,8 +245,8 @@ if(isset($_POST['btnLogin']) && !isset($_SESSION['adminID'])){
 	}
 }
 
-if(!isset($_SESSION['adminID'])){
-	include_once('view/admin_login.php');
-}else{
+if(isset($_SESSION['adminID'])){
 	include_once('view/admin.php');
+}else{
+	include_once('view/admin_login.php');
 }
