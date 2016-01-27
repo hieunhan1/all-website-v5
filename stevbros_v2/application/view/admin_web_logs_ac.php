@@ -29,7 +29,7 @@ if(isset($rowDetail['content'])){
 		$data_values = explode('%%%', $data[1]);
 		for($i=0; $i<count($data_keys); $i++){
 			$name = ucfirst(trim($data_keys[$i],'`'));
-			echo $cF->displayDiv($name, '<span class="label2">'.$data_values[$i].'</span>' );
+			if(isset($data_values[$i])) echo $cF->displayDiv($name, '<span class="label2">'.$data_values[$i].'</span>' );
 		}
 	}
 	echo '</div>';

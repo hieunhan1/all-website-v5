@@ -360,6 +360,20 @@ $(document).ready(function(e) {
 				}
 			});
 		});
+		
+		var fields = new Object();
+		fields['entrytestThongBao'] = 1;
+		fields['table'] = "<?php echo $table;?>";
+		fields['table_date'] = "<?php echo $table_date;?>";
+		$.ajax({ 	
+			url: 'ajax',
+			type: 'POST',
+			data: fields,
+			cache: false,
+			success: function(data) {
+				console.log(data);
+			}
+		});
 		setTimeout(function(){
 			$("#loading").hide(100);
 			$("#btnSubmit").hide(100);

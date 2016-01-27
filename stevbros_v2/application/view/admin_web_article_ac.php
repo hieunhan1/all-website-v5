@@ -27,9 +27,9 @@ $name = 'menu_id';
 $where = "(type_id=1 OR type_id=2 OR type_id=5)";
 $values = $c->menuList($lang, $where);
 $valueCheck=$rowDetail[$name];
-$data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxMenu');
+$data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxItem');
 if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
-$data .= $cF->inputHidden($name, $value, 'ad_field listValueMenu');
+$data .= $cF->inputHidden($name, $value, 'ad_field listValueItem');
 echo $cF->displayDiv('Danh mục hiển thị', '<div class="listCheckBox">'.$data.'</div>');
 
 $name = 'name';

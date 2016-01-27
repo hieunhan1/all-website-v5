@@ -28,11 +28,11 @@ if($rowDetail[$name]!=''){
 	$valueCheck=$rowDetail[$name];
 }else $valueCheck='';
 $values = $c->_model->_webPositionList(2);
-$data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxPosition', 1);
+$data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxItem', 1);
 $values = $c->_model->_webPositionList(1);
-$data .= $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxPosition', 1);
+$data .= $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxItem', 1);
 $value=$rowDetail[$name];
-$data .= $cF->inputHidden($name, $value, 'ad_field listValuePosition');
+$data .= $cF->inputHidden($name, $value, 'ad_field listValueItem');
 echo $cF->displayDiv('Vị trí hiển thị', '<div class="listCheckBox2">'.$data.'</div>');
 	
 $name = 'type_id';

@@ -28,7 +28,7 @@ $number = array(
 $arrStatus = array(
 	1 => array('id'=>'0', 'name'=>'Chưa xem'),
 	2 => array('id'=>'2', 'name'=>'Đã hành động'),
-	3 => array('id'=>'3', 'name'=>'Đợi phản hồi'),
+	3 => array('id'=>'3', 'name'=>'Đã phản hồi'),
 	4 => array('id'=>'1', 'name'=>'Hoàn thành'),
 	5 => array('id'=>'4', 'name'=>'Error'),
 );
@@ -39,7 +39,7 @@ $id = $c->createEditData($table, $arrAction, $rowDetail);
 $data = $cF->inputHidden('id', $id, 'ad_field');
 echo $data;
 
-echo $cF->displayDiv('Type', '<p class="adMessage label2">'.$arrType[$rowDetail['type']]['name'].'</p>' );
+if(isset($rowDetail['type'])) echo $cF->displayDiv('Type', '<p class="adMessage label2">'.$arrType[$rowDetail['type']]['name'].'</p>' );
 if($rowDetail['header_id']!=''){
 	$data = $c->_model->_viewEditDetail('web_header', $rowDetail['header_id']);
 	echo $cF->displayDiv('Khóa học', '<p class="adMessage label2 header_id">'.$data['name'].'</p>' );

@@ -27,9 +27,9 @@ $name = 'menu_id';
 $where = "";
 $values = $c->menuList($lang, $where);
 $valueCheck=$rowDetail[$name];
-$data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxMenu', 1);
+$data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxItem', 1);
 if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
-$data .= $cF->inputHidden($name, $value, 'ad_field listValueMenu');
+$data .= $cF->inputHidden($name, $value, 'ad_field listValueItem');
 echo $cF->displayDiv('Danh mục hiển thị', '<div class="listCheckBox">'.$data.'</div>');
 
 $name = 'position_id';
@@ -37,9 +37,9 @@ if($rowDetail[$name]!=''){
 	$valueCheck=$rowDetail[$name];
 }else $valueCheck='';
 $values = $c->_model->_webPositionList(3);
-$data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxPosition', 1);
+$data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxItem', 1);
 $value=$rowDetail[$name];
-$data .= $cF->inputHidden($name, $value, 'ad_field listValuePosition');
+$data .= $cF->inputHidden($name, $value, 'ad_field listValueItem');
 echo $cF->displayDiv('Vị trí hiển thị', '<div class="listCheckBox2">'.$data.'</div>');
 
 $name = 'name';

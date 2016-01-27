@@ -15,32 +15,11 @@
     echo $cF->displayDiv('Email nhận', '<b class="label2 adMessage" id="email">'.$rowDetail['email'].'</b>');
     
     $name = 'type_id';
-    $values = $cA->_listTable('web_event_form', NULL, 'AND `type`=2 AND `type_id`=1');
+    $values = $cA->_listTable('web_event_form', NULL, 'AND `type`=2 AND `type_id`=2');
     array_unshift($values, array('name'=>'-- chọn form --', 'id'=>''));
     $data = $cF->select($name, $values, '', 'adInput adTxtMedium');
     $other = '<p class="adError error" id="type_id_error"></p>';
     echo $cF->displayDiv('Chọn form mẫu', $data.$other);
-    
-    $name = 'price';
-    $properties = array();
-    $properties[] = array('propertie'=>'maxlength', 'value'=>'9');
-    $properties[] = array('propertie'=>'placeholder', 'value'=>'Giá cá nhân khóa Public');
-    $data = $cF->inputText($name, '', 'adInput adTxtMedium', $properties);
-    echo $cF->displayDiv('Giá', $data);
-    
-    $name = 'totalusd';
-    $properties = array();
-    $properties[] = array('propertie'=>'maxlength', 'value'=>'8');
-    $properties[] = array('propertie'=>'placeholder', 'value'=>'Tổng cộng chi phí USD');
-    $data = $cF->inputText($name, '', 'adInput adTxtMedium', $properties);
-    echo $cF->displayDiv('Total (USD)', $data);
-    
-    $name = 'exchangerate';
-    $properties = array();
-    $properties[] = array('propertie'=>'maxlength', 'value'=>'8');
-    $properties[] = array('propertie'=>'placeholder', 'value'=>'Tỷ giá đổi USD sang VNĐ ngày hôm nay: '.date('d-m-Y') );
-    $data = $cF->inputText($name, '', 'adInput adTxtMedium', $properties);
-    echo $cF->displayDiv('Tỷ giá VNĐ', $data);
     
     $name = 'subject';
     $properties = array();
@@ -60,7 +39,7 @@
     echo $cF->displayDiv('Email BCC', $data);
     
     $name = 'btnSend';
-    $btnSend = $cF->inputButton($name, 'Gửi báo giá', 'adBtnLarge bgColorBlue1 corner8');
+    $btnSend = $cF->inputButton($name, 'Gửi khảo sát', 'adBtnLarge bgColorBlue1 corner8');
     echo $cF->displayDiv(' ', $btnSend);
     ?>
     <div id="loadingIframe"><div class="loading"></div></div>
@@ -74,10 +53,9 @@ $(document).ready(function(e) {
 		fields['loadFormTemplate'] = '1';
 		fields['id'] = $("#type_id").val();
 		fields['name'] = "<?php echo $rowDetail['name'];?>";
-		fields['course'] = "<?php if(isset($rowCourse)) echo $rowCourse['name'];?>";
-		fields['price'] = $("#price").val();
-		fields['totalusd'] = $("#totalusd").val();
-		fields['exchangerate'] = $("#exchangerate").val();
+		fields['link_khaosat'] = 1;
+		fields['table'] = "<?php echo $table;?>";
+		fields['table_id'] = "<?php echo $id;?>";
 		
 		$.ajax({ 	
 			url: 'ajax',
@@ -85,7 +63,6 @@ $(document).ready(function(e) {
 			data: fields,
 			cache:false,
 			success: function(data){
-				console.log(data);
 				data = $.parseJSON(data);
 				$("#subject").val(data.subject);
 				$("#email_bcc").val(data.email);
@@ -96,12 +73,6 @@ $(document).ready(function(e) {
 	}
 	
 	$("#type_id").live("change", function(){
-		autoLoadBaoGia();
-	});
-	
-	$("#price, #totalusd, #exchangerate").live("blur", function(){
-		var type_id = $("#type_id").val();
-		if(type_id=='') return false;
 		autoLoadBaoGia();
 	});
 	
@@ -125,7 +96,6 @@ $(document).ready(function(e) {
 			data: fields,
 			cache: false,
 			success: function(data){
-				console.log(data);
 				$("#iframe").html(data);
 				$("#iframe").css("padding", "30px");
 			}

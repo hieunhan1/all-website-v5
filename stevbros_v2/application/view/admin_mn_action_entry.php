@@ -48,7 +48,7 @@
     echo $cF->displayDiv('Email BCC', $data);
     
     $name = 'btnSend';
-    $btnSend = $cF->inputButton($name, 'Gửi báo giá', 'adBtnLarge bgColorBlue1 corner8');
+    $btnSend = $cF->inputButton($name, 'Gửi', 'adBtnLarge bgColorBlue1 corner8');
     echo $cF->displayDiv(' ', $btnSend);
     ?>
     <div id="loadingIframe"><div class="loading"></div></div>

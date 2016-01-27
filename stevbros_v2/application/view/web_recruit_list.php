@@ -57,10 +57,10 @@
 			);
 			$data = $c->_model->_headerData($arr);
 			foreach($data as $row){
-				echo '<p><input type="checkbox" name="courses_id" class="checkBox" value="'.$row['id'].'" style="float:left; margin:5px 10px 0 0" /> '.$row['name'].'</p>';
+				echo '<p><input type="checkbox" name="courses_id" class="checkBoxItem" value="'.$row['id'].'" style="float:left; margin:5px 10px 0 0" /> '.$row['name'].'</p>';
 			}
 			?>
-            <input type="hidden" name="courses_id" class="field_item listValueMenu" maxlength="30" check="2" message="Chọn khóa đào tạo" />
+            <input type="hidden" name="courses_id" class="field_item listValueItem" maxlength="30" check="2" message="Chọn khóa đào tạo" />
         	<p class="error"></p>
         </div>
         
