@@ -25,7 +25,7 @@ else
 	<div class="tagsHidden">
         <p class="fieldQuickView" type="txt" name="name">Name</p>
         <p class="fieldQuickView" type="txt" name="represented">Người đại điện</p>
-        <p class="fieldQuickView" type="txt" name="tel">Tel</p>
+        <p class="fieldQuickView" type="txt" name="phone">Tel</p>
         <p class="fieldQuickView" type="txt" name="taxcode">Mã số thuế</p>
         <p class="fieldQuickView" type="des" name="address">Address</p>
     </div>
@@ -43,7 +43,7 @@ else
         <?php
 		$i = 0;
 		$arr = array(
-			'select'=>'`id`, `code`, `name`, `represented`, `position`, `address`, `taxcode`, `tel`, `status`',
+			'select'=>'`id`, `code`, `name`, `represented`, `position`, `address`, `taxcode`, `phone`, `status`',
 			'table'=>$table,
 		);
 		$data = $c->selectFromAll($arr);
@@ -56,7 +56,7 @@ else
                 <td><?php echo $row['taxcode'];?></td>
                 <td><p class="height"><?php echo $row['represented'];?></p></td>
                 <td><p class="height"><?php echo $row['position'];?></p></td>
-                <td><p class="height"><?php echo $row['tel'];?></p></td>
+                <td><p class="height"><?php echo $row['phone'];?></p></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);

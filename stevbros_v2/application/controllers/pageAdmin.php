@@ -84,7 +84,7 @@ class pageAdmin{
 		$where = ltrim($where, ' AND');
 		if(isset($arr['where'])) $where.=$arr['where'];
 		
-		if(!isset($arr['order'])) $order = " `id` DESC "; else $order = " {$arr['order']}, `id` DESC ";
+		if(!isset($arr['order'])) $order = " `id` DESC "; else $order = " {$arr['order']}";
 		
 		$arrSQL = array(
 			'select'=>$arr['select'],
@@ -245,8 +245,8 @@ if(isset($_POST['btnLogin']) && !isset($_SESSION['adminID'])){
 	}
 }
 
-if(!isset($_SESSION['adminID'])){
-	include_once('view/admin_login.php');
-}else{
+if(isset($_SESSION['adminID'])){
 	include_once('view/admin.php');
+}else{
+	include_once('view/admin_login.php');
 }

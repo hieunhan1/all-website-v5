@@ -693,63 +693,74 @@ $(document).ready(function(e) {
 		listDistrict();
 	});*/
 	
-	function searchID(){
-		$(".value_id").live("blur", function(){
-			$(".value_id").parent().removeClass("activeSearch");
-			$(this).parent().addClass("activeSearch");
-			
-			var id = $(this).val();
-			var table = $(".activeSearch .value_view").attr("table");
-			if(id=='' || table=='') return false;
-			
-			$.ajax({
-				url: link_ajax,
-				type:'POST',
-				data:{searchID:id, table:table},
-				cache:false,
-				success: function(data) {
-					if(data!=''){
-						$(".activeSearch .value_name").val(data);
-					}else{
-						$(".activeSearch .value_name").val('');
-						popupLoad('<p class="adError">Không tìm thấy dữ liệu</p> <p class="clear10"></p> <p class="adBtnSmall bgColorGray corner5 popupClose">Close</p> <p class="clear1"></p></p>');
-					}
-					return true;
+	function searchID(tags){
+		$(".value_id").parent().removeClass("activeSearch");
+		$(tags).parent().addClass("activeSearch");
+		
+		var id = $(".activeSearch .value_id").val();
+		var table = $(".activeSearch .value_view").attr("table");
+		if(id=='' || table=='') return false;
+		
+		$.ajax({
+			url: link_ajax,
+			type:'POST',
+			data:{searchID:id, table:table},
+			cache:false,
+			success: function(data) {
+				if(data!=''){
+					$(".activeSearch .value_name").val(data);
+				}else{
+					$(".activeSearch .value_name").val('');
+					popupLoad('<p class="adError">Không tìm thấy dữ liệu</p> <p class="clear10"></p> <p class="adBtnSmall bgColorGray corner5 popupClose">Close</p> <p class="clear1"></p></p>');
 				}
-			});
+				return true;
+			}
 		});
 	}
-	searchID();
+	$(".value_id").live("blur", function(){
+		searchID( $(this) );
+	});
+	$(".value_id").each(function(index, element){
+		searchID( $(this) );
+	});
 	
-	function searchName(name, table){
-		$(".value_search").live("click", function(){
-			$(".value_search").parent().removeClass("activeSearch");
-			$(this).parent().addClass("activeSearch");
-			
-			var name = check_text_length(".activeSearch .value_name", ".activeSearch .value_name_error", "Từ khóa phải hơn 2 ký tự", 2);
-			var table = $(".activeSearch .value_view").attr("table");
-			if(name==false || table=='') return false;
-			$.ajax({
-				url: link_ajax,
-				type:'POST',
-				data:{searchName:name, table:table},
-				cache:false,
-				success: function(data) {
-					//console.log(data);
-					if(data!=''){
-						data = '<p class="title">Dữ liệu tìm thấy:</p>' + data;
-						$(".activeSearch .value_view").html(data);
-						$(".activeSearch .value_view").show(200);
-					}
-					else{
-						popupLoad('<p class="adError">Không tìm thấy dữ liệu</p> <p class="clear10"></p> <p class="adBtnSmall bgColorGray corner5 popupClose">Close</p> <p class="clear1"></p></p>');
-					}
-					return true;
+	function searchName(tags){
+		$(".value_view").hide(200);
+		$(".value_search").parent().removeClass("activeSearch");
+		$(tags).parent().addClass("activeSearch");
+		
+		var name = check_text_length(".activeSearch .value_name", ".activeSearch .value_name_error", "Từ khóa phải hơn 2 ký tự", 2);
+		var table = $(".activeSearch .value_view").attr("table");
+		if(name==false || table=='') return false;
+		$.ajax({
+			url: link_ajax,
+			type:'POST',
+			data:{searchName:name, table:table},
+			cache:false,
+			success: function(data) {
+				//console.log(data);
+				if(data!=''){
+					data = '<p class="title">Dữ liệu tìm thấy:</p>' + data;
+					$(".activeSearch .value_view").html(data);
+					$(".activeSearch .value_view").show(200);
+					setTimeout(function(){ popupAutoSize(); },500);
 				}
-			});
+				else{
+					popupLoad('<p class="adError">Không tìm thấy dữ liệu</p> <p class="clear10"></p> <p class="adBtnSmall bgColorGray corner5 popupClose">Close</p> <p class="clear1"></p></p>');
+				}
+				return true;
+			}
 		});
 	}
-	searchName();
+
+	$(".value_search").live("click", function(){
+		searchName( $(this) );
+	});
+
+	$(".value_name").keydown(function(e){
+		if(e.keyCode==13) searchName( $(this) );
+	});
+	
 	
 	function getValueData(){
 		$(".value_data").live("click", function(){

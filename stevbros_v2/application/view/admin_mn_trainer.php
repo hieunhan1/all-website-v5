@@ -8,13 +8,6 @@ $type = array(
 	'5' => array('id'=>5, 'name'=>'Expert'),
 );
 
-$price_level = array(
-	'0' => array('id'=>'', 'name'=>'-- mức giá --'),
-	'1' => array('id'=>1, 'name'=>'Low'),
-	'2' => array('id'=>2, 'name'=>'Medium'),
-	'3' => array('id'=>3, 'name'=>'High'),
-);
-
 $arrFrmSearch = array();
 
 $name = 'LIKE_name';
@@ -31,11 +24,6 @@ $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=
 
 $name = 'type';
 $value = $type;
-if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
-$arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
-
-$name = 'price_level';
-$value = $price_level;
 if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
 
@@ -60,13 +48,12 @@ else
             <th width="13%" align="left">Phone</th>
             <th width="18%" align="left">Email</th>
             <th width="10%" align="left">Chức vụ</th>
-            <th width="10%" align="left">Mức giá</th>
             <th width="100">Thao tác</th>
         </tr>
         <?php
 		$i = 0;
 		$arr = array(
-			'select'=>'`id`, `name`, `phone`, `email`, `address`, `type`, `price_level`, `status`',
+			'select'=>'`id`, `name`, `phone`, `email`, `address`, `type`, `status`',
 			'table'=>$table,
 		);
 		$data = $c->selectFromAll($arr);
@@ -78,7 +65,6 @@ else
                 <td><?php echo $row['phone'];?></td>
                 <td><p class="height"><?php echo $row['email'];?></p></td>
                 <td><?php echo $type[$row['type']]['name'];?></td>
-                <td><?php echo $price_level[$row['price_level']]['name'];?></td>
                 <td align="center" class="adAction">
                 	<?php
                     $str=''; $key = array_keys($row);

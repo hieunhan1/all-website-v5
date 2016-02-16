@@ -9,13 +9,6 @@ $type = array(
 	'5' => array('id'=>5, 'name'=>'Expert'),
 );
 
-$price_level = array(
-	'0' => array('id'=>0, 'name'=>'No'),
-	'1' => array('id'=>1, 'name'=>'Low'),
-	'2' => array('id'=>2, 'name'=>'Medium'),
-	'3' => array('id'=>3, 'name'=>'High'),
-);
-
 $cF = new controlAdminForm;
 
 $id = $c->createEditData($table, $arrAction, $rowDetail);
@@ -39,13 +32,19 @@ if($rowDetail[$name]!=''){
 $data = $cF->select($name, $values, $valueCheck, 'ad_field adInput adTxtMedium');
 echo $cF->displayDiv('Chức vụ', $data);
 
-$name = 'price_level';
-$values = $price_level;
-if($rowDetail[$name]!=''){
-	$valueCheck=$rowDetail[$name];
-}else $valueCheck=0;
-$data = $cF->select($name, $values, $valueCheck, 'ad_field adInput adTxtMedium');
-echo $cF->displayDiv('Mức giá', $data);
+$name = 'price_public';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'10');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Mức giá public', $data);
+
+$name = 'price_business';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'10');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Mức giá doanh nghiệp', $data);
 
 $name = 'name';
 $properties = array();
@@ -61,14 +60,14 @@ $name = 'phone';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'30');
 $value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
 echo $cF->displayDiv('Phone', $data);
 
 $name = 'email';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'60');
 $value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
 echo $cF->displayDiv('Email', $data);
 
 $name = 'address';
@@ -90,18 +89,24 @@ $name = 'exp_work';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'3');
 $value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
 echo $cF->displayDiv('Số năm kinh nghiệm', $data);
 
 $name = 'courses_id';
+if($rowDetail[$name]!=''){
+	$valueCheck=$rowDetail[$name];
+}else $valueCheck='';
+$arr = array(
+	'select' => '`id`, `name`',
+	'from' => '`web_header`',
+	'where' => '`parent`=70 AND `properties`=1 AND `status`=1',
+	'order' => '`_order`',
+ );
+$values = $c->_model->_select($arr);
+$data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxItem', 1);
 $value = $rowDetail[$name];
-$value = explode(',', $value);
-$data = '';
-for($i=1; $i<=count($value)-2; $i++){
-	$row = $c->_model->_viewEditDetail('web_header', $value[$i]);
-	$data .= '<p class="adMessage label2">'.$row['name'].'</p>';
-}
-echo $cF->displayDiv('Đào tạo lĩnh vực', $data);
+$data .= $cF->inputHidden($name, $value, 'ad_field listValueItem');
+echo $cF->displayDiv('Đào tạo lĩnh vực', '<div class="listCheckBox2">'.$data.'</div>');
 
 $name = 'yourself';
 $value=$rowDetail[$name];

@@ -44,6 +44,87 @@ if(isset($_POST['insertCustomerContract'])){
 	return true;
 }
 
+if(isset($_POST['insertCustomerClass'])){
+	if($c->checkRole('create')==false) return false;
+	$table = $c->_model->_changeDauNhay($_POST['table']);
+	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);
+	$class_id = $c->_model->_changeDauNhay($_POST['class_id']);
+	if($table=='' || $table_id=='' || $class_id==''){
+		$arr = array('error'=>1, 'message'=>'Input error');
+		echo $c->exportError($arr);
+		return false;
+	}
+	
+	//get customer
+	$data = $c->_model->_viewDetail($table, $table_id);
+	if(count($data)==0){
+		$arr = array('error'=>1, 'message'=>'Không tìm thấy khách hàng này trong cơ sở dữ liệu');
+		echo $c->exportError($arr);
+		return false;
+	}
+	
+	//check class info
+	$arr = array(
+		'select' => '`id`',
+		'from' => '`mn_class_info`',
+		'where' => "`class_id`='{$class_id}' AND `_table`='{$table}' AND `table_id`='{$table_id}'",
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data)!=0){
+		$arr = array('error'=>1, 'message'=>'Khách hàng này đã có trong lớp học này');
+		echo $c->exportError($arr);
+		return false;
+	}
+	
+	//insert data
+	$fields = array('class_id', '_table', 'table_id');
+	$values = array($class_id, $table, $table_id);
+	$result = $c->_model->_getSql('create', 'mn_class_info', $fields, $values);
+	if($result==false){
+		$arr = array('error'=>1, 'message'=>'Insert error: '.$result);
+		echo $c->exportError($arr);
+		return false;
+	}
+	
+	$arr = array('error'=>0, 'message'=>'Thêm thành công');
+	echo $c->exportError($arr);
+	return true;
+}
+
+if(isset($_POST['loadWebContact'])){
+	$table = $c->_model->_changeDauNhay($_POST['table']);
+	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);
+	if($table=='' || $table_id==''){
+		$arr = array('error'=>1, 'message'=>'Error: Data empty');
+		echo $c->exportError($arr);
+		return false;
+	}
+	$rowContact = $c->_model->_viewDetail($table, $table_id);
+	if(count($rowContact)==0){
+		$arr = array('error'=>1, 'message'=>'Error: Không tìm thấy trong database');
+		echo $c->exportError($arr);
+		return false;
+	}
+	
+	$arr = array('error'=>0);
+	$keys = array_keys($rowContact);
+	$values = array_values($rowContact);
+	for($i=1; $i<count($keys); $i++){
+		if(!preg_match('/^date/i', $keys[$i])){
+			$value = $c->_model->_removeNewLine($values[$i]);
+			$value = str_replace('"', "'", $value);
+			$value = str_replace('	', '', $value);
+		}else{
+			$value = date('Y-m-d- H:i:s', $values[$i]);
+		}
+		$arr[$keys[$i]] = $value;
+	}
+	
+	//$arr = array('message'=>'');
+	echo $c->exportError($arr);
+	return true;
+}
+
 /*web_event_form*/
 function css_script(){
 	$str = '<base href="'.CONS_BASE_URL.'/" />
@@ -235,6 +316,181 @@ if(isset($_POST['sendMailCustomer'])){
 		echo '<div class="adError"><p>ERROR sendmail:</p>'.$data.'</div>';
 	}
 	
+	return true;
+}
+
+if(isset($_POST['sendMailFee'])){
+	$table = $c->_model->_changeDauNhay($_POST['table']);
+	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);
+	if($table=='' || $table_id==''){
+		echo '<span class="adError">Error: Data empty</span>';
+		return false;
+	}
+	
+	//get đóng học phí
+	$arr = array(
+		'select' => '*',
+		'from' => 'mn_fee',
+		'where' => "`status`=1 AND `_table`='{$table}' AND `table_id`='{$table_id}'",
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data)==0){
+		echo '<span class="adError">Error: Không tìm thấy thông tin đóng học phí</span>';
+		return false;
+	}
+	$rowFee = $data[0];
+	
+	//get thong tin khach hang
+	$rowCustomer = $c->_model->_viewDetail($table, $table_id);
+	if(count($rowCustomer)==0){
+		echo '<span class="adError">Error: Không tìm thấy thông tin khách hàng</span>';
+		return false;
+	}
+	$name = $rowCustomer['name'];
+	$email = $rowCustomer['email'];
+	
+	//get form thong bao
+	$event_id = 15;
+	$rowForm = $c->_model->_viewDetail('web_event_form', $event_id);
+	$subject = $rowForm['subject'];
+	$arr = array(
+		'{_name}' => $rowCustomer['name'],
+		'{_price}' => number_format($rowFee['price'], 0, ',', '.'),
+	);
+	$content = $c->contentReplace($rowForm['content'], $arr);
+	$AddBCC = '';
+	$AddAddress = array('field'=>$email, 'name'=>$name);
+	if($rowForm['email']!='') $AddBCC = array('field'=>$rowForm['email'], 'name'=>'Stevbros');
+	$arrSend = array(
+		'AddAddress' => $AddAddress,
+		'AddBCC' => $AddBCC,
+		'Subject' => $subject,
+		'Body' => $content,
+	);
+	
+	//sendmail
+	$data = $c->sendMail($arrSend, 1);
+	if(!preg_match("/error:/i", $data)){
+		$cM->_insertContactSendMail($name, $email, $content, $event_id, $table, $table_id);
+		echo '<span class="adMessage"><b>Gửi mail '.$email.' thành công.</b></span>';
+	}else{
+		echo '<div class="adError"><p>ERROR sendmail:</p>'.$data.'</div>';
+	}
+	
+	return true;
+}
+
+if(isset($_POST['sendMailClass'])){
+	$class_id = $c->_model->_changeDauNhay($_POST['class_id']); settype($class_id, 'int');
+	$table = 'mn_class_info';
+	if($class_id=='' || $class_id=='0'){
+		$arr = array('error'=>1, 'message'=>'Error: Data empty');
+		echo $c->exportError($arr);
+		return false;
+	}
+	
+	//check class_id
+	$arr = array(
+		'select' => '*',
+		'from' => 'mn_class_info',
+		'where' => "`class_id`='{$class_id}'",
+	);
+	$dataClassInfo = $c->_model->_select($arr);
+	if(count($dataClassInfo)==0){
+		$arr = array('error'=>1, 'message'=>'Error: Không tìm thấy thông tin lớp học này.');
+		echo $c->exportError($arr);
+		return false;
+	}
+	
+	//get lop hoc
+	$rowClass = $c->_model->_viewDetail('mn_class', $class_id);
+	
+	//get giang vien
+	$rowTrainer = $c->_model->_viewDetail('mn_trainer', $rowClass['trainer_id']);
+	
+	//sendMail Customer
+	$event_id = 16;
+	$rowForm = $c->_model->_viewDetail('web_event_form', $event_id);
+	$subject = $rowForm['subject'];
+	$AddBCC = '';
+	if($rowForm['email']!='') $AddBCC = array('field'=>$rowForm['email'], 'name'=>'Stevbros');
+	
+	//get customer
+	function sendMailClass($arrData){
+		global $c;
+		$name = $arrData['name'];
+		$email = $arrData['email'];
+		if( $c->_model->_checkEmail($email)==false )
+			return "<p class='adError'>ERROR: email không đúng <b>{$name} | {$email}</b></p>";
+		
+		$arr = array(
+			'{_name}' => $name,
+			'{_class}' => $arrData['class']['name'],
+			'{_date}' => date('d/m/Y', $arrData['class']['date']),
+		);
+		$content = $c->contentReplace($arrData['content'], $arr);
+		$AddAddress = array('field'=>$email, 'name'=>$name);
+		$AddBCC = '';
+		if($arrData['bcc']!='') $AddBCC=array('field'=>$arrData['bcc'], 'name'=>'Stevbros');
+		$arrSend = array(
+			'AddAddress' => $AddAddress,
+			'AddBCC' => $arrData['bcc'],
+			'Subject' => $arrData['subject'],
+			'Body' => $content,
+		);
+		$data = $c->sendMail($arrSend, 1);
+		if(!preg_match("/error:/i", $data)){
+			global $cM;
+			$cM->_insertContactSendMail($name, $email, $content, $arrData['event_id'], $arrData['table'], $arrData['table_id']);
+			return "<p>Gửi mail <b class='adMessage'>{$name} - {$email}</b> thành công.</p>";
+		}else{
+			return "<p class='adError'>ERROR sendmail: <b>{$name} - {$email}</b></p>";
+		}
+	}
+	$str = '';
+	foreach($dataClassInfo as $rowClassInfo){
+		$rowCustomer = $c->_model->_viewDetail($rowClassInfo['_table'], $rowClassInfo['table_id']);
+		$arrData = array(
+			'name' => $rowCustomer['name'],
+			'email' => $rowCustomer['email'],
+			'class' => array('name'=>$rowClass['name'], 'date'=>$rowClass['date_start']),
+			'subject' => $rowForm['subject'],
+			'content' => $rowForm['content'],
+			'bcc' => $rowForm['email'],
+			'event_id' => $event_id,
+			'table' => $table,
+			'table_id' => $class_id,
+		);
+		$str .= sendMailClass($arrData);
+		if($rowClassInfo['_table']=='mn_contract'){
+			$arr = array(
+				'select' => '`mn_customer`.`name`, `mn_customer`.`email`',
+				'from' => '`mn_customer`, `mn_contract_customer`',
+				'where' => "`contract_id`='{$rowClassInfo['table_id']}' AND `customer_id`=`mn_customer`.`id`",
+			);
+			$data = $c->_model->_select($arr);
+			foreach($data as $row){
+				$arrData = array(
+					'name' => $row['name'],
+					'email' => $row['email'],
+					'class' => array('name'=>$rowClass['name'], 'date'=>$rowClass['date_start']),
+					'subject' => $rowForm['subject'],
+					'content' => $rowForm['content'],
+					'bcc' => $rowForm['email'],
+					'event_id' => $event_id,
+					'table' => $table,
+					'table_id' => $class_id,
+				);
+				$str .= sendMailClass($arrData);
+			}
+		}
+	}
+	$arr = array(
+		'error' => 0,
+		'message' => 'Gửi mail thành công',
+		'data' => $str,
+	);
+	echo $c->exportError($arr);
 	return true;
 }
 /*end sendMail*/

@@ -58,7 +58,7 @@ else
 			),
 			'table'=>'`web_users_role`, `web_users`, `web_admin`',
 			'where'=>'AND `users_id`=`web_users`.`id` AND `admin_id`=`web_admin`.`id`',
-			'order'=>'`users_id` DESC',
+			'order'=>'`users_id` DESC, `web_admin`.`type`, `web_admin`.`_order`',
 		);
 		$data = $c->selectFromAll($arr);
 		foreach($data as $row){

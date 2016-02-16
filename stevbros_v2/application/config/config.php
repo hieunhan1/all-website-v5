@@ -1,10 +1,10 @@
 <?php
 include_once('configUpload.php');
-define('CONS_BASE_URL', 'http://localhost/all_v5/stevbros_v2');/*domain*/
+define('CONS_BASE_URL', 'http://www.iappscode.com/stevbros');
 define('CONS_HOST', 'localhost');
-define('CONS_USER_DB', 'root');
-define('CONS_PASS_DB', '');
-define('CONS_NAME_DB', 'stevbros_v2');
+define('CONS_USER_DB', 'iappscod_test');
+define('CONS_PASS_DB', 'iappscod_test#123*');
+define('CONS_NAME_DB', 'iappscod_test');
 define('CONS_DEFAULT_LANG', 'vi');
 
 /*cache*/
@@ -13,10 +13,10 @@ define('CONS_CACHE_TIME', 3600*12);
 define('CONS_CACHE_EXT', 'ch');
 
 /*SEND MAIL*/
-define('CONS_HOST_SMTP_SERVER', 'localhost');
-define('CONS_SEND_MAIL_ACCOUNT', 'no-reply@iappscode.com');
-define('CONS_SEND_MAIL_PASSWORD', 'no-reply#123*');
-define('CONS_SEND_MAIL_FROM', 'admin@iappscode.com');
+define('CONS_HOST_SMTP_SERVER', 'email-smtp.us-east-1.amazonaws.com');
+define('CONS_SEND_MAIL_ACCOUNT', 'AKIAIJ55J26CXLAOFWLQ');
+define('CONS_SEND_MAIL_PASSWORD', 'AryH5jaeBi4EjAErX1xthEvzmgP74zvyNnhVT2oAUwcJ');
+define('CONS_SEND_MAIL_FROM', 'no-reply@iappscode.com');
 define('CONS_SEND_MAIL_FROM_NAME', 'Admin');
 define('CONS_RECEIVE_MAIL_ACCOUNT', 'hieunhan112@gmail.com');
 define('CONS_RECEIVE_MAIL_NAME', 'No name');

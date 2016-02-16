@@ -35,7 +35,7 @@
 		'{_company_vi}' => $rowContract['name_vi'],
 		'{_address}' => $rowContract['address'],
 		'{_address_vi}' => $rowContract['address_vi'],
-		'{_tel}' => $rowContract['tel'],
+		'{_tel}' => $rowContract['phone'],
 		'{_fax}' => $rowContract['fax'],
 		'{_represented}' => $rowContract['represented'],
 		'{_represented_vi}' => $rowContract['represented_vi'],

@@ -7,6 +7,28 @@ $id = $c->createEditData($table, $arrAction, $rowDetail);
 $data = $cF->inputHidden('id', $id, 'ad_field');
 echo $data;
 
+if($id==0){
+	$name = 'contact_id';
+	$properties = array();
+	$properties[] = array('propertie'=>'maxlength', 'value'=>'8');
+	$properties[] = array('propertie'=>'placeholder', 'value'=>'ID liên hệ');
+	$properties[] = array('propertie'=>'style', 'value'=>'width:80px');
+	$data = $cF->inputText($name, '', 'adInput value_id', $properties);
+	$properties = array();
+	$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
+	$properties[] = array('propertie'=>'placeholder', 'value'=>'Tên người liên hệ');
+	$properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5px');
+	$data .= $cF->inputText('', '', 'adInput value_name', $properties);
+	$data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" /> <p class="adError error value_name_error"></p>';
+	$data .= '<div class="value_view" table="web_contact"></div>';
+	echo $cF->displayDiv('Liên hệ trực tuyến', $data.'<p class="adNotes">Nếu khách hàng đã liên hệ từ website tìm thông tin tại đây</p>');
+}
+
+$name = 'datetime';
+if($rowDetail[$name]=='') $value = date('Y-m-d H:i:s');
+else $value=$rowDetail[$name];
+echo $data = $cF->inputHidden($name, $value, 'ad_field');
+
 $name = 'status';
 $values = array();
 $values[] = array('name'=>'Enable', 'id'=>'1');
@@ -87,3 +109,50 @@ $btnCancel = $cF->btnCancel($name, 'Quay lại');
 $name = 'btnSubmitAjax';
 $btnSubmit = $cF->inputSubmit($name, $arrAction['lable'], 'adBtnLarge bgColorBlue1 corner8');
 echo $cF->displayDiv(' ', $btnSubmit.$btnCancel);
+?>
+
+<script type="text/javascript">
+$(document).ready(function(e) {
+	function autoGetDataContact(){
+		var table_id = $(".value_id").val();
+		var fields = new Object();
+		fields['loadWebContact'] = 1;
+		fields['table'] = 'web_contact';
+		fields['table_id'] = table_id;
+		
+		$.ajax({ 	
+			url: 'ajax',
+			type: 'post',
+			data: fields,
+			cache:false,
+			success: function(data){
+				//console.log(data);
+				data = data.replace(/\n/g, "");
+				data = $.parseJSON(data);
+				var keys = Object.keys(data);
+				var error = data.error;
+				var message = data.message;
+				if(error=='0'){
+					for(var i=0; i<keys.length; i++){
+						if( $("#" + keys[i]).length ){
+							$("#" + keys[i]).val( data[keys[i]] );
+						}
+					}
+					return true;
+				}else if(error=='1'){
+					$(".value_name_error").html(message);
+					return false;
+				}
+			}
+		});
+	}
+	
+    $(".value_data").live("click", function(){
+		autoGetDataContact();
+	});
+	
+	$(".value_id").live("blur", function(){
+		autoGetDataContact();
+	});
+});
+</script>

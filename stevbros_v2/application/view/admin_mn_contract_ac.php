@@ -85,7 +85,14 @@ $value=$rowDetail[$name];
 $data .= '<br />'.$cF->textArea($name, $value, 'ad_field adInput adTextArea fieldVietnamese', $properties);
 echo $cF->displayDiv('Address', $data);
 
-$name = 'tel';
+$name = 'email';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Email', $data);
+
+$name = 'phone';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'15');
 $value=$rowDetail[$name];
@@ -200,14 +207,14 @@ echo $cF->displayDiv('Giá trị hợp đồng', $data);
 
 $str=''; $i=0;
 $arr = array(
-	"select"=>"`mn_contract_customer`.`id`, `name`",
+	"select"=>"`mn_contract_customer`.`id`, `name`, `phone`, `email`",
 	"from"=>"`mn_contract_customer`, `mn_customer`",
 	"where"=>"`contract_id`='{$id}' AND `customer_id`=`mn_customer`.`id`",
 );
 $data = $c->_model->_select($arr);
 foreach($data as $row){
 	$i++;
-	$str.='<p class="item">'.$i.'. '.$row['name'].'</p>';
+	$str.='<p class="item">'.$i.'. '.$row['name'].' - '.$row['email'].' - '.$row['phone'].'</p>';
 }
 $str = '<div id="listCustomer" class="label2">'.$str.'</div>';
 $data = '<div class="seo">'.$cF->displayDiv('D.sách khách hàng', $str).'</div>';
@@ -320,8 +327,9 @@ $(document).ready(function(e) {
 	});
 	
 	$("#btnViewContract").live("click", function(){
+		var id = $("#id").val();
 		var data = '<div><span class="adBtnSmall bgColorGray corner8 popupCloseReload">[ x ] Close</span></div> <div class="clear10"></div>';
-			data+= '<iframe src="ajax/?loadFormEvent=5&table=<?php echo $table;?>&id=<?php echo $id;?>" style="width:700px; height:500px; border:none"></iframe>';
+			data+= '<iframe src="ajax/?loadFormEvent=5&table=<?php echo $table;?>&id=' + id + '" style="width:700px; height:500px; border:none"></iframe>';
 		popupLoad(data);
 	});
 });

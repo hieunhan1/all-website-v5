@@ -26,7 +26,7 @@ class modelAdmin extends modelDB{
 	public function _listTable($table, $order=NULL, $where=NULL, $limit=NULL){
 		if($order==NULL) $order="ORDER BY `name`"; else $order="ORDER BY {$order}";
 		if($limit!=NULL) $limit="LIMIT {$limit}";
-		$sql = "SELECT `id`, `name` FROM `{$table}` WHERE `status`=1 {$where} {$order} {$limit}";
+		$sql = "SELECT `id`, `name` FROM `{$table}` WHERE `id`<>0 {$where} {$order} {$limit}";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[$row['id']] = $row;
