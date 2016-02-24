@@ -7,7 +7,7 @@ if(isset($_POST['rejectContact'])){
 	$type = $c->_model->_changeDauNhay($_POST['type']);
 	if($name=='' || $type=='' || $email==false){
 		$arr = array('error'=>1, 'message'=>'Error: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	$ipAddress=$c->checksIpAddress();
@@ -65,11 +65,11 @@ if(isset($_POST['rejectContact'])){
 		$notify = str_replace('"', "'", $notify);
 		$notify = $c->_model->_removeNewLine($notify);
 		$arr = array('error'=>0, 'message'=>$notify);
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return true;
 	}else{
 		$arr = array('error'=>1, 'message'=>'Error: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 }
@@ -124,7 +124,7 @@ if(isset($_GET['viewPDF'])){
 	$message = $c->_model->_changeDauNhay($_POST['message']);
 	if($name=='' || $email=='' || $message==''){
 		$arr = array('error'=>1, 'message'=>'Error: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	$ipAddress=$c->checksIpAddress();
@@ -134,11 +134,11 @@ if(isset($_GET['viewPDF'])){
 	if($data!=false){
 		$str = "<div class='messageContact viewpost'><p class='title'>Contact Success</p><p>Please notify that you have contacted successfully to <b>{$config['sitename']}</b> website. We will reply to you soon.</p><p>Respect,</p></div>";
 		$arr = array('error'=>0, 'message'=>$str);
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return true;
 	}else{
 		$arr = array('error'=>1, 'message'=>'Error: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 }*/
@@ -149,7 +149,7 @@ if(isset($_POST['rejectTrainer'])){
 	$email = $c->_model->_checkEmail($_POST['email']);
 	if($name=='' || $email==false){
 		$arr = array('error'=>1, 'message'=>'Error 01: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	$ipAddress=$c->checksIpAddress();
@@ -179,11 +179,11 @@ if(isset($_POST['rejectTrainer'])){
 		$notify = str_replace('"', "'", $notify);
 		$notify = $c->_model->_removeNewLine($notify);
 		$arr = array('error'=>0, 'message'=>$notify);
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return true;
 	}else{
 		$arr = array('error'=>1, 'message'=>'Error 02: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 }
@@ -196,7 +196,7 @@ if(isset($_POST['rejectOpinion'])){ /*viet Blog và Y kien*/
 	$content = $c->_model->_changeDauNhay($_POST['rejectcontent']);
 	if($name=='' || $authors=='' || $content=='' || $other==''){
 		$arr = array('error'=>1, 'message'=>'Error 01: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
@@ -243,11 +243,11 @@ if(isset($_POST['rejectOpinion'])){ /*viet Blog và Y kien*/
 		$notify = str_replace('"', "'", $notify);
 		$notify = $c->_model->_removeNewLine($notify);
 		$arr = array('error'=>0, 'message'=>$notify);
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return true;
 	}else{
 		$arr = array('error'=>1, 'message'=>'Error 02: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 }
@@ -286,7 +286,7 @@ if(isset($_GET['entrytest'])){
 if(isset($_POST['entrytestUser'])){
 	if( !isset($_POST['table']) || !isset($_POST['table_date']) || !isset($_POST['menu_id']) || !isset($_POST['entrytest_id']) || !isset($_POST['answers']) ){
 		$arr = array('error'=>1, 'message'=>'Error 01: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	$table = $c->_model->_changeDauNhay($_POST['table']);
@@ -304,7 +304,7 @@ if(isset($_POST['entrytestUser'])){
 	$data = $c->_model->_select($arr);
 	if(count($data)==0){
 		$arr = array('error'=>1, 'message'=>'Error 02');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	$table_id = $data[0]['id'];
@@ -315,13 +315,13 @@ if(isset($_POST['entrytestUser'])){
 	$check = $c->_model->_checkEntryTestUser($menu_id, $table, $table_date, $entrytest_id);
 	if( count($check)!=0 ){
 		$arr = array('error'=>1, 'message'=>'Error 03: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	$c->_model->_insertEntryTestUser($menu_id, $table, $table_date, $entrytest_id, $answers);
 	
 	$arr = array('error'=>0, 'message'=>'Success');
-	echo $c->exportError($arr);
+	echo json_encode($arr);
 	return true;
 }
 
@@ -336,7 +336,7 @@ if(isset($_POST['entrytestThongBao'])){
 	$data = $c->_model->_select($arr);
 	if(count($data)==0){
 		$arr = array('error'=>1, 'message'=>'Error');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	$table_id = $data[0]['id'];
@@ -411,7 +411,7 @@ if(isset($_POST['rejectKhaoSat'])){
 	$data = $c->_model->_select($arr);
 	if(count($data)==0){
 		$arr = array('error'=>1, 'message'=>'Error 01');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	$table_id = $data[0]['id'];
@@ -426,7 +426,7 @@ if(isset($_POST['rejectKhaoSat'])){
 	$data = $c->_model->_select($arr);
 	if(count($data)>0){
 		$arr = array('error'=>0, 'message'=>'<p>You have completed the survey. Stevbros checks and contact you soon.<br /><em>Bạn đã hoàn thành bản khảo sát. Stevbros sẽ kiểm tra và liên hệ với bạn sớm nhất.</em></p><p>Respect,</p>');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
@@ -465,7 +465,7 @@ if(isset($_POST['rejectKhaoSat'])){
 	}
 	
 	$arr = array('error'=>0, 'message'=>'<p>You have completed the survey. Stevbros checks and contact you soon.<br /><em>Bạn đã hoàn thành bản khảo sát. Stevbros sẽ kiểm tra và liên hệ với bạn sớm nhất.</em></p><p>Respect,</p>');
-	echo $c->exportError($arr);
+	echo json_encode($arr);
 	return true;
 }
 /*end TrainingNeedAssessment khảo sát*/

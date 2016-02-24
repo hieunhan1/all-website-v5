@@ -237,9 +237,8 @@ if(isset($_POST['btnLogin']) && !isset($_SESSION['adminID'])){
 	$cUser = new controlUsers;
 	$user = trim($_POST['username']);
 	$pass = $_POST['password'];
-	$group=3;
 	
-	$error = $cUser->login($user, $pass, $group);
+	$error = $cUser->login($user, $pass);
 	if($error==1){
 		$_SESSION['adminRole'] = $cUser->_model->_listRole($_SESSION['adminID']);
 	}

@@ -42,17 +42,17 @@ if(isset($_POST['rejectCreateData'])){
 	$table = $c->_model->_changeDauNhay($_POST['rejectTable']);
 	if($table==''){
 		$arr = array('error'=>1, 'message'=>'Error: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	$data = $c->createEditData($table);
 	if($data!=false){
 		$arr = array('error'=>0, 'message'=>'Đã lưu vào database', 'id'=>$data);
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return true;
 	}else{
 		$arr = array('error'=>1, 'message'=>'Error: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 }
@@ -73,7 +73,7 @@ if(isset($_POST['checksUsersRole'])){
 	$data = $c->_model->_checksUsersRole($users_id, $admin_id);
 	$check = count($data);
 	$arr = array('error'=>$check, 'message'=>'= 0 Insert | = 1 Update', 'id'=>$data['id']);
-	echo $c->exportError($arr);
+	echo json_encode($arr);
 	return true;
 }
 if(isset($_POST['rejectInsertListRole'])){
@@ -82,7 +82,7 @@ if(isset($_POST['rejectInsertListRole'])){
 	$admin_id = $c->_model->_changeDauNhay($_POST['admin_id']); settype($admin_id, 'int');
 	if($table=='' || $users_id==0 || $admin_id==0){
 		$arr = array('error'=>1, 'message'=>'Error: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
@@ -94,11 +94,11 @@ if(isset($_POST['rejectInsertListRole'])){
 	$data = $c->createEditData($table);
 	if($data!=false){
 		$arr = array('error'=>0, 'message'=>'Đã lưu vào database', 'id'=>$data);
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return true;
 	}else{
 		$arr = array('error'=>1, 'message'=>'Error: Please press F5 key to try again');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 }
@@ -228,28 +228,45 @@ if(isset($_POST['viewFrmContent'])){
 if(isset($_POST['searchID'])){
 	$id = $c->_model->_changeDauNhay($_POST['searchID']);
 	$table = $c->_model->_changeDauNhay($_POST['table']);
-	$ad = new modelAdmin;
-	$data = $ad->_listTable($table, NULL, " AND `id`='{$id}' ");
-	foreach($data as $row){
-		echo $row['name'];
-		return true;
-	}
+	
+	$arr = array(
+		'select' => '*',
+		'from' => $table,
+		'where' => "`id`='{$id}'",
+		'limit' => 1,
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data)==0) return false;
+	
+	$row = $data[0]; $phone=''; $email='';
+	if(isset($row['phone'])) $phone=' ('.$row['phone'];
+	if(isset($row['email'])) $email=' - '.$row['email'].')';
+	echo $row['name'].$phone.$email;
 	return true;
 }
 
 if(isset($_POST['searchName'])){
 	$name = $c->_model->_changeDauNhay($_POST['searchName']);
 	$table = $c->_model->_changeDauNhay($_POST['table']);
-	if(isset($_POST['limit'])) $limit = $c->_model->_changeDauNhay($_POST['limit']);
-	else $limit=20;
-	$where='';
-	//if($table=='web_header') $where .= " AND `properties`=2 ";
+	$field = $c->_model->_changeDauNhay($_POST['field']);
 	
-	$ad = new modelAdmin;
-	$where .= "AND `name` LIKE '%{$name}%'";
-	$data =$ad->_listTable($table, NULL, $where, $limit);
+	$name = explode('(', $name);
+	$name = trim($name[0]);
+	
+	$arr = array(
+		'select' => '*',
+		'from' => $table,
+		'where' => "`name` LIKE '%{$name}%' ",
+		'order' => '`name`',
+		'limit' => 20,
+	);
+	$data = $c->_model->_select($arr);
+	
 	foreach($data as $row){
-		echo '<p class="value_data" id="'.$row['id'].'" title="Click để chọn">'.$row['name'].'</p>';
+		 $phone=''; $email='';
+		if(isset($row['phone'])) $phone=' ('.$row['phone'];
+		if(isset($row['email'])) $email=' - '.$row['email'].')';
+		echo '<p class="value_data" id="'.$row['id'].'" title="Click để chọn">'.$row['name'].$phone.$email.'</p>';
 	}
 	return true;
 }

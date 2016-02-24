@@ -7,14 +7,14 @@ if(isset($_POST['insertCustomerContract'])){
 	$customer_id = $c->_model->_changeDauNhay($_POST['customer_id']); settype($contract_id, 'int');
 	if($contract_id==0 || $customer_id==0){
 		$arr = array('error'=>1, 'message'=>'Input error');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
 	$data = $c->_model->_viewDetail('mn_customer', $customer_id);
 	if(count($data)==0){
 		$arr = array('error'=>1, 'message'=>'Không tìm thấy khách hàng này trong cơ sở dữ liệu');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
@@ -26,7 +26,7 @@ if(isset($_POST['insertCustomerContract'])){
 	$data = $c->_model->_select($arr);
 	if(count($data)!=0){
 		$arr = array('error'=>1, 'message'=>'Khách hàng này đã có trong hợp đồng');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
@@ -35,12 +35,12 @@ if(isset($_POST['insertCustomerContract'])){
 	$result = $c->_model->_getSql('create', 'mn_contract_customer', $fields, $values);
 	if($result==false){
 		$arr = array('error'=>1, 'message'=>'Data error: '.$result);
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
 	$arr = array('error'=>0, 'message'=>'Thêm thành công');
-	echo $c->exportError($arr);
+	echo json_encode($arr);
 	return true;
 }
 
@@ -51,7 +51,7 @@ if(isset($_POST['insertCustomerClass'])){
 	$class_id = $c->_model->_changeDauNhay($_POST['class_id']);
 	if($table=='' || $table_id=='' || $class_id==''){
 		$arr = array('error'=>1, 'message'=>'Input error');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
@@ -59,7 +59,7 @@ if(isset($_POST['insertCustomerClass'])){
 	$data = $c->_model->_viewDetail($table, $table_id);
 	if(count($data)==0){
 		$arr = array('error'=>1, 'message'=>'Không tìm thấy khách hàng này trong cơ sở dữ liệu');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
@@ -72,7 +72,7 @@ if(isset($_POST['insertCustomerClass'])){
 	$data = $c->_model->_select($arr);
 	if(count($data)!=0){
 		$arr = array('error'=>1, 'message'=>'Khách hàng này đã có trong lớp học này');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
@@ -82,12 +82,12 @@ if(isset($_POST['insertCustomerClass'])){
 	$result = $c->_model->_getSql('create', 'mn_class_info', $fields, $values);
 	if($result==false){
 		$arr = array('error'=>1, 'message'=>'Insert error: '.$result);
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
 	$arr = array('error'=>0, 'message'=>'Thêm thành công');
-	echo $c->exportError($arr);
+	echo json_encode($arr);
 	return true;
 }
 
@@ -96,13 +96,13 @@ if(isset($_POST['loadWebContact'])){
 	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);
 	if($table=='' || $table_id==''){
 		$arr = array('error'=>1, 'message'=>'Error: Data empty');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	$rowContact = $c->_model->_viewDetail($table, $table_id);
 	if(count($rowContact)==0){
 		$arr = array('error'=>1, 'message'=>'Error: Không tìm thấy trong database');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
@@ -121,7 +121,42 @@ if(isset($_POST['loadWebContact'])){
 	}
 	
 	//$arr = array('message'=>'');
-	echo $c->exportError($arr);
+	echo json_encode($arr);
+	return true;
+}
+
+if(isset($_POST['classCode'])){
+	$code = trim( $c->_model->_changeDauNhay($_POST['code']) );
+	$course = trim( $c->_model->_changeDauNhay($_POST['course']) );
+	
+	$arr = array(
+		'select' => '*',
+		'from' => '`web_header`',
+		'where' => "`id`='{$course}'",
+		'limit' => 1,
+	);
+	$data = $c->_model->_select($arr);
+	$course_code = '';
+	if(count($data)>0){
+		$row = $data[0];
+		$course_code = trim($row['course_code']);
+	}
+	
+	$code = "{$course_code}-".date('y')."-{$code}";
+	$arr = array(
+		'select' => '*',
+		'from' => '`mn_class`',
+		'where' => "`code` LIKE '{$code}%'",
+	);
+	$data = $c->_model->_select($arr);
+	$total = count($data);
+	if($total==0){
+		$code .= '-1';
+	}else{
+		$total++;
+		$code .= '-'.$total;
+	}
+	echo $code;
 	return true;
 }
 
@@ -180,6 +215,7 @@ if(isset($_GET['loadFormEvent'])){
 		case 2: include_once('view/admin_mn_action_entry.php'); break;
 		case 3: include_once('view/admin_mn_action_khaosat.php'); break;
 		case 5: include_once('view/admin_mn_action_hopdong.php'); break;
+		case 6: include_once('view/admin_mn_action_receipt.php'); break;
 	}
 }
 
@@ -243,7 +279,7 @@ if(isset($_POST['loadFormTemplate'])){
 	$content = $c->_model->_removeNewLine($content);
 	
 	$arr = array('error'=>0, 'subject'=>$subject, 'content'=>$content, 'email'=>$row['email']);
-	echo $c->exportError($arr);
+	echo json_encode($arr);
 	return true;
 }
 /*end web_event_form*/
@@ -319,6 +355,41 @@ if(isset($_POST['sendMailCustomer'])){
 	return true;
 }
 
+if(isset($_POST['sendMailContract'])){
+	$name = $c->_model->_changeDauNhay($_POST['name']);
+	$email = $c->_model->_checkEmail($_POST['email']);
+	$email_bcc = $c->_model->_checkEmail($_POST['email_bcc']);
+	$table = $c->_model->_changeDauNhay($_POST['table']);
+	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);
+	$subject = $c->_model->_changeDauNhay($_POST['subject']);
+	$content = $c->_model->_changeDauNhay($_POST['content'], 0);
+	if($name=='' || $email==false || $subject=='' || $content=='' || $table=='' || $table_id==''){
+		echo '<div class="adError">Error: Please press F5 key to try again</div>';
+		return false;
+	}
+	
+	$AddAddress = array('field'=>$email, 'name'=>$name);
+	$AddBCC = '';
+	if($email_bcc!=false) $AddBCC = array('field'=>$email_bcc, 'name'=>'Stevbros');
+	$arrSend = array(
+		'AddAddress' => $AddAddress,
+		'AddBCC' => $AddBCC,
+		'Subject' => $subject,
+		'Body' => $content,
+	);
+	
+	$data = $c->sendMail($arrSend, 1);
+	if(!preg_match("/error:/i", $data)){
+		$event_id = 12;
+		$cM->_insertContactSendMail($name, $email, $content, $event_id, $table, $table_id);
+		echo '<div class="adMessage"><b>Gửi thành công.</b></div>';
+	}else{
+		echo '<div class="adError"><p>ERROR sendmail:</p>'.$data.'</div>';
+	}
+	
+	return true;
+}
+
 if(isset($_POST['sendMailFee'])){
 	$table = $c->_model->_changeDauNhay($_POST['table']);
 	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);
@@ -385,7 +456,7 @@ if(isset($_POST['sendMailClass'])){
 	$table = 'mn_class_info';
 	if($class_id=='' || $class_id=='0'){
 		$arr = array('error'=>1, 'message'=>'Error: Data empty');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
@@ -398,7 +469,7 @@ if(isset($_POST['sendMailClass'])){
 	$dataClassInfo = $c->_model->_select($arr);
 	if(count($dataClassInfo)==0){
 		$arr = array('error'=>1, 'message'=>'Error: Không tìm thấy thông tin lớp học này.');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
@@ -490,7 +561,7 @@ if(isset($_POST['sendMailClass'])){
 		'message' => 'Gửi mail thành công',
 		'data' => $str,
 	);
-	echo $c->exportError($arr);
+	echo json_encode($arr);
 	return true;
 }
 /*end sendMail*/

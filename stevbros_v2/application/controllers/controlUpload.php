@@ -72,7 +72,7 @@ if(isset($_POST['imageUpload'])){
 	
 	if($table=='' || $table_id=='' || $table_id==0){
 		$arr[] = array('error'=>1, 'message'=>'Vui lòng thử lại.');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	
@@ -124,7 +124,7 @@ if(isset($_POST['imageUpload'])){
 		}
 	}//end foreach
 	
-	echo $c->exportError($arr);
+	echo json_encode($arr);
 	return true;
 }
 
@@ -192,7 +192,7 @@ if(isset($_POST['uploadWebPicture'])){
 		}
 	}//end foreach
 	
-	echo $c->exportError($arr);
+	echo json_encode($arr);
 	return true;
 }
 
@@ -201,7 +201,7 @@ if(isset($_POST['imageDelete'])){
 	$check = $c->_model->_changeDauNhay($_POST['check']);
 	if(strlen($img) < 14){
 		$arr = array('error'=>1, 'message'=>'Error');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
 	$urlImage = IMAGE_UPLOAD_URL.$img;
@@ -221,12 +221,64 @@ if(isset($_POST['imageDelete'])){
 		if(file_exists($urlImage)) unlink($urlImage);
 		
 		$arr = array('error'=>0, 'message'=>'Xóa thành công', 'table'=>$table, 'table_id'=>$table_id);
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		
 		return true;
 	}else{
 		$arr = array('error'=>1, 'message'=>'Không tìm thấy hình này');
-		echo $c->exportError($arr);
+		echo json_encode($arr);
 		return false;
 	}
+}
+
+if(isset($_FILES['fileUpload'])){
+	echo 1111;
+	$output_dir = IMAGE_UPLOAD_URL_TEMP;
+	$ret = array();
+	$error = $_FILES["fileUpload"]["error"];
+	if(!is_array($_FILES["fileUpload"]["name"])){ //single file
+		$fileName = $_FILES["fileUpload"]["name"];
+		move_uploaded_file($_FILES["fileUpload"]["tmp_name"],$output_dir.$fileName);
+		$ret[]= $fileName;
+	}else{ //Multiple files, file[]
+		$fileCount = count($_FILES["fileUpload"]["name"]);
+		for($i=0; $i < $fileCount; $i++){
+			$fileName = $_FILES["fileUpload"]["name"][$i];
+			move_uploaded_file($_FILES["fileUpload"]["tmp_name"][$i],$output_dir.$fileName);
+			$ret[]= $fileName;
+		}
+	}
+	echo json_encode($ret);
+
+	
+	/*
+	$filename = stripslashes($_FILES['fileUpload']['name']);
+	$files = $_FILES['fileUpload']['tmp_name'];
+	$size  = filesize($files);
+	if($_FILES['fileUpload']['error']==0){
+		$ext = explode('.', $filename);
+		$ext = end($ext);
+		
+		$fileFormats = array('xml', 'xls');
+		if(in_array($ext, $fileFormats)){
+			if($size < (5*1024*1024)){
+				$newName = time().'.'.$ext;
+				$newFile = IMAGE_UPLOAD_URL_TEMP.$newName;
+				if(move_uploaded_file($files, $newFile)){
+					$arrError = array('error'=>true, 'message'=>'Upload file thành công', 'file'=>$newFile);
+				}else{
+					$arrError = array('error'=>false, 'message'=>'Xem lại phân quyền');
+				}
+			}else{
+				$arrError = array("result"=>false, 'message'=>'Kích thước vượt giới hạn');
+			}
+		}else{
+			$arrError = array("result"=>false, 'message'=>'File chưa đúng định dạng');
+		}
+	}else{
+		$arrError = array("result"=>false, 'message'=>'File bị lỗi');
+	}
+	
+	echo json_encode($arrError);
+	return true;*/
 }
