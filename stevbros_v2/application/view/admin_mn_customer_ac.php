@@ -104,6 +104,33 @@ include_once('admin_upload.php');
 $data = ob_get_clean();
 echo $cF->displayDiv('Avatar', $data);
 
+//danh sach cac lop da hoc
+$str=''; $i=0;
+$arr = array(
+	"select"=>"`name`, `code`, `date_start`",
+	"from"=>"`mn_class_info`, `mn_class`",
+	"where"=>"`_table`='mn_customer' AND `table_id`='{$id}' AND `class_id`=`mn_class`.`id`",
+);
+$data = $c->_model->_select($arr);
+foreach($data as $row){
+	$i++;
+	$str.='<p class="item">'.$i.'. <b>'.$row['code'].'</b> | '.$row['name'].' -&gt; <em>KG: ('.date('d-m-Y', $row['date_start']).')</em></p>';
+}
+$arr = array(
+	"select"=>"`mn_class`.`name`, `mn_class`.`code`, `mn_class`.`date_start`",
+	"from"=>"`mn_contract_customer`, `mn_class_info`, `mn_class`",
+	"where"=>"`customer_id`='{$id}' AND `_table`='mn_contract' AND `mn_class_info`.`table_id`=`contract_id` AND `class_id`=`mn_class`.`id`",
+);
+$data = $c->_model->_select($arr);
+foreach($data as $row){
+	$i++;
+	$str.='<p class="item">'.$i.'. <b>'.$row['code'].'</b> | '.$row['name'].' -&gt; <em>KG: ('.date('d-m-Y', $row['date_start']).')</em></p>';
+}
+$str = '<div id="listCustomer" class="label2">'.$str.'</div>';
+$data = '<div class="seo">'.$cF->displayDiv('K.hàng đã học các lớp:', $str).'</div>';
+echo $data;
+//end danh sach cac lop da hoc
+
 $name = 'btnCancel';
 $btnCancel = $cF->btnCancel($name, 'Quay lại');
 $name = 'btnSubmitAjax';

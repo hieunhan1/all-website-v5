@@ -29,22 +29,29 @@ $values = $type;
 if($rowDetail[$name]!=''){
 	$valueCheck=$rowDetail[$name];
 }else $valueCheck=0;
-$data = $cF->select($name, $values, $valueCheck, 'ad_field adInput adTxtMedium');
+$properties = array();
+if($_SESSION['adminGroup']!=5){
+	$properties[] = array('propertie'=>'disabled', 'value'=>'disabled');
+	$properties[] = array('propertie'=>'style', 'value'=>'background-color:#EEE');
+}
+$data = $cF->select($name, $values, $valueCheck, 'ad_field adInput adTxtMedium', $properties);
 echo $cF->displayDiv('Chức vụ', $data);
 
-$name = 'price_public';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'10');
-$value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
-echo $cF->displayDiv('Mức giá public', $data);
-
-$name = 'price_business';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'10');
-$value=$rowDetail[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
-echo $cF->displayDiv('Mức giá doanh nghiệp', $data);
+if($_SESSION['adminGroup']==5){
+	$name = 'price_public';
+	$properties = array();
+	$properties[] = array('propertie'=>'maxlength', 'value'=>'10');
+	$value=$rowDetail[$name];
+	$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+	echo $cF->displayDiv('Mức giá public', $data);
+	
+	$name = 'price_business';
+	$properties = array();
+	$properties[] = array('propertie'=>'maxlength', 'value'=>'10');
+	$value=$rowDetail[$name];
+	$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+	echo $cF->displayDiv('Mức giá doanh nghiệp', $data);
+}
 
 $name = 'name';
 $properties = array();
@@ -99,14 +106,14 @@ if($rowDetail[$name]!=''){
 $arr = array(
 	'select' => '`id`, `name`',
 	'from' => '`web_header`',
-	'where' => '`parent`=70 AND `properties`=1 AND `status`=1',
-	'order' => '`_order`',
+	'where' => '`type_id`=3 AND `properties`=2 AND `status`=1',
+	'order' => '`name`',
  );
 $values = $c->_model->_select($arr);
 $data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxItem', 1);
 $value = $rowDetail[$name];
 $data .= $cF->inputHidden($name, $value, 'ad_field listValueItem');
-echo $cF->displayDiv('Đào tạo lĩnh vực', '<div class="listCheckBox2">'.$data.'</div>');
+echo $cF->displayDiv('Lĩnh vực đào tạo', '<div class="listCheckBox2">'.$data.'</div>');
 
 $name = 'yourself';
 $value=$rowDetail[$name];

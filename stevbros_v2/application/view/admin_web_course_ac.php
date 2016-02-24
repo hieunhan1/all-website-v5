@@ -32,13 +32,23 @@ if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
 $data .= $cF->inputHidden($name, $value, 'ad_field listValueItem');
 echo $cF->displayDiv('Danh mục hiển thị', '<div class="listCheckBox">'.$data.'</div>');
 
+$name = 'course_code';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'20');
+$properties[] = array('propertie'=>'check', 'value'=>'2');
+$properties[] = array('propertie'=>'message', 'value'=>'Nhập mã khóa học');
+$value=$rowDetail[$name];
+$other='<span class="error adError"></span>';
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
+echo $cF->displayDiv('Mã khóa học', $data);
+
 $name = 'name';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'200');
 $properties[] = array('propertie'=>'check', 'value'=>'2');
 $properties[] = array('propertie'=>'message', 'value'=>'Nhập name');
 $value=$rowDetail[$name];
-$other='<span class="error adError"></span> <span class="adNotes">dùng dấu "-" để tách mã</span>';
+$other='<span class="error adError"></span>';
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Name', $data);
 
@@ -73,7 +83,7 @@ $name = 'tags';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'200');
 $value=$rowDetail[$name];
-$others = $c->messageChange(CONS_ADMIN_AUTO_TAGS);
+$others = $c->messageChange(CONS_ADMIN_AUTO_TAGS.', TAGS đầu hiện trên trang chủ mục Đào Tạo');
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $others);
 echo $cF->displayDiv('Tags (keyword)', $data);
 echo '</div>';

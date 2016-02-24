@@ -15,6 +15,24 @@ else $value=date('Y-m-d H:i', $rowDetail[$name]);
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtSmall datetimepick', $properties);
 echo $cF->displayDiv('Ngày đóng', $data);
 
+$name = 'class_id';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'8');
+$properties[] = array('propertie'=>'check', 'value'=>'1');
+$properties[] = array('propertie'=>'message', 'value'=>'Nhập ID lớp học');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'ID');
+$properties[] = array('propertie'=>'style', 'value'=>'width:80px');
+if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput value_id', $properties);
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'Tên lớp học');
+$properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5px');
+$data .= $cF->inputText('', '', 'adInput value_name', $properties);
+$data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" /> <p class="adError error value_name_error"></p>';
+$data .= '<div class="value_view" table="mn_class"></div>';
+echo $cF->displayDiv('ID lớp học', $data);
+
 $name = '_table';
 $values = array();
 $values[] = array('id'=>'mn_contract', 'name'=>'Hợp đồng doanh nghiệp');
@@ -40,7 +58,7 @@ $properties[] = array('propertie'=>'placeholder', 'value'=>'Tên');
 $properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5px');
 $data .= $cF->inputText('', '', 'adInput value_name', $properties);
 $data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" /> <p class="adError error value_name_error"></p>';
-$data .= '<div class="value_view"></div>';
+$data .= '<div class="value_view" table="mn_contract"></div>';
 echo $cF->displayDiv('ID', $data);
 
 $name = 'price';
@@ -63,17 +81,19 @@ echo $cF->displayDiv('Ghi chú', $data);
 
 $name = 'btnCancel';
 $btnCancel = $cF->btnCancel($name, 'Quay lại');
+$name = 'btnSubmitReceipt';
+$btnSubmitReceipt = $cF->inputButton($name, 'In biên nhận', 'adBtnLarge bgColorGreen corner8');
 $name = 'btnSubmitAjax';
 $btnSubmit = $cF->inputButton($name, $arrAction['lable'], 'adBtnLarge bgColorBlue1 corner8');
-echo $cF->displayDiv('<span class="adNotes" style="font-weight:100">Khi ấn thêm mới là sẽ tự động gửi mail thông báo cho khách hàng</span>', $btnSubmit.$btnCancel.'<span id="ajaxFee"></span>');
+echo $cF->displayDiv('<span class="adNotes" style="font-weight:100">Khi ấn thêm mới là sẽ tự động gửi mail thông báo cho khách hàng</span>', $btnSubmit.$btnSubmitReceipt.$btnCancel.'<p id="ajaxFee" style="clear:both; padding-top:10px"></p> <p class="adMessage" style="clear:both; padding-top:10px">"Thêm mới" rồi mới "In biên nhận"</p>');
 
+//sendmail
 $arr = array(
 	"select" => "*",
 	"from" => "`web_sendmail`",
 	"where" => "`_table`='{$rowDetail['_table']}' AND `table_id`='{$rowDetail['table_id']}' ",
 	"order" => "`web_sendmail`.`id` DESC"
 );
-
 $data = $c->_model->_select($arr);
 if(count($data) > 0){
 	foreach($data as $row){
@@ -118,6 +138,13 @@ $(document).ready(function(e) {
 				}
 			});
 		},300);
+	});
+	
+	$("#btnSubmitReceipt").live("click", function(){
+		var id = $("#id").val();
+		var data = '<div><span class="adBtnSmall bgColorGray corner8 popupCloseReload">[ x ] Close</span></div> <div class="clear10"></div>';
+			data+= '<iframe src="ajax/?loadFormEvent=6&table=<?php echo $table;?>&id=' + id + '" style="width:700px; height:500px; border:none"></iframe>';
+		popupLoad(data);
 	});
 });
 </script>

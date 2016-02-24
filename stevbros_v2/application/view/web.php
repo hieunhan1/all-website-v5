@@ -13,7 +13,7 @@
 <meta property="og:url" content="<?php echo $tagHead['url'];?>" />
 <meta property="og:image" content="<?php echo $tagHead['img'];?>" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="alternate" href="<?php echo CONS_BASE_URL; ?>" hreflang="vi-vn" />
+<link rel="alternate" href="<?php echo CONS_BASE_URL; if($currentPage['type']['id'] !=1) echo '/'.$currentPage['name_alias'];?>" hreflang="vi-vn" />
 <link type="icon/x-icon" href="themes/website/img/favicon.ico" rel="shortcut icon" />
 <!--Insert CSS-->
 <link rel="stylesheet" type="text/css" href="themes/website/general.css" />

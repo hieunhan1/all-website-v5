@@ -26,6 +26,7 @@ else
 <div id="adContent">
 	<div class="tagsHidden">
     	<p class="fieldQuickView" type="img" name="img"></p>
+        <p class="fieldQuickView" type="txt" name="code">Mã khóa</p>
         <p class="fieldQuickView" type="txt" name="name">Mô tả</p>
         <p class="fieldQuickView" type="txt" name="datetime">Ngày</p>
         <p class="fieldQuickView" type="txt" name="tags">Từ khóa</p>
@@ -34,6 +35,7 @@ else
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
         	<th width="50">STT</th>
+            <th width="100" align="left">Mã khóa</th>
             <th align="left">Mô tả</th>
             <th width="150" align="left">Tên hình</th>
             <th width="110">Ngày</th>
@@ -43,7 +45,7 @@ else
 		$i = 0;
 		$arr = array(
 			'lang'=>$lang,
-			'select'=>'`id`, `name`, `img`, `description`, `tags`, `datetime`, `status`',
+			'select'=>'`id`, `name`, `img`, `description`, `tags`, `course_code`, `datetime`, `status`',
 			'table'=>$table,
 			//'where'=>'',
 			//'order'=>'',
@@ -53,6 +55,7 @@ else
 			$i++; ?>
             <tr class="row">
                 <td align="center"><?php echo $arr['startRow']+$i; ?></td>
+                <td><?php echo $row['course_code'];?></td>
                 <td><p class="height"><?php echo $row['name'];?></p></td>
                 <td><?php echo $row['img'];?></td>
                 <td><?php echo $c->viewDateTime($row['datetime']);?></td>

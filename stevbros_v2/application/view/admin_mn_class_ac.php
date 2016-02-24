@@ -31,31 +31,44 @@ else $value=date('Y-m-d H:i', $rowDetail[$name]);
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtSmall datetimepick', $properties);
 echo $cF->displayDiv('Ngày kết thúc', $data);
 
-$name = 'trainer_id';
+$name = 'header_id';
+if($rowDetail[$name]!=''){
+	$valueCheck=$rowDetail[$name];
+}else $valueCheck='';
+$arr = array(
+	'select' => '`id`, `name`',
+	'from' => '`web_header`',
+	'where' => '`type_id`=3 AND `properties`=2 AND `status`=1',
+	'order' => '`name`',
+);
+$data = $c->_model->_select($arr);
+$values = array();
+$values[] = array('id'=>'', 'name'=>'-- chọn khóa học --');
+foreach($data as $row){
+	$values[] = array('id'=>$row['id'], 'name'=>$row['name']);
+}
+if($rowDetail[$name]!=''){
+	$valueCheck=$rowDetail[$name];
+}else $valueCheck=0;
 $properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'8');
 $properties[] = array('propertie'=>'check', 'value'=>'1');
-$properties[] = array('propertie'=>'message', 'value'=>'Chọn giảng viên');
-$properties[] = array('propertie'=>'placeholder', 'value'=>'ID giảng viên');
-$properties[] = array('propertie'=>'style', 'value'=>'width:80px');
-if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
-$data = $cF->inputText($name, $value, 'ad_field adInput value_id', $properties);
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
-$properties[] = array('propertie'=>'placeholder', 'value'=>'Tên giảng viên');
-$properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5px');
-$data .= $cF->inputText('', '', 'adInput value_name', $properties);
-$data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" /> <p class="adError error value_name_error"></p>';
-$data .= '<div class="value_view" table="mn_trainer"></div>';
-echo $cF->displayDiv('ID giảng viên', $data);
+$properties[] = array('propertie'=>'message', 'value'=>'Chọn khóa học');
+$other = '<p class="adError error"></p>';
+$data = $cF->select($name, $values, $valueCheck, 'ad_field adInput adTxtMedium', $properties, $other);
+echo $cF->displayDiv('Khóa học', $data);
 
+$name = 'codeAuto';
+$properties = array();
+$properties[] = array('propertie'=>'style', 'value'=>'float:none; margin-left:5px');
+$btnCodeAuto = $cF->inputButton($name, 'Lấy mã khóa học', 'adBtnSmall bgColorOranges', $properties);
 $name = 'code';
 $properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'10');
+$properties[] = array('propertie'=>'maxlength', 'value'=>'20');
 $properties[] = array('propertie'=>'check', 'value'=>'2');
 $properties[] = array('propertie'=>'message', 'value'=>'Nhập mã lớp');
-$value=$rowDetail[$name];
-$other = '<p class="adError error"></p>';
+$properties[] = array('propertie'=>'placeholder', 'value'=>'Nhập mã cty OR public');
+$value = $rowDetail[$name];
+$other = $btnCodeAuto.'<span class="adNotes">Khóa học - Năm - Cty or public - Thứ tự</span> <p class="adError error"></p>';
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Mã lớp', $data);
 
@@ -69,6 +82,22 @@ $other = '<p class="adError error"></p>';
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Tên lớp', $data);
 
+$name = 'trainer_id';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'8');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'ID giảng viên');
+$properties[] = array('propertie'=>'style', 'value'=>'width:80px');
+if(!isset($_POST[$name])) $value=$rowDetail[$name]; else $value=$_POST[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput value_id', $properties);
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
+$properties[] = array('propertie'=>'placeholder', 'value'=>'Tên giảng viên');
+$properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5px');
+$data .= $cF->inputText('', '', 'adInput value_name', $properties);
+$data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" /> <p class="adError error value_name_error"></p>';
+$data .= '<div class="value_view" table="mn_trainer"></div>';
+echo $cF->displayDiv('ID giảng viên', $data);
+
 $name = 'notes';
 $properties = array();
 $properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
@@ -76,8 +105,10 @@ $value=$rowDetail[$name];
 $data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
 echo $cF->displayDiv('Ghi chú', $data);
 
-$data = $cF->inputHidden('datetime', date('Y-m-d H:i:s'), 'ad_field');
-echo $data;
+if($id==0){
+	$data = $cF->inputHidden('datetime', date('Y-m-d H:i:s'), 'ad_field');
+	echo $data;
+}
 
 $str=''; $i=0; $total=0;
 $arr = array(
@@ -147,6 +178,20 @@ if(count($data) > 0){
 
 <script type="text/javascript">
 $(document).ready(function(e) {
+	$("#codeAuto").live("click", function(){
+		var course = $("#header_id").val();
+		var code = $("#code").val();
+		$.ajax({
+			url: 'ajax',
+			type: 'POST',
+			data: {classCode:1, course:course, code:code},
+			cache: false,
+			success: function(data){
+				$("#code").val(data);
+			}
+		});
+	});
+	
 	function changeTable(){
 		var table = $("#_table").val();
 		$("#table_id").parent().children(".value_id").val('');

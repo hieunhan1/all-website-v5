@@ -16,16 +16,6 @@ else $valueCheck=$rowDetail[$name];
 $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
 echo $cF->displayDiv('Trạng thái', $data);
 
-$name = 'id';
-$properties = array();
-$properties[] = array('propertie'=>'maxlength', 'value'=>'1');
-$properties[] = array('propertie'=>'check', 'value'=>'1');
-$properties[] = array('propertie'=>'message', 'value'=>'Nhập ID');
-$value=$rowDetail[$name];
-$other='<span class="error adError"></span>';
-$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
-echo $cF->displayDiv('ID', $data);
-
 $name = 'name';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'50');

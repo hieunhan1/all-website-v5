@@ -24,7 +24,7 @@ else
 	<table width="100%" border="1" cellpadding="0" cellspacing="0" class="adTable">
     	<tr class="header">
         	<th width="50">STT</th>
-            <th width="100" align="left">Mã lớp</th>
+            <th width="150" align="left">Mã lớp</th>
             <th align="left">Mô tả</th>
             <th width="120">Ngày khai giảng</th>
             <th width="100">Ngày tạo</th>
