@@ -483,9 +483,8 @@ $(document).ready(function(e) {
 			type: 'post',
 			data: fields,
 			cache: false,
-			success: function(data){
-				//console.log(data);
-				data = $.parseJSON(data);
+			success: function(str){
+				var data = $.parseJSON(str);
 				var error = parseInt(data.error);
 				if(error==0){
 					var id = data.id;
@@ -502,6 +501,8 @@ $(document).ready(function(e) {
 					window.history.pushState(null, 'Title', 'http://' + hostname + pathname + strSearch + id);
 					
 					endDataActionTableInsert('<p class="adMessage">' + data.message + '</p>');
+				}else{
+					console.log(str);
 				}
 				return true;
 			}
@@ -698,24 +699,27 @@ $(document).ready(function(e) {
 		$(tags).parent().addClass("activeSearch");
 		
 		var id = $(".activeSearch .value_id").val();
-		var table = $(".activeSearch .value_view").attr("table");
-		if(id=='' || table=='') return false;
 		
-		$.ajax({
-			url: link_ajax,
-			type:'POST',
-			data:{searchID:id, table:table},
-			cache:false,
-			success: function(data) {
-				if(data!=''){
-					$(".activeSearch .value_name").val(data);
-				}else{
-					$(".activeSearch .value_name").val('');
-					popupLoad('<p class="adError">Không tìm thấy dữ liệu</p> <p class="clear10"></p> <p class="adBtnSmall bgColorGray corner5 popupClose">Close</p> <p class="clear1"></p></p>');
+		setTimeout( function(){
+			var table = $(".activeSearch .value_view").attr("table");
+			if(id=='' || table=='') return false;
+			
+			$.ajax({
+				url: link_ajax,
+				type:'POST',
+				data:{searchID:id, table:table},
+				cache:false,
+				success: function(data) {
+					if(data!=''){
+						$(".activeSearch .value_name").val(data);
+					}else{
+						$(".activeSearch .value_name").val('');
+						popupLoad('<p class="adError">Không tìm thấy dữ liệu</p> <p class="clear10"></p> <p class="adBtnSmall bgColorGray corner5 popupClose">Close</p> <p class="clear1"></p></p>');
+					}
+					return true;
 				}
-				return true;
-			}
-		});
+			});
+		}, 500);
 	}
 	$(".value_id").live("blur", function(){
 		searchID( $(this) );
@@ -731,11 +735,16 @@ $(document).ready(function(e) {
 		
 		var name = check_text_length(".activeSearch .value_name", ".activeSearch .value_name_error", "Từ khóa phải hơn 2 ký tự", 2);
 		var table = $(".activeSearch .value_view").attr("table");
+		
+		var field = '';
+		if(typeof $(".activeSearch .value_view").attr("field")!="undefined"){
+			field = $(".activeSearch .value_view").attr("field");
+		}
 		if(name==false || table=='') return false;
 		$.ajax({
 			url: link_ajax,
 			type:'POST',
-			data:{searchName:name, table:table},
+			data:{searchName:name, table:table, field:field},
 			cache:false,
 			success: function(data) {
 				//console.log(data);

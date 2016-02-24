@@ -8,4 +8,6 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
 	config.entities = false;
+	//config.extraPlugins = 'showborders';
+	//config.ShowTableBorders = false;
 };
