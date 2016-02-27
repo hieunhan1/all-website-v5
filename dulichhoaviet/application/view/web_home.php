@@ -67,7 +67,48 @@
 	?>
 </div>
 
-<?php //yeu cau dich vu
+<?php
+//cho thue xe
+$arr = array(
+	'select' => '`id`, `name`, `name_alias`, `url`, `title`, `description`',
+	'lang' => $lang,
+	'parent' => 0,
+	'position_id' => 15,
+	'properties' => 1,
+	'limit'=>'1',
+);
+$data = $c->_model->_headerData($arr);
+if(count($data) > 0){
+	$row = $data[0];
+	echo '<div id="rentals" class="container">
+	<div class="home-title">
+		<h2 class="h2"><a href="'.$row['url'].'" title="'.$row['name'].'">'.$row['name'].'</a></h2>
+		<h3 class="h3">'.$row['description'].'</h3>
+	</div>
+	<div class="content">';
+	$arr = array(
+		'select' => '`id`, `name`, `name_alias`, `img`, `title`',
+		'menu_id' => $row['id'],
+		'type_id' => 2,
+		'properties' => 2,
+		'limit'=>'4',
+	);
+	$data = $c->_model->_headerData($arr);
+	$i = 0;
+	foreach($data as $row){
+		$i++;
+		if($i%4!=1) $margin='margin'; else $margin='';
+		$img = IMAGE_URL.$row['img'];
+		if($row['img']=='') $img=CONS_IMAGE_DEFAULT;
+		echo '<div class="box mouseViewmore '.$margin.'">
+			<p class="img effect"><a href="'.$row['name_alias'].'"><img src="'.$img.'" alt="'.$row['title'].'" /></a></p>
+			<h4 class="title"><a href="'.$row['name_alias'].'" title="'.$row['title'].'">'.$row['name'].'</a></h4>
+		</div>';
+	}
+	echo '<div class="clear30"></div> </div></div>';
+}
+
+//yeu cau dich vu
 $arr = array(
 	'select' => '`id`, `name`, `name_alias`, `img`, `title`, `description`',
 	'lang' => $lang,

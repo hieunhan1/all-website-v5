@@ -1,6 +1,6 @@
 RewriteEngine On
-RewriteCond %{HTTP_HOST} ^iappscode.com
-RewriteRule ^(.*)$ http://www.iappscode.com/$1 [R=permanent,L]
+RewriteCond %{HTTP_HOST} ^dulichhoaviet.com.vn
+RewriteRule ^(.*)$ http://www.dulichhoaviet.com.vn/$1 [R=permanent,L]
 RewriteRule js - [L]
 RewriteRule public - [L]
 RewriteRule themes - [L]

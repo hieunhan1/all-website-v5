@@ -68,6 +68,13 @@ $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
 echo $cF->displayDiv('Địa chỉ', $data);
 
+$name = 'googlemap';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'50');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Google map', $data);
+
 $name = '_order';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'3');

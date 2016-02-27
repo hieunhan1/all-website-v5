@@ -1,5 +1,5 @@
 <div id="header">
-    <div id="header-fix">
+    <div id="header-fix" <?php if($currentPage['type']['id']==1) echo 'style="position:absolute"';?> >
         <div class="container">
             <div class="logo">
                 <a href="<?php echo CONS_BASE_URL;?>" title="<?php echo $currentPage['title'];?>">
@@ -32,6 +32,10 @@
             </ul>
             
             <ul class="menuMain">
+            	<div class="call corner8">
+                	<a href="tel:<?php echo $config['tel'];?>"><span class="allIcon"></span><?php echo $config['tel'];?></a>
+                </div>
+                
                 <?php
                 $i=0;
                 $arr = array(
@@ -49,10 +53,36 @@
                 }
                 ?>
             </ul>
+            <p class="clear10"></p>
+            
+			<?php
+			/*$arr = array(
+				'lang' => $lang,
+				'parent' => 0,
+				'position_id' => 14,
+				'order'=>'`_order`',
+			);
+			$data = $c->_model->_headerData($arr);
+			if(count($data) > 0){
+				$i = 0;
+				$color = array('#eb7219', '#157396', '#699918', '#eb7219', '#157396', '#699918');
+				echo '<div class="sales">';
+				foreach($data as $row){
+					$content = $c->_model->_content($row['id']);
+					echo '<div class="box corner10" style="color:'.$color[$i].'">
+						<h3 class="title">'.$row['name'].'</h3>
+						<div class="item allIcon icon'.$i.'">'.$content['content'].'</div>
+					</div>';
+					$i++;
+				}
+				echo '<p class="clear10"></p> </div>';
+			}*/
+			?>
         </div>
     </div>
+    
     <?php
-    if($currentPage['type']['id']!=1) echo '<div class="header-empty"></div>';
+    //if($currentPage['type']['id']!=1) echo '<div class="header-empty"></div>';
 	?>
     
 	<div class="headerContent">

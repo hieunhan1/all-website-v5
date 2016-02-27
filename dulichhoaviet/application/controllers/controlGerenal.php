@@ -140,7 +140,7 @@ class controlGerenal{
 		return $str;
 	}
 	
-	public function pagesList($url, $totalRows, $perPage, $offSet, $currentPage){
+	public function pagesList($url, $totalRows, $perPage, $offSet, $currentPage, $search=false){
 		$str=''; $firstPage=''; $lastPage='';
 		$totalPages = ceil($totalRows/$perPage);
 		if($totalPages<=1) return false;
@@ -149,13 +149,23 @@ class controlGerenal{
 		if($currentPage-$offSet < 1) $i=1; else $i=$currentPage-$offSet;
 		if($currentPage+$offSet<=$totalPages) $j=$currentPage+$offSet; else $j=$totalPages;
 		
-		if($currentPage > $offSet+1) $firstPage='<a href="'.$url.'/1">1</a>';
+		$strSearch = '';
+		if($search==true){
+			$keys = array_keys($_GET);
+			$values = array_values($_GET);
+			for($i=0; $i<count($keys); $i++){
+				$strSearch .= "&{$keys[$i]}={$values[$i]}";
+			}
+			$strSearch = '/?'.$strSearch;
+		}
+		
+		if($currentPage > $offSet+1) $firstPage='<a href="'.$url.'/1'.$strSearch.'">1</a>';
 		if($currentPage > $offSet+2) $firstPage .= '<span class="space">..</span>';
-		if($currentPage < $totalPages-$offSet) $lastPage='<a href="'.$url.'/'.$totalPages.'">'.$totalPages.'</a>';
+		if($currentPage < $totalPages-$offSet) $lastPage='<a href="'.$url.'/'.$totalPages.$strSearch.'">'.$totalPages.'</a>';
 		if($currentPage < $totalPages-$offSet-1) $lastPage = '<span class="space">..</span>'.$lastPage;
 		
 		for($i; $i<=$j; $i++){
-			if($i!=$currentPage) $str.='<a href="'.$url.'/'.$i.'">'.$i.'</a>';
+			if($i!=$currentPage) $str.='<a href="'.$url.'/'.$i.$strSearch.'">'.$i.'</a>';
 			else $str.='<span class="current">'.$i.'</span>';
 		}
 		

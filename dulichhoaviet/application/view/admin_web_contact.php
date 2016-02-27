@@ -5,29 +5,15 @@ $arrType = array(
 	2 => array('id'=>'2', 'name'=>'Đặt tour'),
 	3 => array('id'=>'3', 'name'=>'Yêu cầu dịch vụ'),
 );
-
-$arrStatus = array(
-	0 => array('id'=>'', 'name'=>'-- trạng thái --'),
-	1 => array('id'=>'0', 'name'=>'Chưa xem'),
-	2 => array('id'=>'2', 'name'=>'Đã hành động'),
-	3 => array('id'=>'3', 'name'=>'Đã phản hồi'),
-	4 => array('id'=>'1', 'name'=>'Hoàn thành'),
-	5 => array('id'=>'4', 'name'=>'Error'),
-);
 		
 $arrFrmSearch = array();
 
 $name = 'LIKE_name';
 if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
-$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mô tả');
+$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Họ tên');
 
 $name = 'type';
 $value = $arrType;
-if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
-$arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
-
-$name = 'status';
-$value = $arrStatus;
 if(!isset($_GET[$name])) $other=''; else $other=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'select', 'name'=>$name, 'value'=>$value, 'other'=>$other);
 

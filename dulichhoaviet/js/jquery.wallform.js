@@ -543,7 +543,7 @@ $.fn.ajaxSubmit = function(options) {
 					
 					if(row.from!='web_picture'){//upload web_picture từ nơi khác
 						itemData += '<div class="copylink">Copy link</div>';
-						itemData += '<div class="imageDelete"><img src="themes/admin/img/delete.gif" /></div>';
+						itemData += '<div class="imageDelete"><img src="themes/admin2/img/delete.gif" /></div>';
 						itemData += '<div class="data">{"img":"' + row.img + '", "img_url":"' + row.img_url + '"}</div>';
 					}else{//upload web_picture trực tiếp
 						var id = row.id;

@@ -94,7 +94,7 @@
 /*end form loading*/
 
 /*contact*/
-#contact{width:75%}
+#contact{}
 
 #contact-info{clear:both}
 #contact-info .h1{font-weight:100; font-size:200%; margin-bottom:20px}
@@ -106,12 +106,14 @@
 #contact-info .box .phone{padding-left:15px; background-position:0 -495px}
 #contact-info .box .fax{display:inline-block; width:18px; height:16px; margin-left:12px; background-position:-160px -194px}
 
-#contact-frm{width:60%; margin:auto}
+#contact-frm{width:40%; float:left;}
 #contact-frm .loading{width:32%; height:422px}
 #contact-frm .txt{width:95%; padding:12px; background-color:#FFF}
 #contact-frm .textarea{width:95%; height:180px; line-height:22px; overflow:auto; resize:vertical; padding:12px; background-color:#FFF}
 #contact-frm .btn{width:100%; padding:12px 0; font-size:120%; color:#FFF; background-color:#ff9500; border:none; cursor:pointer}
 #contact-frm .btn:hover{background-color:#e17700}
+
+#google-map{width:57%; height:425px; float:right; margin-top:10px}
 /*end contact*/
 
 /*menu*/
@@ -167,21 +169,33 @@
 #header .headerImg img{max-width:100%}
 
 .header-empty{clear:both; height:110px}
-#header-fix{clear:both; width:100%; height:110px; background-color:rgba(255,255,255,0.85); position:absolute; z-index:2}
-#header-fix .logo{width:200px; height:80px; float:left; margin-top:15px}
+#header-fix{clear:both; width:100%; background-color:rgba(255,255,255,0.85); z-index:2}
+#header-fix .logo{width:195px; height:80px; float:left; margin:15px 10px 0 0}
 #header-fix .logo img{max-height:100%; float:left; margin-right:10px}
 #header-fix .logo h2{width:auto; float:left; font-size:130%; letter-spacing:1px; margin:17px 0 3px 0}
 #header-fix .logo h3{width:auto; float:left; font-size:100%; font-weight:100; letter-spacing:6px}
 #header-fix .logo a{color:#E00}
+#header-fix .call{width:auto; float:left; line-height:25px; font-size:150%; margin-top:8px}
+#header-fix .call span{display:inline-block; width:25px; height:25px; float:left; background-position:0px -550px}
+#header-fix .call a{display:block; color:#F00; letter-spacing:-1px}
 #header-fix .menuTop{width:auto; float:right; font-size:90%; line-height:30px; margin-top:5px}
 #header-fix .menuTop li{list-style:none; width:auto; float:left}
 #header-fix .menuTop a{color:#666; padding:0 7px}
 #header-fix .menuTop a:hover{color:#111}
-#header-fix .search{width:auto; float:right; margin:5px 0 10px 10px;}
+#header-fix .menuTop .iconHome{display:inline-block; width:0; height:30px; overflow:hidden; margin-top:8px; padding-left:20px; background-position:-200px -198px}
+#header-fix .search{width:auto; float:right; margin:5px 0 5px 10px;}
 #header-fix .search input{width:155px; height:30px; line-height:30px; color:#666; font-size:90%; padding:0 5px 0 35px; background-position:8px 6px; border:solid 1px #CCC; border-radius:5px}
 #header-fix .menuMain{width:auto; clear:right; float:right}
 #header-fix .menuMain li{list-style:none; width:auto; float:left; line-height:50px; margin-left: 25px}
 #header-fix .menuMain li a{color:#FFF; display:block; padding:0 20px 0 60px}
+
+#header-fix .sales{clear:both}
+#header-fix .sales .box{width:20%; float:left; line-height:180%; margin:0 4.5%; padding:7px 2%; border:dashed 1px #CCC}
+#header-fix .sales .box .title{font-size:100%; text-align:center}
+#header-fix .sales .box .item{clear:both}
+#header-fix .sales .box .icon0{background-position:0px -600px}
+#header-fix .sales .box .icon1{background-position:0px -670px}
+#header-fix .sales .box .icon2{background-position:0px -730px}
 
 #header .headerContent{clear:both; width:100%; position:absolute; top:260px; z-index:2}
 #header .headerContent .tour-list{}
@@ -197,6 +211,18 @@
 .home-title{clear:both; margin-bottom:25px}
 .home-title .h2{font-size:230%; text-transform:uppercase; letter-spacing:3px; margin-bottom:10px}
 .home-title .h3{line-height:130%; color:#666; font-weight:100; font-size:110%; padding:8px; border-left:solid 5px #CCC}
+
+#rentals{position:relative; z-index:1}
+#rentals .home-title a{color:#333; font-weight:100}
+#rentals .content{clear:both}
+#rentals .content .margin{margin-left:1.3%}
+#rentals .content .box{width:24%; float:left; box-shadow:0px 0px 2px #666}
+#rentals .content .img{height:150px; overflow:hidden; text-align:center; position:relative}
+#rentals .content .img img{max-width:100%}
+#rentals .content .viewmore{display:none; text-align:center; position:absolute; background-color:rgba(255,255,255,0.3); z-index:2}
+#rentals .content .viewmore a{display:block; font-size:150%; color:rgba(51,51,51,0.6); font-weight:bold; text-transform:uppercase; letter-spacing:2px}
+#rentals .content .title{height:33px; line-height:33px; font-weight:100; margin-top:-33px; padding:0 5px; position:relative; background-color:rgba(105,153,24,0.6)}
+#rentals .content .title a{color:#FFF}
 
 .home-request-service{clear:both; margin-bottom:35px; position:relative; z-index:1}
 .home-request-service .img{clear:both; height:300px; overflow:hidden; text-align:center; position:relative; z-index:1}
@@ -392,6 +418,8 @@
 #support .content .tel{background-position:0 -494px}
 #support .content .fax{background-position:-160px -195px}
 #support .content .email{background-position:-180px -193px}
+#support .content .user{background-position:-220px -193px}
+#support .content .sale{line-height:160%}
 /*end support*/
 
 /*Photos

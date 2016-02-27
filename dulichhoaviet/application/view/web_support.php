@@ -19,6 +19,23 @@
         <div class="clear5"></div>
         
         <div class="ajax"></div>
+        <?php
+		$arr = array(
+			'lang' => $lang,
+			'parent' => 0,
+			'position_id' => 14,
+			'order'=>'`_order`',
+		);
+		$data = $c->_model->_headerData($arr);
+		if(count($data)>0){
+			echo '<div class="sale">';
+			foreach($data as $row){
+				$content = $c->_model->_content($row['id']);
+				echo $content['content'];
+			}
+			echo '</div>';
+		}
+		?>
     </div>
 </div>
 <script type="text/jscript">

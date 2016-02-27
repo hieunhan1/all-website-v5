@@ -20,7 +20,7 @@ if(isset($rowDetail['img'])){
 			<div class="imageSelect" '.$style[1].'>Chọn làm đại diện</div>
 			<div class="img"><img src="'.IMAGE_URL_THUMB.$row['img'].'"></div>
 			<div class="copylink">Copy link</div>
-			<div class="imageDelete"><img src="themes/admin/img/delete.gif"></div>
+			<div class="imageDelete"><img src="themes/admin2/img/delete.gif"></div>
 			<div class="data">{"img":"'.$row['img'].'", "img_url":"'.CONS_BASE_URL.'/'.IMAGE_URL.'"}</div>
 		</div>';
 	}

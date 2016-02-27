@@ -8,8 +8,8 @@ class controlUsers{
 		$this->_ip = $this->_model->_changeDauNhay($_SERVER['REMOTE_ADDR']);
 	}
 	
-	public function user_account($user, $pass, $group){
-		$data = $this->_model->_check_user_login($user, $pass, $group);
+	public function user_account($user, $pass){
+		$data = $this->_model->_check_user_login($user, $pass);
 		if(count($data)==1){
 			$row = $data[0];
 			$_SESSION['userID'] = $row['id'];
@@ -21,18 +21,20 @@ class controlUsers{
 		}else return false;
 	}
 	
-	public function admin_user($user, $pass, $group){
-		$data = $this->_model->_check_admin_login($user, $pass, $group);
+	public function admin_user($user, $pass){
+		$data = $this->_model->_check_admin_login($user, $pass);
 		if(count($data)==1){
 			$row = $data[0];
 			$_SESSION['adminID'] = $row['id'];
 			$_SESSION['adminName'] = $row['name'];
 			$_SESSION['adminUser'] = $row['username'];
+			$_SESSION['adminType'] = $row['page'];
+			$_SESSION['adminGroup'] = $row['group_id'];
 			return true;
 		}else return false;
 	}
 	
-	public function login($user, $pass, $group){
+	public function login($user, $pass){
 		$currentDatetime = time();
 		$user = $this->_model->_changeDauNhay(strtolower($user));
 		$pass = $this->_model->_changeDauNhay($pass);
@@ -46,11 +48,8 @@ class controlUsers{
 			}
 			settype($login_number, 'int');
 			if($disable_date<$currentDatetime){
-				if($group==3){//quan tri
-					$data = $this->admin_user($user, $pass, $group);
-				}else{
-					$data = $this->user_account($user, $pass, $group);
-				}
+				$data = $this->admin_user($user, $pass); //quan tri
+				
 				if($data==true){
 					if($login_number!=0){
 						$login_number=1;
@@ -109,8 +108,7 @@ class controlUsers{
 			return '<p class="adError">'.CONS_MESSAGE_CHANGE_PASS_7.'</p> <p class="adError">'.$error.'</p>';
 		}else{
 			$user=$_SESSION['adminUser'];
-			$group=3;
-			$result = $this->_model->_check_admin_login($user, $password, $group);
+			$result = $this->_model->_check_admin_login($user, $password);
 			if(count($result)!=1){
 				return '<p class="adError">'.CONS_MESSAGE_CHANGE_PASS_8.'</p>';
 			}else{
@@ -154,9 +152,8 @@ class controlUsers{
 		$email = $_SESSION['userEmail'];
 		$oldPass = $this->_model->_changeDauNhay($_POST['oldPass']);
 		$newPass = $this->_model->_changeDauNhay($_POST['newPass']);
-		$group=1;
 		if($oldPass!='' && $newPass!=''){
-			$data = $this->_model->_check_user_login($email, $oldPass, $group);
+			$data = $this->_model->_check_user_login($email, $oldPass);
 			if(count($data)==1){
 				$this->_model->_updateUserPassword($id, $email, $newPass);
 				return true;

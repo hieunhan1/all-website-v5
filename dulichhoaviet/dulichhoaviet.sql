@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 3.5.8.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 27, 2016 at 02:46 AM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Host: localhost
+-- Generation Time: Feb 27, 2016 at 10:29 AM
+-- Server version: 5.0.96
+-- PHP Version: 5.3.28
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `dulichhoaviet`
+-- Database: `iappscod_test2`
 --
 
 -- --------------------------------------------------------
@@ -27,19 +27,21 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `web_admin` (
-`id` int(3) NOT NULL,
+  `id` int(3) NOT NULL auto_increment,
   `name` varchar(100) NOT NULL,
   `url` varchar(30) NOT NULL,
   `_table` varchar(20) NOT NULL,
-  `parameter` varchar(100) NOT NULL DEFAULT '/',
+  `parameter` varchar(100) NOT NULL default '/',
   `file` varchar(20) NOT NULL,
-  `img` varchar(150) DEFAULT NULL,
-  `_order` int(3) DEFAULT '0',
-  `ajax` varchar(100) DEFAULT NULL,
-  `type` tinyint(1) NOT NULL DEFAULT '1',
-  `parent` int(3) NOT NULL DEFAULT '0',
-  `status` tinyint(1) DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+  `img` varchar(150) default NULL,
+  `_order` int(3) default '0',
+  `ajax` varchar(100) default NULL,
+  `type` tinyint(1) NOT NULL default '1',
+  `parent` int(3) NOT NULL default '0',
+  `status` tinyint(1) default '1',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `url` (`url`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
 
 --
 -- Dumping data for table `web_admin`
@@ -91,27 +93,29 @@ INSERT INTO `web_admin` (`id`, `name`, `url`, `_table`, `parameter`, `file`, `im
 --
 
 CREATE TABLE IF NOT EXISTS `web_branch` (
-`id` int(3) NOT NULL,
+  `id` int(3) NOT NULL auto_increment,
   `name` varchar(50) NOT NULL,
-  `shorten` varchar(20) DEFAULT NULL,
+  `shorten` varchar(20) default NULL,
   `email` varchar(60) NOT NULL,
   `tel` varchar(50) NOT NULL,
-  `fax` varchar(30) DEFAULT NULL,
+  `fax` varchar(30) default NULL,
   `address` varchar(200) NOT NULL,
   `phone` varchar(50) NOT NULL,
-  `_order` int(3) NOT NULL DEFAULT '0',
+  `googlemap` varchar(50) default NULL,
+  `_order` int(3) NOT NULL default '0',
   `lang` varchar(2) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `status` tinyint(1) NOT NULL default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `web_branch`
 --
 
-INSERT INTO `web_branch` (`id`, `name`, `shorten`, `email`, `tel`, `fax`, `address`, `phone`, `_order`, `lang`, `status`) VALUES
-(1, 'Văn phòng chính', 'VP chính', 'hoaviet.travel01@gmail.com', '08 6268 9046', '08 6268 9013', 'F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM', '090 844 40 82', 1, 'vi', 1),
-(2, 'Chi nhánh Hà Nội', 'CN Hà Nội', '', '04 3956 1450', '04 3956 1451', 'Đường 2-3 B, Khu Cầu Lớn, Lam Hồng, Đông Anh, Hà Nội', '098 318 54 82', 2, 'vi', 1),
-(3, 'Văn phòng đại diện', 'VP đại diện', '', '08 3765 0115', '08 3765 0115', '69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM', '', 3, 'vi', 1);
+INSERT INTO `web_branch` (`id`, `name`, `shorten`, `email`, `tel`, `fax`, `address`, `phone`, `googlemap`, `_order`, `lang`, `status`) VALUES
+(1, 'Văn phòng chính', 'VP chính', 'webdulichhoaviet@gmail.com', '08 3765 0115', '08 3765 0115', 'F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM', '090 844 40 82', '', 1, 'vi', 1),
+(2, 'Chi nhánh Hà Nội', 'CN Hà Nội', '', '04 3956 1450', '04 3956 1451', 'Đường 2-3 B, Khu Cầu Lớn, Lam Hồng, Đông Anh, Hà Nội', '098 318 54 82', NULL, 2, 'vi', 1),
+(3, 'Văn phòng đại diện', 'VP đại diện', 'webdulichhoaviet@gmail.com', '08 3765 0115', '08 3765 0115', '69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM', '090 844 40 82', '10.817966, 106.608815', 3, 'vi', 1);
 
 -- --------------------------------------------------------
 
@@ -120,14 +124,15 @@ INSERT INTO `web_branch` (`id`, `name`, `shorten`, `email`, `tel`, `fax`, `addre
 --
 
 CREATE TABLE IF NOT EXISTS `web_config` (
-`id` int(3) NOT NULL,
+  `id` int(3) NOT NULL auto_increment,
   `name` varchar(30) NOT NULL,
   `name_var` varchar(30) NOT NULL,
   `value` varchar(250) NOT NULL,
   `_order` int(3) NOT NULL,
-  `lang` varchar(2) NOT NULL DEFAULT 'vi',
-  `status` tinyint(1) DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+  `lang` varchar(2) NOT NULL default 'vi',
+  `status` tinyint(1) default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `web_config`
@@ -138,13 +143,9 @@ INSERT INTO `web_config` (`id`, `name`, `name_var`, `value`, `_order`, `lang`, `
 (6, 'Số tour / trang', 'limit_2', '18', 11, 'vi', 1),
 (7, 'Teambuilding / trang', 'limit_3', '10', 12, 'vi', 1),
 (8, 'Số video / trang', 'limit_4', '10', 13, 'vi', 0),
-(9, 'Copyright', 'copyright', '©2016 Stevbros Training and Consultancy. All rights reserved. | PMI, PMBOK®, PMP®, PgMP, PMI-ACP are registered marks of the Project Management Institute, Inc.', 4, 'vi', 0),
-(10, 'Email', 'email', 'support@stevbros.com', 6, 'vi', 0),
-(11, 'Điện thoại', 'tel', '0908 444 082', 3, 'vi', 0),
+(11, 'Điện thoại', 'tel', '08 3765 0115', 3, 'vi', 1),
 (12, 'Hotline', 'hotline', '0908 444 082', 7, 'vi', 1),
-(13, 'Tên viết tắt', 'name', 'Stevbros', 8, 'vi', 0),
 (14, 'Mô tả khác', 'other', 'GP ĐKKD số 0302556989 ngày cấp 08/03/2002 được sửa đổi lần thứ 18 ngày 22/05/2015', 5, 'vi', 1),
-(15, 'Địa chỉ', 'address', 'Lầu 7, CMARD2, 45 Đinh Tiên Hoàng, P. Bến Nghé, Q. 1, Tp. HCM.', 2, 'vi', 0),
 (16, 'News number / page', 'limit_1', '5', 10, 'en', 1),
 (17, 'Product number / page', 'limit_2', '12', 11, 'en', 1),
 (18, 'Photos number / page', 'limit_3', '18', 12, 'en', 1),
@@ -167,24 +168,38 @@ INSERT INTO `web_config` (`id`, `name`, `name_var`, `value`, `_order`, `lang`, `
 --
 
 CREATE TABLE IF NOT EXISTS `web_contact` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `name` varchar(60) NOT NULL,
   `email` varchar(60) NOT NULL,
   `phone` varchar(30) NOT NULL,
-  `address` varchar(200) DEFAULT NULL,
-  `visitors` int(3) DEFAULT NULL,
-  `children` int(3) DEFAULT NULL,
-  `baby` int(2) DEFAULT NULL,
-  `company` varchar(150) DEFAULT NULL,
-  `destination` varchar(150) DEFAULT NULL,
-  `date_khoihanh` bigint(10) DEFAULT NULL,
+  `address` varchar(200) default NULL,
+  `visitors` int(3) default NULL,
+  `children` int(3) default NULL,
+  `baby` int(2) default NULL,
+  `company` varchar(150) default NULL,
+  `destination` varchar(150) default NULL,
+  `date_khoihanh` bigint(10) default NULL,
   `message` text NOT NULL,
   `datetime` bigint(10) NOT NULL,
-  `lang` varchar(2) NOT NULL DEFAULT 'vi',
-  `status` tinyint(1) DEFAULT '0',
+  `lang` varchar(2) NOT NULL default 'vi',
+  `status` tinyint(1) default '0',
   `type` int(11) NOT NULL,
-  `header_id` int(11) DEFAULT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  `header_id` int(11) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+
+--
+-- Dumping data for table `web_contact`
+--
+
+INSERT INTO `web_contact` (`id`, `name`, `email`, `phone`, `address`, `visitors`, `children`, `baby`, `company`, `destination`, `date_khoihanh`, `message`, `datetime`, `lang`, `status`, `type`, `header_id`) VALUES
+(12, 'Trần Hiếu Nhân', 'nhan300489@gmail.com', '0988388003', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test noi dung abc', 1453771509, 'vi', 0, 1, NULL),
+(13, 'Trần Hiếu Nhân', 'hieunhan112@gmail.com', '0988388003', '123 cmt 8', 1, 0, 0, NULL, NULL, NULL, '', 1453771596, 'vi', 0, 2, 19),
+(14, 'Trần Hiếu Nhân', 'nhan300489@gmail.com', '0988388003', 'nguyen thi minh khai', 11, 1, 1, NULL, 'soc trang', 1455901200, 'Ve tot nhe', 1453771500, 'vi', 0, 3, NULL),
+(15, 'Trần Hiếu Nhân', 'nhan300489@gmail.com', '0988388003', 'CMT8', 12, 0, 0, NULL, 'Mui Ne', 1455037200, '', 1453771500, 'vi', 0, 3, NULL),
+(16, 'Trần Hiếu Nhân', 'hieunhan112@gmail.com', '0988388003', 'CMT 8', 12, 0, 0, NULL, 'Nha Tranh', 1455037200, '', 1453771500, 'vi', 0, 3, NULL),
+(17, 'Trần Hiếu Nhân', 'nhan300489@gmail.com', '0988388003', '', 1, 0, 0, NULL, NULL, NULL, '', 1453772559, 'vi', 0, 2, 18),
+(18, 'Trần Hiếu Nhân', 'nhan300489@gmail.com', '0988388003', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'test noid ung lein he abc asas', 1454529140, 'vi', 0, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -193,15 +208,16 @@ CREATE TABLE IF NOT EXISTS `web_contact` (
 --
 
 CREATE TABLE IF NOT EXISTS `web_content` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `content` text NOT NULL,
   `more1` text,
   `more2` text,
   `more3` text,
   `more4` text,
   `more5` text,
-  `header_id` int(11) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=295 DEFAULT CHARSET=utf8;
+  `header_id` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=298 ;
 
 --
 -- Dumping data for table `web_content`
@@ -219,12 +235,15 @@ INSERT INTO `web_content` (`id`, `content`, `more1`, `more2`, `more3`, `more4`, 
 (286, '<p>Côn Đảo là hòn đảo hoang sơ, thanh bình, có nhiều bãi biển đẹp, những cánh rừng nguyên sinh với nhiều loài động thực vật quý hiếm được nhiều du khách yêu thích. Bên cạnh đó, địa danh này còn hút khách bởi hệ thống nhà tù Côn Đảo – nơi giam giữ và tra tấn rất dã man nhiều tù nhân cách mạng.</p>\n\n<p>Trong suốt thời gian hoạt động có tới hơn 20.000 tù nhân đã không thể trở về vì những cực hình nơi đây.Bên cạnh đó, bằng trí thông minh và sức bền bỉ và lòng kiên định, nhiều chiến sĩ đã vượt qua hàng rào canh gác gắt gao, chiến thắng sự khắc nghiệt của thiên nhiên để ở về. Nhiều giai thoại vượt ngục của những tù nhân đã làm Côn Đảo trở nên nổi tiếng. Những câu chuyện được kể lại là minh chứng cho tinh thần sắt đá và ý chí sinh tồn mạnh mẽ của người chiến sĩ cách mạng Việt Nam trên mặt trận đấu tranh chống lại kẻ thù xâm lược.</p>\n\n<h2><span style="font-size:20px;">Chương trình team building: Tinh Thần thép</span></h2>\n\n<p>Chương trình du lịch team building 2015: Tinh Thần Thép giúp bạn có cơ hội được sống trong cảm giác của những tù nhân Côn Đảo xưa. Đây là một thử thách không dễ dàng vượt qua.</p>\n\n<p>Để thành công, bạn cần phải đoàn kết cùng đồng đội của mình, bằng ý chí sinh tồn và lòng gan dạ để vượt qua những khó khăn. Bên cạnh đó, bạn cần phải kết hợp trí thông minh với tinh thần kiên định của mình.</p>\n\n<p style="text-align: center;"><img alt="team-building-con-dao-1" src="http://datviettour.com.vn/wp-content/uploads/2014/08/team-building-con-dao-1.jpg" /></p>\n\n<p>Trải nghiệm cùng chương trình team building “Hành trình vượt ngục” không chỉ giúp bạn hiểu thêm về phẩm chất và nhân cách của thế hệ cha anh mà còn giúp rèn luyện những kỹ năng cần thiết trong công việc và cuộc sống.</p>\n\n<p>Thời gian:Từ 5 – 7 tiếng<br />\nSố lượng: Từ 20 – 200 người<br />\nĐịa điểm: Bãi biển Côn Đảo</p>\n\n<h2><span style="font-size:20px;">Mục đích chương trình</span></h2>\n\n<ul>\n	<li>Rèn luyện sức khỏe</li>\n	<li>Rèn kỹ năng lên kế hoạch và giải quyết tình huống bất ngờ</li>\n	<li>Rèn luyện tính kiên nhẫn, kiên định</li>\n	<li>Nâng cao tinh thần đoàn kết</li>\n	<li>Phát huy khả năng lãnh đạo</li>\n</ul>\n\n<p style="text-align: center;"><img alt="du-lich-ket-hop-teambuilding" src="http://datviettour.com.vn/wp-content/uploads/2014/08/du-lich-ket-hop-teambuilding.jpg" /></p>\n\n<h2><span style="font-size:20px;">Tại sao nên chọn đơn vị tổ chức du lịch giá rẻ team building Đất Việt Tour ?</span></h2>\n\n<p>Công ty Cổ phần Du lịch Đất Việt (Đất Việt Tour) là một trong các đơn vị tổ chức team building chuyên nghiệp nhất hiện nay. Chúng tôi hân hạnh đã từng tổ chức chương trình team building cho nhiều công ty, tập đoàn lớn như: Tập Đoàn Asti, Bepharco, Đại Dũng Comporation, PNJ, MB Bank, Liên Á,Vinasoy, Thế Giới Di Động,…thành công tốt đẹp và nhận được sự đánh giá cao từ quý khách hàng.</p>\n\n<p>Hãy liên hệ ngay với Đất Việt Tour để có một chuyến du lịch kết hợp team building thật vui và ý nghĩa nhất !</p>', NULL, NULL, NULL, NULL, NULL, 71),
 (285, '<h2><span style="font-size:20px;">NGÀY 1: TP.HỒ CHÍ MINH – PHAN THIẾT – NINH CHỮ</span></h2>\n\n<ul>\n	<li>Xe và hướng dẫn viên của du lịch Đất Việt đón quý khách tại điểm hẹn khởi hành đi Phan Thiết.</li>\n	<li>Đến thành phố Biên Hòa, quý khách dừng chân dùng điểm tâm sáng.</li>\n	<li>Tiếp tục chương trình, xe đưa quý khách dọc theo quốc lộ 1A, hướng dẫn viên sẽ thuyết minh về các địa danh mà đoàn đi qua. Quý khách cùng tìm hiểu đôi nét về văn hóa và phong tục ngày Tết của từng vùng miền, địa phương trên đất nước Việt Nam.du lich Ninh Chu</li>\n	<li>Đến với Bình Thuận, quý khách dừng chân dùng bữa trưa.</li>\n	<li>Tiếp chương trình xe đưa quý khách đến với tỉnh Ninh Thuận, đoàn nhận phòng và nghỉ ngơi tại Ninh Chữ. Xe đưa quý khách đến nhà hàng dùng cơm tối và nghỉ ngơi.</li>\n</ul>\n\n<h2><span style="font-size:20px;">NGÀY 2: VỊNH VĨNH HY – NHỊ BÌNH</span></h2>\n\n<ul>\n	<li>Quý khách dùng điểm tâm sáng tại resort. Xe đưa quý khách tham quan vịnh Vĩnh Hy.Du lịch Ninh Chữ\n	<ul>\n		<li>Ngắm san hô: Đoàn cùng xuống thuyền ra khơi ngắm nhìn khung cảnh vịnh biển.&nbsp;Quý khách lặn ngắm san hô thông qua lớp tàu đáy kính. Đoàn có cơ hội nhìn thấy rất nhiều loài cá và sinh vật biển lạ mắt đang sinh sống dưới đáy đại dương mênh mông.</li>\n		<li>Tiếp tục hành trình tàu đưa du khách tham quan tuyến Nhị Bình (Bình Lập + Bình Tiên), tắm biển tại các bãi biển hoang sơ như: Rô Bin Xơn … du lich tet Ninh Chu</li>\n	</ul>\n	</li>\n	<li>Đoàn dùng bữa trưa trên bè với thực đơn hải sản. Sau đó xe đưa Quý khách về lại resort nghỉ ngơi.\n	<ul>\n		<li>Buổi chiều, xe đưa đoàn vào tham quan tháp Chàm Po Klong Garai: Một trong những ngôi tháp Chàm được xây dựng rất lâu đời. Quý khách có dịp nghe thuyết minh về văn hóa, phong tục, lễ hội của người dân địa phương và cùng tham gia múa hát với người Chăm.</li>\n		<li>Đoàn ghé tham quan vườn nho Ba Mọi – nơi quý khách có thể trực tiếp tìm hiểu về nghề trồng nho, chụp ảnh với những vườn nho sai trĩu quả và thưởng thức những chùm nho chín ngay tại vườn.</li>\n	</ul>\n	</li>\n	<li>Quý khách về lại nhà hàng dùng bữa tối. Sau bữa tối, đoàn nghỉ ngơi tự do.</li>\n</ul>\n\n<h2><span style="font-size:20px;">NGÀY 3: NINH THUẬN – TP.HỒ CHÍ MINH</span></h2>\n\n<ul>\n	<li>Đoàn dùng điểm tâm sáng, làm thủ tục trả phòng. Xe đưa đoàn tham quan những làng nghề lâu năm của tỉnh Ninh Thuận.\n	<ul>\n		<li>Làng gốm Bàu Trúc – làng nghề làm gốm theo phương pháp thủ công. Tại đây, quý khách sẽ được chiêm ngưỡng những sản phẩm gốm tinh xảo và mua những sản phẩm yêu thích về làm quà tặng bạn bè, người thân.</li>\n		<li>Tiếp đó quý khách ghé thăm làng dệt Mỹ Nghiệp, cùng là một phương pháp thủ công các nghệ nhân nơi đây đã dệt nên những thước vải rất đẹp với nhiều màu sắc khác nhau, cùng tìm hiểu về cuộc đời và gian nhà nhỏ của ca sỹ Chế Linh.</li>\n	</ul>\n	</li>\n	<li>Quý khách dùng bữa trưa tại nhà hàng.</li>\n	<li>Đoàn khởi hành về lại TP. Hồ Chí Minh. Trên đường về, đoàn dừng chân mua sắm đặc sản địa phương về làm quà tặng người thân.</li>\n	<li>Về đến TP.Hồ Chí Minh, hướng dẫn viên cty du lịch Đất Việt Tour chia tay quý khách, hẹn gặp lại trong những chương trình tham quan sau.</li>\n</ul>', '<p>Bạn muốn có một chuyến du lịch Tết Ninh Chữ – vịnh Vĩnh Hy thật tiết kiệm? Hãy&nbsp;đăng ký&nbsp;ngay tour Tết tại Đất Việt Tour để thỏa sức khám phá và trải nghiệm những điều tuyệt vời nhất tại biển Ninh Chữ hoang sơ và vịnh Vĩnh Hy tuyệt đẹp chỉ từ 2.450.000 vnđ.</p>', '<table border="1" cellpadding="5" cellspacing="0" class="table" id="tabledungpost" style="width: 100%;">\n	<tbody>\n		<tr>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Lượng khách</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Khách sạn 2 sao</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Khách sạn 3 sao</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Khách sạn 4 sao</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Ngày khởi hành</span></strong></td>\n		</tr>\n		<tr>\n			<td>Khách Lẻ – Ghép Đoàn (02 – 08 khách)</td>\n			<td>&nbsp;</td>\n			<td>3.450.000</td>\n			<td>&nbsp;</td>\n			<td>09,11/02/2016 (M2,4 Tết)</td>\n		</tr>\n		<tr>\n			<td>Khách Đoàn – Tour Riêng (trên 40 khách)</td>\n			<td>&nbsp;</td>\n			<td>&nbsp;</td>\n			<td>&nbsp;</td>\n			<td>Mọi ngày theo yêu cầu</td>\n		</tr>\n	</tbody>\n</table>\n\n<p>Lưu ý:</p>\n\n<ul>\n	<li>Giá tour trẻ em từ 05 – 11 tuổi: 1.725.000&nbsp;vnđ/khách.</li>\n	<li>Phụ thu phòng đơn: 850.000 vnđ/khách.</li>\n</ul>', '<h3><span style="font-size:20px;">GIÁ TOUR DU LỊCH TẾT MIỀN TÂY BAO GỒM</span></h3>\n\n<ul>\n	<li>Phương tiện: Xe &nbsp;đời mới máy lạnh. Đón khách tận nhà trong nội thành.</li>\n	<li>Khách sạn: &nbsp;3 sao\n	<ul>\n		<li>Ăn uống:&nbsp;4 bữa ăn sáng + 7 bữa ăn chính</li>\n		<li>Ăn sáng gồm: Hủ tiếu, bún bò, phở, bánh mì ốp la, bánh canh + Giải khác: Cà phê đá, đá chanh, nước ngọt chai…</li>\n		<li>Ăn trưa gồm 05 món: 02 món mặn + 01 món xào + 01 món canh + 01 rau trộn + trái cây + cơm trắng + trà đá + Đặc biệt có bữa ăn đặc sản địa phương</li>\n		<li>Quý khách ăn tự túc trừ lại 500.000 vnđ.</li>\n	</ul>\n	</li>\n	<li>Hướng dẫn viên: Đoàn có hướng dẫn viên thuyết minh và phục vụ đoàn tham quan suốt tuyến.</li>\n	<li>Bảo hiểm: Bảo hiểm du lịch theo quy định của bảo hiểm Bảo Minh 10.000.000 vnđ/vụ</li>\n	<li>Tham quan: Giá tour đã bao gồm phí vào cổng tại các điểm tham quan theo chương trình.</li>\n	<li>Thuyền máy + đò chèo đi vào vườn trái cây + Ca nô đi Đất Mũi Cà Mau.</li>\n	<li>Qùa tặng:\n	<ul>\n		<li>Nón du lịch Đất Việt</li>\n		<li>Khăn ướt + nước đóng chai</li>\n		<li>Gối hơi + bao lì xì may mắn</li>\n	</ul>\n	</li>\n</ul>\n\n<h3><span style="font-size:20px;">GIÁ TOUR DU LICH TET MIEN TAY KHÔNG BAO GỒM</span></h3>\n\n<ul>\n	<li>Ăn uống ngoài chương trình, giặt ủi, điện thoại và chi phí cá nhân….</li>\n	<li>VAT (Hóa đơn giá trị gia tăng).</li>\n</ul>\n\n<h3><span style="font-size:20px;">GIÁ TOUR TRẺ EM</span></h3>\n\n<ul>\n	<li>Trẻ em từ 11 tuổi trở lên phải mua 1 vé.</li>\n	<li>Trẻ em từ 5 tuổi đến dưới 11 tuổi mua ½ vé tiêu chuẩn như người lớn nhưng ngủ ghép cha mẹ,trẻ em thứ 2 phải mua 01 vé.</li>\n	<li>Trẻ em dưới 5 tuổi cha mẹ tự lo,trẻ em thứ 2 phải mua ½ vé.</li>\n	<li>Khi đi quý khách nhớ mang theo CMND, trẻ em mang khai sinh.</li>\n</ul>', NULL, NULL, 19),
 (284, '<p><span style="font-size:20px;">TỐI NGÀY 1: TP.HỒ CHÍ MINH – ĐẢO BÌNH BA</span></p>\n\n<ul>\n	<li>Xe và hướng dẫn viên công ty du lịch Đất Việt đón quý khách tại điểm hẹn khởi hành đi Cam Ranh.</li>\n	<li>Quý khách nghỉ ngơi tự do trên xe.</li>\n</ul>\n\n<p><span style="font-size:20px;">NGÀY 2: ĐẢO BÌNH BA – TẮM BIỂN</span></p>\n\n<ul>\n	<li>Sáng: Đoàn dùng điểm tâm sáng. Xe đưa Quý khách vào trung tâm Tp Cam Ranh, đến với cảng Ba Ngòi làm thủ tục lên tàu đi du lịch Bình Ba.</li>\n	<li>Tàu đến bãi Nhà Cũ hoặc bãi Bồ Đề, Quý khách tắm biển tự do với làn nước mát lạnh và trong xanh.</li>\n	<li>Trưa: Quý khách dùng bữa trưa tại nhà hàng bè nổi. Tàu đưa Quý khách về lại cảng Bình Ba, Quý khách về khách sạn nhận phòng và nghỉ ngơi.</li>\n	<li>Chiều: Quý khách tham quan Bình Ba bằng xe máy.</li>\n	<li>Chụp ảnh Hòn Rùa, viếng chùa Địa Tạng, Lăng Ông Nam Hải, Đình Thần du lịch tết Bình Ba.</li>\n	<li>Quý khách đến nhà hàng dùng bữa tối hải sản và tự do khám phá đảo.</li>\n</ul>\n\n<p><span style="font-size:20px;">NGÀY 3: ĐẢO BÌNH BA – TP. HỒ CHÍ MINH</span></p>\n\n<ul>\n	<li>Sáng: Quý khách dùng điểm tâm sáng, sau đó khởi hành tham quan:</li>\n	<li>Bãi Nồm: Quý khách tự do tắm biển với làng nước xanh biếc, thưởng thức hải sản tươi sống đặc biệt Tôm hùm tour tết Bình Ba.</li>\n	<li>Về lại khách sạn làm thủ tục trả phòng về lại đất liền. Tham quan Cam Ranh.tour tet Binh Ba</li>\n	<li>Chùa Ốc với kiến trúc độc đáo và kỹ thuật điêu khắc tinh xảo, chùa thu hút rất nhiều du khách đến viếng và tham quan.</li>\n	<li>Đoàn tiếp tục khởi hành về lại TP HCM, trên đường về Quý khách dừng chân mua sắm đặc sản địa phương làm quà tặng cho người thân.</li>\n	<li>Quý khách dừng chân dùng bữa trưa tại Cà Ná.</li>\n	<li>Về đến TP HCM, Hướng dẫn viên du lịch Đất Việt chia tay và hẹn gặp lại quý khách.</li>\n</ul>', '<p>Một chuyến du lịch đảo Bình Ba hoang sơ sẽ vô cùng ý nghĩa và thú vị để đón mừng năm mới 2016. Đặt ngay&nbsp;Tour du lịch Tết 2016 đảo Bình Ba 2 ngày 2 đêm ngay hôm nay để có mức giá ưu đãi nhất!</p>', '<table border="1" cellpadding="5" cellspacing="0" class="table" id="tabledungpost" style="width: 100%;">\n	<tbody>\n		<tr>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Lượng khách</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Khách sạn 2 sao</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Khách sạn 3 sao</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Khách sạn 4 sao</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Ngày khởi hành</span></strong></td>\n		</tr>\n		<tr>\n			<td>Khách Lẻ – Ghép Đoàn (02 – 08 khách)</td>\n			<td>&nbsp;</td>\n			<td>3.450.000</td>\n			<td>&nbsp;</td>\n			<td>09,11/02/2016 (M2,4 Tết)</td>\n		</tr>\n		<tr>\n			<td>Khách Đoàn – Tour Riêng (trên 40 khách)</td>\n			<td>&nbsp;</td>\n			<td>&nbsp;</td>\n			<td>&nbsp;</td>\n			<td>Mọi ngày theo yêu cầu</td>\n		</tr>\n	</tbody>\n</table>\n\n<p>Lưu ý:</p>\n\n<ul>\n	<li>Giá tour trẻ em từ 05 – 11 tuổi: 1.725.000&nbsp;vnđ/khách.</li>\n	<li>Phụ thu phòng đơn: 850.000 vnđ/khách.</li>\n</ul>', '<p><span style="font-size:20px;">GIÁ TOUR BAO GỒM</span></p>\n\n<ul>\n	<li>Phương tiện: Xe du lịch 16,29,35,45 chỗ đời mới máy lạnh, tivi, ghế bật, phục vụ đưa đón đoàn suốt tuyến tham quan.</li>\n	<li>Khách sạn:</li>\n	<li>Nhà nghỉ/Homestay: Biển Xanh, Bảy Hộ…Hoặc nhà nghỉ tương đương.</li>\n	<li>Tiêu chuẩn 3,4&nbsp;khách /phòng.&nbsp;Tiện nghi: máy lạnh, tivi, nước nóng,…</li>\n	<li>Ăn uống:\n	<ul>\n		<li>Ăn sáng: Bún bò, hủ tiếu, bánh canh, bánh mì ốp la,… Nước uống: café, các loại nước giải khát.</li>\n		<li>Ăn trưa, chiều: Tại nhà hàng địa phương tiêu chuẩn, hợp vệ sinh.</li>\n	</ul>\n	</li>\n	<li>Hướng dẫn viên: Đoàn có hướng dẫn viên tiếng Việt thuyết minh và phục vụ đoàn tham quan suốt tuyến.</li>\n	<li>Bảo hiểm: Bảo hiểm du lịch theo quy định của bảo hiểm Bảo Minh 20.000.000 vnđ/vụ</li>\n	<li>Tham quan: Giá tour đã bao gồm phí vào cổng tại các điểm tham quan theo chương trình.</li>\n	<li>Qùa tặng:\n	<ul>\n		<li>Nón du lịch Đất Việt</li>\n		<li>Khăn ướt + nước đóng chai</li>\n		<li>Gối hơi + bao lì xì may mắn</li>\n	</ul>\n	</li>\n</ul>\n\n<p><span style="font-size:20px;">GIÁ TOUR DU LỊCH TẾT BÌNH BA KHÔNG BAO GỒM</span></p>\n\n<ul>\n	<li>Tiền típ cho hướng dẫn viên và tài xế địa phương.</li>\n	<li>Chi phí cá nhân ngoài chương trình: giặt ủi, điện thoại, minibar…</li>\n</ul>', NULL, NULL, 18),
-(283, '<h2><span style="font-size:20px;">NGÀY 01: SÀI GÒN – MỸ THO – CẦN THƠ</span></h2>\n\n<ul>\n	<li>Xe và hướng dẫn viên đón du khách tại điểm hẹn, khởi hành đi tour tết Mỹ Tho.</li>\n	<li>Đoàn dùng điểm tâm tại Trung Lương, ghé tham quan Chùa Vĩnh Tràng.</li>\n	<li>Đến bến đò 30/4, du thuyền đưa quý khách đi Tân Thạch (Bến Tre). Đò nhỏ đưa du khách vào tham quan Vườn trái cây, Trại mật ong. Qúy khách thưởng thức mật ong và trái cây tại vườn.</li>\n	<li>Đoàn dùng cơm trưa, và nghe đờn ca tài tử. Sau đó tham quan Lò kẹo dừa, kẹo chuối, Qúy khách có thể mua làn quà lưu niệm.</li>\n	<li>Thuyền đưa du khách trở lại bến tàu 30/4. Đoàn khởi hành đi tour tết Cần Thơ.&nbsp;Đến tour tet Can Tho nhận phòng, dùng cơm chiều.</li>\n	<li>Buổi tối, xe đưa du khách đến bến Ninh Kiều. Du thuyền đưa khách dạo dòng sông Hậu, Qúy khách thưởng thức đờn ca tài tử và dùng cơm tối trên tàu.</li>\n</ul>\n\n<h2><span style="font-size:20px;">NGÀY 02: TOUR TẾT CẦN THƠ – SÓC TRĂNG – CÀ MAU</span></h2>\n\n<ul>\n	<li>Xe đưa du khách đến bến Ninh Kiều.</li>\n	<li>Sau đó, thuyền đưa du khách tham quan Chợ nổi Cái Răng, tìm hiểu đời sống và cảnh mua bán trên sông của người dân miền sông nước.</li>\n	<li>Đoàn dùng điểm tâm.</li>\n	<li>Xe đưa du khách đi tour tết Sóc Trăng, qúy khách ghé tham quan Chùa Dơi, Chùa Đất Sét, Bảo tàng dân tộc Khmer, Chùa Kơ”Leng.</li>\n	<li>Đoàn trờ về nhà hàng dùng cơm trưa.&nbsp;Buổi chiều, Đoàn khởi hành lộ trình đi tham quan tour tết Cà Mau, đoàn viếng nhà thờ cha Diệp ở Hộ Phòng.</li>\n	<li>Đến Cà Mau, nhận phòng khách sạn, nghỉ ngơi. Dùng cơm chiều.</li>\n	<li>Du khách sinh hoạt tự do và nghỉ đêm tại khu du lịch Cà Mau.</li>\n</ul>\n\n<h2><span style="font-size:20px;">NGÀY 03: CÀ MAU&nbsp;– ĐẤT MŨI – BẠC LIÊU</span></h2>\n\n<ul>\n	<li>Đoàn dùng điểm tâm. Xe đưa du khách đến bến tàu: Lên ca nô tham quan Khu Căn Cứ Rừng Đước, quý khách nghe kể chuyện Bác Ba Phi.</li>\n	<li>Đoàn tiếp tục đến vùng đất mũi (Vùng cực nam tổ quốc) chụp hình lưu niệm, dùng cơm trưa. du lich tet Ca Mau</li>\n	<li>Buổi chiều, đoàn rời Cà Mau đi Bạc Liêu.</li>\n	<li>Tới Bạc Liêu, đoàn tham quan nhà Công tử Bạc Liêu; Khu lưu niệm cố nhạc sĩ Cao Văn Lầu – Tác giả bài Dạ Cổ Hoài Lang, người có công lớn trong nền dân ca tài tử cải lương Nam Bộ; Đoàn viếng Phật Bà Nam Hải, Chùa Xiêm Cán.</li>\n	<li>Đoàn về khách sạn nhận phòng nghỉ đêm.&nbsp;Xe đưa quý khách đến nhà hàng dùng cơm chiều.</li>\n	<li>Du khách tự do đi dạo thanh phố du lich Bạc Liêu về đêm.</li>\n</ul>\n\n<h2><span style="font-size:20px;">NGÀY 04: BẠC LIÊU – MỸ KHÁNH – SÀI GÒN</span></h2>\n\n<ul>\n	<li>Qúy khách dùng điểm tâm sáng.</li>\n	<li>Đoàn khởi hành về Cần Thơ, ghé tham quan Vườn trái cây Mỹ Khánh, du khách tham quan vườn mận, xoài, chôm chôm, mít, sầu riêng… Tìm hiểu cách làm bánh tráng, nấu rượu đế. Qúy khách thưởng thức những món ngon rất miền Tây như: Cá lóc nướng trui, nướng ống tre, chuột quay lu, lẩu đồng quê khu du lịch Bạc Liêu(Chi phí tự túc)</li>\n	<li>Đoàn dùng cơm trưa.</li>\n	<li>Sau đó đoàn tạm biệt du lich Bạc Liêu khởi hành về Tp. Hồ Chí Minh.</li>\n	<li>Về đến Tp. Hồ Chí Minh, xe tiễn khách trên đường về, nơi nào thuận tiện nhất. Hướng dẫn viên Công ty Du lịch Đất Việt chào tạm biệt và hẹn gặp lại Qúy khách vào một tour du lịch tết khác.</li>\n</ul>', '<p>Du lịch miền Tây&nbsp;4 ngày 3 đêm, sẽ đưa bạn đi qua các địa danh nổi tiếng như Tiền Giang, du lịch tết Cần Thơ,du lịch tết Cà Mau,du lịch tết Sóc Trăng… khám phá miệt vườn sông nước với các di tích lịch sử văn hóa, các thắng cảnh tự nhiên. Bạn sẽ đắm chìm trong cảnh đẹp, vườn cây trái xum xuê và những món ngon đặc sản miền Tây Nam Bộ.</p>', '<table border="1" cellpadding="5" cellspacing="0" class="table" id="tabledungpost" style="width: 100%;">\n	<tbody>\n		<tr>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Lượng khách</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Khách sạn 2 sao</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Khách sạn 3 sao</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Khách sạn 4 sao</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Ngày khởi hành</span></strong></td>\n		</tr>\n		<tr>\n			<td>Khách Lẻ – Ghép Đoàn (02 – 08 khách)</td>\n			<td>&nbsp;</td>\n			<td>3.450.000</td>\n			<td>&nbsp;</td>\n			<td>09,11/02/2016 (M2,4 Tết)</td>\n		</tr>\n		<tr>\n			<td>Khách Đoàn – Tour Riêng (trên 40 khách)</td>\n			<td>&nbsp;</td>\n			<td>&nbsp;</td>\n			<td>&nbsp;</td>\n			<td>Mọi ngày theo yêu cầu</td>\n		</tr>\n	</tbody>\n</table>\n\n<p>Lưu ý:</p>\n\n<ul>\n	<li>Giá tour trẻ em từ 05 – 11 tuổi: 1.725.000&nbsp;vnđ/khách.</li>\n	<li>Phụ thu phòng đơn: 850.000 vnđ/khách.</li>\n</ul>', '<h3><span style="font-size:20px;">GIÁ TOUR DU LỊCH TẾT MIỀN TÂY BAO GỒM</span></h3>\n\n<ul>\n	<li>Phương tiện: Xe &nbsp;đời mới máy lạnh. Đón khách tận nhà trong nội thành.</li>\n	<li>Khách sạn: &nbsp;3 sao\n	<ul>\n		<li>Ăn uống:&nbsp;4 bữa ăn sáng + 7 bữa ăn chính</li>\n		<li>Ăn sáng gồm: Hủ tiếu, bún bò, phở, bánh mì ốp la, bánh canh + Giải khác: Cà phê đá, đá chanh, nước ngọt chai…</li>\n		<li>Ăn trưa gồm 05 món: 02 món mặn + 01 món xào + 01 món canh + 01 rau trộn + trái cây + cơm trắng + trà đá + Đặc biệt có bữa ăn đặc sản địa phương</li>\n		<li>Quý khách ăn tự túc trừ lại 500.000 vnđ.</li>\n	</ul>\n	</li>\n	<li>Hướng dẫn viên: Đoàn có hướng dẫn viên thuyết minh và phục vụ đoàn tham quan suốt tuyến.</li>\n	<li>Bảo hiểm: Bảo hiểm du lịch theo quy định của bảo hiểm Bảo Minh 10.000.000 vnđ/vụ</li>\n	<li>Tham quan: Giá tour đã bao gồm phí vào cổng tại các điểm tham quan theo chương trình.</li>\n	<li>Thuyền máy + đò chèo đi vào vườn trái cây + Ca nô đi Đất Mũi Cà Mau.</li>\n	<li>Qùa tặng:\n	<ul>\n		<li>Nón du lịch Đất Việt</li>\n		<li>Khăn ướt + nước đóng chai</li>\n		<li>Gối hơi + bao lì xì may mắn</li>\n	</ul>\n	</li>\n</ul>\n\n<h3><span style="font-size:20px;">GIÁ TOUR DU LICH TET MIEN TAY KHÔNG BAO GỒM</span></h3>\n\n<ul>\n	<li>Ăn uống ngoài chương trình, giặt ủi, điện thoại và chi phí cá nhân….</li>\n	<li>VAT (Hóa đơn giá trị gia tăng).</li>\n</ul>\n\n<h3><span style="font-size:20px;">GIÁ TOUR TRẺ EM</span></h3>\n\n<ul>\n	<li>Trẻ em từ 11 tuổi trở lên phải mua 1 vé.</li>\n	<li>Trẻ em từ 5 tuổi đến dưới 11 tuổi mua ½ vé tiêu chuẩn như người lớn nhưng ngủ ghép cha mẹ,trẻ em thứ 2 phải mua 01 vé.</li>\n	<li>Trẻ em dưới 5 tuổi cha mẹ tự lo,trẻ em thứ 2 phải mua ½ vé.</li>\n	<li>Khi đi quý khách nhớ mang theo CMND, trẻ em mang khai sinh.</li>\n</ul>', NULL, NULL, 20),
+(283, '<h2><span style="font-size:20px;">NGÀY 01: SÀI GÒN – MỸ THO – CẦN THƠ</span></h2>\n\n<ul>\n	<li>Xe và hướng dẫn viên đón du khách tại điểm hẹn, khởi hành đi tour tết Mỹ Tho.<img alt=" ninh kieu can tho" src="http://www.iappscode.com/site/dulichhoaviet/public/images/1452928240.jpg" style="width: 390px; height: 247px;" /></li>\n	<li>Đoàn dùng điểm tâm tại Trung Lương, ghé tham quan Chùa Vĩnh Tràng.</li>\n	<li>Đến bến đò 30/4, du thuyền đưa quý khách đi Tân Thạch (Bến Tre). Đò nhỏ đưa du khách vào tham quan Vườn trái cây, Trại mật ong. Qúy khách thưởng thức mật ong và trái cây tại vườn.</li>\n	<li>Đoàn dùng cơm trưa, và nghe đờn ca tài tử. Sau đó tham quan Lò kẹo dừa, kẹo chuối, Qúy khách có thể mua làn quà lưu niệm.</li>\n	<li>Thuyền đưa du khách trở lại bến tàu 30/4. Đoàn khởi hành đi tour tết Cần Thơ.&nbsp;Đến tour tet Can Tho nhận phòng, dùng cơm chiều.</li>\n	<li>Buổi tối, xe đưa du khách đến bến Ninh Kiều. Du thuyền đưa khách dạo dòng sông Hậu, Qúy khách thưởng thức đờn ca tài tử và dùng cơm tối trên tàu.</li>\n</ul>\n\n<h2><span style="font-size:20px;">NGÀY 02: TOUR TẾT CẦN THƠ – SÓC TRĂNG – CÀ MAU</span></h2>\n\n<ul>\n	<li>Xe đưa du khách đến bến Ninh Kiều.</li>\n	<li>Sau đó, thuyền đưa du khách tham quan Chợ nổi Cái Răng, tìm hiểu đời sống và cảnh mua bán trên sông của người dân miền sông nước.</li>\n	<li>Đoàn dùng điểm tâm.</li>\n	<li>Xe đưa du khách đi tour tết Sóc Trăng, qúy khách ghé tham quan Chùa Dơi, Chùa Đất Sét, Bảo tàng dân tộc Khmer, Chùa Kơ”Leng.</li>\n	<li>Đoàn trờ về nhà hàng dùng cơm trưa.&nbsp;Buổi chiều, Đoàn khởi hành lộ trình đi tham quan tour tết Cà Mau, đoàn viếng nhà thờ cha Diệp ở Hộ Phòng.</li>\n	<li>Đến Cà Mau, nhận phòng khách sạn, nghỉ ngơi. Dùng cơm chiều.</li>\n	<li>Du khách sinh hoạt tự do và nghỉ đêm tại khu du lịch Cà Mau.</li>\n</ul>\n\n<h2><span style="font-size:20px;">NGÀY 03: CÀ MAU&nbsp;– ĐẤT MŨI – BẠC LIÊU</span></h2>\n\n<ul>\n	<li>Đoàn dùng điểm tâm. Xe đưa du khách đến bến tàu: Lên ca nô tham quan Khu Căn Cứ Rừng Đước, quý khách nghe kể chuyện Bác Ba Phi.</li>\n	<li>Đoàn tiếp tục đến vùng đất mũi (Vùng cực nam tổ quốc) chụp hình lưu niệm, dùng cơm trưa. du lich tet Ca Mau</li>\n	<li>Buổi chiều, đoàn rời Cà Mau đi Bạc Liêu.</li>\n	<li>Tới Bạc Liêu, đoàn tham quan nhà Công tử Bạc Liêu; Khu lưu niệm cố nhạc sĩ Cao Văn Lầu – Tác giả bài Dạ Cổ Hoài Lang, người có công lớn trong nền dân ca tài tử cải lương Nam Bộ; Đoàn viếng Phật Bà Nam Hải, Chùa Xiêm Cán.</li>\n	<li>Đoàn về khách sạn nhận phòng nghỉ đêm.&nbsp;Xe đưa quý khách đến nhà hàng dùng cơm chiều.</li>\n	<li>Du khách tự do đi dạo thanh phố du lich Bạc Liêu về đêm.</li>\n</ul>\n\n<h2><span style="font-size:20px;">NGÀY 04: BẠC LIÊU – MỸ KHÁNH – SÀI GÒN</span></h2>\n\n<ul>\n	<li>Qúy khách dùng điểm tâm sáng.</li>\n	<li>Đoàn khởi hành về Cần Thơ, ghé tham quan Vườn trái cây Mỹ Khánh, du khách tham quan vườn mận, xoài, chôm chôm, mít, sầu riêng… Tìm hiểu cách làm bánh tráng, nấu rượu đế. Qúy khách thưởng thức những món ngon rất miền Tây như: Cá lóc nướng trui, nướng ống tre, chuột quay lu, lẩu đồng quê khu du lịch Bạc Liêu(Chi phí tự túc)</li>\n	<li>Đoàn dùng cơm trưa.</li>\n	<li>Sau đó đoàn tạm biệt du lich Bạc Liêu khởi hành về Tp. Hồ Chí Minh.</li>\n	<li>Về đến Tp. Hồ Chí Minh, xe tiễn khách trên đường về, nơi nào thuận tiện nhất. Hướng dẫn viên Công ty Du lịch Đất Việt chào tạm biệt và hẹn gặp lại Qúy khách vào một tour du lịch tết khác.</li>\n</ul>', '<p>Du lịch miền Tây&nbsp;4 ngày 3 đêm, sẽ đưa bạn đi qua các địa danh nổi tiếng như Tiền Giang, du lịch tết Cần Thơ,du lịch tết Cà Mau,du lịch tết Sóc Trăng… khám phá miệt vườn sông nước với các di tích lịch sử văn hóa, các thắng cảnh tự nhiên. Bạn sẽ đắm chìm trong cảnh đẹp, vườn cây trái xum xuê và những món ngon đặc sản miền Tây Nam Bộ.</p>', '<table border="1" cellpadding="5" cellspacing="0" class="table" id="tabledungpost" style="width: 100%;">\n	<tbody>\n		<tr>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Lượng khách</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Khách sạn 2 sao</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Khách sạn 3 sao</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Khách sạn 4 sao</span></strong></td>\n			<td style="background-color: rgb(102, 102, 102);"><strong><span style="color:#FFFFFF;">Ngày khởi hành</span></strong></td>\n		</tr>\n		<tr>\n			<td>Khách Lẻ – Ghép Đoàn (02 – 08 khách)</td>\n			<td>&nbsp;</td>\n			<td>3.450.000</td>\n			<td>&nbsp;</td>\n			<td>09,11/02/2016 (M2,4 Tết)</td>\n		</tr>\n		<tr>\n			<td>Khách Đoàn – Tour Riêng (trên 40 khách)</td>\n			<td>&nbsp;</td>\n			<td>&nbsp;</td>\n			<td>&nbsp;</td>\n			<td>Mọi ngày theo yêu cầu</td>\n		</tr>\n	</tbody>\n</table>\n\n<p>Lưu ý:</p>\n\n<ul>\n	<li>Giá tour trẻ em từ 05 – 11 tuổi: 1.725.000&nbsp;vnđ/khách.</li>\n	<li>Phụ thu phòng đơn: 850.000 vnđ/khách.</li>\n</ul>', '<h3><span style="font-size:20px;">GIÁ TOUR DU LỊCH TẾT MIỀN TÂY BAO GỒM</span></h3>\n\n<ul>\n	<li>Phương tiện: Xe &nbsp;đời mới máy lạnh. Đón khách tận nhà trong nội thành.</li>\n	<li>Khách sạn: &nbsp;3 sao\n	<ul>\n		<li>Ăn uống:&nbsp;4 bữa ăn sáng + 7 bữa ăn chính</li>\n		<li>Ăn sáng gồm: Hủ tiếu, bún bò, phở, bánh mì ốp la, bánh canh + Giải khác: Cà phê đá, đá chanh, nước ngọt chai…</li>\n		<li>Ăn trưa gồm 05 món: 02 món mặn + 01 món xào + 01 món canh + 01 rau trộn + trái cây + cơm trắng + trà đá + Đặc biệt có bữa ăn đặc sản địa phương</li>\n		<li>Quý khách ăn tự túc trừ lại 500.000 vnđ.</li>\n	</ul>\n	</li>\n	<li>Hướng dẫn viên: Đoàn có hướng dẫn viên thuyết minh và phục vụ đoàn tham quan suốt tuyến.</li>\n	<li>Bảo hiểm: Bảo hiểm du lịch theo quy định của bảo hiểm Bảo Minh 10.000.000 vnđ/vụ</li>\n	<li>Tham quan: Giá tour đã bao gồm phí vào cổng tại các điểm tham quan theo chương trình.</li>\n	<li>Thuyền máy + đò chèo đi vào vườn trái cây + Ca nô đi Đất Mũi Cà Mau.</li>\n	<li>Qùa tặng:\n	<ul>\n		<li>Nón du lịch Đất Việt</li>\n		<li>Khăn ướt + nước đóng chai</li>\n		<li>Gối hơi + bao lì xì may mắn</li>\n	</ul>\n	</li>\n</ul>\n\n<h3><span style="font-size:20px;">GIÁ TOUR DU LICH TET MIEN TAY KHÔNG BAO GỒM</span></h3>\n\n<ul>\n	<li>Ăn uống ngoài chương trình, giặt ủi, điện thoại và chi phí cá nhân….</li>\n	<li>VAT (Hóa đơn giá trị gia tăng).</li>\n</ul>\n\n<h3><span style="font-size:20px;">GIÁ TOUR TRẺ EM</span></h3>\n\n<ul>\n	<li>Trẻ em từ 11 tuổi trở lên phải mua 1 vé.</li>\n	<li>Trẻ em từ 5 tuổi đến dưới 11 tuổi mua ½ vé tiêu chuẩn như người lớn nhưng ngủ ghép cha mẹ,trẻ em thứ 2 phải mua 01 vé.</li>\n	<li>Trẻ em dưới 5 tuổi cha mẹ tự lo,trẻ em thứ 2 phải mua ½ vé.</li>\n	<li>Khi đi quý khách nhớ mang theo CMND, trẻ em mang khai sinh.</li>\n</ul>', NULL, NULL, 20),
 (282, '<p>Sài Gòn những ngày vào Xuân bỗng vui tươi, rộn rã ở từng con phố, cái nắng dịu nhẹ lướt êm ái qua từng cánh hoa cúc vàng giòn tan, ai ai cũng hân hoan sắm sửa quần áo, hoa kiểng chào đón Xuân thì ở&nbsp;vùng đất Tây Nguyên xa xôi không khí Xuân cùng vô cùng rộn rã.</p>\n\n<p>Du lịch Tết&nbsp;ở vùng đất Tây Nguyên đại ngàn đầy nắng đầy gió và hòa vào niềm hoan ca của người dân địa phương đón Tết, du khách&nbsp;sẽ có được những phút giây thật sự thư giãn và tránh xa&nbsp;cuộc sống xô bồ nơi đô&nbsp;thị.</p>\n\n<h2><span style="font-size:20px;">DU LỊCH TẾT TÂY NGUYÊN KHÁM PHÁ ĐẠI NGÀN HOANG SƠ, KỲ VỸ</span></h2>\n\n<p>Cảnh quan sinh động hiện ra trước mắt du khách với buôn làng, cánh rừng, ngọc thác, khe suối,… không chì còn đến với ta qua “Sử thi Đam San” hào hùng hay những câu chuyện kể về Tây Nguyên bí ẩn. Khi lần đầu tiên đặt chân đến Tây Nguyên, chắc hẳn bạn sẽ bị choáng ngợp bởi vẻ đẹp bạt ngàn của những cánh rừng xanh trải dài, xen kẽ là núi đồi trùng điệp cao tít trùng mây.</p>\n\n<p style="text-align: center;"><img alt="du-lich-tet-tay-nguyen-2" src="http://datviettour.com.vn/wp-content/uploads/2016/01/du-lich-tet-tay-nguyen-2.jpg" /></p>\n\n<p>Không chỉ thế, thác nước trắng xóa ngày đêm miệt mài ầm ĩ, rộn vang cả một góc trời, vừa mạnh mẽ vừa quyến rũ. Nằm sâu trong những cánh rừng là ngôi làng người Mông với ngôi nhà sàn đơn sơ lãng lẽ nép mình bên chân núi. Con người sống hòa hợp với thiên nhiên.</p>\n\n<p>Ngày ngày, họ lên rừng hái trái, trồng rẫy làm nương. Khi màn đêm dần bỏ ngỏ giăng đầy, họ quay quần bên bếp lò, kể cho nhau nghe về huyền thoại Tây Nguyên. Với vẻ đẹp hoang dại đến yên bình hòa vào không khí trong lành tạo cảm giác thư thái cho du khách khi đến mảnh đất Tây Nguyên, xua tan đi bao nỗi mệt mỏi lo âu của cuộc sống đời thường.</p>\n\n<p style="text-align: center;"><img alt="du-lich-tet-tay-nguyen" src="http://datviettour.com.vn/wp-content/uploads/2016/01/du-lich-tet-tay-nguyen.jpg" /></p>\n\n<p>Du lịch&nbsp;Tây Nguyên&nbsp;khi mùa Xuân về, bạn sẽ đắm chìm trong màu hoa trắng tinh khôi, hưởng một mùa xuân ngát hương đắm say với cánh rừng cà phê hun hút nở hoa phủ kín các sườn đồi. Chỉ mới ngày thu đồng đây thôi, cánh rừng còn nhuộm màu xanh rì đầm thắm, thế mà khi nàng Xuân vừa chạm cửa, một rừng hoa ban, hoa cà phê đã nở rộ trên cành, chấp chới những cánh bướm bầy ong ríu rít gọi nhau tìm mật.</p>\n\n<p>Hiền hòa nằm bên thị trấn Liên Sơn, hồ Lắk- thắng cảnh nổi tiếng bật nhất ở Tây Nguyên hiện lên xanh thẳm, bao bọc bởi những dãy núi. Hồ nước huyền thoại Tây Nguyên gắn liền với tên tuổi người anh hùng Lắk Liêng, về cuộc chiến xa xưa của thần Nước và thần Lửa theo truyền thuyết người M’ nông.</p>\n\n<p style="text-align: center;"><img alt="du-lich-tet-tay-nguyen-3" src="http://datviettour.com.vn/wp-content/uploads/2016/01/du-lich-tet-tay-nguyen-3.jpg" /></p>\n\n<p>Một cái tên mà bạn không thể bỏ qua khi đến đây, đó là chiếc cầu treo hùng vĩ nhất Tây Nguyên – Kon Klor đã trở thành niềm tự hào của người dân Kon Tum. Được hoàn thành vào 1994, chiếc cầu đã nối liền hai bờ Đăk Bla- dòng sông gắn với nhiều huyền thoại của đồng bào dân tộc Ba Na. Từ trên cầu, bạn có thể quan sát toàn cảnh dòng sông Đăk Bla mênh mông với dãy núi xa khuất chân trời và ruộng vườn trù phú hai bên bờ. Ở gần đầu cầu phía Tây còn có nhà rông Kon Klor của người Ba Na, được xem là ngôi nhà rông to và đẹp nhất Tây Nguyên.</p>\n\n<p>Đi giữa con đường rợp đầy màu trắng tươi mát, tận hưởng danh lam thắng cảnh của đại ngàn, hứa hẹn sẽ mang đến cho bạn cảm giác thú vị khó quên. Hãy cho bản thân cơ hội được dạo chơi quanh buôn làng, ngắm nhìn nhà sàn truyền thống, cưỡi voi xuyên rừng, chèo thuyền độc mộc chông chênh giữa dòng chảy dịu dàng,…để thấm đẫm cái tình của con người chân chất, mộc mạc nơi đây.</p>\n\n<p style="text-align: center;"><img alt="du-lich-tet-tay-nguyen-4" src="http://datviettour.com.vn/wp-content/uploads/2016/01/du-lich-tet-tay-nguyen-4.jpg" /></p>\n\n<h2><span style="font-size:20px;">THƯỞNG THỨC ĐẶC SẢN CAFÉ BAN MÊ</span></h2>\n\n<p>Sau cuộc hành trình du lịch khám phá vùng đất hoang sơ, bạn có thể nhâm nhi ly cà phê thơm ngon hấp dẫn mê ly. Từng hạt cà phê sẽ được rang xay và pha chế chỉ sau khi bạn đến, giữ được hương vị đậm đà quyến rũ khác hẳn với cà phê pha sẵn mà bạn thường uống vội nơi đô thành. Ly cà phê có màu nâu cánh gián hay màu hổ phách, khi vừa nếm thử lần đầu, vị đắng ngọt nhẹ lan tỏa làm say lòng bao du khách phương xa.</p>\n\n<p style="text-align: center;"><img alt="du-lich-tet-tay-nguyen-1" src="http://datviettour.com.vn/wp-content/uploads/2016/01/du-lich-tet-tay-nguyen-1.jpg" /></p>\n\n<p>Thích thú làm sao khi sớm mai thức giấc, sương sớm hãy còn vương vấn trên lá non, thưởng thức ly cà phê đậm chất Tây Nguyên, nghe tiếng chim hót líu lo và thu vào tầm mắt vẻ đẹp bất tận của núi rừng. Thật tuyệt vời!</p>\n\n<p>Đến với Tây Nguyên hoang sơ, ta bắt gặp đâu đó hình ảnh những đứa bé gái với đôi mắt thật trong như hồ nước, lạ lẫm khắc khoải nhìn vị khách từ phương xa. Và hình ảnh ấm lòng của người mẹ địu con sau ngày dài hăng say lao động “Về nhà thôi mạ ơi !”.</p>\n\n<p style="text-align: center;"><img alt="du-lich-tet-tay-nguyen-5" src="http://datviettour.com.vn/wp-content/uploads/2016/01/du-lich-tet-tay-nguyen-5.jpg" /></p>\n\n<p>Để những bản tình ca về người dân tộc miền cao không chỉ xuất hiện trên trang sách, để những truyền thuyết xa xưa về con người “đội trời xé biển” không chỉ nằm yên trên con chữ vô hồn, hãy cùng thưởng ngoạn tour&nbsp;du lịch Tết tại&nbsp;Tây Nguyên để ôm trọn vẹn vùng đất oai hùng, huyền bí này vào tâm trí, như một kỉ niệm khó phai.</p>', NULL, NULL, NULL, NULL, NULL, 69);
 INSERT INTO `web_content` (`id`, `content`, `more1`, `more2`, `more3`, `more4`, `more5`, `header_id`) VALUES
 (280, '<p>Một chuyến du lịch Tết miền Tây sẽ đem lại những trải nghiệm thú vị cho du khách khi được thưởng thức những loại trái cây nổi tiếng ngon ngọt, thanh mát của vùng đất trù phú này.</p>\n\n<p>Cùng Đất Việt Tour du xuân&nbsp;miền Tây trong dịp Tết Nguyên đán năm nay để có cơ hội thưởng thức những loại trái cây đặc sản sau đây nhé:</p>\n\n<h2><span style="font-size:20px;">1. XOÀI CÁT HOÀ LỘC,&nbsp;TIỀN GIANG</span></h2>\n\n<p>Giống xoài này được trồng đầu tiên tại vùng Hòa Lộc, tỉnh Định Tường, nay là tỉnh Tiền Giang. Xoài cát Hòa Lộc quả lớn từ 300 – 450g, vỏ mịn, thịt vàng ươm, ít xơ và rất thơm. Đã du lịch Tết miền Tây thì đừng bỏ qua đặc sản xoài cát Hòa Lộc ngon mắt, vị ngọt thanh hấp dẫn nhé bạn!</p>\n\n<p style="text-align: center;"><img alt="7-dac-san-nen-thu-khi-du-lich-tet-mien-tay-2" src="http://datviettour.com.vn/wp-content/uploads/2016/01/7-dac-san-nen-thu-khi-du-lich-tet-mien-tay-2.jpg" /></p>\n\n<h2><span style="font-size:20px;">2. SẦU RIÊNG CÁI MƠN,&nbsp;BẾN TRE</span></h2>\n\n<p>Nhắc đến địa danh Cái Mơn, người ta nghĩ ngay đến loại sầu riêng cơm vàng, hạt lép có hương thơm ngào ngạt – sầu riêng Cái Mơn. Hiện nay, tại Việt Nam có gần 60 giống sầu riêng được lai tạo từ giống sầu riêng của các nước như Thái Lan, Malaysia, Indonesia, Philippines… được trồng nhiều ở các tỉnh Đắk Lắk, Đồng Nai, Bình Dương, Tiền Giang, Vĩnh Long,… nhưng vẫn không có giống sầu riêng nào ngon hơn sầu riêng Cái Mơn.</p>\n\n<p>Khi du lịch miền Tây, ghé những vườn sầu riêng Cái Mơn sai trĩu quả và thưởng thức hương vị hấp dẫn của đặc sản này chắc chắn du khách sẽ bị mê hoặc bởi hương thơm quyến rũ ấy.</p>\n\n<h2><span style="font-size:20px;">3. BƯỞI NĂM ROI,&nbsp;VĨNH LONG</span></h2>\n\n<p>Du lịch Tết miền Tây mà bỏ qua bưởi Năm Roi ở Vĩnh Long là một thiếu sót lớn. Bưởi Năm Roi mát ngọt, mỏng vỏ, tép dày và nhiều nước chấm thêm ít muối ớt chỉ nhắc thôi cũng đã đủ thèm.</p>\n\n<p style="text-align: center;"><img alt="7-dac-san-nen-thu-khi-du-lich-tet-mien-tay-8" src="http://datviettour.com.vn/wp-content/uploads/2016/01/7-dac-san-nen-thu-khi-du-lich-tet-mien-tay-8.png" /></p>\n\n<p>Người dân Vĩnh Long còn dùng bưởi Năm Roi để làm nước ép bưởi, gỏi bưởi,… thanh mát khiến du khách phương xa mê mẩn nếu có cơ hội thưởng thức một lần.</p>\n\n<h2><span style="font-size:20px;">4. VÚ SỮA LÒ RÈN,&nbsp;TIỀN GIANG</span></h2>\n\n<p>Với mùi thơm dịu nhẹ, ngọt mát vú sữa là loại trái cây được nhiều khách du lịch miền Tây yêu thích. Mặc dù vú sữa được trồng rộng rãi ở nhiều tỉnh đồng bằng sông Cửu Long như :Tiền Giang, Vĩnh Long, Cần Thơ,… nhưng vùng đất Vĩnh Kim tỉnh Tiền Giang lại có loại vú sữa Lò Rèn trứ danh mà bất cứ ai thưởng thức không khỏi gật gù khen ngợi.</p>\n\n<p style="text-align: center;"><img alt="7-dac-san-nen-thu-khi-du-lich-tet-mien-tay-3" src="http://datviettour.com.vn/wp-content/uploads/2016/01/7-dac-san-nen-thu-khi-du-lich-tet-mien-tay-3.jpg" /></p>\n\n<p>Tên gọi “Lò Rèn” được đặt để tưởng nhớ người thợ rèn đã nhân giống cho loại vú sữa đặc biệt thơm ngon này.</p>\n\n<h2><span style="font-size:20px;">5. DỪA SÁP CẦU KÈ,&nbsp;TRÀ VINH</span></h2>\n\n<p>Nhắc đến những món trái cây hấp dẫn bậc nhất miền Tây không thể không kể đến dừa sáp Cầu Kè đặc sản trứ danh đất Trà Vinh.</p>\n\n<p>Không chỉ có nước ngọt mát, phần cơm dừa sáp béo ngậy, vừa dẻo lại vừa dày khác hẳn với những loại dừa thông thường.</p>\n\n<h2><span style="font-size:20px;">6. MÍT RUỘT ĐỎ,CẦN THƠ</span></h2>\n\n<p>Mít ruột đỏ là giống mít xuất xứ từ Thái Lan và chỉ xuất hiện ở Việt Nam cách đây vài năm và góp mặt vào danh sách những trái ngon nên thử khi du lịch Tết miền Tây.</p>\n\n<p style="text-align: center;"><img alt="7-dac-san-nen-thu-khi-du-lich-tet-mien-tay-4" src="http://datviettour.com.vn/wp-content/uploads/2016/01/7-dac-san-nen-thu-khi-du-lich-tet-mien-tay-4.jpg" /></p>\n\n<p>Mít ruột đỏ khi ăn vào có mùi thơm như mùi dầu chuối, độ ngọt thanh và dai. Ban đầu mít có màu cam đậm, múi mít dày, dai, càng để lâu mít càng đỏ và ngọt hơn nhưng không còn độ dai như ban đầu nữa. Để thưởng thức mít ruột đỏ nổi tiếng du khách đừng quên ghé qua vườn trái cây ông Tư Mau ở tổ 11, P. Long Tuyền, Q.Bình Thủy, thành phố Cần Thơ.</p>\n\n<h2><span style="font-size:20px;">7. QUÝT HỒNG, LAI VUNG</span></h2>\n\n<p>Quýt hồng Lai Vung nổi tiếng gần xa bởi vẻ ngon mắt và lạ miệng. Không chỉ chứa nhiều vitamin C tốt cho cơ thể, quýt hồng Lai Vung còn có lớp vỏ mỏng, vàng ruộm như ánh nắng của vùng miền Tây sông nước.</p>\n\n<p>Qúy hồng chín vào khoảng tháng cuối tháng 12 âm lịch. Do đó, du lịch Tết tại đây, người dân Lai Vung sẽ chiều lòng du khách phương xa bằng đặc sản quýt hồng trứ danh này. Bóc lớp vỏ quýt dậy mùi thơm và cắn một miếng, vị ngọt của quýt hồng vỡ ra lan toả khắp khoang miệng khiến du khách ngây ngất.</p>\n\n<p style="text-align: center;"><img alt="7-dac-san-nen-thu-khi-du-lich-tet-mien-tay-6" src="http://datviettour.com.vn/wp-content/uploads/2016/01/7-dac-san-nen-thu-khi-du-lich-tet-mien-tay-6.jpg" /></p>\n\n<p>Không chỉ thưởng thức tại vườn, du lịch Tết miền Tây du khách còn có cơ hội mua những giỏ quýt hồng thơm ngon nhất về chưng Tết hoặc tặng, bạn bè người thân.</p>\n\n<p>Ngoài ra, còn rất nhiều loại trái cây thơm ngon hấp dẫn nơi miệt vườn sông nước đang chờ du khách thưởng thức. Nhanh tay book ngay một tour du lịch miền Tây để thỏa sức tham quan nhiều địa điểm du lịch mới lạ, hòa cùng không gian thanh bình miền sông nước và thưởng thức trái cây mát ngọt nơi đây.</p>\n\n<p>Thân chúc quý khách một mùa Tết đầm ấm, hạnh phúc bên gia đình và bạn bè!</p>', NULL, NULL, NULL, NULL, NULL, 68),
 (281, '<p>Du lịch Tết Campuchia, đến với thành phố Siem Reap du khách sẽ có cơ hội chiêm ngưỡng quần thể công trình kiến trúc thể hiện đỉnh cao trong nghệ thuật kiến trúc Khmer đó là quần thể Angkor hùng vỹ.</p>\n\n<p>Không chỉ thu hút du khách bởi những ngôi đền đồ sộ, huyền bí tham quan quần thể kiến trúc Angkor du khách còn có thể hiểu hơn về văn hóa Khmer cổ và lưu lại những bức hình ấn tượng nhất.</p>\n\n<p style="text-align: center;"><img alt="du-lich-tet-campuchia-7" src="http://datviettour.com.vn/wp-content/uploads/2016/01/du-lich-tet-campuchia-7.jpg" /></p>\n\n<h2><span style="font-size:20px;">DU LỊCH TẾT CAMPUCHIA THĂM NHỮNG NGÔI ĐỀN ANGKOR HUYỀN BÍ</span></h2>\n\n<h3>– Angkor Wat – tuyệt đỉnh kiến trúc Khmer</h3>\n\n<p>Từ trung tâm thành phố Siep Reap đi khoảng 7 km du khách sẽ bắt gặp quần thể di tích Angkor Wat hùng vỹ. Không chỉ là một trong số những di tích lịch sử quan trọng bậc nhất ở xứ sở Chùa Tháp Campuchia quần thể này còn được xem là tuyệt đỉnh trong kiến trúc Khmer cổ. Năm 1991, Angkor Wat đã được UNESCO công nhận là Di sản Văn hóa Thế giới.</p>\n\n<p>Từng là kinh đô của đế quốc Khmer cổ, Angkor Wat được xây dựng kéo dài suốt 37 năm và dài hơn 1km vào khoảng nửa đầu của thế kỷ 12 với mục đích là nơi thờ thần Vishnu của Ấn Độ giáo. Khi vương triều Khmer sùng bái Phật giáo, Angkor Wat đã trở đền thờ Phật linh thiêng. Cuối thế kỷ 15, vua Khmer dời kinh đô về Phnom Penh và từ đó Angkor Wat bị bỏ hoang phế và rừng già bao phủ.</p>\n\n<p style="text-align: center;"><img alt="du-lich-tet-campuchia-8" src="http://datviettour.com.vn/wp-content/uploads/2016/01/du-lich-tet-campuchia-8.jpg" /></p>\n\n<p>Đặc biệt hơn cả, Angkor Wat chính là ngôi đền duy nhất trong quần thể kiến trúc Khmer đồ sộ này có chính điện quay về hướng mặt trời lặn. Do đó, nơi đây trở thành địa điểm lý tưởng để du khách ghi lại hình ảnh tuyệt đẹp của ngôi đền lúc buổi chiều tà.</p>\n\n<p>Khám phá mọi ngõ ngách trong ngôi đền nổi tiếng Angkor Wat, du khách sẽ mãn nhãn trước những hoa văn in trên mặt đá theo các câu chuyện trong sử thi Ấn Độ vô cùng thú vị.</p>\n\n<h3>– Angkor Thom – thành trì lâu dài nhất của Khmer</h3>\n\n<p><a href="http://datviettour.com.vn/tour-du-lich-campuchia.html">Du lịch Campuchia</a>, từ Angkor Wat di chuyển khoảng 5 phút đi xe du khách sẽ tới được với quần thể Angkor Thom – nơi có các bức tường thành xây bằng bằng đá ong cao 8 m bao quanh khu vực đền đài rộng 9 km2. Khu đền Angkor Thom chính là thủ đô cuối cùng và lâu nhất của người Khmer, nơi đây được xây dựng vào cuối thế kỷ 12.</p>\n\n<p style="text-align: center;"><img alt="du-lich-tet-campuchia-2" src="http://datviettour.com.vn/wp-content/uploads/2016/01/du-lich-tet-campuchia-2.jpg" /></p>\n\n<p>Ngôi đền Angkor Thom có 4 cổng hướng Đông – Tây – Nam – Bắc. Khuôn mặt trên các ngọn tháp đại diện cho nhà vua, các vị thần Lokesvara và thần hộ vệ của vương quốc Khmer cổ.</p>\n\n<h3>– Bayon – ngôi đền núi ấn tượng nhất Campuchia</h3>\n\n<p>Trong quần thể Angkor, ngôi đền Bayon nằm ở trung tâm được coi là ngôi đền ấn tượng nhất với quy mô là hàng trăm bức tượng 4 mặt khiến du khách ngỡ ngàng. Toàn bộ đền Bayon có đến 216 mặt tượng phân bố rải rác trên đỉnh của 54 tháp lớn nhỏ.</p>\n\n<p style="text-align: center;"><img alt="du-lich-tet-campuchia-4" src="http://datviettour.com.vn/wp-content/uploads/2016/01/du-lich-tet-campuchia-4.jpg" /></p>\n\n<p>Ngôi đền này được vua Jayavarman VII cho xây dựng khoảng thế kỷ thứ 12. Đây cũng chính là ngôi đền duy nhất tại Angkor được xây dựng với mục đích để thờ đức Phật.</p>\n\n<h3>– Ta Prohm – ngôi đền có những rễ cây cổ thụ kỳ quái</h3>\n\n<p>Ngôi đền Ta Prohm ở phía Đông của Angkor Thom có phong cách Bayon độc đáo cũng là nơi thu hút rất nhiều du khách tham quan, khám phá hàng năm. Nơi đây có cảnh quan kỳ bí vô cùng, từng làm bối cảnh cho bộ phim “Bí mật ngôi mộ cổ” nổi tiếng.</p>\n\n<p style="text-align: center;"><img alt="du-lich-tet-campuchia-1" src="http://datviettour.com.vn/wp-content/uploads/2016/01/du-lich-tet-campuchia-1.png" /></p>\n\n<p>Bước vào tham quan ngôi đền du khách sẽ ấn tượng với cảnh cây cối um tùm, nhiều thân cây cao lớn mọc trên các bức tường khiến cho ngôi đền thêm vẻ huyền bí và ấn tượng.&nbsp;Nhiều cây cổ thụ như những con trăn khổng lồ quấn quanh đền trông thật kỳ quái.</p>\n\n<h2><span style="font-size:20px;">LƯU Ý GÌ KHI DU LỊCH TẾT CAMPUCHIA?</span></h2>\n\n<ul>\n	<li>Hãy tìm hiểu về lịch sử của quần thể Angkor Wat để có cái nhìn toàn diện hơn về quần thể di tích độc đáo này trước khi thực hiện du lịch Campuchia.</li>\n	<li>Khu đền rất rộng lớn, nếu muốn tham quan hết du khách nên mang giày thể thao để tiện di chuyển.</li>\n	<li>Theo kinh nghiệm du lịch Campuchia mà nhiều du khách chia sẻ thì thời gian lý tưởng nhất để tham quan quần thể di tích Angkor là trước lúc mặt trời mọc.</li>\n</ul>\n\n<p style="text-align: center;"><img alt="du-lich-tet-campuchia-6" src="http://datviettour.com.vn/wp-content/uploads/2016/01/du-lich-tet-campuchia-6.jpg" /></p>\n\n<ul>\n	<li>Du lịch Tết Campuchia, tham quan quần thể di tích Angkor du khách nên thuê hướng dẫn viên để nghe họ thuyết minh và hiểu hơn về quần thể kiến trúc đặc sắc này.</li>\n	<li>Nên mặc các loại trang phục đơn giản, lịch sự khi tham quan những ngôi đền.</li>\n</ul>\n\n<p>Một chuyến du lịch&nbsp;Campuchia không chỉ là cơ hội tuyệt vời để bạn khám phá xứ sở Chùa Tháp những ngày đầu xuân&nbsp;mà còn là dịp để chiêm ngưỡng và&nbsp;lưu lại những bức hình ấn tượng cùng những ngôi đền Angkor tráng lệ. Còn chần chờ gì mà không xách ba lô lên đường ngay hôm nay!</p>', NULL, NULL, NULL, NULL, NULL, 70),
-(279, '<p>Bên cạnh những hòn đảo hoang sơ, những bãi biển trải dài với bờ cát trắng mịn màng, phố biển Nha Trang còn níu chân du khách phương xa bởi nhiều dịch vụ giải trí thú vị cùng những món ngon hấp dẫn.</p>\n\n<p>Du lịch Tết&nbsp;Nha Trang du khách đừng bỏ lỡ cơ hội thưởng thức những món hải sản tươi ngon, bún sứa, bánh canh chả cá, nem Ninh Hòa, bún cá dầm,…để hành trình du xuân thêm trọn vẹn niềm vui nhé.</p>\n\n<h2><span style="font-size:20px;">1. CÁC LOẠI HẢI SẢN</span></h2>\n\n<p>Đã&nbsp;du lịch Nha Trang&nbsp;chắc hẳn du khách sẽ không muốn bỏ lỡ cơ hội thưởng thức những món hải sản hấp dẫn nhất nơi đây như: Tôm, mực, bạch tuộc, ốc bạch ngọc, cá bò da nướng, gỏi cá mai,…</p>\n\n<p style="text-align: center;"><img alt="dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-5" src="http://datviettour.com.vn/wp-content/uploads/2016/01/dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-5.png" /></p>\n\n<p>Những quán hải sản cạnh cầu Trần Phú, dưới chân trường đại học Thủy Sản hoặc khu vực tháp Bà,… là địa chỉ lý tưởng để du khách dừng chân thưởng thức những món hải sản hấp dẫn tại phố biển này.</p>\n\n<h2><span style="font-size:20px;">2. BÚN SỨA</span></h2>\n\n<p>Bún sứa Nha Trang chinh phục bất cứ thực khách nào có cơ hội thưởng thức bởi hương vị thơm ngon, hấp dẫn.<br />\nMón ăn này có sự tổng hòa của những con sứa tươi rói có màu trắng đục, thon dài, vị giòn sần sật với chả cá, rau sống cùng bún tươi, mang đến cho thực khách những trải nghiệm ẩm thực thú vị nhất.</p>\n\n<p style="text-align: center;"><img alt="dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-7" src="http://datviettour.com.vn/wp-content/uploads/2016/01/dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-7.jpg" /></p>\n\n<h2><span style="font-size:20px;">3. BÁNH CANH CHẢ CÁ</span></h2>\n\n<p>Đã đến Nha Trang mà chưa thưởng thức món bánh canh chả cá nơi đây thì hành trình không trọn vẹn. Mặc dù món bánh canh chả cá có mặt ở hầu hết các tỉnh ven biển miền Trung, thế nhưng phải là bánh canh chả cá Nha Trang mới có khả năng chinh phục cả những thực khách khó tính nhất.</p>\n\n<p style="text-align: center;"><img alt="dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-4" src="http://datviettour.com.vn/wp-content/uploads/2016/01/dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-4.jpg" /></p>\n\n<p>Món bánh canh chả cá Nha Trang với nước dùng đậm đà, những lát chả cá dai, bún và các loại rau sống thanh mát khiến thực khách muốn thưởng thức thêm nhiều lần sau nữa.</p>\n\n<h2><span style="font-size:20px;">4. BÁNH CĂN NHA TRANG</span></h2>\n\n<p>Mặc dù không nổi tiếng như bánh căn Phan Thiết cũng không hấp dẫn như bánh căn Đà Lạt nhưng lại bánh căn Nha Trang lại mê hoặc thực khách bởi mang hương vị mặn mòi của biển cả.</p>\n\n<p>Những chiếc bánh căn bé xíu làm từ bột gạo, nhân bánh được làm từ tôm, mực, trứng,…không chỉ đã mắt mà còn rất ngon miệng chỉ khiến thực khách muốn thưởng thức mãi không thôi</p>\n\n<p style="text-align: center;"><img alt="dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-6" src="http://datviettour.com.vn/wp-content/uploads/2016/01/dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-6.jpg" /></p>\n\n<p>Du lịch Tết&nbsp;Nha Trang để thưởng thức các món bánh căn hấp dẫn nhất thực khách nên ghé các quán bánh căn tại 151 Hoàng Văn Thụ, 51 Tô Hiến Thành, 47 Yersin, 3A đường Tháp Bà,…Những quán này không chỉ có món bánh canh ngon đúng điệu mà còn giá rẻ bất ngờ.</p>\n\n<h2><span style="font-size:20px;">5. NEM NƯỚNG NINH HÒA</span></h2>\n\n<p>Nem nướng đặc sản trứ danh đất Ninh Hòa không chỉ là món ăn mà bất cứ du khách nào cũng muốn được thưởng thức khi du lịch Nha Trang mà còn là đặc sản bạn có thể mua về làm quà sau khi kết thúc hành trình du xuân nơi phố biển tươi đẹp này.</p>\n\n<p style="text-align: center;"><img alt="dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang" src="http://datviettour.com.vn/wp-content/uploads/2016/01/dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang.jpg" /></p>\n\n<p>Gọi một phần nem nướng Ninh Hòa với thịt băm lụi, bánh tráng và các loại rau sống ăn kèm như: Diếp cá, hẹ, húng quế, xà lách, dưa leo, chuối chát, khế, xoài non,…chấm cùng nước chấm sánh đậm sẽ khiến thực khách không khỏi gật gù thích thú.</p>\n\n<h2><span style="font-size:20px;">6. BÚN CÁ DẦM</span></h2>\n\n<p>Một món ăn nữa cũng rất nổi tiếng và rất được nhiều du khách yêu thích khi ghé thăm phố biển Nha Trang đó chính là món bún cá dầm.</p>\n\n<p>Món ăn này gồm thành phần chính là cá dầm – đặc sản nổi tiếng của Khánh Hòa, bún, nước dùng đậm đà. Khi thưởng thức thực khách sẽ cảm nhận được vị ngọt thanh tự nhiên. Món ăn này hấp dẫn hơn khi ăn kèm với các loại rau sống thanh mát.</p>\n\n<p style="text-align: center;"><img alt="dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-1" src="http://datviettour.com.vn/wp-content/uploads/2016/01/dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-1.jpg" /></p>\n\n<p>Còn rất nhiều món ngon tại phố biển Nha Trang đang chờ du khách thưởng thức. Thêm ngay Nha Trang vào list những điểm đến hàng đầu trong dịp Tết Nguyên đán năm nay và thực hiện ngay một chuyến&nbsp;du lịch&nbsp;Nha Trang để hành trình du xuân trọn vẹn niềm vui nhé.</p>', NULL, NULL, NULL, NULL, NULL, 67);
+(279, '<p>Bên cạnh những hòn đảo hoang sơ, những bãi biển trải dài với bờ cát trắng mịn màng, phố biển Nha Trang còn níu chân du khách phương xa bởi nhiều dịch vụ giải trí thú vị cùng những món ngon hấp dẫn.</p>\n\n<p>Du lịch Tết&nbsp;Nha Trang du khách đừng bỏ lỡ cơ hội thưởng thức những món hải sản tươi ngon, bún sứa, bánh canh chả cá, nem Ninh Hòa, bún cá dầm,…để hành trình du xuân thêm trọn vẹn niềm vui nhé.</p>\n\n<h2><span style="font-size:20px;">1. CÁC LOẠI HẢI SẢN</span></h2>\n\n<p>Đã&nbsp;du lịch Nha Trang&nbsp;chắc hẳn du khách sẽ không muốn bỏ lỡ cơ hội thưởng thức những món hải sản hấp dẫn nhất nơi đây như: Tôm, mực, bạch tuộc, ốc bạch ngọc, cá bò da nướng, gỏi cá mai,…</p>\n\n<p style="text-align: center;"><img alt="dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-5" src="http://datviettour.com.vn/wp-content/uploads/2016/01/dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-5.png" /></p>\n\n<p>Những quán hải sản cạnh cầu Trần Phú, dưới chân trường đại học Thủy Sản hoặc khu vực tháp Bà,… là địa chỉ lý tưởng để du khách dừng chân thưởng thức những món hải sản hấp dẫn tại phố biển này.</p>\n\n<h2><span style="font-size:20px;">2. BÚN SỨA</span></h2>\n\n<p>Bún sứa Nha Trang chinh phục bất cứ thực khách nào có cơ hội thưởng thức bởi hương vị thơm ngon, hấp dẫn.<br />\nMón ăn này có sự tổng hòa của những con sứa tươi rói có màu trắng đục, thon dài, vị giòn sần sật với chả cá, rau sống cùng bún tươi, mang đến cho thực khách những trải nghiệm ẩm thực thú vị nhất.</p>\n\n<p style="text-align: center;"><img alt="dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-7" src="http://datviettour.com.vn/wp-content/uploads/2016/01/dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-7.jpg" /></p>\n\n<h2><span style="font-size:20px;">3. BÁNH CANH CHẢ CÁ</span></h2>\n\n<p>Đã đến Nha Trang mà chưa thưởng thức món bánh canh chả cá nơi đây thì hành trình không trọn vẹn. Mặc dù món bánh canh chả cá có mặt ở hầu hết các tỉnh ven biển miền Trung, thế nhưng phải là bánh canh chả cá Nha Trang mới có khả năng chinh phục cả những thực khách khó tính nhất.</p>\n\n<p style="text-align: center;"><img alt="dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-4" src="http://datviettour.com.vn/wp-content/uploads/2016/01/dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-4.jpg" /></p>\n\n<p>Món bánh canh chả cá Nha Trang với nước dùng đậm đà, những lát chả cá dai, bún và các loại rau sống thanh mát khiến thực khách muốn thưởng thức thêm nhiều lần sau nữa.</p>\n\n<h2><span style="font-size:20px;">4. BÁNH CĂN NHA TRANG</span></h2>\n\n<p>Mặc dù không nổi tiếng như bánh căn Phan Thiết cũng không hấp dẫn như bánh căn Đà Lạt nhưng lại bánh căn Nha Trang lại mê hoặc thực khách bởi mang hương vị mặn mòi của biển cả.</p>\n\n<p>Những chiếc bánh căn bé xíu làm từ bột gạo, nhân bánh được làm từ tôm, mực, trứng,…không chỉ đã mắt mà còn rất ngon miệng chỉ khiến thực khách muốn thưởng thức mãi không thôi</p>\n\n<p style="text-align: center;"><img alt="dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-6" src="http://datviettour.com.vn/wp-content/uploads/2016/01/dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-6.jpg" /></p>\n\n<p>Du lịch Tết&nbsp;Nha Trang để thưởng thức các món bánh căn hấp dẫn nhất thực khách nên ghé các quán bánh căn tại 151 Hoàng Văn Thụ, 51 Tô Hiến Thành, 47 Yersin, 3A đường Tháp Bà,…Những quán này không chỉ có món bánh canh ngon đúng điệu mà còn giá rẻ bất ngờ.</p>\n\n<h2><span style="font-size:20px;">5. NEM NƯỚNG NINH HÒA</span></h2>\n\n<p>Nem nướng đặc sản trứ danh đất Ninh Hòa không chỉ là món ăn mà bất cứ du khách nào cũng muốn được thưởng thức khi du lịch Nha Trang mà còn là đặc sản bạn có thể mua về làm quà sau khi kết thúc hành trình du xuân nơi phố biển tươi đẹp này.</p>\n\n<p style="text-align: center;"><img alt="dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang" src="http://datviettour.com.vn/wp-content/uploads/2016/01/dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang.jpg" /></p>\n\n<p>Gọi một phần nem nướng Ninh Hòa với thịt băm lụi, bánh tráng và các loại rau sống ăn kèm như: Diếp cá, hẹ, húng quế, xà lách, dưa leo, chuối chát, khế, xoài non,…chấm cùng nước chấm sánh đậm sẽ khiến thực khách không khỏi gật gù thích thú.</p>\n\n<h2><span style="font-size:20px;">6. BÚN CÁ DẦM</span></h2>\n\n<p>Một món ăn nữa cũng rất nổi tiếng và rất được nhiều du khách yêu thích khi ghé thăm phố biển Nha Trang đó chính là món bún cá dầm.</p>\n\n<p>Món ăn này gồm thành phần chính là cá dầm – đặc sản nổi tiếng của Khánh Hòa, bún, nước dùng đậm đà. Khi thưởng thức thực khách sẽ cảm nhận được vị ngọt thanh tự nhiên. Món ăn này hấp dẫn hơn khi ăn kèm với các loại rau sống thanh mát.</p>\n\n<p style="text-align: center;"><img alt="dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-1" src="http://datviettour.com.vn/wp-content/uploads/2016/01/dac-san-nen-thuong-thuc-khi-du-lich-tet-nha-trang-1.jpg" /></p>\n\n<p>Còn rất nhiều món ngon tại phố biển Nha Trang đang chờ du khách thưởng thức. Thêm ngay Nha Trang vào list những điểm đến hàng đầu trong dịp Tết Nguyên đán năm nay và thực hiện ngay một chuyến&nbsp;du lịch&nbsp;Nha Trang để hành trình du xuân trọn vẹn niềm vui nhé.</p>', NULL, NULL, NULL, NULL, NULL, 67),
+(295, '<p><span style="color:#0000FF;">Mr.Hưng</span> <span style="color:#FF0000;"><strong>0988 388 399</strong></span> <em>(khách đoàn)</em></p>\n\n<p><span style="color:#0000FF;">Ms.Tiên</span>&nbsp;&nbsp;<span style="color:#FF0000;"><strong>0933 833 855</strong></span> <em>(khách lẻ)</em></p>', NULL, NULL, NULL, NULL, NULL, 77),
+(296, '<table border="0" cellpadding="0" cellspacing="5" style="width:100%;">\n	<tbody>\n		<tr>\n			<td style="text-align: right; width: 46%;">Mr.Hiệp</td>\n			<td>0988 388 003</td>\n		</tr>\n		<tr>\n			<td style="text-align: right;">Mr. Nghĩa</td>\n			<td>0988 300 500</td>\n		</tr>\n	</tbody>\n</table>', NULL, NULL, NULL, NULL, NULL, 78),
+(297, '<table border="0" cellpadding="0" cellspacing="5" style="width:100%;">\n	<tbody>\n		<tr>\n			<td style="text-align: right; width: 46%;">Mr.Hiệp</td>\n			<td>0988 388 003</td>\n		</tr>\n		<tr>\n			<td style="text-align: right;">Mr. Nghĩa</td>\n			<td>0988 300 500</td>\n		</tr>\n	</tbody>\n</table>', NULL, NULL, NULL, NULL, NULL, 79);
 
 -- --------------------------------------------------------
 
@@ -233,17 +252,18 @@ INSERT INTO `web_content` (`id`, `content`, `more1`, `more2`, `more3`, `more4`, 
 --
 
 CREATE TABLE IF NOT EXISTS `web_event_form` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `name` varchar(100) NOT NULL,
-  `img` varchar(20) DEFAULT NULL,
+  `img` varchar(20) default NULL,
   `subject` varchar(200) NOT NULL,
   `content` text NOT NULL,
   `notification` text NOT NULL,
   `email` varchar(60) NOT NULL,
-  `type` tinyint(1) NOT NULL DEFAULT '1',
+  `type` tinyint(1) NOT NULL default '1',
   `type_id` int(2) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `status` tinyint(1) NOT NULL default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `web_event_form`
@@ -251,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `web_event_form` (
 
 INSERT INTO `web_event_form` (`id`, `name`, `img`, `subject`, `content`, `notification`, `email`, `type`, `type_id`, `status`) VALUES
 (1, 'Liên hệ', '', 'Thông báo liên hệ đến Hoa Việt Travel®', '<p>Kính gởi bạn {_name},</p>\n\n<p>Cảm ơn bạn đã quan tâm đến các tour du lịch&nbsp;của Hoa Việt Travel®.</p>\n\n<p>Xin thông báo bạn đã liên hệ đến&nbsp;Hoa Việt Travel®&nbsp;<strong>thành công.</strong></p>\n\n<p>Nội dung liên hệ:</p>\n\n<p style="margin-left: 40px;"><em>{_message}</em></p>\n\n<p>Một lần nữa, cảm ơn bạn đã quan tâm đến các tour du lịch&nbsp;của Hoa Việt Travel®.<br />\n<span>Trân trọng,</span></p>', '<p>Contact Success</p>\n\n<p>Please notify that you have contacted successfully to <strong>Hoa Việt Travel®</strong>. We will reply to you soon.</p>\n\n<p>Respect,</p>', '', 1, 17, 1),
-(7, 'Đặt tour', '', 'Thông báo đặt tour du lịch tại Hoa Việt Travel®', '<p>Kính gởi bạn {_name},</p>\n\n<p>Cảm ơn bạn đã quan tâm đến các tour du lịch&nbsp;của Hoa Việt Travel®.</p>\n\n<p>Xin thông báo bạn đã đặt tour du lịch của&nbsp;Hoa Việt Travel®&nbsp;<strong>thành công</strong>.</p>\n\n<p style="margin-left: 40px;">Tour du lịch: <strong>{_tour}</strong><br />\nGiá tour cho 1 người: <strong>{_price}&nbsp;</strong>VNĐ<br />\nThời gian: <strong>{_duration}</strong></p>\n\n<p>Hoa Việt Travel® sẽ liên hệ đến&nbsp;bạn sớm nhất có thể.</p>\n\n<p>Một lần nữa, cảm ơn bạn đã quan tâm đến các tour du lịch của&nbsp;Hoa Việt Travel®.<br />\nTrân trọng,</p>\n\n<p>&nbsp;</p>\n\n<p><span style="font-size:18px;"><span style="color:#808080;"><strong>&nbsp;HOA VIỆT TRAVEL® - Hotline: 0908 444 082</strong></span></span></p>\n\n<table border="0" cellpadding="5" cellspacing="0" style="width:100%;">\n	<tbody>\n		<tr>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Văn phòng chính</strong></em></span></td>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Chi nhánh Hà Nội</strong></em></span></td>\n			<td><span style="color:#808080;"><em><strong>Văn phòng đại diện</strong></em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Địa chỉ:&nbsp;F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM</em></span></td>\n			<td><span style="color:#808080;"><em>Đường 2-3 B, Khu Cầu Lớn, Lam Hồng, Đông Anh, Hà Nội</em></span></td>\n			<td><span style="color:#808080;"><em>69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM</em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 6268 9046 - FAX:&nbsp;08 6268 9013</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;04 3956 1450 - FAX:&nbsp;04 3956 1451</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 3765 0115 - FAX:&nbsp;08 3765 0115</em></span></td>\n		</tr>\n	</tbody>\n</table>', '<p><strong>Đặt tour&nbsp;thành công</strong></p>\n\n<p>Bạn đã đặt tour <em><strong>{_tour}</strong></em> của Hoa&nbsp;Việt Travel® thành công. Chúng tôi sẽ liên hệ với bạn chậm nhất trong 24 giờ.</p>\n\n<p>Thân chào,</p>', '', 1, 3, 1),
+(7, 'Đặt tour', '', 'Thông báo đặt tour du lịch tại Hoa Việt Travel®', '<p>Kính gởi bạn {_name},</p>\n\n<p>Cảm ơn bạn đã quan tâm đến các tour du lịch&nbsp;của Hoa Việt Travel®.</p>\n\n<p>Xin thông báo bạn đã đặt tour du&nbsp;lịch của&nbsp;Hoa Việt Travel®&nbsp;<strong>thành công</strong>.</p>\n\n<p style="margin-left: 40px;">Tour du lịch: <em><strong>{_tour}</strong></em><br />\nGiá tour cho 1 người: <strong>{_price}</strong> VNĐ<br />\nThời gian: <strong>{_duration}</strong></p>\n\n<p>Hoa Việt Travel® sẽ liên hệ đến&nbsp;bạn sớm nhất có thể.</p>\n\n<p>Một lần nữa, cảm ơn bạn đã quan tâm đến các tour du lịch của&nbsp;Hoa Việt Travel®.<br />\nTrân trọng,</p>\n\n<p>&nbsp;</p>\n\n<p><span style="font-size:18px;"><span style="color:#808080;"><strong>&nbsp;HOA VIỆT TRAVEL® - Hotline: 0908 444 082</strong></span></span></p>\n\n<table border="0" cellpadding="5" cellspacing="0" style="width:100%;">\n	<tbody>\n		<tr>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Văn phòng chính</strong></em></span></td>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Chi nhánh Hà Nội</strong></em></span></td>\n			<td><span style="color:#808080;"><em><strong>Văn phòng đại diện</strong></em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Địa chỉ:&nbsp;F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM</em></span></td>\n			<td><span style="color:#808080;"><em>Đường 2-3 B, Khu Cầu Lớn, Lam Hồng, Đông Anh, Hà Nội</em></span></td>\n			<td><span style="color:#808080;"><em>69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM</em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 3765 0115 - FAX: 08 3765 0115</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;04 3956 1450 - FAX:&nbsp;04 3956 1451</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 3765 0115 - FAX:&nbsp;08 3765 0115</em></span></td>\n		</tr>\n	</tbody>\n</table>', '<p><strong>Đặt tour&nbsp;thành công</strong></p>\n\n<p>Bạn đã đặt tourcủa Hoa&nbsp;Việt Travel® thành công. Chúng tôi sẽ liên hệ với bạn chậm nhất trong 24 giờ.<span style="line-height: 20.8px;">&nbsp;</span><em style="line-height: 20.8px;"><strong>{_tour}</strong></em><span style="line-height: 20.8px;">&nbsp;</span></p>\n\n<p>Thân chào,</p>', '', 1, 3, 1),
 (8, 'Yêu cầu dịch vụ', '', 'Thông báo yêu cầu dịch vụ tour của Hoa Việt Travel®', '<p>Kính gởi bạn {_name},</p>\n\n<p>Cảm ơn bạn đã quan tâm đến các tour du lịch&nbsp;của <em><strong>Hoa Việt Travel®</strong></em>.</p>\n\n<p>Xin thông báo bạn đã yêu cầu&nbsp;dịch vụ&nbsp;tour&nbsp;của&nbsp;Hoa Việt Travel®&nbsp;<strong>thành công</strong>.</p>\n\n<p style="margin-left: 40px;">Ngày khởi hành: <strong>{_date}</strong><br />\nĐiểm khởi hành: <strong>{_address}</strong><br />\nĐiểm đến: <strong>{_destination}</strong><br />\nSố khách: <strong>{_visitors}&nbsp;</strong><em>(từ 12 tuổi trở lên)</em><br />\n{_children}<br />\n{_baby}</p>\n\n<p>Hoa Việt Travel® sẽ trả&nbsp;lời cho bạn sớm nhất có thể.</p>\n\n<p>Một lần nữa, cảm ơn bạn đã quan tâm đến các tour du lịch của&nbsp;Hoa Việt Travel®.<br />\nTrân trọng,</p>\n\n<p>&nbsp;</p>\n\n<p><span style="font-size:18px;"><span style="color:#808080;"><strong>&nbsp;HOA VIỆT TRAVEL® - Hotline: 0908 444 082</strong></span></span></p>\n\n<table border="0" cellpadding="5" cellspacing="0" style="width:100%;">\n	<tbody>\n		<tr>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Văn phòng chính</strong></em></span></td>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Chi nhánh Hà Nội</strong></em></span></td>\n			<td><span style="color:#808080;"><em><strong>Văn phòng đại diện</strong></em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Địa chỉ:&nbsp;F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM</em></span></td>\n			<td><span style="color:#808080;"><em>Đường 2-3 B, Khu Cầu Lớn, Lam Hồng, Đông Anh, Hà Nội</em></span></td>\n			<td><span style="color:#808080;"><em>69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM</em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 6268 9046 - FAX:&nbsp;08 6268 9013</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;04 3956 1450 - FAX:&nbsp;04 3956 1451</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 3765 0115 - FAX:&nbsp;08 3765 0115</em></span></td>\n		</tr>\n	</tbody>\n</table>', '<p><strong>Yêu cầu dịch vụ của bạn đến Hoa Việt Travel®&nbsp;thành công</strong></p>\n\n<p>Bạn đã yêu cầu dịch vụ&nbsp;đặt tour của Hoa&nbsp;Việt Travel® thành công. Chúng tôi sẽ liên hệ với bạn chậm nhất trong 24 giờ.</p>\n\n<p>Thân chào,</p>', '', 1, 22, 1);
 
 -- --------------------------------------------------------
@@ -261,40 +281,41 @@ INSERT INTO `web_event_form` (`id`, `name`, `img`, `subject`, `content`, `notifi
 --
 
 CREATE TABLE IF NOT EXISTS `web_header` (
-`id` int(3) NOT NULL,
+  `id` int(3) NOT NULL auto_increment,
   `name` varchar(200) NOT NULL,
   `name_alias` varchar(200) NOT NULL,
   `url` varchar(250) NOT NULL,
-  `img` varchar(50) DEFAULT NULL,
+  `img` varchar(50) default NULL,
   `title` varchar(200) NOT NULL,
   `description` varchar(300) NOT NULL,
   `tags` varchar(150) NOT NULL,
-  `code` varchar(30) DEFAULT NULL,
-  `duration` varchar(100) DEFAULT NULL,
-  `means` varchar(10) DEFAULT NULL,
-  `hotel` tinyint(1) DEFAULT NULL,
-  `depart` varchar(100) DEFAULT NULL,
-  `destination` varchar(150) DEFAULT NULL,
-  `schedule` varchar(200) DEFAULT NULL,
-  `price` bigint(10) DEFAULT NULL,
-  `parent` int(5) NOT NULL DEFAULT '0',
-  `_order` int(5) NOT NULL DEFAULT '0',
-  `other` varchar(200) DEFAULT NULL,
+  `code` varchar(30) default NULL,
+  `duration` varchar(100) default NULL,
+  `means` varchar(10) default NULL,
+  `hotel` tinyint(1) default NULL,
+  `depart` varchar(100) default NULL,
+  `destination` varchar(150) default NULL,
+  `schedule` varchar(200) default NULL,
+  `price` bigint(10) default NULL,
+  `parent` int(5) NOT NULL default '0',
+  `_order` int(5) NOT NULL default '0',
+  `other` varchar(200) default NULL,
   `datetime` bigint(10) NOT NULL,
-  `lang` varchar(2) NOT NULL DEFAULT 'vi',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `properties` tinyint(1) NOT NULL DEFAULT '0',
+  `lang` varchar(2) NOT NULL default 'vi',
+  `status` tinyint(1) NOT NULL default '1',
+  `properties` tinyint(1) NOT NULL default '0',
   `type_id` int(2) NOT NULL,
-  `position_id` varchar(20) DEFAULT NULL,
-  `menu_id` varchar(50) DEFAULT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
+  `position_id` varchar(20) default NULL,
+  `menu_id` varchar(50) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=80 ;
 
 --
 -- Dumping data for table `web_header`
 --
 
 INSERT INTO `web_header` (`id`, `name`, `name_alias`, `url`, `img`, `title`, `description`, `tags`, `code`, `duration`, `means`, `hotel`, `depart`, `destination`, `schedule`, `price`, `parent`, `_order`, `other`, `datetime`, `lang`, `status`, `properties`, `type_id`, `position_id`, `menu_id`) VALUES
-(1, 'Trang chủ', 'trang-chu', '', '', 'Hoa Việt Travel | Du lịch trong nước - Du lịch ngoài nước - Du lịch Hoa Việt - Website du lịch', 'Hoa Việt Travel - Cung cấp các chương trình tour du lịch  trong nước và ngoài nước, các dịch vụ du lịch, du lịch giá rẻ, tour du lịch khuyến mãi', 'hoa việt travel,du lịch trong nước,du lịch ngoài nước,du lịch hoa việt,website du lịch,du lich,trong nuoc,ngoai nuoc,hoa viet travel', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 1452827040, 'vi', 1, 1, 1, ',20,', NULL),
+(1, 'Trang chủ', 'trang-chu', 'http://www.iappscode.com/site/dulichhoaviet/', '', 'Hoa Việt Travel | Du lịch trong nước - Du lịch ngoài nước - Du lịch Hoa Việt - Website du lịch', 'Hoa Việt Travel - Cung cấp các chương trình tour du lịch  trong nước và ngoài nước, các dịch vụ du lịch, du lịch giá rẻ, tour du lịch khuyến mãi', 'hoa việt travel,du lịch trong nước,du lịch ngoài nước,du lịch hoa việt,website du lịch,du lich,trong nuoc,ngoai nuoc,hoa viet travel', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 1452827040, 'vi', 1, 1, 1, ',1,20,', NULL),
 (2, 'Tour khuyến mãi', 'tour-khuyen-mai', '', '', 'Tour du lịch khuyến mãi', 'Tour khuyến Mãi là các chương trình tour ưu đãi giảm giá của Hoa Việt travel nhằm đáp ứng nhu cầu đi du lịch của mọi người.', 'tour du lịch khuyến mãi,tour du lich khuyen mai,tour khuyen mai', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 11, NULL, 1452827340, 'vi', 1, 1, 3, ',8,2,', NULL),
 (3, 'Tour trong nước', 'tour-trong-nuoc', '', '', 'Tour du lịch trong nước', 'Hoa Việt Travel cung cấp tour các điểm du lịch hấp dẫn nhất trong nước du lịch về nguồn, du lịch về các lễ hội truyền thống, văn hóa đất nước', 'tour du lịch trong nước,tour du lich trong nuoc,tour trong nuoc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 12, NULL, 1452827400, 'vi', 1, 1, 3, ',8,2,', NULL),
 (4, 'Tour ngoài nước', 'tour-du-lich-ngoai-nuoc', '', '', 'Tour du lịch ngoài nước', 'Hoa Việt Travel cung cấp tour du lịch nước ngoài các điểm du lịch hấp dẫn và nổi tiếng nhất nước ngoài như: Mỹ, Anh, Pháp, Singapore, Thái Lan,...', 'tour du lịch ngoài nước,tour du lich ngoai nuoc,tour ngoai nuoc, tour nuoc ngoai', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 13, NULL, 1452827700, 'vi', 1, 1, 3, ',8,2,', NULL),
@@ -311,9 +332,9 @@ INSERT INTO `web_header` (`id`, `name`, `name_alias`, `url`, `img`, `title`, `de
 (15, 'Home các điểm du lịch', 'home-cac-diem-du-lich', '', '', 'Home các điểm du lịch', '', 'home các điểm du lịch', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 6, NULL, 1452829020, 'vi', 1, 1, 20, ',12,', NULL),
 (16, 'Home khách hàng đối tác', 'home-khach-hang-doi-tac', '', '', 'Home khách hàng đối tác', '', 'home khách hàng đối tác', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 7, NULL, 1452829080, 'vi', 1, 1, 20, ',13,', NULL),
 (17, 'Slider home page', '', '', '1452831022.jpg', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, NULL, 1452830880, 'vi', 1, 2, 16, ',16,', ',1,'),
-(18, 'Tour du lịch tết 2016 đảo Bình Ba 2 ngày 2 đêm', 'tour-du-lich-tet-2016-dao-binh-ba-2-ngay-2-dem', '', '1452925095.jpg', 'Tour du lịch tết 2016 đảo Bình Ba 2 ngày 2 đêm', 'Khởi hành: Thứ 5 hằng tuần. Một chuyến du lịch đảo Bình Ba hoang sơ sẽ vô cùng ý nghĩa và thú vị để đón mừng năm mới 2016.', 'tour du lịch tết 2016,đảo bình ba 2 ngày 2 đêm', 'BB100', '2 ngày 2 đêm', ',1,', 0, 'Tối 09,11/02/2016 (M2,4 Tết)', 'Đảo Bình Ba', 'Bãi Nhà Cũ - Hòn Rùa - chùa Địa Tạng - Lăng Ông Nam Hải - Đình thần - Bãi Nồm - Chùa Ốc', 1550000, 0, 0, NULL, 1452924840, 'vi', 1, 2, 3, NULL, ',11,2,3,29,24,4,'),
-(19, 'Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long', 'tour-ha-noi-lao-cai-sapa-cho-phien-bac-ha-yen-tu-ha-long', '', '1452926016.jpg', 'Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long', 'Khởi hành vào thứ 2 hàng tuần, khám phá Miền Bắc trong 5 ngày 5 đêm', 'tour hà nội lào cai sapa chợ phiên bắc hà yên tử hạ long', 'MB101', '5 ngày 5 đêm', ',1,2,', 3, 'sáng 7h 22/01/2016', 'Hà Nội', 'Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long', 7900000, 0, 0, NULL, 1452925620, 'vi', 1, 2, 3, NULL, ',11,2,3,28,40,4,'),
-(20, 'Tour du lich tết 2016 Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau', 'tour-du-lich-tet-2016-can-tho-soc-trang-bac-lieu-ca-mau', '', '1452928240.jpg', 'Tour du lich tết 2016 Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau', 'Khám phá miền tây sông nước 4 ngày 3 đêm Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau', 'tour du lich tết 2016 cần thơ – sóc trăng – bạc liêu – cà mau', 'MT102', '4 ngày 3 đêm', ',1,', 3, 'sáng 09,11/02/2016 (M2,4 Tết)', 'Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau', 'Chùa Vĩnh Tràng - bến Ninh Kiều - chợ nổi Cái Răng - chùa Dơi - chùa Đất Sét - nhà thờ cha Diệp - Đất Mũi - Mỹ Khánh', 3500000, 0, 0, NULL, 1452928080, 'vi', 1, 2, 3, NULL, ',2,3,30,37,'),
+(18, 'Tour du lịch tết 2016 đảo Bình Ba 2 ngày 2 đêm', 'tour-du-lich-tet-2016-dao-binh-ba-2-ngay-2-dem', '', '1452925095.jpg', 'Tour du lịch tết 2016 đảo Bình Ba 2 ngày 2 đêm', 'Khởi hành: Thứ 5 hằng tuần. Một chuyến du lịch đảo Bình Ba hoang sơ sẽ vô cùng ý nghĩa và thú vị để đón mừng năm mới 2016.', 'tour du lịch tết 2016,đảo bình ba 2 ngày 2 đêm', 'BB100', '2 ngày 2 đêm', ',1,', 0, 'Tối 09,11/02/2016 (M2,4 Tết)', 'Đảo Bình Ba', 'Bãi Nhà Cũ - Hòn Rùa - chùa Địa Tạng - Lăng Ông Nam Hải - Đình thần - Bãi Nồm - Chùa Ốc', 1550000, 0, 0, NULL, 1452924840, 'vi', 1, 2, 3, NULL, ',11,2,3,29,24,'),
+(19, 'Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long', 'tour-ha-noi-lao-cai-sapa-cho-phien-bac-ha-yen-tu-ha-long', '', '1452926016.jpg', 'Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long', 'Khởi hành vào thứ 2 hàng tuần, khám phá Miền Bắc trong 5 ngày 5 đêm', 'tour hà nội lào cai sapa chợ phiên bắc hà yên tử hạ long', 'MB101', '5 ngày 5 đêm', ',1,2,', 3, 'sáng 7h 22/01/2016', 'Hà Nội', 'Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long', 7900000, 0, 0, NULL, 1452925620, 'vi', 1, 2, 3, NULL, ',11,2,3,28,40,'),
+(20, 'Tour du lich tết 2016 Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau', 'tour-du-lich-tet-2016-can-tho-soc-trang-bac-lieu-ca-mau', '', '1453199146.jpg', 'Tour du lich tết 2016 Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau', 'Khám phá miền tây sông nước 4 ngày 3 đêm Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau', 'tour du lich tết 2016 cần thơ,,tour du lich tet 2016 can tho', 'MT102', '4 ngày 3 đêm', ',1,', 3, 'sáng 09,11/02/2016 (M2,4 Tết)', 'Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau', 'Chùa Vĩnh Tràng - bến Ninh Kiều - chợ nổi Cái Răng - chùa Dơi - chùa Đất Sét - nhà thờ cha Diệp - Đất Mũi - Mỹ Khánh', 3500000, 0, 0, NULL, 1452928080, 'vi', 1, 2, 3, NULL, ',2,3,30,37,'),
 (21, 'Tour du lịch chọn lọc', 'tour-du-lich-chon-loc', '', '', 'Tour du lịch chọn lọc', '', 'tour du lịch chọn lọc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13, 1, NULL, 1452949740, 'vi', 1, 1, 20, ',10,', NULL),
 (22, 'Mức giá vô cùng hấp dẫn', 'muc-gia-vo-cung-hap-dan', '', '', 'Mức giá vô cùng hấp dẫn', '', 'mức giá vô cùng hấp dẫn', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13, 2, NULL, 1452950040, 'vi', 1, 1, 20, ',10,', NULL),
 (23, 'Hoa Việt Travel® và các điểm ưu việt', 'hoa-viet-travel-cac-diem-uu-viet', '', '', 'Hoa Việt Travel và các điểm ưu việt', '', 'hoa việt travel các điểm ưu việt', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 13, 3, NULL, 1452950220, 'vi', 1, 1, 20, ',10,', NULL),
@@ -367,7 +388,9 @@ INSERT INTO `web_header` (`id`, `name`, `name_alias`, `url`, `img`, `title`, `de
 (71, 'Du lịch team building 2015: Tinh Thần Thép', 'du-lich-team-building-2015-tinh-than-thep', '', '1453273417.jpg', 'Du lịch team building 2015: Tinh Thần Thép', 'Côn Đảo là hòn đảo hoang sơ, thanh bình, có nhiều bãi biển đẹp, những cánh rừng nguyên sinh với nhiều loài động thực vật quý hiếm được nhiều du khách yêu thích.', 'du lịch team building 2015 tinh thần thép', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 1453273080, 'vi', 1, 2, 6, NULL, ',14,6,'),
 (72, 'Teambuilding huyền thoại Madagui', 'teambuilding-huyen-thoai-madagui', '', '1453273439.jpg', 'Teambuilding huyền thoại Madagui', 'Chương trình Teambuilding tại khu du lịch sinh thái Madaguoi, huyện Đạ Huoai tỉnh Lâm Đồng', 'teambuilding huyền thoại madagui', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 1453273140, 'vi', 1, 2, 6, NULL, ',14,6,'),
 (73, 'Du lịch Teambuilding Sức Mạnh Đam San', 'du-lich-teambuilding-suc-manh-dam-san', '', '1453273464.jpg', 'Du lịch Teambuilding Sức Mạnh Đam San', 'Chương trình du lich team building “Sức mạnh Đam San” mô phỏng mỗi đội là một ứng cử viên cho danh hiệu Đam San. Bằng sự gắn kết sức mạnh của từng thành viên', 'du lịch teambuilding sức mạnh đam san', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 1453273260, 'vi', 1, 2, 6, NULL, ',14,6,'),
-(74, 'Du lịch team building tại Vịnh Hạ Long', 'du-lich-team-building-tai-vinh-ha-long', '', '1453273659.jpg', 'Du lịch team building tại Vịnh Hạ Long', 'Vịnh Hạ Long là nơi kỳ lý tưởng cho hàng loạt chương trình du lịch teambuilding với những mục đích khác nhau dành cho quý khách.', 'du lịch team building tại vịnh hạ long', 'mqNip6_SUXs', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 1453273500, 'vi', 1, 2, 6, NULL, ',14,6,');
+(74, 'Du lịch team building tại Vịnh Hạ Long', 'du-lich-team-building-tai-vinh-ha-long', '', '1453273659.jpg', 'Du lịch team building tại Vịnh Hạ Long', 'Vịnh Hạ Long là nơi kỳ lý tưởng cho hàng loạt chương trình du lịch teambuilding với những mục đích khác nhau dành cho quý khách.', 'du lịch team building tại vịnh hạ long', 'mqNip6_SUXs', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, 1453273500, 'vi', 1, 2, 6, NULL, ',14,6,'),
+(75, 'Cho thuê xe', 'cho-thue-xe', '', '', 'Cho thuê xe du lịch | Cho thue xe du lich', 'Cho thuê xe du lịch giá rẻ, cho thuê xe 4,7,9,16,29,45 chỗ . Đảm bảo xe cho thuê luôn sạch đẹp, đời mới.', 'cho thuê xe du lịch,cho thue xe du lich', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 22, NULL, 1456477080, 'vi', 1, 1, 2, ',15,1,', NULL),
+(77, 'Support nhân viên sale', 'support-nhan-vien-sale', '', '', 'Support nhân viên sale', '', 'support nhân viên sale', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 31, NULL, 1456479180, 'vi', 1, 1, 20, ',14,', NULL);
 
 -- --------------------------------------------------------
 
@@ -376,10 +399,24 @@ INSERT INTO `web_header` (`id`, `name`, `name_alias`, `url`, `img`, `title`, `de
 --
 
 CREATE TABLE IF NOT EXISTS `web_ip_address` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `ip_address` varchar(20) NOT NULL,
-  `datetime` bigint(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `datetime` bigint(10) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `web_ip_address`
+--
+
+INSERT INTO `web_ip_address` (`id`, `ip_address`, `datetime`) VALUES
+(2, '115.78.128.150', 1453771522),
+(3, '115.78.128.150', 1453771608),
+(4, '115.78.128.150', 1453771760),
+(5, '115.78.128.150', 1453772350),
+(6, '115.78.128.150', 1453772470),
+(7, '115.78.128.150', 1453772570),
+(8, '115.78.128.150', 1454529151);
 
 -- --------------------------------------------------------
 
@@ -388,12 +425,13 @@ CREATE TABLE IF NOT EXISTS `web_ip_address` (
 --
 
 CREATE TABLE IF NOT EXISTS `web_language` (
-`id` int(3) NOT NULL,
+  `id` int(3) NOT NULL auto_increment,
   `name` varchar(20) NOT NULL,
   `code` varchar(10) NOT NULL,
-  `_order` int(3) DEFAULT '0',
-  `status` tinyint(1) DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `_order` int(3) default '0',
+  `status` tinyint(1) default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `web_language`
@@ -410,13 +448,14 @@ INSERT INTO `web_language` (`id`, `name`, `code`, `_order`, `status`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `web_language_var` (
-`id` int(3) NOT NULL,
+  `id` int(3) NOT NULL auto_increment,
   `name` varchar(30) NOT NULL,
   `value` varchar(200) NOT NULL,
   `_order` int(3) NOT NULL,
-  `lang` varchar(2) NOT NULL DEFAULT 'vi',
-  `status` tinyint(1) DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+  `lang` varchar(2) NOT NULL default 'vi',
+  `status` tinyint(1) default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=62 ;
 
 --
 -- Dumping data for table `web_language_var`
@@ -494,10 +533,11 @@ INSERT INTO `web_language_var` (`id`, `name`, `value`, `_order`, `lang`, `status
 CREATE TABLE IF NOT EXISTS `web_listcity` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
-  `deliverycosts` int(8) NOT NULL DEFAULT '0',
-  `_order` int(2) DEFAULT '0',
-  `lang` varchar(2) NOT NULL DEFAULT 'vi',
-  `status` tinyint(1) DEFAULT '1'
+  `deliverycosts` int(8) NOT NULL default '0',
+  `_order` int(2) default '0',
+  `lang` varchar(2) NOT NULL default 'vi',
+  `status` tinyint(1) default '1',
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -576,14 +616,15 @@ INSERT INTO `web_listcity` (`id`, `name`, `deliverycosts`, `_order`, `lang`, `st
 --
 
 CREATE TABLE IF NOT EXISTS `web_listdistricts` (
-`id` int(3) NOT NULL,
-  `name` varchar(35) COLLATE utf8_unicode_ci NOT NULL,
-  `deliverycosts` int(8) NOT NULL DEFAULT '0',
+  `id` int(3) NOT NULL auto_increment,
+  `name` varchar(35) collate utf8_unicode_ci NOT NULL,
+  `deliverycosts` int(8) NOT NULL default '0',
   `city_id` int(11) NOT NULL,
-  `_order` int(3) DEFAULT '0',
-  `lang` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'vi',
-  `status` tinyint(1) DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=901 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `_order` int(3) default '0',
+  `lang` varchar(2) collate utf8_unicode_ci NOT NULL default 'vi',
+  `status` tinyint(1) default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=901 ;
 
 --
 -- Dumping data for table `web_listdistricts`
@@ -1257,12 +1298,13 @@ INSERT INTO `web_listdistricts` (`id`, `name`, `deliverycosts`, `city_id`, `_ord
 --
 
 CREATE TABLE IF NOT EXISTS `web_listsendmail` (
-`id` int(2) NOT NULL,
+  `id` int(2) NOT NULL auto_increment,
   `name` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `lang` varchar(3) NOT NULL DEFAULT 'vi',
-  `status` tinyint(1) DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `lang` varchar(3) NOT NULL default 'vi',
+  `status` tinyint(1) default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `web_listsendmail`
@@ -1281,7 +1323,7 @@ INSERT INTO `web_listsendmail` (`id`, `name`, `email`, `lang`, `status`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `web_logs` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `name` varchar(200) NOT NULL,
   `action` varchar(30) NOT NULL,
   `_table` varchar(30) NOT NULL,
@@ -1289,19 +1331,94 @@ CREATE TABLE IF NOT EXISTS `web_logs` (
   `datetime` bigint(10) NOT NULL,
   `username` varchar(20) NOT NULL,
   `content` text,
-  `lang` varchar(2) NOT NULL DEFAULT 'vi',
-  `status` tinyint(1) NOT NULL DEFAULT '0',
-  `date_restore` bigint(10) DEFAULT NULL,
-  `user_restore` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `lang` varchar(2) NOT NULL default 'vi',
+  `status` tinyint(1) NOT NULL default '0',
+  `date_restore` bigint(10) default NULL,
+  `user_restore` varchar(20) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=77 ;
 
 --
 -- Dumping data for table `web_logs`
 --
 
 INSERT INTO `web_logs` (`id`, `name`, `action`, `_table`, `table_id`, `datetime`, `username`, `content`, `lang`, `status`, `date_restore`, `user_restore`) VALUES
-(1, 'Đặt tour', 'update', 'web_event_form', 7, 1453797862, 'admin', 'id,name,img,subject,content,notification,email,type,type_id,statusfields%%%values7%%%Đặt tour%%%%%%Thông báo đặt tour du lịch tại Hoa Việt Travel®%%%<p>Kính gởi bạn {_name},</p>\n\n<p>Cảm ơn bạn đã quan tâm đến các tour du lịch&nbsp;của Hoa Việt Travel®.</p>\n\n<p>Xin thông báo bạn đã đặt tour du lịch của&nbsp;Hoa Việt Travel®&nbsp;<strong>thành công</strong>.</p>\n\n<p style="margin-left: 40px;">Tour du lịch: {_tour}<br />\nGiá tour cho 1 người: {_price}<br />\nThời gian: {_duration}</p>\n\n<p>Hoa Việt Travel® sẽ trả&nbsp;lời cho bạn sớm nhất có thể.</p>\n\n<p>Một lần nữa, cảm ơn bạn đã quan tâm đến các tour du lịch của&nbsp;Hoa Việt Travel®.<br />\nTrân trọng,</p>\n\n<p>&nbsp;</p>\n\n<p><span style="font-size:18px;"><span style="color:#808080;"><strong>&nbsp;HOA VIỆT TRAVEL® - Hotline: 0908 444 082</strong></span></span></p>\n\n<table border="0" cellpadding="5" cellspacing="0" style="width:100%;">\n	<tbody>\n		<tr>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Văn phòng chính</strong></em></span></td>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Chi nhánh Hà Nội</strong></em></span></td>\n			<td><span style="color:#808080;"><em><strong>Văn phòng đại diện</strong></em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Địa chỉ:&nbsp;F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM</em></span></td>\n			<td><span style="color:#808080;"><em>Đường 2-3 B, Khu Cầu Lớn, Lam Hồng, Đông Anh, Hà Nội</em></span></td>\n			<td><span style="color:#808080;"><em>69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM</em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 6268 9046 - FAX:&nbsp;08 6268 9013</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;04 3956 1450 - FAX:&nbsp;04 3956 1451</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 3765 0115 - FAX:&nbsp;08 3765 0115</em></span></td>\n		</tr>\n	</tbody>\n</table>%%%<p><strong>Đặt tour&nbsp;thành công</strong></p>\n\n<p>Bạn đã đặt tour <em><strong>{_tour}</strong></em> của Hoa&nbsp;Việt Travel® thành công. Chúng tôi sẽ liên hệ với bạn chậm nhất trong 24 giờ.</p>\n\n<p>Thân chào,</p>%%%%%%1%%%3%%%1', 'vi', 0, NULL, NULL),
-(2, 'Yêu cầu dịch vụ', 'update', 'web_event_form', 8, 1453797898, 'admin', 'id,name,img,subject,content,notification,email,type,type_id,statusfields%%%values8%%%Yêu cầu dịch vụ%%%%%%Thông báo yêu cầu dịch vụ tour của Hoa Việt Travel®%%%<p>Kính gởi bạn {_name},</p>\n\n<p>Cảm ơn bạn đã quan tâm đến các tour du lịch&nbsp;của <em><strong>Hoa Việt Travel®</strong></em>.</p>\n\n<p>Xin thông báo bạn đã yêu cầu&nbsp;dịch vụ&nbsp;tour&nbsp;của&nbsp;Hoa Việt Travel®&nbsp;<strong>thành công</strong>.</p>\n\n<p style="margin-left: 40px;">Ngày khởi hành: {_date}<br />\nĐiểm khởi hành: {_address}<br />\nĐiểm đến: {_destination}<br />\nSố khách: {_visitors}<br />\nTrẻ em: {_children}<br />\nTrẻ nhỏ: {_baby}</p>\n\n<p>Hoa Việt Travel® sẽ trả&nbsp;lời cho bạn sớm nhất có thể.</p>\n\n<p>Một lần nữa, cảm ơn bạn đã quan tâm đến các tour du lịch của&nbsp;Hoa Việt Travel®.<br />\nTrân trọng,</p>\n\n<p>&nbsp;</p>\n\n<p><span style="font-size:18px;"><span style="color:#808080;"><strong>&nbsp;HOA VIỆT TRAVEL® - Hotline: 0908 444 082</strong></span></span></p>\n\n<table border="0" cellpadding="5" cellspacing="0" style="width:100%;">\n	<tbody>\n		<tr>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Văn phòng chính</strong></em></span></td>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Chi nhánh Hà Nội</strong></em></span></td>\n			<td><span style="color:#808080;"><em><strong>Văn phòng đại diện</strong></em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Địa chỉ:&nbsp;F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM</em></span></td>\n			<td><span style="color:#808080;"><em>Đường 2-3 B, Khu Cầu Lớn, Lam Hồng, Đông Anh, Hà Nội</em></span></td>\n			<td><span style="color:#808080;"><em>69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM</em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 6268 9046 - FAX:&nbsp;08 6268 9013</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;04 3956 1450 - FAX:&nbsp;04 3956 1451</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 3765 0115 - FAX:&nbsp;08 3765 0115</em></span></td>\n		</tr>\n	</tbody>\n</table>%%%<p><strong>Yêu cầu dịch vụ của bạn đến Hoa Việt Travel®&nbsp;thành công</strong></p>\n\n<p>Bạn đã yêu cầu dịch vụ&nbsp;đặt tour của Hoa&nbsp;Việt Travel® thành công. Chúng tôi sẽ liên hệ với bạn chậm nhất trong 24 giờ.</p>\n\n<p>Thân chào,</p>%%%%%%1%%%22%%%1', 'vi', 0, NULL, NULL);
+(1, 'Trang chủ', 'update', 'web_header', 1, 1453771470, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values1%%%Trang chủ%%%trang-chu%%%%%%%%%Hoa Việt Travel | Du lịch trong nước - Du lịch ngoài nước - Du lịch Hoa Việt - Website du lịch%%%Hoa Việt Travel - Cung cấp các chương trình tour du lịch  trong nước và ngoài nước, các dịch vụ du lịch, du lịch giá rẻ, tour du lịch khuyến mãi%%%hoa việt travel,du lịch trong nước,du lịch ngoài nước,du lịch hoa việt,website du lịch,du lich,trong nuoc,ngoai nuoc,hoa viet travel%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%1%%%%%%1452827040%%%vi%%%1%%%1%%%1%%%,20,', 'vi', 0, NULL, NULL),
+(2, 'Trang chủ', 'update', 'web_header', 1, 1453771490, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values1%%%Trang chủ%%%trang-chu%%%%%%%%%1 Hoa Việt Travel | Du lịch trong nước - Du lịch ngoài nước - Du lịch Hoa Việt - Website du lịch%%%Hoa Việt Travel - Cung cấp các chương trình tour du lịch  trong nước và ngoài nước, các dịch vụ du lịch, du lịch giá rẻ, tour du lịch khuyến mãi%%%hoa việt travel,du lịch trong nước,du lịch ngoài nước,du lịch hoa việt,website du lịch,du lich,trong nuoc,ngoai nuoc,hoa viet travel%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%1%%%%%%1452827040%%%vi%%%1%%%1%%%1%%%,20,', 'vi', 0, NULL, NULL),
+(3, 'Trần Hiếu Nhân', 'create', 'web_contact', 12, 1453771522, 'admin', '', 'vi', 0, NULL, NULL),
+(4, 'Trần Hiếu Nhân', 'create', 'web_contact', 13, 1453771609, 'admin', '', 'vi', 0, NULL, NULL),
+(5, 'Trần Hiếu Nhân', 'create', 'web_contact', 14, 1453771760, 'admin', '', 'vi', 0, NULL, NULL),
+(6, 'Đặt tour', 'update', 'web_event_form', 7, 1453772069, 'admin', 'id,name,img,subject,content,notification,email,type,type_id,statusfields%%%values7%%%Đặt tour%%%%%%Thông báo đặt tour du lịch tại Hoa Việt Travel®%%%<p>Kính gởi bạn {_name},</p>\n\n<p>Cảm ơn bạn đã quan tâm đến các tour du lịch&nbsp;của Hoa Việt Travel®.</p>\n\n<p>Xin thông báo bạn đã đặt tour du lịch của&nbsp;Hoa Việt Travel®&nbsp;<strong>thành công</strong>.</p>\n\n<p style="margin-left: 40px;">Tour du lịch: {_tour}<br />\nGiá tour cho 1 người: {_price}<br />\nThời gian: {_duration}</p>\n\n<p>Hoa Việt Travel® sẽ trả&nbsp;lời cho bạn sớm nhất có thể.</p>\n\n<p>Một lần nữa, cảm ơn bạn đã quan tâm đến các tour du lịch của&nbsp;Hoa Việt Travel®.<br />\nTrân trọng,</p>\n\n<p>&nbsp;</p>\n\n<p><span style="font-size:18px;"><span style="color:#808080;"><strong>&nbsp;HOA VIỆT TRAVEL® - Hotline: 0908 444 082</strong></span></span></p>\n\n<table border="0" cellpadding="5" cellspacing="0" style="width:100%;">\n	<tbody>\n		<tr>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Văn phòng chính</strong></em></span></td>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Chi nhánh Hà Nội</strong></em></span></td>\n			<td><span style="color:#808080;"><em><strong>Văn phòng đại diện</strong></em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Địa chỉ:&nbsp;F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM</em></span></td>\n			<td><span style="color:#808080;"><em>Đường 2-3 B, Khu Cầu Lớn, Lam Hồng, Đông Anh, Hà Nội</em></span></td>\n			<td><span style="color:#808080;"><em>69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM</em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 6268 9046 - FAX:&nbsp;08 6268 9013</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;04 3956 1450 - FAX:&nbsp;04 3956 1451</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 3765 0115 - FAX:&nbsp;08 3765 0115</em></span></td>\n		</tr>\n	</tbody>\n</table>%%%<p><strong>Đặt tour&nbsp;thành công</strong></p>\n\n<p>Bạn đã đặt tour <em><strong>{_tour}</strong></em> của Hoa&nbsp;Việt Travel® thành công. Chúng tôi sẽ liên hệ với bạn chậm nhất trong 24 giờ.</p>\n\n<p>Thân chào,</p>%%%%%%1%%%3%%%1', 'vi', 0, NULL, NULL),
+(7, 'Yêu cầu dịch vụ', 'update', 'web_event_form', 8, 1453772111, 'admin', 'id,name,img,subject,content,notification,email,type,type_id,statusfields%%%values8%%%Yêu cầu dịch vụ%%%%%%Thông báo yêu cầu dịch vụ tour của Hoa Việt Travel®%%%<p>Kính gởi bạn {_name},</p>\n\n<p>Cảm ơn bạn đã quan tâm đến các tour du lịch&nbsp;của <em><strong>Hoa Việt Travel®</strong></em>.</p>\n\n<p>Xin thông báo bạn đã yêu cầu&nbsp;dịch vụ&nbsp;tour&nbsp;của&nbsp;Hoa Việt Travel®&nbsp;<strong>thành công</strong>.</p>\n\n<p style="margin-left: 40px;">Ngày khởi hành: {_date}<br />\nĐiểm khởi hành: {_address}<br />\nĐiểm đến: {_destination}<br />\nSố khách: {_visitors}<br />\nTrẻ em: {_children}<br />\nTrẻ nhỏ: {_baby}</p>\n\n<p>Hoa Việt Travel® sẽ trả&nbsp;lời cho bạn sớm nhất có thể.</p>\n\n<p>Một lần nữa, cảm ơn bạn đã quan tâm đến các tour du lịch của&nbsp;Hoa Việt Travel®.<br />\nTrân trọng,</p>\n\n<p>&nbsp;</p>\n\n<p><span style="font-size:18px;"><span style="color:#808080;"><strong>&nbsp;HOA VIỆT TRAVEL® - Hotline: 0908 444 082</strong></span></span></p>\n\n<table border="0" cellpadding="5" cellspacing="0" style="width:100%;">\n	<tbody>\n		<tr>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Văn phòng chính</strong></em></span></td>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Chi nhánh Hà Nội</strong></em></span></td>\n			<td><span style="color:#808080;"><em><strong>Văn phòng đại diện</strong></em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Địa chỉ:&nbsp;F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM</em></span></td>\n			<td><span style="color:#808080;"><em>Đường 2-3 B, Khu Cầu Lớn, Lam Hồng, Đông Anh, Hà Nội</em></span></td>\n			<td><span style="color:#808080;"><em>69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM</em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 6268 9046 - FAX:&nbsp;08 6268 9013</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;04 3956 1450 - FAX:&nbsp;04 3956 1451</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 3765 0115 - FAX:&nbsp;08 3765 0115</em></span></td>\n		</tr>\n	</tbody>\n</table>%%%<p><strong>Yêu cầu dịch vụ của bạn đến Hoa Việt Travel®&nbsp;thành công</strong></p>\n\n<p>Bạn đã yêu cầu dịch vụ&nbsp;đặt tour của Hoa&nbsp;Việt Travel® thành công. Chúng tôi sẽ liên hệ với bạn chậm nhất trong 24 giờ.</p>\n\n<p>Thân chào,</p>%%%%%%1%%%22%%%1', 'vi', 0, NULL, NULL),
+(8, 'Yêu cầu dịch vụ', 'update', 'web_event_form', 8, 1453772178, 'admin', 'id,name,img,subject,content,notification,email,type,type_id,statusfields%%%values8%%%Yêu cầu dịch vụ%%%%%%Thông báo yêu cầu dịch vụ tour của Hoa Việt Travel®%%%<p>Kính gởi bạn {_name},</p>\n\n<p>Cảm ơn bạn đã quan tâm đến các tour du lịch&nbsp;của <em><strong>Hoa Việt Travel®</strong></em>.</p>\n\n<p>Xin thông báo bạn đã yêu cầu&nbsp;dịch vụ&nbsp;tour&nbsp;của&nbsp;Hoa Việt Travel®&nbsp;<strong>thành công</strong>.</p>\n\n<p style="margin-left: 40px;">Ngày khởi hành: <strong>{_date}</strong><br />\nĐiểm khởi hành: <strong>{_address}</strong><br />\nĐiểm đến: <strong>{_destination}</strong><br />\nSố khách: <strong>{_visitors}</strong><br />\n<strong>{_children}</strong><br />\n<strong>{_baby}</strong></p>\n\n<p>Hoa Việt Travel® sẽ trả&nbsp;lời cho bạn sớm nhất có thể.</p>\n\n<p>Một lần nữa, cảm ơn bạn đã quan tâm đến các tour du lịch của&nbsp;Hoa Việt Travel®.<br />\nTrân trọng,</p>\n\n<p>&nbsp;</p>\n\n<p><span style="font-size:18px;"><span style="color:#808080;"><strong>&nbsp;HOA VIỆT TRAVEL® - Hotline: 0908 444 082</strong></span></span></p>\n\n<table border="0" cellpadding="5" cellspacing="0" style="width:100%;">\n	<tbody>\n		<tr>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Văn phòng chính</strong></em></span></td>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Chi nhánh Hà Nội</strong></em></span></td>\n			<td><span style="color:#808080;"><em><strong>Văn phòng đại diện</strong></em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Địa chỉ:&nbsp;F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM</em></span></td>\n			<td><span style="color:#808080;"><em>Đường 2-3 B, Khu Cầu Lớn, Lam Hồng, Đông Anh, Hà Nội</em></span></td>\n			<td><span style="color:#808080;"><em>69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM</em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 6268 9046 - FAX:&nbsp;08 6268 9013</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;04 3956 1450 - FAX:&nbsp;04 3956 1451</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 3765 0115 - FAX:&nbsp;08 3765 0115</em></span></td>\n		</tr>\n	</tbody>\n</table>%%%<p><strong>Yêu cầu dịch vụ của bạn đến Hoa Việt Travel®&nbsp;thành công</strong></p>\n\n<p>Bạn đã yêu cầu dịch vụ&nbsp;đặt tour của Hoa&nbsp;Việt Travel® thành công. Chúng tôi sẽ liên hệ với bạn chậm nhất trong 24 giờ.</p>\n\n<p>Thân chào,</p>%%%%%%1%%%22%%%1', 'vi', 0, NULL, NULL),
+(9, 'Yêu cầu dịch vụ', 'update', 'web_event_form', 8, 1453772304, 'admin', 'id,name,img,subject,content,notification,email,type,type_id,statusfields%%%values8%%%Yêu cầu dịch vụ%%%%%%Thông báo yêu cầu dịch vụ tour của Hoa Việt Travel®%%%<p>Kính gởi bạn {_name},</p>\n\n<p>Cảm ơn bạn đã quan tâm đến các tour du lịch&nbsp;của <em><strong>Hoa Việt Travel®</strong></em>.</p>\n\n<p>Xin thông báo bạn đã yêu cầu&nbsp;dịch vụ&nbsp;tour&nbsp;của&nbsp;Hoa Việt Travel®&nbsp;<strong>thành công</strong>.</p>\n\n<p style="margin-left: 40px;">Ngày khởi hành: <strong>{_date}</strong><br />\nĐiểm khởi hành: <strong>{_address}</strong><br />\nĐiểm đến: <strong>{_destination}</strong><br />\nSố khách: <strong>{_visitors}</strong><br />\n{_children}<br />\n{_baby}</p>\n\n<p>Hoa Việt Travel® sẽ trả&nbsp;lời cho bạn sớm nhất có thể.</p>\n\n<p>Một lần nữa, cảm ơn bạn đã quan tâm đến các tour du lịch của&nbsp;Hoa Việt Travel®.<br />\nTrân trọng,</p>\n\n<p>&nbsp;</p>\n\n<p><span style="font-size:18px;"><span style="color:#808080;"><strong>&nbsp;HOA VIỆT TRAVEL® - Hotline: 0908 444 082</strong></span></span></p>\n\n<table border="0" cellpadding="5" cellspacing="0" style="width:100%;">\n	<tbody>\n		<tr>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Văn phòng chính</strong></em></span></td>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Chi nhánh Hà Nội</strong></em></span></td>\n			<td><span style="color:#808080;"><em><strong>Văn phòng đại diện</strong></em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Địa chỉ:&nbsp;F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM</em></span></td>\n			<td><span style="color:#808080;"><em>Đường 2-3 B, Khu Cầu Lớn, Lam Hồng, Đông Anh, Hà Nội</em></span></td>\n			<td><span style="color:#808080;"><em>69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM</em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 6268 9046 - FAX:&nbsp;08 6268 9013</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;04 3956 1450 - FAX:&nbsp;04 3956 1451</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 3765 0115 - FAX:&nbsp;08 3765 0115</em></span></td>\n		</tr>\n	</tbody>\n</table>%%%<p><strong>Yêu cầu dịch vụ của bạn đến Hoa Việt Travel®&nbsp;thành công</strong></p>\n\n<p>Bạn đã yêu cầu dịch vụ&nbsp;đặt tour của Hoa&nbsp;Việt Travel® thành công. Chúng tôi sẽ liên hệ với bạn chậm nhất trong 24 giờ.</p>\n\n<p>Thân chào,</p>%%%%%%1%%%22%%%1', 'vi', 0, NULL, NULL),
+(10, 'Trần Hiếu Nhân', 'create', 'web_contact', 15, 1453772350, 'admin', '', 'vi', 0, NULL, NULL),
+(11, 'Trần Hiếu Nhân', 'create', 'web_contact', 16, 1453772470, 'admin', '', 'vi', 0, NULL, NULL),
+(12, 'Trần Hiếu Nhân', 'create', 'web_contact', 17, 1453772570, 'admin', '', 'vi', 0, NULL, NULL),
+(13, 'Trần Hiếu Nhân', 'create', 'web_contact', 18, 1454529151, 'customer', '', 'vi', 0, NULL, NULL),
+(14, 'Tour du lich tết 2016 Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau', 'update', 'web_header', 20, 1456205324, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values20%%%Tour du lich tết 2016 Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau%%%tour-du-lich-tet-2016-can-tho-soc-trang-bac-lieu-ca-mau%%%%%%1452928240.jpg%%%Tour du lich tết 2016 Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau%%%Khám phá miền tây sông nước 4 ngày 3 đêm Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau%%%tour du lich tết 2016 cần thơ – sóc trăng – bạc liêu – cà mau%%%MT102%%%4 ngày 3 đêm%%%,1,%%%3%%%sáng 09,11/02/2016 (M2,4 Tết)%%%Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau%%%Chùa Vĩnh Tràng - bến Ninh Kiều - chợ nổi Cái Răng - chùa Dơi - chùa Đất Sét - nhà thờ cha Diệp - Đất Mũi - Mỹ Khánh%%%3500000%%%0%%%0%%%%%%1452928080%%%vi%%%1%%%2%%%3%%%%%%,2,3,30,37,', 'vi', 0, NULL, NULL),
+(15, 'Tour du lich tết 2016 Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau', 'update', 'web_header', 20, 1456205350, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values20%%%Tour du lich tết 2016 Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau%%%tour-du-lich-tet-2016-can-tho-soc-trang-bac-lieu-ca-mau%%%%%%1452928240.jpg%%%Tour du lich tết 2016 Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau%%%Khám phá miền tây sông nước 4 ngày 3 đêm Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau%%%tour du lich tết 2016 cần thơ,,tour du lich tet 2016 can tho%%%MT102%%%4 ngày 3 đêm%%%,1,%%%3%%%sáng 09,11/02/2016 (M2,4 Tết)%%%Cần Thơ - Sóc Trăng - Bạc Liêu - Cà Mau%%%Chùa Vĩnh Tràng - bến Ninh Kiều - chợ nổi Cái Răng - chùa Dơi - chùa Đất Sét - nhà thờ cha Diệp - Đất Mũi - Mỹ Khánh%%%3500000%%%0%%%0%%%%%%1452928080%%%vi%%%1%%%2%%%3%%%%%%,2,3,30,37,', 'vi', 0, NULL, NULL),
+(16, 'Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long', 'update', 'web_header', 19, 1456206129, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values19%%%Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long%%%tour-ha-noi-lao-cai-sapa-cho-phien-bac-ha-yen-tu-ha-long%%%%%%1452926016.jpg%%%Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long%%%Khởi hành vào thứ 2 hàng tuần, khám phá Miền Bắc trong 5 ngày 5 đêm%%%tour hà nội lào cai sapa chợ phiên bắc hà yên tử hạ long%%%MB101%%%5 ngày 5 đêm%%%,1,2,%%%3%%%sáng 7h 22/01/2016%%%Hà Nội%%%Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long%%%7900000%%%0%%%0%%%%%%1452925620%%%vi%%%1%%%2%%%3%%%%%%,11,2,3,28,40,4,', 'vi', 0, NULL, NULL),
+(17, 'Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long', 'update', 'web_header', 19, 1456206176, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values19%%%Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long%%%tour-ha-noi-lao-cai-sapa-cho-phien-bac-ha-yen-tu-ha-long%%%%%%1452926016.jpg%%%Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long%%%Khởi hành vào thứ 2 hàng tuần, khám phá Miền Bắc trong 5 ngày 5 đêm%%%tour hà nội lào cai sapa chợ phiên bắc hà yên tử hạ long%%%MB101%%%5 ngày 5 đêm%%%,1,2,%%%3%%%sáng 7h 22/01/2016%%%Hà Nội%%%Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long%%%7900000%%%0%%%0%%%%%%1452925620%%%vi%%%0%%%2%%%3%%%%%%,11,2,3,28,40,4,', 'vi', 0, NULL, NULL),
+(18, 'Đặt tour', 'update', 'web_event_form', 7, 1456206610, 'admin', 'id,name,img,subject,content,notification,email,type,type_id,statusfields%%%values7%%%Đặt tour%%%%%%Thông báo đặt tour du lịch tại Hoa Việt Travel®%%%<p>Kính gởi bạn {_name},</p>\n\n<p>Cảm ơn bạn đã quan tâm đến các tour du lịch&nbsp;của Hoa Việt Travel®.</p>\n\n<p>Xin thông báo bạn đã đặt tour du lịch của&nbsp;Hoa Việt Travel®&nbsp;<strong>thành công</strong>.</p>\n\n<p style="margin-left: 40px;">Tour du lịch: <em><strong>{_tour}</strong></em><br />\nGiá tour cho 1 người: <strong>{_price}</strong> VNĐ<br />\nThời gian: <strong>{_duration}</strong></p>\n\n<p>Hoa Việt Travel® sẽ liên hệ đến&nbsp;bạn sớm nhất có thể.</p>\n\n<p>Một lần nữa, cảm ơn bạn đã quan tâm đến các tour du lịch của&nbsp;Hoa Việt Travel®.<br />\nTrân trọng,</p>\n\n<p>&nbsp;</p>\n\n<p><span style="font-size:18px;"><span style="color:#808080;"><strong>&nbsp;HOA VIỆT TRAVEL® - Hotline: 0908 444 082</strong></span></span></p>\n\n<table border="0" cellpadding="5" cellspacing="0" style="width:100%;">\n	<tbody>\n		<tr>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Văn phòng chính</strong></em></span></td>\n			<td style="width: 32%;"><span style="color:#808080;"><em><strong>Chi nhánh Hà Nội</strong></em></span></td>\n			<td><span style="color:#808080;"><em><strong>Văn phòng đại diện</strong></em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Địa chỉ:&nbsp;F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM</em></span></td>\n			<td><span style="color:#808080;"><em>Đường 2-3 B, Khu Cầu Lớn, Lam Hồng, Đông Anh, Hà Nội</em></span></td>\n			<td><span style="color:#808080;"><em>69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM</em></span></td>\n		</tr>\n		<tr>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 6268 9046 - FAX:&nbsp;08 6268 9013</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;04 3956 1450 - FAX:&nbsp;04 3956 1451</em></span></td>\n			<td><span style="color:#808080;"><em>Điện thoại:&nbsp;08 3765 0115 - FAX:&nbsp;08 3765 0115</em></span></td>\n		</tr>\n	</tbody>\n</table>%%%<p><strong>Đặt tour&nbsp;thành công</strong></p>\n\n<p>Bạn đã đặt tour <em><strong>{_tour}</strong></em> của Hoa&nbsp;Việt Travel® thành công. Chúng tôi sẽ liên hệ với bạn chậm nhất trong 24 giờ.</p>\n\n<p>Thân chào,</p>%%%%%%1%%%3%%%1', 'vi', 0, NULL, NULL),
+(19, 'Trang chủ', 'update', 'web_header', 1, 1456477119, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values1%%%Trang chủ%%%trang-chu%%%%%%%%%Hoa Việt Travel | Du lịch trong nước - Du lịch ngoài nước - Du lịch Hoa Việt - Website du lịch%%%Hoa Việt Travel - Cung cấp các chương trình tour du lịch  trong nước và ngoài nước, các dịch vụ du lịch, du lịch giá rẻ, tour du lịch khuyến mãi%%%hoa việt travel,du lịch trong nước,du lịch ngoài nước,du lịch hoa việt,website du lịch,du lich,trong nuoc,ngoai nuoc,hoa viet travel%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%1%%%%%%1452827040%%%vi%%%1%%%1%%%1%%%,20,', 'vi', 0, NULL, NULL),
+(20, 'Thuê xe', 'create', 'web_header', 75, 1456477162, 'admin', '', 'vi', 0, NULL, NULL),
+(21, 'Điện thoại', 'update', 'web_config', 11, 1456477242, 'admin', 'id,name,name_var,value,_order,lang,statusfields%%%values11%%%Điện thoại%%%tel%%%0908 444 082%%%3%%%vi%%%0', 'vi', 0, NULL, NULL),
+(22, 'Điện thoại', 'update', 'web_config', 11, 1456477255, 'admin', 'id,name,name_var,value,_order,lang,statusfields%%%values11%%%Điện thoại%%%tel%%%0908 444 082%%%3%%%vi%%%1', 'vi', 0, NULL, NULL),
+(23, 'Địa chỉ', 'delete', 'web_config', 15, 1456477270, 'admin', 'id,name,name_var,value,_order,lang,statusfields%%%values15%%%Địa chỉ%%%address%%%Lầu 7, CMARD2, 45 Đinh Tiên Hoàng, P. Bến Nghé, Q. 1, Tp. HCM.%%%2%%%vi%%%0', 'vi', 0, NULL, NULL),
+(24, 'Copyright', 'delete', 'web_config', 9, 1456477299, 'admin', 'id,name,name_var,value,_order,lang,statusfields%%%values9%%%Copyright%%%copyright%%%©2016 Stevbros Training and Consultancy. All rights reserved. | PMI, PMBOK®, PMP®, PgMP, PMI-ACP are registered marks of the Project Management Institute, Inc.%%%4%%%vi%%%0', 'vi', 0, NULL, NULL),
+(25, 'Email', 'delete', 'web_config', 10, 1456477310, 'admin', 'id,name,name_var,value,_order,lang,statusfields%%%values10%%%Email%%%email%%%support@stevbros.com%%%6%%%vi%%%0', 'vi', 0, NULL, NULL),
+(26, 'Tên viết tắt', 'delete', 'web_config', 13, 1456477325, 'admin', 'id,name,name_var,value,_order,lang,statusfields%%%values13%%%Tên viết tắt%%%name%%%Stevbros%%%8%%%vi%%%0', 'vi', 0, NULL, NULL),
+(27, 'Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long', 'update', 'web_header', 19, 1456477474, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values19%%%Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long%%%tour-ha-noi-lao-cai-sapa-cho-phien-bac-ha-yen-tu-ha-long%%%%%%1452926016.jpg%%%Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long%%%Khởi hành vào thứ 2 hàng tuần, khám phá Miền Bắc trong 5 ngày 5 đêm%%%tour hà nội lào cai sapa chợ phiên bắc hà yên tử hạ long%%%MB101%%%5 ngày 5 đêm%%%,1,2,%%%3%%%sáng 7h 22/01/2016%%%Hà Nội%%%Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long%%%7900000%%%0%%%0%%%%%%1452925620%%%vi%%%1%%%2%%%3%%%%%%,11,2,3,28,40,4,', 'vi', 0, NULL, NULL),
+(28, 'Tour du lịch tết 2016 đảo Bình Ba 2 ngày 2 đêm', 'update', 'web_header', 18, 1456477492, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values18%%%Tour du lịch tết 2016 đảo Bình Ba 2 ngày 2 đêm%%%tour-du-lich-tet-2016-dao-binh-ba-2-ngay-2-dem%%%%%%1452925095.jpg%%%Tour du lịch tết 2016 đảo Bình Ba 2 ngày 2 đêm%%%Khởi hành: Thứ 5 hằng tuần. Một chuyến du lịch đảo Bình Ba hoang sơ sẽ vô cùng ý nghĩa và thú vị để đón mừng năm mới 2016.%%%tour du lịch tết 2016,đảo bình ba 2 ngày 2 đêm%%%BB100%%%2 ngày 2 đêm%%%,1,%%%0%%%Tối 09,11/02/2016 (M2,4 Tết)%%%Đảo Bình Ba%%%Bãi Nhà Cũ - Hòn Rùa - chùa Địa Tạng - Lăng Ông Nam Hải - Đình thần - Bãi Nồm - Chùa Ốc%%%1550000%%%0%%%0%%%%%%1452924840%%%vi%%%1%%%2%%%3%%%%%%,11,2,3,29,24,4,', 'vi', 0, NULL, NULL),
+(29, 'Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long', 'update', 'web_header', 19, 1456477720, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values19%%%Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long%%%tour-ha-noi-lao-cai-sapa-cho-phien-bac-ha-yen-tu-ha-long%%%%%%1452926016.jpg%%%Tour: Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long%%%Khởi hành vào thứ 2 hàng tuần, khám phá Miền Bắc trong 5 ngày 5 đêm%%%tour hà nội lào cai sapa chợ phiên bắc hà yên tử hạ long%%%MB101%%%5 ngày 5 đêm%%%,1,2,%%%3%%%sáng 7h 22/01/2016%%%Hà Nội%%%Hà Nội - Lào Cai - Sapa - Chợ Phiên Bắc Hà - Yên Tử - Hạ Long%%%7900000%%%0%%%0%%%%%%1452925620%%%vi%%%1%%%2%%%3%%%%%%,11,2,3,28,40,', 'vi', 0, NULL, NULL),
+(30, 'Văn phòng đại diện', 'update', 'web_branch', 3, 1456477879, 'admin', 'id,name,shorten,email,tel,fax,address,phone,googlemap,_order,lang,statusfields%%%values3%%%Văn phòng đại diện%%%VP đại diện%%%%%%08 3765 0115%%%08 3765 0115%%%69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM%%%%%%%%%3%%%vi%%%1', 'vi', 0, NULL, NULL),
+(31, 'Văn phòng chính', 'update', 'web_branch', 1, 1456477897, 'admin', 'id,name,shorten,email,tel,fax,address,phone,googlemap,_order,lang,statusfields%%%values1%%%Văn phòng chính%%%VP chính%%%hoaviet.travel01@gmail.com%%%08 6268 9046%%%08 6268 9013%%%F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM%%%090 844 40 82%%%%%%1%%%vi%%%1', 'vi', 0, NULL, NULL),
+(32, 'Văn phòng đại diện', 'update', 'web_branch', 3, 1456477936, 'admin', 'id,name,shorten,email,tel,fax,address,phone,googlemap,_order,lang,statusfields%%%values3%%%Văn phòng đại diện%%%VP đại diện%%%%%%08 3765 0115%%%08 3765 0115%%%69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM%%%%%%10.817966, 106.608815%%%3%%%vi%%%1', 'vi', 0, NULL, NULL),
+(33, 'Văn phòng đại diện', 'update', 'web_branch', 3, 1456477951, 'admin', 'id,name,shorten,email,tel,fax,address,phone,googlemap,_order,lang,statusfields%%%values3%%%Văn phòng đại diện%%%VP đại diện%%%%%%08 3765 0115%%%08 3765 0115%%%69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM%%%090 844 40 82%%%10.817966, 106.608815%%%3%%%vi%%%1', 'vi', 0, NULL, NULL),
+(34, 'Văn phòng chính', 'update', 'web_branch', 1, 1456477960, 'admin', 'id,name,shorten,email,tel,fax,address,phone,googlemap,_order,lang,statusfields%%%values1%%%Văn phòng chính%%%VP chính%%%hoaviet.travel01@gmail.com%%%08 3765 0115%%%08 3765 0115%%%F13/41V, Vĩnh Lộc A, H.Bình Chánh, Tp.HCM%%%090 844 40 82%%%%%%1%%%vi%%%1', 'vi', 0, NULL, NULL),
+(35, 'Trang chủ', 'update', 'web_header', 1, 1456478777, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values1%%%Trang chủ%%%trang-chu%%%%%%%%%Hoa Việt Travel | Du lịch trong nước - Du lịch ngoài nước - Du lịch Hoa Việt - Website du lịch%%%Hoa Việt Travel - Cung cấp các chương trình tour du lịch  trong nước và ngoài nước, các dịch vụ du lịch, du lịch giá rẻ, tour du lịch khuyến mãi%%%hoa việt travel,du lịch trong nước,du lịch ngoài nước,du lịch hoa việt,website du lịch,du lich,trong nuoc,ngoai nuoc,hoa viet travel%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%1%%%%%%1452827040%%%vi%%%1%%%1%%%1%%%,1,20,', 'vi', 0, NULL, NULL),
+(36, 'Logo', 'update', 'web_position', 14, 1456478970, 'admin', 'id,name,themes,_order,type,statusfields%%%values14%%%Logo%%%%%%14%%%1%%%0', 'vi', 0, NULL, NULL),
+(37, 'Header nhân viên sale', 'create', 'web_header', 76, 1456479146, 'admin', '', 'vi', 0, NULL, NULL),
+(38, 'Nội địa khách đoàn', 'create', 'web_header', 77, 1456479215, 'admin', '', 'vi', 0, NULL, NULL),
+(39, 'Nội địa khách lẻ', 'create', 'web_header', 78, 1456479241, 'admin', '', 'vi', 0, NULL, NULL),
+(40, 'Du lịch Quốc tế', 'create', 'web_header', 79, 1456479266, 'admin', '', 'vi', 0, NULL, NULL),
+(41, 'Nội địa khách đoàn', 'update', 'web_header', 77, 1456480627, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values77%%%Nội địa khách đoàn%%%noi-dia-khach-doan%%%%%%%%%Nội địa khách đoàn%%%%%%nội địa khách đoàn%%%%%%%%%%%%%%%%%%%%%%%%%%%76%%%1%%%%%%1456479180%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(42, 'Nội địa khách lẻ', 'update', 'web_header', 78, 1456480645, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values78%%%Nội địa khách lẻ%%%noi-dia-khach-le%%%%%%%%%Nội địa khách lẻ%%%%%%nội địa khách lẻ%%%%%%%%%%%%%%%%%%%%%%%%%%%76%%%2%%%%%%1456479180%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(43, 'Du lịch Quốc tế', 'update', 'web_header', 79, 1456480660, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values79%%%Du lịch Quốc tế%%%du-lich-quoc-te%%%%%%%%%Du lịch Quốc tế%%%%%%du lịch quốc tế%%%%%%%%%%%%%%%%%%%%%%%%%%%76%%%3%%%%%%1456479240%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(44, 'Header nhân viên sale', 'delete', 'web_header', 76, 1456480667, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values76%%%Header nhân viên sale%%%header-nhan-vien-sale%%%%%%%%%Header nhân viên sale%%%%%%header nhân viên sale%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%30%%%%%%1456479060%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(45, 'Nội địa khách đoàn', 'update', 'web_header', 77, 1456482014, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values77%%%Nội địa khách đoàn%%%noi-dia-khach-doan%%%%%%%%%Nội địa khách đoàn%%%%%%nội địa khách đoàn%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%31%%%%%%1456479180%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(46, 'Nội địa khách đoàn', 'update', 'web_header', 77, 1456482024, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values77%%%Nội địa khách đoàn%%%noi-dia-khach-doan%%%%%%%%%Nội địa khách đoàn%%%%%%nội địa khách đoàn%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%31%%%%%%1456479180%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(47, 'Nội địa khách đoàn', 'update', 'web_header', 77, 1456482050, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values77%%%Nội địa khách đoàn%%%noi-dia-khach-doan%%%%%%%%%Nội địa khách đoàn%%%%%%nội địa khách đoàn%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%31%%%%%%1456479180%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(48, 'Nội địa khách lẻ', 'update', 'web_header', 78, 1456482074, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values78%%%Nội địa khách lẻ%%%noi-dia-khach-le%%%%%%%%%Nội địa khách lẻ%%%%%%nội địa khách lẻ%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%32%%%%%%1456479180%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(49, 'Du lịch Quốc tế', 'update', 'web_header', 79, 1456482088, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values79%%%Du lịch Quốc tế%%%du-lich-quoc-te%%%%%%%%%Du lịch Quốc tế%%%%%%du lịch quốc tế%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%33%%%%%%1456479240%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(50, 'Nội địa khách đoàn', 'update', 'web_header', 77, 1456538984, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values77%%%Nội địa khách đoàn%%%noi-dia-khach-doan%%%%%%%%%Nội địa khách đoàn%%%%%%nội địa khách đoàn%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%31%%%%%%1456479180%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(51, 'Nội địa khách lẻ', 'update', 'web_header', 78, 1456539019, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values78%%%Nội địa khách lẻ%%%noi-dia-khach-le%%%%%%%%%Nội địa khách lẻ%%%%%%nội địa khách lẻ%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%32%%%%%%1456479180%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(52, 'Du lịch Quốc tế', 'update', 'web_header', 79, 1456539065, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values79%%%Du lịch Quốc tế%%%du-lich-quoc-te%%%%%%%%%Du lịch Quốc tế%%%%%%du lịch quốc tế%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%33%%%%%%1456479240%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(53, 'Ms.Tiên 0933 833 855 (khách lẻ)', 'update', 'web_header', 78, 1456540532, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values78%%%Ms.Tiên 0933 833 855 (khách lẻ)%%%noi-dia-khach-le%%%%%%%%%Nội địa khách lẻ%%%%%%nội địa khách lẻ%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%32%%%%%%1456479180%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(54, 'Mr.Hưng 0988 388 399 (khách đoàn)', 'update', 'web_header', 77, 1456540576, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values77%%%Mr.Hưng 0988 388 399 (khách đoàn)%%%noi-dia-khach-doan%%%%%%%%%Nội địa khách đoàn%%%%%%nội địa khách đoàn%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%31%%%%%%1456479180%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(55, 'Ms.Tiên 0933 833 855 (khách lẻ)', 'delete', 'web_header', 78, 1456540584, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values78%%%Ms.Tiên 0933 833 855 (khách lẻ)%%%noi-dia-khach-le%%%%%%%%%Nội địa khách lẻ%%%%%%nội địa khách lẻ%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%32%%%%%%1456479180%%%vi%%%0%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(56, 'Mr.Nghĩa 0977 277 288 (Quốc tế)', 'delete', 'web_header', 79, 1456540586, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values79%%%Mr.Nghĩa 0977 277 288 (Quốc tế)%%%du-lich-quoc-te%%%%%%%%%Du lịch Quốc tế%%%%%%du lịch quốc tế%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%33%%%%%%1456479240%%%vi%%%0%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(57, 'Mr.Hưng 0988 388 399 (khách đoàn)', 'update', 'web_header', 77, 1456540609, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values77%%%Mr.Hưng 0988 388 399 (khách đoàn)%%%noi-dia-khach-doan%%%%%%%%%Nội địa khách đoàn%%%%%%nội địa khách đoàn%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%31%%%%%%1456479180%%%vi%%%1%%%1%%%20%%%,14,', 'vi', 0, NULL, NULL),
+(58, 'Header nhân viên sale', 'update', 'web_position', 14, 1456540628, 'admin', 'id,name,themes,_order,type,statusfields%%%values14%%%Header nhân viên sale%%%%%%14%%%1%%%1', 'vi', 0, NULL, NULL),
+(59, 'Thuê xe', 'update', 'web_header', 75, 1456540812, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values75%%%Thuê xe%%%thue-xe%%%%%%%%%Thuê xe du lịch | Thue xe du lich%%%%%%thuê xe du lịch,thue xe du lich%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%22%%%%%%1456477080%%%vi%%%1%%%1%%%2%%%,1,', 'vi', 0, NULL, NULL),
+(60, 'Box liên kết', 'update', 'web_position', 15, 1456541530, 'admin', 'id,name,themes,_order,type,statusfields%%%values15%%%Box liên kết%%%%%%15%%%1%%%0', 'vi', 0, NULL, NULL),
+(61, 'Cho thuê xe', 'update', 'web_header', 75, 1456541630, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values75%%%Cho thuê xe%%%cho-thue-xe%%%%%%%%%Cho thuê xe du lịch | Cho thue xe du lich%%%%%%cho thuê xe du lịch,cho thue xe du lich%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%22%%%%%%1456477080%%%vi%%%1%%%1%%%2%%%,1,', 'vi', 0, NULL, NULL),
+(62, 'Du lịch tết Campuchia khám phá những ngồi đền Angkor huyền bí', 'update', 'web_header', 70, 1456541773, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values70%%%Du lịch tết Campuchia khám phá những ngồi đền Angkor huyền bí%%%du-lich-tet-campuchia-kham-pha-nhung-ngoi-den-angkor-huyen-bi%%%%%%1453260438.jpg%%%Du lịch tết Campuchia khám phá những ngồi đền Angkor huyền bí%%%Du lịch Tết Campuchia, đến với thành phố Siem Reap du khách sẽ có cơ hội chiêm ngưỡng quần thể công trình kiến trúc thể hiện đỉnh cao trong nghệ thuật kiến trúc Khmer đó là quần thể Angkor hùng vỹ.%%%du lịch tết campuchia,khám phá những ngồi đền angkor%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%0%%%%%%1453259640%%%vi%%%1%%%2%%%2%%%%%%,7,8,', 'vi', 0, NULL, NULL),
+(63, 'Du lịch tết Campuchia khám phá những ngồi đền Angkor huyền bí', 'update', 'web_header', 70, 1456541798, 'admin', 'id,name,name_alias,url,img,title,description,tags,code,duration,means,hotel,depart,destination,schedule,price,parent,_order,other,datetime,lang,status,properties,type_id,position_id,menu_idfields%%%values70%%%Du lịch tết Campuchia khám phá những ngồi đền Angkor huyền bí%%%du-lich-tet-campuchia-kham-pha-nhung-ngoi-den-angkor-huyen-bi%%%%%%1453260438.jpg%%%Du lịch tết Campuchia khám phá những ngồi đền Angkor huyền bí%%%Du lịch Tết Campuchia, đến với thành phố Siem Reap du khách sẽ có cơ hội chiêm ngưỡng quần thể công trình kiến trúc thể hiện đỉnh cao trong nghệ thuật kiến trúc Khmer đó là quần thể Angkor hùng vỹ.%%%du lịch tết campuchia,khám phá những ngồi đền angkor%%%%%%%%%%%%%%%%%%%%%%%%%%%0%%%0%%%%%%1453259640%%%vi%%%1%%%2%%%2%%%%%%,7,75,8,', 'vi', 0, NULL, NULL),
+(64, 'Hoa Việt', 'create', 'web_users', 45, 1456542158, 'admin', '', 'vi', 0, NULL, NULL),
+(65, '', 'create', 'web_users_role', 25, 1456542210, 'admin', '', 'vi', 0, NULL, NULL),
+(66, '', 'create', 'web_users_role', 26, 1456542210, 'admin', '', 'vi', 0, NULL, NULL),
+(67, '', 'create', 'web_users_role', 27, 1456542210, 'admin', '', 'vi', 0, NULL, NULL),
+(68, '', 'create', 'web_users_role', 28, 1456542210, 'admin', '', 'vi', 0, NULL, NULL),
+(69, '', 'create', 'web_users_role', 29, 1456542210, 'admin', '', 'vi', 0, NULL, NULL),
+(70, '', 'create', 'web_users_role', 30, 1456542210, 'admin', '', 'vi', 0, NULL, NULL),
+(71, '', 'create', 'web_users_role', 31, 1456542210, 'admin', '', 'vi', 0, NULL, NULL),
+(72, '', 'create', 'web_users_role', 32, 1456542210, 'admin', '', 'vi', 0, NULL, NULL),
+(73, '', 'create', 'web_users_role', 33, 1456542210, 'admin', '', 'vi', 0, NULL, NULL),
+(74, '', 'create', 'web_users_role', 34, 1456542210, 'admin', '', 'vi', 0, NULL, NULL),
+(75, '', 'create', 'web_users_role', 35, 1456542211, 'admin', '', 'vi', 0, NULL, NULL),
+(76, '', 'create', 'web_users_role', 36, 1456542211, 'admin', '', 'vi', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1310,23 +1427,24 @@ INSERT INTO `web_logs` (`id`, `name`, `action`, `_table`, `table_id`, `datetime`
 --
 
 CREATE TABLE IF NOT EXISTS `web_order` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `name` varchar(250) NOT NULL,
   `email` varchar(80) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `address` varchar(200) NOT NULL,
   `total_current` int(9) NOT NULL,
   `total_number` int(4) NOT NULL,
-  `deliverycosts` int(8) NOT NULL DEFAULT '0',
-  `discounts` int(8) NOT NULL DEFAULT '0',
+  `deliverycosts` int(8) NOT NULL default '0',
+  `discounts` int(8) NOT NULL default '0',
   `total` int(8) NOT NULL,
   `datetime` bigint(10) NOT NULL,
   `ip_address` varchar(20) NOT NULL,
-  `lang` varchar(2) NOT NULL DEFAULT 'vi',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `lang` varchar(2) NOT NULL default 'vi',
+  `status` tinyint(1) NOT NULL default '1',
   `city_id` int(3) NOT NULL,
-  `districts_id` int(5) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `districts_id` int(5) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1335,17 +1453,18 @@ CREATE TABLE IF NOT EXISTS `web_order` (
 --
 
 CREATE TABLE IF NOT EXISTS `web_order_detail` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `name` varchar(250) NOT NULL,
   `number` int(4) NOT NULL,
   `price` int(8) NOT NULL,
-  `discounts` int(8) NOT NULL DEFAULT '0',
+  `discounts` int(8) NOT NULL default '0',
   `total` int(8) NOT NULL,
-  `lang` varchar(2) NOT NULL DEFAULT 'vi',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `lang` varchar(2) NOT NULL default 'vi',
+  `status` tinyint(1) NOT NULL default '1',
   `header_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `order_id` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1354,15 +1473,16 @@ CREATE TABLE IF NOT EXISTS `web_order_detail` (
 --
 
 CREATE TABLE IF NOT EXISTS `web_photo` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `name` varchar(250) NOT NULL,
-  `img` varchar(150) DEFAULT NULL,
-  `_order` int(3) NOT NULL DEFAULT '0',
-  `lang` varchar(2) NOT NULL DEFAULT 'vi',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `img` varchar(150) default NULL,
+  `_order` int(3) NOT NULL default '0',
+  `lang` varchar(2) NOT NULL default 'vi',
+  `status` tinyint(1) NOT NULL default '1',
   `datetime` bigint(10) NOT NULL,
-  `menu_id` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `menu_id` varchar(20) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1371,14 +1491,16 @@ CREATE TABLE IF NOT EXISTS `web_photo` (
 --
 
 CREATE TABLE IF NOT EXISTS `web_picture` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `name` varchar(100) NOT NULL,
   `img` varchar(15) NOT NULL,
   `datetime` bigint(10) NOT NULL,
-  `_order` int(11) NOT NULL DEFAULT '0',
+  `_order` int(11) NOT NULL default '0',
   `_table` varchar(30) NOT NULL,
-  `table_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=306 DEFAULT CHARSET=utf8;
+  `table_id` int(11) NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `img` (`img`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=306 ;
 
 --
 -- Dumping data for table `web_picture`
@@ -1430,13 +1552,14 @@ INSERT INTO `web_picture` (`id`, `name`, `img`, `datetime`, `_order`, `_table`, 
 --
 
 CREATE TABLE IF NOT EXISTS `web_position` (
-`id` int(3) NOT NULL,
+  `id` int(3) NOT NULL auto_increment,
   `name` varchar(100) NOT NULL,
   `themes` varchar(100) NOT NULL,
-  `_order` int(2) NOT NULL DEFAULT '0',
-  `type` tinyint(1) NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+  `_order` int(2) NOT NULL default '0',
+  `type` tinyint(1) NOT NULL default '0',
+  `status` tinyint(1) NOT NULL default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `web_position`
@@ -1456,8 +1579,8 @@ INSERT INTO `web_position` (`id`, `name`, `themes`, `_order`, `type`, `status`) 
 (11, 'Home team building', '', 11, 2, 1),
 (12, 'Home các điểm du lịch', '', 12, 2, 1),
 (13, 'Home khách hàng', '', 13, 2, 1),
-(14, 'Logo', '', 14, 1, 0),
-(15, 'Box liên kết', '', 15, 1, 0),
+(14, 'Support nhân viên sale', '', 14, 1, 1),
+(15, 'Home cho thuê xe', '', 15, 2, 1),
 (16, 'Slider', '', 16, 3, 1),
 (17, 'Event 400px x 200px', '', 17, 3, 1),
 (18, 'Khách hàng height 160px', '', 18, 3, 1),
@@ -1471,15 +1594,16 @@ INSERT INTO `web_position` (`id`, `name`, `themes`, `_order`, `type`, `status`) 
 --
 
 CREATE TABLE IF NOT EXISTS `web_sendmail` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `name` varchar(60) NOT NULL,
   `email` varchar(60) NOT NULL,
   `content` text NOT NULL,
   `datetime` bigint(10) NOT NULL,
   `event_id` int(11) NOT NULL,
   `_table` varchar(20) NOT NULL,
-  `table_id` int(11) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+  `table_id` int(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `web_sendmail`
@@ -1497,14 +1621,15 @@ INSERT INTO `web_sendmail` (`id`, `name`, `email`, `content`, `datetime`, `event
 --
 
 CREATE TABLE IF NOT EXISTS `web_tags` (
-`id` int(3) NOT NULL,
+  `id` int(3) NOT NULL auto_increment,
   `name` varchar(50) NOT NULL,
   `title` varchar(60) NOT NULL,
   `url` varchar(200) NOT NULL,
-  `_order` int(3) NOT NULL DEFAULT '0',
-  `lang` varchar(2) NOT NULL DEFAULT 'vi',
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `_order` int(3) NOT NULL default '0',
+  `lang` varchar(2) NOT NULL default 'vi',
+  `status` tinyint(1) NOT NULL default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `web_tags`
@@ -1521,16 +1646,17 @@ INSERT INTO `web_tags` (`id`, `name`, `title`, `url`, `_order`, `lang`, `status`
 --
 
 CREATE TABLE IF NOT EXISTS `web_type` (
-`id` int(3) NOT NULL,
+  `id` int(3) NOT NULL auto_increment,
   `name` varchar(30) NOT NULL,
   `type` varchar(20) NOT NULL,
   `_table` varchar(20) NOT NULL,
   `url_img` varchar(100) NOT NULL,
   `url_img_thumb` varchar(100) NOT NULL,
   `_order` int(2) NOT NULL,
-  `other` tinyint(1) NOT NULL DEFAULT '1',
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+  `other` tinyint(1) NOT NULL default '1',
+  `status` tinyint(1) NOT NULL default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `web_type`
@@ -1565,32 +1691,35 @@ INSERT INTO `web_type` (`id`, `name`, `type`, `_table`, `url_img`, `url_img_thum
 --
 
 CREATE TABLE IF NOT EXISTS `web_users` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `name` varchar(60) NOT NULL,
   `address` varchar(250) NOT NULL,
   `phone` varchar(30) NOT NULL,
   `email` varchar(60) NOT NULL,
   `birthday` bigint(10) NOT NULL,
-  `gender` tinyint(1) DEFAULT NULL,
+  `gender` tinyint(1) default NULL,
   `img` varchar(150) NOT NULL,
   `salt` varchar(3) NOT NULL,
+  `page` int(1) NOT NULL default '1',
   `username` char(32) NOT NULL,
   `password` char(32) NOT NULL,
-  `random_key` varchar(255) DEFAULT NULL,
+  `random_key` varchar(255) default NULL,
   `date_expiration` bigint(10) NOT NULL,
-  `lang` varchar(3) NOT NULL DEFAULT 'vi',
+  `lang` varchar(3) NOT NULL default 'vi',
   `datetime` bigint(10) NOT NULL,
-  `status` tinyint(1) DEFAULT '1',
-  `group_id` int(1) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+  `status` tinyint(1) default '1',
+  `group_id` int(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
 
 --
 -- Dumping data for table `web_users`
 --
 
-INSERT INTO `web_users` (`id`, `name`, `address`, `phone`, `email`, `birthday`, `gender`, `img`, `salt`, `username`, `password`, `random_key`, `date_expiration`, `lang`, `datetime`, `status`, `group_id`) VALUES
-(25, 'Admin', '123 CMT 8', '0988 388 003', 'admin@localhost.com', 0, 1, '', '', 'admin', '52e4ab92c412c5aadf3a0970779da825', NULL, 0, 'vi', 0, 1, 3),
-(34, 'Hiếu Nhân', '123 CMT 8', '0988 388 003', 'trannhan@localhost.com', 609872400, 1, '', '', 'trannhan', '867e1a36d190000d2f266d80889683fc', NULL, 0, 'vi', 1425093180, 1, 3);
+INSERT INTO `web_users` (`id`, `name`, `address`, `phone`, `email`, `birthday`, `gender`, `img`, `salt`, `page`, `username`, `password`, `random_key`, `date_expiration`, `lang`, `datetime`, `status`, `group_id`) VALUES
+(25, 'Admin', '123 CMT 8', '0988 388 003', 'admin@localhost.com', 0, 1, '', '', 1, 'admin', '52e4ab92c412c5aadf3a0970779da825', NULL, 0, 'vi', 0, 1, 3),
+(34, 'Hiếu Nhân', '123 CMT 8', '0988 388 003', 'trannhan@localhost.com', 609872400, 1, '', '', 1, 'trannhan', '867e1a36d190000d2f266d80889683fc', NULL, 0, 'vi', 1425093180, 1, 3),
+(45, 'Hoa Việt', '69 đường số 20, P.Bình Hưng Hóa, Q.Bình Tân, Tp.HCM', '08 3765 0115', 'webdulichhoaviet@gmail.com', 0, NULL, '', '', 1, 'hoaviet', '867e1a36d190000d2f266d80889683fc', NULL, 0, 'vi', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1599,11 +1728,12 @@ INSERT INTO `web_users` (`id`, `name`, `address`, `phone`, `email`, `birthday`, 
 --
 
 CREATE TABLE IF NOT EXISTS `web_users_group` (
-`id` int(2) NOT NULL,
+  `id` int(2) NOT NULL auto_increment,
   `name` varchar(50) NOT NULL,
-  `_order` int(1) NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `_order` int(1) NOT NULL default '0',
+  `status` tinyint(1) NOT NULL default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `web_users_group`
@@ -1621,12 +1751,13 @@ INSERT INTO `web_users_group` (`id`, `name`, `_order`, `status`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `web_users_lock_ip` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `ip_address` varchar(20) NOT NULL,
   `login_number` int(2) NOT NULL,
   `disable_date` bigint(10) NOT NULL,
-  `datetime` bigint(10) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  `datetime` bigint(10) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `web_users_lock_ip`
@@ -1634,7 +1765,7 @@ CREATE TABLE IF NOT EXISTS `web_users_lock_ip` (
 
 INSERT INTO `web_users_lock_ip` (`id`, `ip_address`, `login_number`, `disable_date`, `datetime`) VALUES
 (6, '::1', 2, 0, 1453786968),
-(7, '115.78.128.150', 2, 0, 1452626163);
+(7, '115.78.128.150', 2, 0, 1456542242);
 
 -- --------------------------------------------------------
 
@@ -1643,12 +1774,13 @@ INSERT INTO `web_users_lock_ip` (`id`, `ip_address`, `login_number`, `disable_da
 --
 
 CREATE TABLE IF NOT EXISTS `web_users_login` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `name` varchar(60) NOT NULL,
   `user_id` int(11) NOT NULL,
   `ip_address` varchar(20) NOT NULL,
-  `datetime` bigint(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `datetime` bigint(10) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1657,14 +1789,15 @@ CREATE TABLE IF NOT EXISTS `web_users_login` (
 --
 
 CREATE TABLE IF NOT EXISTS `web_users_reset` (
-`id` int(9) NOT NULL,
+  `id` int(9) NOT NULL auto_increment,
   `name` varchar(60) NOT NULL,
   `email` varchar(60) NOT NULL,
   `ip_address` varchar(20) NOT NULL,
   `_key` char(10) NOT NULL,
   `datetime` bigint(10) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `status` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1673,15 +1806,16 @@ CREATE TABLE IF NOT EXISTS `web_users_reset` (
 --
 
 CREATE TABLE IF NOT EXISTS `web_users_role` (
-`id` int(11) NOT NULL,
-  `action_view` tinyint(1) NOT NULL DEFAULT '1',
-  `action_create` tinyint(1) NOT NULL DEFAULT '1',
-  `action_edit` tinyint(1) DEFAULT '1',
-  `action_delete` tinyint(1) NOT NULL DEFAULT '1',
+  `id` int(11) NOT NULL auto_increment,
+  `action_view` tinyint(1) NOT NULL default '1',
+  `action_create` tinyint(1) NOT NULL default '1',
+  `action_edit` tinyint(1) default '1',
+  `action_delete` tinyint(1) NOT NULL default '1',
   `admin_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+  `status` tinyint(1) NOT NULL default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=37 ;
 
 --
 -- Dumping data for table `web_users_role`
@@ -1711,319 +1845,16 @@ INSERT INTO `web_users_role` (`id`, `action_view`, `action_create`, `action_edit
 (21, 1, 1, 1, 1, 25, 25, 1),
 (22, 1, 1, 1, 1, 27, 25, 1),
 (23, 1, 1, 1, 1, 23, 25, 1),
-(24, 1, 1, 1, 1, 35, 25, 1);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `web_admin`
---
-ALTER TABLE `web_admin`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `url` (`url`);
-
---
--- Indexes for table `web_branch`
---
-ALTER TABLE `web_branch`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_config`
---
-ALTER TABLE `web_config`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_contact`
---
-ALTER TABLE `web_contact`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_content`
---
-ALTER TABLE `web_content`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_event_form`
---
-ALTER TABLE `web_event_form`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_header`
---
-ALTER TABLE `web_header`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_ip_address`
---
-ALTER TABLE `web_ip_address`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_language`
---
-ALTER TABLE `web_language`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_language_var`
---
-ALTER TABLE `web_language_var`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_listcity`
---
-ALTER TABLE `web_listcity`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_listdistricts`
---
-ALTER TABLE `web_listdistricts`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_listsendmail`
---
-ALTER TABLE `web_listsendmail`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_logs`
---
-ALTER TABLE `web_logs`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_order`
---
-ALTER TABLE `web_order`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_order_detail`
---
-ALTER TABLE `web_order_detail`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_photo`
---
-ALTER TABLE `web_photo`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_picture`
---
-ALTER TABLE `web_picture`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `img` (`img`);
-
---
--- Indexes for table `web_position`
---
-ALTER TABLE `web_position`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_sendmail`
---
-ALTER TABLE `web_sendmail`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_tags`
---
-ALTER TABLE `web_tags`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_type`
---
-ALTER TABLE `web_type`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_users`
---
-ALTER TABLE `web_users`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_users_group`
---
-ALTER TABLE `web_users_group`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_users_lock_ip`
---
-ALTER TABLE `web_users_lock_ip`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_users_login`
---
-ALTER TABLE `web_users_login`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_users_reset`
---
-ALTER TABLE `web_users_reset`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `web_users_role`
---
-ALTER TABLE `web_users_role`
- ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `web_admin`
---
-ALTER TABLE `web_admin`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
---
--- AUTO_INCREMENT for table `web_branch`
---
-ALTER TABLE `web_branch`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `web_config`
---
-ALTER TABLE `web_config`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
---
--- AUTO_INCREMENT for table `web_contact`
---
-ALTER TABLE `web_contact`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
---
--- AUTO_INCREMENT for table `web_content`
---
-ALTER TABLE `web_content`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=295;
---
--- AUTO_INCREMENT for table `web_event_form`
---
-ALTER TABLE `web_event_form`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT for table `web_header`
---
-ALTER TABLE `web_header`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=75;
---
--- AUTO_INCREMENT for table `web_ip_address`
---
-ALTER TABLE `web_ip_address`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `web_language`
---
-ALTER TABLE `web_language`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `web_language_var`
---
-ALTER TABLE `web_language_var`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
---
--- AUTO_INCREMENT for table `web_listdistricts`
---
-ALTER TABLE `web_listdistricts`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=901;
---
--- AUTO_INCREMENT for table `web_listsendmail`
---
-ALTER TABLE `web_listsendmail`
-MODIFY `id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `web_logs`
---
-ALTER TABLE `web_logs`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `web_order`
---
-ALTER TABLE `web_order`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `web_order_detail`
---
-ALTER TABLE `web_order_detail`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `web_photo`
---
-ALTER TABLE `web_photo`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `web_picture`
---
-ALTER TABLE `web_picture`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=306;
---
--- AUTO_INCREMENT for table `web_position`
---
-ALTER TABLE `web_position`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
---
--- AUTO_INCREMENT for table `web_sendmail`
---
-ALTER TABLE `web_sendmail`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT for table `web_tags`
---
-ALTER TABLE `web_tags`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `web_type`
---
-ALTER TABLE `web_type`
-MODIFY `id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
---
--- AUTO_INCREMENT for table `web_users`
---
-ALTER TABLE `web_users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
---
--- AUTO_INCREMENT for table `web_users_group`
---
-ALTER TABLE `web_users_group`
-MODIFY `id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `web_users_lock_ip`
---
-ALTER TABLE `web_users_lock_ip`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT for table `web_users_login`
---
-ALTER TABLE `web_users_login`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `web_users_reset`
---
-ALTER TABLE `web_users_reset`
-MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `web_users_role`
---
-ALTER TABLE `web_users_role`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+(24, 1, 1, 1, 1, 35, 25, 1),
+(25, 1, 1, 1, 1, 4, 45, 1),
+(26, 1, 1, 1, 1, 24, 45, 1),
+(27, 1, 1, 1, 1, 19, 45, 1),
+(28, 1, 1, 1, 1, 18, 45, 1),
+(29, 1, 1, 1, 1, 1, 45, 1),
+(30, 1, 1, 1, 1, 35, 45, 1),
+(31, 1, 1, 1, 1, 3, 45, 1),
+(32, 1, 1, 1, 1, 26, 45, 1),
+(33, 1, 1, 1, 1, 2, 45, 1),
+(34, 1, 1, 1, 1, 5, 45, 1),
+(35, 1, 1, 1, 1, 21, 45, 1),
+(36, 1, 1, 1, 1, 8, 45, 1);

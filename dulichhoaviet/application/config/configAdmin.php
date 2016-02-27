@@ -1,5 +1,5 @@
 <?php
-define('CONS_ADMIN_CSS_IMG', 'themes/admin/img/');
+define('CONS_ADMIN_CSS_IMG', 'themes/admin2/img/');
 define('CONS_ADMIN_CSS_STYLE', 'themes/admin/admin_default.css');
 define('CONS_ADMIN_PER_PAGE', 30);
 define('CONS_ADMIN_PASSWORD_DEFAULT', '00112233');

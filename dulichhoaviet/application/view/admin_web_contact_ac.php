@@ -6,12 +6,16 @@ $arrType = array(
 	2 => array('id'=>'2', 'name'=>'Đặt tour'),
 	3 => array('id'=>'3', 'name'=>'Yêu cầu dịch vụ'),
 );
-$arrStatus = array(
+/*$arrStatus = array(
 	1 => array('id'=>'0', 'name'=>'Chưa xem'),
 	2 => array('id'=>'2', 'name'=>'Đã hành động'),
 	3 => array('id'=>'3', 'name'=>'Đã phản hồi'),
 	4 => array('id'=>'1', 'name'=>'Hoàn thành'),
 	5 => array('id'=>'4', 'name'=>'Error'),
+);*/
+$arrStatus = array(
+	1 => array('id'=>'0', 'name'=>'Chưa xem'),
+	4 => array('id'=>'1', 'name'=>'Đã xem'),
 );
 
 $cF = new controlAdminForm;
@@ -127,6 +131,6 @@ $name = 'btnActionAjax';
 $btnActionAjax = $cF->inputButton($name, 'Tương tác với khách hàng', 'adBtnLarge bgColorGreen corner8');
 $name = 'btnSubmitAjax';
 $btnSubmit = $cF->inputButton($name, $arrAction['lable'], 'adBtnLarge bgColorBlue1 corner8');
-echo $cF->displayDiv(' ', $btnSubmit.$btnActionAjax.$btnCancel);
+echo $cF->displayDiv(' ', $btnSubmit.$btnCancel);
 
-include_once('admin_action.php');
+//include_once('admin_action.php');

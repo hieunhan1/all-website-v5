@@ -27,7 +27,7 @@ if($currentPage['img']!='') $img=IMAGE_URL.$currentPage['img']; else $img=CONS_I
                     ?></b>
                 </p>
                 <p>Khách sạn: <b><?php echo $cons_hotel[$currentPage['hotel']]['name'];?></b></p>
-                <p>Khởi hành: <b><?php echo $currentPage['depart'];?></b></p>
+                <?php if($currentPage['depart']!='') echo '<p>Khởi hành: <b>'.$currentPage['depart'].'</b></p>';?>
                 <p>Điểm đến: <b><?php echo $currentPage['destination'];?></b></p>
             </div>
             <div class="order tour-list">

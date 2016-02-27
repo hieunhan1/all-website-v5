@@ -558,7 +558,7 @@ $(document).ready(function(e) {
 		});
 	}
 	
-	$("#btnSubmitAjax").live("click", function(){
+	$("#btnSubmitAjax, #btnSave").live("click", function(){
 		autoTableInsert();
 	});
 	

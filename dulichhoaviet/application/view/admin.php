@@ -83,6 +83,20 @@ echo $c->viewTableHtml($table);
             <?php echo '<a href="'.CONS_LINK_ADMIN.'/'.$navigator['url'].'/'.$navigator['parameter'].'" class="link">'.$navigator['name'].'</a>';?>
         </div>
         
+        <div id="fastAction">
+        	<p id="btnSave" class="corner5"><span class="adIconArticle adIconBlack"></span>Lưu</p>
+            <p class="btnClose corner5"><span class="adIconBack adIconBlack"></span>Quay lại</p>
+        </div>
+        <script type="text/javascript">
+		$(document).ready(function(e) {
+            if( $("#btnSubmitAjax").length ){
+				$("#fastAction").show();
+				var str = $("#btnCancel").attr("onclick");
+				$("#fastAction .btnClose").attr("onclick", str);
+			}
+        });
+		</script>
+        
 		<?php
         $data = $c->_model->_listLanguages();
         if(count($data)>1 && !isset($_GET['id'])){

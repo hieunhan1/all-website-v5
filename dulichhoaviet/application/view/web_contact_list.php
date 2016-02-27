@@ -10,7 +10,11 @@
 				'order' => '`_order`',
 			);
 			$data = $c->_model->_select($arr);
+			$strGoogle = '';
 			foreach($data as $row){
+				if($row['googlemap']!=''){
+					$strGoogle = 'var myLatlng = new google.maps.LatLng('.$row['googlemap'].'); initialize(myLatlng, "google-map", "'.$row['name'].'");';
+				}
 				echo '<div class="box">
 					<p class="name">'.$row['name'].'</p>
 					<p class="allIcon address">'.$row['address'].'</p>
@@ -45,6 +49,41 @@
                 <div class="field2"><input type="button" name="btnSendContact" id="btnSendContact" class="btn" value="<?php echo $lang_var['send'];?>" /></div>
             </div>
         </div>
+        
+        <div id="google-map"></div>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&language=vi"></script>
+		<script type="text/javascript">
+        function initialize(myLatlng, tags, title) {
+            var myOptions = {
+                zoom: 16,
+                center: myLatlng,
+                //deny
+                scrollwheel: false,
+                mapTypeControl: false,
+                //navigationControl: false,
+                //scaleControl: false,
+                //draggable: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+        
+            var map = new google.maps.Map(document.getElementById(tags), myOptions);
+            // Biến text chứa nội dung sẽ được hiển thị
+            //var text = "<b style='color:#00F' " + "style='text-align:center'>Nhà của mình nè!<br />" + "<img src='citihouse-logo.jpg'  /></b>";
+            var infowindow = new google.maps.InfoWindow({
+                //content: text,
+                size: new google.maps.Size(100,50),
+                position: myLatlng
+            });
+            //infowindow.open(map);    
+            var marker = new google.maps.Marker({
+                position : myLatlng, 
+                map : map,
+                title : title,
+            });
+        }
+        
+        <?php echo $strGoogle;?>
+        </script>
         
         <div class="clear30"></div>
 	</div>

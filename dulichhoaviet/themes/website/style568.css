@@ -111,8 +111,10 @@
 #contact-frm .loading{width:32%; height:422px}
 #contact-frm .txt{width:95%; padding:12px; background-color:#FFF}
 #contact-frm .textarea{width:95%; height:180px; line-height:22px; overflow:auto; resize:vertical; padding:12px; background-color:#FFF}
-#contact-frm .btn{width:100%; padding:12px 0; font-size:120%; color:#FFF; background-color:#ff9500; border:none; cursor:pointer}
+#contact-frm .btn{width:100%; font-size:120%; color:#FFF; margin-bottom:20px; padding:12px 0; background-color:#ff9500; border:none; cursor:pointer}
 #contact-frm .btn:hover{background-color:#e17700}
+
+#google-map{width:85%; height:300px; margin:auto}
 /*end contact*/
 
 /*menu mobile*/
@@ -180,24 +182,26 @@
 #header .headerImg img{max-width:100%}
 
 .header-empty{height:55px}
-#header-fix{clear:both; width:100%; height:55px; background-color:rgba(255,255,255,0.85); position:absolute; z-index:2}
-#header-fix .logo{width:110px; float:left; margin-top:5px}
+#header-fix{clear:both; width:100%; background-color:rgba(255,255,255,0.85); z-index:2}
+#header-fix .logo{width:110px; float:left; margin:5px 5px 0 0}
 #header-fix .logo img{height:40px; float:left; margin:2px 3px 0 0}
 #header-fix .logo h2{width:auto; float:left; font-size:85%; letter-spacing:1px; margin:6px 0 3px 0}
 #header-fix .logo h3{width:auto; float:left; font-size:80%; font-weight:100; letter-spacing:2px}
 #header-fix .logo a{color:#E00}
+#header-fix .call{display:none}
 #header-fix .menuTop{width:auto; float:right; font-size:90%; line-height:30px; margin-top:5px}
 #header-fix .menuTop li{list-style:none; width:auto; float:left}
 #header-fix .menuTop a{color:#666; padding:0 5px}
 #header-fix .menuTop a:hover{color:#111}
-#header-fix .search{width:auto; float:right; margin:10px 0 10px 10px;}
-#header-fix .search input{width:45px; height:30px; line-height:30px; color:#666; font-size:90%; padding:0 5px 0 35px; background-position:8px 6px; border:solid 1px #CCC; border-radius:5px}
+#header-fix .menuTop .iconHome{display:none}
+#header-fix .search input{width:45px; height:30px; line-height:30px; color:#666; font-size:90%; margin-top:10px; padding:0 5px 0 35px; background-position:8px 6px; border:solid 1px #CCC; border-radius:5px}
 #header-fix .menuMain{width:auto; clear:right; float:right}
 #header-fix .menuMain li{list-style:none; width:auto; float:left; line-height:50px; margin-left:10px}
 #header-fix .menuMain li a{color:#FFF; display:block; padding:0 10px 0 45px}
 
-#header .headerContent{clear:both; position:relative; z-index:2}
-#header .headerContent .tour-list{display:none}
+#header-fix .sales{display:none}
+
+#header .headerContent{display:none}
 /*end header*/
 
 /*home*/
@@ -403,6 +407,8 @@
 #support .content .tel{background-position:0 -494px}
 #support .content .fax{background-position:-160px -195px}
 #support .content .email{background-position:-180px -193px}
+#support .content .user{background-position:-220px -193px}
+#support .content .sale{line-height:160%}
 /*end support*/
 
 /*Photos
