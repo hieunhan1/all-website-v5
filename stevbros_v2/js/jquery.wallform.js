@@ -527,8 +527,9 @@ $.fn.ajaxSubmit = function(options) {
 			//---------------Modification---------------//
 			//var exp = /<img[^>]+>/i;
 			//expResult = data.match(exp);
+			console.log(data);
 			data = $.parseJSON(data);
-			//console.log(data);
+			console.log(data);
 			for(var key in data){
 				var itemData;
 				var row = data[key];

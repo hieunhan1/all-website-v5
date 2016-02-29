@@ -43,14 +43,14 @@ $(document).ready(function(e) {
 		if ($(window).scrollTop() > 45) {
 			$('#adHeader').addClass('adHeaderFixed');
 			$('#adLeft').addClass('adLeftFixed');
-			$('.rightHeader').addClass('adRightFixed');
+			//$('.rightHeader').addClass('adRightFixed');
 			$('#search').addClass('searchFixed');
-			if($('.rightHeader').length) $("#adRight").css('margin-top', '200px');
-			else $("#adRight").css('margin-top', '56px');
+			//if($('.rightHeader').length) $("#adRight").css('margin-top', '200px');
+			//else $("#adRight").css('margin-top', '56px');
 		} else {
 			$('#adHeader').removeClass('adHeaderFixed');
 			$('#adLeft').removeClass('adLeftFixed');
-			$('.rightHeader').removeClass('adRightFixed');
+			//$('.rightHeader').removeClass('adRightFixed');
 			$('#search').removeClass('searchFixed');
 			$("#adRight").css('margin-top', '0px');
 		}
@@ -542,7 +542,7 @@ $(document).ready(function(e) {
 		});
 	}
 	
-	$("#btnSubmitAjax").live("click", function(){
+	$("#btnSubmitAjax, #btnSave").live("click", function(){
 		autoTableInsert();
 	});
 	
