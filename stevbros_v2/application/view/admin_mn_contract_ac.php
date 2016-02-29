@@ -205,42 +205,11 @@ $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Giá trị hợp đồng', $data);
 
-$data = '<link href="js/upload/uploadfile.css" rel="stylesheet">
-<script src="js/upload/jquery.uploadfile.min.js"></script>
-<div id="mulitplefileuploader">Upload</div>
-<div id="status"></div>
-
-<script>
-$(document).ready(function(){
-	var settings = {
-		fileName: "fileUpload", 
-		url: "ajax/",
-		multiple : true,
-		maxFileCount : 5,
-		dragDrop: true,
-		allowedTypes: "jpg,png,gif,doc,pdf,zip,xml",	
-		returnType: "json",
-		onSuccess:function(files, data, xhr){
-			console.log(data);
-		},
-		showAbort : false,
-		showDone : false,
-		showDelete:true,
-		deleteCallback: function(data,pd){
-			for(var i=0; i<data.length; i++){
-				$.post("delete.php", {op:"delete", name:data[i]}, function(resp, textStatus, jqXHR){
-					//Show Message  
-					$("#status").append("<div>File Deleted</div>");      
-				});
-			}     
-			pd.statusbar.hide(); //You choice to hide/not.
-		}
-	}
-	
-	var uploadObj = $("#mulitplefileuploader").uploadFile(settings);
-});
-</script>';
-echo $cF->displayDiv('Upload d.sách k.hàng', $data);
+//upload images
+$data = ob_start();
+include_once('admin_upload.php');
+$data = ob_get_clean();
+echo $cF->displayDiv('Upload file XML', $data);
 
 $str=''; $i=0;
 $arr = array(

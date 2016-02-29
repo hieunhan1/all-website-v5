@@ -118,7 +118,7 @@ $arr = array(
 );
 $data = $c->_model->_select($arr);
 foreach($data as $row){
-	$i++; $total++;
+	$i++;
 	$str.='<p class="item">'.$i.'. '.$row['name'].' - '.$row['email'].' - '.$row['phone'].'</p>';
 	
 	$j=0;
@@ -181,6 +181,11 @@ $(document).ready(function(e) {
 	$("#codeAuto").live("click", function(){
 		var course = $("#header_id").val();
 		var code = $("#code").val();
+		if(code==''){
+			alert('Nhập mã cty hoặc public');
+			$("#code").focus();
+			return false;
+		}
 		$.ajax({
 			url: 'ajax',
 			type: 'POST',

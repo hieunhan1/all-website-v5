@@ -36,8 +36,6 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(e) {
-	$("input[name=status]").attr("disabled", true);
-	
 	$("#btnActionAjax").live("click", function(){
 		var data = $("#frmBtnAction").html();
 		popupLoad(data);

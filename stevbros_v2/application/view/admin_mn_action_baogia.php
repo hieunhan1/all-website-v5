@@ -5,8 +5,10 @@
 	$id = $c->_model->_changeDauNhay($_GET['id']);
 	$rowDetail = $c->_model->_viewDetail($table, $id);
 	
-	if($rowDetail['header_id']!=''){
+	$rowCourse = '';
+	if(isset($rowDetail['header_id'])){
 		$rowCourse = $c->_model->_viewDetail('web_header', $rowDetail['header_id']);
+		$rowCourse = $rowCourse['name'];
 	}
 	
     $cA = new modelAdmin;
@@ -74,7 +76,7 @@ $(document).ready(function(e) {
 		fields['loadFormTemplate'] = '1';
 		fields['id'] = $("#type_id").val();
 		fields['name'] = "<?php echo $rowDetail['name'];?>";
-		fields['course'] = "<?php if(isset($rowCourse)) echo $rowCourse['name'];?>";
+		fields['course'] = "<?php echo $rowCourse;?>";
 		fields['price'] = $("#price").val();
 		fields['totalusd'] = $("#totalusd").val();
 		fields['exchangerate'] = $("#exchangerate").val();

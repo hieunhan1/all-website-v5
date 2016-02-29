@@ -1,13 +1,13 @@
 <?php
 $arrFrmSearch = array();
 
+$name = 'LIKE_code';
+if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
+$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mã lớp');
+
 $name = 'LIKE_name';
 if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
 $arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mô tả');
-
-$name = 'code';
-if(!isset($_GET[$name])) $value=''; else $value=$_GET[$name];
-$arrFrmSearch[] = array('type'=>'text', 'name'=>$name, 'value'=>$value, 'other'=>'Mã lớp');
 
 echo $c->viewFormSearch($arrFrmSearch);
 

@@ -10,4 +10,22 @@ class modelManager extends modelDB{
 		$sql = "UPDATE `web_contact` SET `status`='{$status}' WHERE `id`='{$id}'";
 		if(!$this->db->query($sql)) die($this->db->error);
 	}
+	
+	public function _insertCustomer($name, $phone, $email, $address, $city, $country, $birthday, $birthplace, $company){
+		$datetime = time();
+		$sql = "INSERT INTO `mn_customer` (`name`, `phone`, `email`, `address`, `city`, `country`, `date_birthday`, `birthplace`, `company`, `datetime`) VALUES ('{$name}', '{$phone}', '{$email}', '{$address}', '{$city}', '{$country}', '{$birthday}', '{$birthplace}', '{$company}', '{$datetime}')";
+		if(!$this->db->query($sql)) die($this->db->error);
+		return $this->db->insert_id;
+	}
+	
+	public function _insertContractCustomer($contract_id, $customer_id){
+		$sql = "INSERT INTO `mn_contract_customer` (`contract_id`, `customer_id`) VALUES ('{$contract_id}', '{$customer_id}')";
+		if(!$this->db->query($sql)) die($this->db->error);
+	}
+	
+	public function _insertCustomerModule($customer_id, $course_id, $course_name){
+		$datetime = time();
+		$sql = "INSERT INTO `mn_customer_module` (`customer_id`, `course_id`, `course_name`, `datetime`) VALUES ('{$customer_id}', '{$course_id}', '{$course_name}', '{$datetime}')";
+		if(!$this->db->query($sql)) die($this->db->error);
+	}
 }

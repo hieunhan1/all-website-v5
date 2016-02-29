@@ -104,6 +104,7 @@ $(document).ready(function(e) {
 		fields['email'] = "<?php echo $rowDetail['email'];?>";
 		fields['email_bcc'] = $("#email_bcc").val();
 		fields['event_id'] = type_id;
+		fields['table'] = "<?php echo $table;?>";
 		fields['table_id'] = "<?php echo $rowDetail['id'];?>";
 		fields['subject'] = $("#subject").val();
 		fields['content'] = CKEDITOR.instances["content"].getData();

@@ -53,6 +53,63 @@ function imageProcess($img_info){
 	}else return false;
 }
 
+function readXML($file, $contract_id){
+	if( !file_exists($file) ){
+		$arr = array('result'=>false, 'message'=>'File does not exist');
+		echo json_encode($arr);
+		return false;
+	}
+	
+	$model = new modelManager();
+	$i=0; $j=0; $str='';
+	$xml = simplexml_load_file($file);
+	foreach($xml->Worksheet->Table->Row as $row){
+		$name = $model->_changeDauNhay( $row->Cell[0]->Data );
+		$phone = $model->_changeDauNhay( $row->Cell[1]->Data );
+		$email = $model->_checkEmail( $row->Cell[2]->Data );
+		$address = $model->_changeDauNhay( $row->Cell[3]->Data );
+		$city = $model->_changeDauNhay( $row->Cell[4]->Data );
+		$country = $model->_changeDauNhay( $row->Cell[5]->Data );
+		$birthday = $model->_changeDauNhay( $row->Cell[6]->Data );
+		$birthplace = $model->_changeDauNhay( $row->Cell[7]->Data );
+		$company = $model->_changeDauNhay( $row->Cell[8]->Data );
+		if($birthday!='') $birthday = strtotime($birthday);
+		
+		$arr = array(
+			'select'=>'`id`',
+			'from' => '`mn_customer`',
+			'where' => "`email`='{$email}'",
+			'limit' => 1,
+		);
+		$data = $model->_select($arr);
+		$total = count($data);
+		
+		if($name!='' && $email!=false && $total==0){
+			$i++;
+			$customer_id = $model->_insertCustomer($name, $phone, $email, $address, $city, $country, $birthday, $birthplace, $company);
+			$model->_insertContractCustomer($contract_id, $customer_id);
+		}else if($name!='' && $email!=false && $total==1){
+			$row = $data[0];
+			$customer_id = $row['id'];
+			$arr = array(
+				'select'=>'`id`',
+				'from' => '`mn_contract_customer`',
+				'where' => "`contract_id`='{$contract_id}' AND `customer_id`='{$customer_id}'",
+				'limit' => 1,
+			);
+			$data = $model->_select($arr);
+			$total = count($data);
+			if($total==0){
+				$i++;
+				$model->_insertContractCustomer($contract_id, $customer_id);
+			}
+		}else if($name=='' || $email==false){
+			$j++;
+			$str .= "{$j}. {$hoten} - {$email} - {$phone} <span class='error'>kiểm tra data</span><br />";
+		}
+	}//end for
+}
+
 if(isset($_POST['imageUpload'])){
 	if(!isset($_POST['img_id']) || $_POST['img_id']==0 || $_POST['img_id']==''){
 		$id=0;
@@ -118,6 +175,18 @@ if(isset($_POST['imageUpload'])){
 				}
 			}else{
 				$arr[] = array('error'=>1, 'message'=>IMAGE_LIMIT_SIZE);
+			}
+		}else if($ext=='xml'){
+			$i++;
+			$newName = time()+$i;
+			$newName = $newName.'.'.$ext;
+			$file = IMAGE_UPLOAD_URL_TEMP.$newName;
+			if (move_uploaded_file($_FILES['photos']['tmp_name'][$name], $file)){
+				$data = readXML($file, $table_id);
+				$arr[] = array('error'=>0, 'message'=>'Upload thành công', 'img'=>'xml.png', 'img_url_thumb'=>'themes/website/img/', 'img_url'=>CONS_BASE_URL.'/themes/website/img/');
+				unlink($file);
+			}else{
+				$arr[] = array('error'=>1, 'message'=>IMAGE_ERROR_MOVING);
 			}
 		}else{
 			$arr[] = array('error'=>1, 'message'=>'Unknown extension!');
@@ -229,56 +298,4 @@ if(isset($_POST['imageDelete'])){
 		echo json_encode($arr);
 		return false;
 	}
-}
-
-if(isset($_FILES['fileUpload'])){
-	echo 1111;
-	$output_dir = IMAGE_UPLOAD_URL_TEMP;
-	$ret = array();
-	$error = $_FILES["fileUpload"]["error"];
-	if(!is_array($_FILES["fileUpload"]["name"])){ //single file
-		$fileName = $_FILES["fileUpload"]["name"];
-		move_uploaded_file($_FILES["fileUpload"]["tmp_name"],$output_dir.$fileName);
-		$ret[]= $fileName;
-	}else{ //Multiple files, file[]
-		$fileCount = count($_FILES["fileUpload"]["name"]);
-		for($i=0; $i < $fileCount; $i++){
-			$fileName = $_FILES["fileUpload"]["name"][$i];
-			move_uploaded_file($_FILES["fileUpload"]["tmp_name"][$i],$output_dir.$fileName);
-			$ret[]= $fileName;
-		}
-	}
-	echo json_encode($ret);
-
-	
-	/*
-	$filename = stripslashes($_FILES['fileUpload']['name']);
-	$files = $_FILES['fileUpload']['tmp_name'];
-	$size  = filesize($files);
-	if($_FILES['fileUpload']['error']==0){
-		$ext = explode('.', $filename);
-		$ext = end($ext);
-		
-		$fileFormats = array('xml', 'xls');
-		if(in_array($ext, $fileFormats)){
-			if($size < (5*1024*1024)){
-				$newName = time().'.'.$ext;
-				$newFile = IMAGE_UPLOAD_URL_TEMP.$newName;
-				if(move_uploaded_file($files, $newFile)){
-					$arrError = array('error'=>true, 'message'=>'Upload file thành công', 'file'=>$newFile);
-				}else{
-					$arrError = array('error'=>false, 'message'=>'Xem lại phân quyền');
-				}
-			}else{
-				$arrError = array("result"=>false, 'message'=>'Kích thước vượt giới hạn');
-			}
-		}else{
-			$arrError = array("result"=>false, 'message'=>'File chưa đúng định dạng');
-		}
-	}else{
-		$arrError = array("result"=>false, 'message'=>'File bị lỗi');
-	}
-	
-	echo json_encode($arrError);
-	return true;*/
 }

@@ -5,10 +5,6 @@
 	$id = $c->_model->_changeDauNhay($_GET['id']);
 	$rowDetail = $c->_model->_viewDetail($table, $id);
 	
-	if($rowDetail['header_id']!=''){
-		$rowCourse = $c->_model->_viewDetail('web_header', $rowDetail['header_id']);
-	}
-	
     $cA = new modelAdmin;
     $cF = new controlAdminForm;
     
@@ -87,6 +83,7 @@ $(document).ready(function(e) {
 		fields['email'] = "<?php echo $rowDetail['email'];?>";
 		fields['email_bcc'] = $("#email_bcc").val();
 		fields['event_id'] = type_id;
+		fields['table'] = "<?php echo $table;?>";
 		fields['table_id'] = "<?php echo $rowDetail['id'];?>";
 		fields['subject'] = $("#subject").val();
 		fields['content'] = CKEDITOR.instances["content"].getData();

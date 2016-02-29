@@ -320,6 +320,9 @@ if(isset($_POST['entrytestUser'])){
 	}
 	$c->_model->_insertEntryTestUser($menu_id, $table, $table_date, $entrytest_id, $answers);
 	
+	//thay doi status
+	if($table=='web_contact') $c->_model->_updateStatus($table, $table_id, $status=3);
+	
 	$arr = array('error'=>0, 'message'=>'Success');
 	echo json_encode($arr);
 	return true;
@@ -442,7 +445,7 @@ if(isset($_POST['rejectKhaoSat'])){
 	}
 	
 	//thay doi status
-	$c->_model->_updateStatus($table, $table_id, $status=3);
+	if($table=='web_contact') $c->_model->_updateStatus($table, $table_id, $status=3);
 	
 	//gui mail thong bao
 	$arr = array(

@@ -7,27 +7,33 @@ $id = $c->createEditData($table, $arrAction, $rowDetail);
 $data = $cF->inputHidden('id', $id, 'ad_field');
 echo $data;
 
-if($id==0){
-	$name = 'contact_id';
+$name = 'contact_id';
+if($id==0 || $rowDetail[$name]!=''){
+	$value = $rowDetail[$name];
 	$properties = array();
 	$properties[] = array('propertie'=>'maxlength', 'value'=>'8');
 	$properties[] = array('propertie'=>'placeholder', 'value'=>'ID liên hệ');
 	$properties[] = array('propertie'=>'style', 'value'=>'width:80px');
-	$data = $cF->inputText($name, '', 'adInput value_id', $properties);
+	if($rowDetail[$name]!='') $properties[] = array('propertie'=>'disabled', 'value'=>'disabled');
+	$data = $cF->inputText($name, $value, 'adInput value_id', $properties);
 	$properties = array();
 	$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
 	$properties[] = array('propertie'=>'placeholder', 'value'=>'Tên người liên hệ');
 	$properties[] = array('propertie'=>'style', 'value'=>'width:260px; margin-left:5px');
+	if($rowDetail[$name]!='') $properties[] = array('propertie'=>'disabled', 'value'=>'disabled');
 	$data .= $cF->inputText('', '', 'adInput value_name', $properties);
-	$data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" /> <p class="adError error value_name_error"></p>';
+	if($rowDetail[$name]==''){
+		$data .= '<input type="button" value="Tìm kiếm" class="adBtnSmall bgColorBlue1 corner5 value_search" style="float:none; margin-left:5px" /> <p class="adError error value_name_error"></p>';
+	}
 	$data .= '<div class="value_view" table="web_contact"></div>';
 	echo $cF->displayDiv('Liên hệ trực tuyến', $data.'<p class="adNotes">Nếu khách hàng đã liên hệ từ website tìm thông tin tại đây</p>');
 }
 
-$name = 'datetime';
-if($rowDetail[$name]=='') $value = date('Y-m-d H:i:s');
-else $value=$rowDetail[$name];
-echo $data = $cF->inputHidden($name, $value, 'ad_field');
+if($id==0){
+	$name = 'datetime';
+	$value = date('Y-m-d H:i:s');
+	echo $data = $cF->inputHidden($name, $value, 'ad_field');
+}
 
 $name = 'status';
 $values = array();
@@ -36,7 +42,7 @@ $values[] = array('name'=>'Disable', 'id'=>'0');
 if($rowDetail[$name]=='') $valueCheck=1;
 else $valueCheck=$rowDetail[$name];
 $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
-echo $cF->displayDiv('Status', $data);
+echo $cF->displayDiv('Trạng thái', $data);
 
 $name = 'name';
 $properties = array();
@@ -64,10 +70,24 @@ echo $cF->displayDiv('Email', $data);
 
 $name = 'address';
 $properties = array();
-$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
-$value=$rowDetail[$name];
-$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
+$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
+$value = $rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Address', $data);
+
+$name = 'city';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
+$value = $rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
+echo $cF->displayDiv('City', $data);
+
+$name = 'country';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'2');
+$value = $rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
+echo $cF->displayDiv('Country', $data);
 
 $name = 'date_birthday';
 $properties = array();
@@ -133,15 +153,21 @@ echo $data;
 
 $name = 'btnCancel';
 $btnCancel = $cF->btnCancel($name, 'Quay lại');
+$name = 'btnActionAjax';
+$btnActionAjax = $cF->inputButton($name, 'Tương tác với khách hàng', 'adBtnLarge bgColorGreen corner8');
 $name = 'btnSubmitAjax';
-$btnSubmit = $cF->inputSubmit($name, $arrAction['lable'], 'adBtnLarge bgColorBlue1 corner8');
-echo $cF->displayDiv(' ', $btnSubmit.$btnCancel);
+$btnSubmit = $cF->inputButton($name, $arrAction['lable'], 'adBtnLarge bgColorBlue1 corner8');
+echo $cF->displayDiv(' ', $btnSubmit.$btnActionAjax.$btnCancel);
+
+include_once('admin_mn_action.php');
 ?>
 
 <script type="text/javascript">
 $(document).ready(function(e) {
 	function autoGetDataContact(){
 		var table_id = $(".value_id").val();
+		if(table_id=='') return false;
+		
 		var fields = new Object();
 		fields['loadWebContact'] = 1;
 		fields['table'] = 'web_contact';

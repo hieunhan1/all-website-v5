@@ -160,6 +160,152 @@ if(isset($_POST['classCode'])){
 	return true;
 }
 
+if(isset($_POST['autoLoadCourseModule'])){
+	include_once('libraries/simple_html_dom.php');
+	$html = file_get_html('http://stevbros.com/capTaiKhoanChoStevbros.edu.vn/index.php?selectCourse=1');
+	echo $html;
+	return true;
+}
+
+if(isset($_POST['customerClass'])){
+	$id = $c->_model->_changeDauNhay($_POST['id']);
+	settype($id, 'int');
+	$arr = array(
+		'select' => '*',
+		'from' => 'mn_class_info',
+		'where' => "`class_id`='{$id}'",
+	);
+	$data = $c->_model->_select($arr);
+	
+	$str = '';
+	foreach($data as $row){
+		if($row['_table']=='mn_customer'){
+			$arr = array(
+				'select' => '*',
+				'from' => 'mn_customer',
+				'where' => "`id`='{$row['table_id']}'",
+				'limit' => 1,
+			);
+			$dataCustomer = $c->_model->_select($arr);
+			$rowCustomer = $dataCustomer[0];
+			$str .= '<p style="margin-bottom:10px"><input type="checkbox" name="customers" value="'.$rowCustomer['id'].'" checked="checked" /> '.$rowCustomer['name'].' - '.$rowCustomer['email'].'</p>';
+		}else if($row['_table']=='mn_contract'){
+			$arr = array(
+				'select' => '`mn_customer`.*',
+				'from' => '`mn_contract_customer`, `mn_customer`',
+				'where' => "`contract_id`='{$row['table_id']}' AND `customer_id`=`mn_customer`.`id`",
+			);
+			$dataCustomer = $c->_model->_select($arr);
+			foreach($dataCustomer as $rowCustomer){
+				$str .= '<p style="margin-bottom:10px"><input type="checkbox" name="customers" value="'.$rowCustomer['id'].'" checked="checked" /> '.$rowCustomer['name'].' - '.$rowCustomer['email'].'</p>';
+			}
+		}
+	}
+	
+	$arr = array(
+		'select' => '*',
+		'from' => 'mn_class',
+		'where' => "`id`='{$id}'",
+		'limit' => 1
+	);
+	$data = $c->_model->_select($arr);
+	$code = '';
+	if(count($data)>0){
+		$code = $data[0]['code'];
+	}
+	$arr = array('code'=>$code, 'data'=>$str);
+	echo json_encode($arr);
+	return true;
+}
+
+if(isset($_POST['accountAllocation'])){
+	$customerid = $c->_model->_changeDauNhay($_POST['customerid']);
+	$courseid = $c->_model->_changeDauNhay($_POST['courseid']);
+	$coursename = $c->_model->_changeDauNhay($_POST['coursename']);
+	$numberdate = $c->_model->_changeDauNhay($_POST['numberdate']);
+	$institution = $c->_model->_changeDauNhay($_POST['institution']);
+	
+	if($customerid=='' || $courseid=='' || $numberdate=='' || $institution==''){
+		$arr = array('result'=>false, 'message'=>'Dữ liệu đưa vào không đúng');
+		echo json_encode($arr);
+		return false;
+	}
+	
+	$table = 'mn_customer';
+	include_once('libraries/simple_html_dom.php');
+
+	$arr = array(
+		'select' => '*',
+		'from' => $table,
+		'where' => "`id`='{$customerid}'",
+		'limit' => '1',
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data)==0){
+		$arr = array('result'=>false, 'message'=>'Không tìm thấy khách hàng trong database');
+		echo json_encode($arr);
+		return false;
+	}
+	
+	$row = $data[0];
+	$username	= $row['email'];
+	$email		= $row['email'];
+	$city		= $row['city'];
+	$country	= $row['country'];
+	
+	$name = explode(' ', $row['name']);
+	$firstname	= end($name);
+	$lastname	= $name[0];
+	
+	$url = "http://stevbros.com/capTaiKhoanChoStevbros.edu.vn/index.php?accountAllocation=1&firstname={$firstname}&lastname={$lastname}&username={$username}&email={$email}&city={$city}&country={$country}&courseid={$courseid}&numberdate={$numberdate}&institution={$institution}";
+	$html = file_get_html($url);
+	$html = json_decode($html);
+	$html->name = $row['name'];
+	
+	if($html->result == true){
+		//insert database
+		$cM->_insertCustomerModule($customerid, $courseid, $coursename);
+		
+		//sendMail
+		$event_id = 18;
+		$arr = array(
+			'select' => '*',
+			'from' => '`web_event_form`',
+			'where' => "`id`='{$event_id}'",
+			'limit' => '1',
+		);
+		$data = $c->_model->_select($arr);
+		$rowEvent = $data[0];
+		
+		$arr = array(
+			'{_name}' => $row['name'],
+			'{_user}' => $email,
+			'{_numberdate}' => $numberdate,
+		);
+		$content = $c->contentReplace($rowEvent['content'], $arr);
+		
+		$AddBCC = '';
+		if($rowEvent['email']!='') $AddBCC = array('field'=>$rowEvent['email'], 'name'=>'Stevbros');
+		$AddAddress = array('field'=>$email, 'name'=>$row['name']);
+		$arrSend = array(
+			'AddAddress' => $AddAddress,
+			'AddBCC' => $AddBCC,
+			'Subject' => $rowEvent['subject'],
+			'Body' => $content,
+		);
+		$data = $c->sendMail($arrSend, 1);
+		if(!preg_match("/error:/i", $data)){
+			$cM->_insertContactSendMail($row['name'], $email, $content, $event_id, $table, $customerid);
+			$html->sendmail = true;
+		}else{
+			$html->sendmail = false;
+		}
+	}
+	
+	echo json_encode($html);
+	return true;
+}
+
 /*web_event_form*/
 function css_script(){
 	$str = '<base href="'.CONS_BASE_URL.'/" />
@@ -324,10 +470,11 @@ if(isset($_POST['sendMailCustomer'])){
 	$email = $c->_model->_checkEmail($_POST['email']);
 	$email_bcc = $c->_model->_checkEmail($_POST['email_bcc']);
 	$event_id = $c->_model->_changeDauNhay($_POST['event_id']);
+	$table = $c->_model->_changeDauNhay($_POST['table']);
 	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);
 	$subject = $c->_model->_changeDauNhay($_POST['subject']);
 	$content = $c->_model->_changeDauNhay($_POST['content'], 0);
-	if($name=='' || $email==false || $subject=='' || $content=='' || $event_id=='' || $table_id==''){
+	if($name=='' || $email==false || $subject=='' || $content=='' || $event_id=='' || $table=='' || $table_id==''){
 		echo '<div class="adError">Error: Please press F5 key to try again</div>';
 		return false;
 	}
@@ -344,8 +491,7 @@ if(isset($_POST['sendMailCustomer'])){
 	
 	$data = $c->sendMail($arrSend, 1);
 	if(!preg_match("/error:/i", $data)){
-		$table = 'web_contact';
-		$cM->_updateStatusContact($table_id, 2);
+		if($table=='web_contact') $c->_model->_updateStatus($table, $table_id, $status=2);
 		$cM->_insertContactSendMail($name, $email, $content, $event_id, $table, $table_id);
 		echo '<div class="adMessage"><b>Gửi thành công.</b></div>';
 	}else{

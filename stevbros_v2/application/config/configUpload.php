@@ -14,4 +14,5 @@ define('IMAGE_UPLOAD_URL_THUMB', '../public/_thumbs/Images/');
 define('IMAGE_UPLOAD_URL_TEMP', '../public/tempUpload/');
 
 $imageFormats = array('jpg', 'png', 'gif', 'bmp', 'jpeg');
+$fileExtention = array('jpg', 'png', 'gif', 'bmp', 'jpeg', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'txt', 'xml', 'ppt', 'pptx', 'mp3', 'wma', 'wmv', 'avi', 'mp4', 'flv');
 ?>
