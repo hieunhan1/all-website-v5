@@ -91,6 +91,36 @@ if(isset($_POST['insertCustomerClass'])){
 	return true;
 }
 
+if(isset($_POST['insertTrainerRate'])){
+	$trainer_id = $c->_model->_changeDauNhay($_POST['trainer_id']);
+	$class_id = $c->_model->_changeDauNhay($_POST['class_id']);
+	$rate = $c->_model->_changeDauNhay($_POST['rate']);
+	
+	if($trainer_id=='' || $class_id=='' || $rate==''){
+		$arr = array('error'=>1, 'message'=>'Import data error');
+		echo json_encode($arr);
+		return false;
+	}
+	
+	$arr = array(
+		'select' => '`id`',
+		'from' => '`mn_trainer_rate`',
+		'where' => "`trainer_id`='{$trainer_id}' AND `class_id`='{$class_id}'",
+		'limit' => 1
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data) > 0){
+		$arr = array('error'=>1, 'message'=>'Giảng viên đã được đánh giá cho lớp này rồi.');
+		echo json_encode($arr);
+		return false;
+	}
+	
+	$cM->_insertTrainerRate($trainer_id, $class_id, $rate);
+	$arr = array('error'=>0, 'message'=>'Thêm thành công');
+	echo json_encode($arr);
+	return false;
+}
+
 if(isset($_POST['loadWebContact'])){
 	$table = $c->_model->_changeDauNhay($_POST['table']);
 	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);

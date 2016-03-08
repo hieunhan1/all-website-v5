@@ -157,8 +157,135 @@ include_once('admin_upload.php');
 $data = ob_get_clean();
 echo $cF->displayDiv('Avatar', $data);
 
+$str=''; $i=0; $rate=0;
+$arr = array(
+	"select"=>"`mn_class`.`name`, `rate`",
+	"from"=>"`mn_trainer_rate`, `mn_class`",
+	"where"=>"`mn_trainer_rate`.`trainer_id`='{$id}' AND `class_id`=`mn_class`.`id`",
+);
+$data = $c->_model->_select($arr);
+foreach($data as $row){
+	$i++;
+	$rate += $row['rate'];
+	$str.='<p class="item">'.$i.'. '.$row['name'].' <b>(Mức '.$row['rate'].')</b></p>';
+}
+if($i!=0){
+	$rate = round($rate/$i, 2);
+	$rate = '<p class="item">Điểm trung bình: <b>'.$rate.'</b></p>';
+}else{
+	$rate = '';
+}
+$str = '<div id="listCustomer" class="label2">'.$str.$rate.'</div>';
+$data = '<div class="seo">'.$cF->displayDiv('D.sách đánh giá', $str).'</div>';
+echo $data;
+
 $name = 'btnCancel';
 $btnCancel = $cF->btnCancel($name, 'Quay lại');
+$name = 'btnAddRate';
+$btnAddRate = $cF->inputButton($name, 'Đánh giá', 'adBtnLarge bgColorOranges corner8');
 $name = 'btnSubmitAjax';
 $btnSubmit = $cF->inputSubmit($name, $arrAction['lable'], 'adBtnLarge bgColorBlue1 corner8');
-echo $cF->displayDiv(' ', $btnSubmit.$btnCancel);
+echo $cF->displayDiv(' ', $btnSubmit.$btnAddRate.$btnCancel);
+?>
+
+<script type="text/javascript">
+$(document).ready(function(e) {
+	$("#btnAddRate").click(function(){
+		var str = '<?php
+		$name = 'class_id';
+		$properties = array();
+		$properties[] = array('propertie'=>'maxlength', 'value'=>'10');
+		$properties[] = array('propertie'=>'placeholder', 'value'=>'ID lớp học');
+		$data = $cF->inputText($name, '', 'adInput adTxtMedium value_id', $properties).'<div class="clear10"></div>';
+		
+		$name = 'class_name';
+		$properties = array();
+		$properties[] = array('propertie'=>'maxlength', 'value'=>'100');
+		$properties[] = array('propertie'=>'placeholder', 'value'=>'Nhập tên lớp học và ấn nút TÌM KIẾM');
+		$other = '<p class="adError error value_name_error"></p>';
+		$data .= $cF->inputText($name, '', 'adInput adTxtMedium value_name', $properties, $other);
+		
+		$data .= '<div class="value_view" table="mn_class"></div> <div class="clear10"></div>';
+		
+		$name = 'rate';
+		$values = array();
+		$values[] = array('id'=>'', 'name'=>'-- chọn đánh giá --');
+		$values[] = array('id'=>'1', 'name'=>'Mức 1');
+		$values[] = array('id'=>'2', 'name'=>'Mức 2');
+		$values[] = array('id'=>'3', 'name'=>'Mức 3');
+		$values[] = array('id'=>'4', 'name'=>'Mức 4');
+		$values[] = array('id'=>'5', 'name'=>'Mức 5');
+		$valueCheck = '';
+		$data .= $cF->select($name, $values, $valueCheck, 'adInput adTxtMedium');
+		
+		$data .='<div class="clear20"></div>';
+		
+		$name = 'btnSearchClass';
+		$properties = array();
+		$properties[] = array('propertie'=>'style', 'value'=>'width:auto; float:left');
+		$data .= $cF->inputButton($name, 'Tìm kiếm', 'adBtnSmall bgColorBlue1 corner5 value_search');
+		$name = 'btnAddClass';
+		$data .= $cF->inputButton($name, 'Thêm đánh giá', 'adBtnSmall bgColorOranges corner5', $properties);
+		$name = 'btnClose';
+		$data .= $cF->inputButton($name, 'Close', 'adBtnSmall bgColorGray corner5 popupClose', $properties);
+		echo $cF->displayDiv('', $data);
+		?>';
+		popupLoad(str);
+	});
+	
+	$("#btnAddClass").live("click", function(){
+		var class_id = $.trim($("#class_id").val());
+		var class_name = $.trim($("#class_name").val());
+		var rate = $.trim($("#rate").val());
+		var trainer_id = $.trim($("#id").val());
+		var trainer_name = $.trim($("#name").val());
+		if(trainer_id=='0' || trainer_id==''){
+			var str = '<b class="adError">Vui lòng nhập thông tin giảng viên trước.</b>';
+			popupLoad(str);
+			popupCloseBG();
+			return false;
+		}else if(class_id=='' || class_name=='' || rate==''){
+			var str = '<b class="adError">Vui lòng chọn thông tin.</b>';
+			popupLoad(str);
+			popupCloseBG();
+			return false;
+		}
+		
+		var str = '<p>Bạn có muốn thêm đánh giá lớp học <b>"' + class_name + '"</b> vào giảng viên <b>"'+trainer_name+'"</b>?</p> <p class="clear20"></p>';
+			str+= '<p> <span id="insertTrainerRate" class_id="' + class_id + '" class_name="' + class_name + '" rate="' + rate + '" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 popupClose">No</span> </p>';
+			str+= '<p class="clear1"></p>';
+		popupLoad(str);
+	});
+	
+	$("#insertTrainerRate").live("click", function(){
+		var trainer_id = $.trim($("#id").val());
+		var class_id = $.trim($(this).attr("class_id"));
+		var class_name = $.trim($(this).attr("class_name"));
+		var rate = $.trim($(this).attr("rate"));
+		if(trainer_id=='' || trainer_id=='0' || class_id=='') return false;
+		$.ajax({ 	
+			url: 'ajax',
+			type: 'POST',
+			data:{insertTrainerRate:1, trainer_id:trainer_id, class_id:class_id, rate:rate},
+			cache:false,
+			success: function(data) {
+				console.log(data);
+				data = data.replace(/\n/g, "");
+				data = $.parseJSON(data);
+				var str = '';
+				if(data.error==0){
+					str = '<p class="adMessage">' +data.message+ '</p>';
+					var number = parseInt($("#listCustomer .item").length) + 1;
+					var insert = '<p class="item">' + number + '. ' + class_name + ' <b>(Mức ' + rate + ')</b></p>';
+					$("#listCustomer").append(insert);
+				}else{
+					str = '<p class="adError">' +data.message+ '</p>';
+				}
+				
+				str += '<p class="clear10"></p> <p class="adBtnSmall bgColorGray corner5 popupClose">Close</p> <p class="clear1"></p></p>';
+				popupLoad(str);
+			}
+		});
+	});
+});
+</script>

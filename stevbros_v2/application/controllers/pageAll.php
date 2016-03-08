@@ -17,16 +17,16 @@ $lang = $currentPage['lang'];
 $config = $c->_model->_config($lang);
 $lang_var = $c->_model->_language_var($lang);
 
-if($currentPage['properties']==1) $fileView = "web_{$currentPage['type']}_list.php";
-else if($currentPage['properties']==2){
+if($currentPage['properties']==1){
+	$fileView = "web_{$currentPage['type']}_list.php";
+}else if($currentPage['properties']==2){
 	$currentMenu = $c->headerMenu($currentPage['menu_id']);
 	$rowDetail = $c->_model->_content($currentPage['id']);
-	if(count($rowDetail)==0){
-		$error = ERROR_NOT_FOUND_PAGE.$arrUrl['page'];
-		include_once('view/web_error.php');
-		return false;
-	}
 	$fileView = "web_{$currentPage['type']}_detail.php";
+}else{
+	$error = ERROR_NOT_FOUND_PAGE.$arrUrl['page'];
+	include_once('view/web_error.php');
+	return false;
 }
 
 if($arrUrl['page']==1) $namePage=''; else $namePage=' - Page '.$arrUrl['page'];

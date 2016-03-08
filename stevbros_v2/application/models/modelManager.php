@@ -28,4 +28,10 @@ class modelManager extends modelDB{
 		$sql = "INSERT INTO `mn_customer_module` (`customer_id`, `course_id`, `course_name`, `datetime`) VALUES ('{$customer_id}', '{$course_id}', '{$course_name}', '{$datetime}')";
 		if(!$this->db->query($sql)) die($this->db->error);
 	}
+	
+	public function _insertTrainerRate($trainer_id, $class_id, $rate){
+		$datetime = time();
+		$sql = "INSERT INTO `mn_trainer_rate` (`trainer_id`, `class_id`, `rate`, `datetime`) VALUES ('{$trainer_id}', '{$class_id}', '{$rate}', '{$datetime}')";
+		if(!$this->db->query($sql)) die($this->db->error);
+	}
 }
