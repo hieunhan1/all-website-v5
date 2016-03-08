@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^hoangha.com
+RewriteRule ^(.*)$ http://www.hoangha.com/$1 [R=permanent,L]
+RewriteRule js - [L]
+RewriteRule public - [L]
+RewriteRule themes - [L]
+RewriteRule images - [L]
+RewriteRule (.*) application/index.php [L]
+AddDefaultCharset UTF-8
+Options -Indexes
