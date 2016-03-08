@@ -2,8 +2,8 @@
     <div id="header-fix" <?php if($currentPage['type']['id']==1) echo 'style="position:absolute"';?> >
         <div class="container">
             <div class="logo">
-                <a href="<?php echo CONS_BASE_URL;?>" title="<?php echo $currentPage['title'];?>">
-                    <img src="themes/website/img/logo.png" alt="<?php echo $currentPage['title'];?>" />
+                <a href="<?php echo CONS_BASE_URL;?>" title="<?php echo $config['sitename'];?>">
+                    <img src="themes/website/img/logo.png" alt="<?php echo $config['sitename'];?>" />
                     <h2>HOA VIỆT</h2><br /><h3>TRAVEL®</h3>
                 </a>
             </div>
