@@ -217,7 +217,7 @@ $dataHiepHoi = $c->_model->_headerData($arr);
 if(count($dataHiepHoi) > 0){
 	$rowHiepHoi = $dataHiepHoi[0];
 	
-	$i = 0; $strLeft = ''; $strRight = '';
+	$str = '';
 	$arr = array(
 		'select' => '`id`, `name`, `url`, `img`, `title`',
 		'parent' => $rowHiepHoi['id'],
@@ -226,25 +226,18 @@ if(count($dataHiepHoi) > 0){
 	);
 	$dataBox = $c->_model->_headerData($arr);
 	foreach($dataBox as $rowBox){
-		$i++;
 		$data = $c->_model->_web_picture('web_header', $rowBox['id']);
-		if($i==1){
-			foreach($data as $row){
-				$strLeft .= '<p class="img effect"><img src="'.IMAGE_URL.$row['img'].'" alt="'.$row['name'].'" /></p>';
-			}
-			$strLeft = '<div class="left"><h5 class="title">'.$rowBox['title'].'</h5>'.$strLeft.'</div>';
-		}else{
-			foreach($data as $row){
-				$strRight .= '<p class="img effect"><img src="'.IMAGE_URL.$row['img'].'" alt="'.$row['name'].'" /></p>';
-			}
-			$strRight = '<div class="right"><h5 class="title">'.$rowBox['title'].'</h5>'.$strRight.'</div>';
+		$str .= '<div class="left"><h5 class="title">'.$rowBox['title'].'</h5>';
+		foreach($data as $row){
+			$str .= '<p class="img effect"><img src="'.IMAGE_URL.$row['img'].'" alt="'.$row['name'].'" /></p>';
 		}
+		$str .= '<p class="clear1"></p></div>';
 	}
 	
 	echo '<div id="home-partner">
 		<div class="container">
 			<div class="content">
-				'.$strLeft.$strRight.'
+				'.$str.'
 				<p class="clear1"></p>
 			</div>
 		</div>
