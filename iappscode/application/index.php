@@ -39,6 +39,7 @@ function tachUrl($url){
 }
 
 $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$url = str_replace('http://123.31.26.59/', '', $url);
 $url = str_replace(CONS_BASE_URL.'/', '', $url);
 $arrUrl = tachUrl($url);
 
