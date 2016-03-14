@@ -6,13 +6,9 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 include_once('config/config.php');
 
 function tachUrl($url){
-	if(preg_match('/^vi/i', $url)){
+	$m = explode('/', $url);
+	if(count($m) > 2){
 		$url = preg_replace('/^vi/i', '', $url, 1);
-		$url = trim($url, '/');
-		header('location: '.CONS_BASE_URL.'/'.$url);
-		return false;
-	}
-	if(preg_match('/^en/i', $url) && strlen($url)>4 ){
 		$url = preg_replace('/^en/i', '', $url, 1);
 		$url = trim($url, '/');
 		header('location: '.CONS_BASE_URL.'/'.$url);
