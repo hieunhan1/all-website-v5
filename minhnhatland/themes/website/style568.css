@@ -161,6 +161,23 @@
 #sliderHome .content{position:absolute; z-index:1}
 
 #home-project{clear:both}
+
+#home-contact{clear:both; margin-bottom:30px}
+#home-contact .img{clear:both; position:relative; overflow:hidden; z-index:1}
+#home-contact .img img{max-height:280px}
+#home-contact .content{width:95%; color:#FFF; position:absolute; z-index:2}
+#home-contact .content .title{font-size:200%; font-weight:100; text-align:center; padding:40px 0 20px 0}
+#home-contact .content .info{font-size:110%; text-align:center; letter-spacing:1px; padding-bottom:30px}
+#home-contact .content .call{color:#FF0; font-size:220%; text-align:center}
+
+.home-news{clear:both; margin-bottom:30px;}
+.home-news .home-title{margin-bottom:10px;}
+.home-news .home-title .h2{color:#333; text-align:left; font-weight:bold;}
+.home-news .box{clear:both; line-height:150%; margin-bottom:20px}
+.home-news .box .img{width:30%; float:left; overflow:hidden; margin-right:15px}
+.home-news .box .img img{max-width:100%}
+.home-news .box .title{font-size:130%; font-weight:100; margin-bottom:5px}
+.home-news .box .info{}
 /*end home*/
 
 /*width gerenal*/
