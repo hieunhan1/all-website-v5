@@ -740,6 +740,53 @@ if(isset($_POST['sendMailClass'])){
 	echo json_encode($arr);
 	return true;
 }
+
+if(isset($_POST['sendMailPayment'])){
+	$name = $c->_model->_changeDauNhay($_POST['name']);
+	$email = $c->_model->_changeDauNhay($_POST['email']);
+	$price = $c->_model->_changeDauNhay($_POST['price']);
+	$code = $c->_model->_changeDauNhay($_POST['code']);
+	$info = $c->_model->_changeDauNhay($_POST['info']);
+	if($email=='' || $price=='' || $code==''){
+		echo '<span class="adError">Error: Data empty</span>';
+		return false;
+	}
+	
+	$link = 'http://www.stevbros.com/public/Cpayment/form.php?orderID='.$code.'&price='.$price.'&name='.$name.'&email='.$email.'&info='.$info;
+	$link = str_replace(' ', '%20', $link);
+	$link = '<a href="'.$link.'">'.$link.'</a>';
+	
+	//get form thong bao
+	$event_id = 19;
+	$rowForm = $c->_model->_viewDetail('web_event_form', $event_id);
+	$subject = $rowForm['subject'];
+	$arr = array(
+		'{_name}' => $name,
+		'{_price}' => number_format($price),
+		'{_info}' => $info,
+		'{_link}' => $link,
+	);
+	$content = $c->contentReplace($rowForm['content'], $arr);
+	$AddBCC = '';
+	$AddAddress = array('field'=>$email, 'name'=>$name);
+	if($rowForm['email']!='') $AddBCC = array('field'=>$rowForm['email'], 'name'=>'Stevbros');
+	$arrSend = array(
+		'AddAddress' => $AddAddress,
+		'AddBCC' => $AddBCC,
+		'Subject' => $subject,
+		'Body' => $content,
+	);
+	
+	//sendmail
+	$data = $c->sendMail($arrSend, 1);
+	if(!preg_match("/error:/i", $data)){
+		echo '<span class="adMessage"><b>Gửi mail '.$email.' thành công.</b></span>';
+	}else{
+		echo '<div class="adError"><p>ERROR sendmail:</p>'.$data.'</div>';
+	}
+	
+	return true;
+}
 /*end sendMail*/
 
 ?>

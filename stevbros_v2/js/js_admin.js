@@ -483,7 +483,7 @@ $(document).ready(function(e) {
 			type: 'post',
 			data: fields,
 			cache: false,
-			success: function(str){
+			success: function(str){ console.log(str);
 				var data = $.parseJSON(str);
 				var error = parseInt(data.error);
 				if(error==0){

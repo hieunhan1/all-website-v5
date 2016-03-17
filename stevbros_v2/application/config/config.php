@@ -1,10 +1,10 @@
 <?php
 include_once('configUpload.php');
-define('CONS_BASE_URL', 'http://www.iappscode.com/stevbros');
+define('CONS_BASE_URL', 'http://localhost/all_v5/stevbros_v2');
 define('CONS_HOST', 'localhost');
-define('CONS_USER_DB', 'iappscod_test');
-define('CONS_PASS_DB', 'iappscod_test#123*');
-define('CONS_NAME_DB', 'iappscod_test');
+define('CONS_USER_DB', 'root');
+define('CONS_PASS_DB', '');
+define('CONS_NAME_DB', 'stevbros_v2');
 define('CONS_DEFAULT_LANG', 'vi');
 
 /*cache*/
