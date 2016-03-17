@@ -8,11 +8,21 @@ include_once('config/config.php');
 function tachUrl($url){
 	$m = explode('/', $url);
 	if(count($m) > 2){
-		$url = preg_replace('/^vi/i', '', $url, 1);
-		$url = preg_replace('/^en/i', '', $url, 1);
-		$url = trim($url, '/');
-		header('location: '.CONS_BASE_URL.'/'.$url);
-		return false;
+		$count = 0;
+		
+		$url = preg_replace('/^vi/i', '', $url, -1, $count);
+		if($count > 0){
+			$url = trim($url, '/');
+			header('location: '.CONS_BASE_URL.'/'.$url);
+			return false;
+		}
+		
+		$url = preg_replace('/^en/i', '', $url, -1, $count);
+		if($count > 0){
+			$url = trim($url, '/');
+			header('location: '.CONS_BASE_URL.'/'.$url);
+			return false;
+		}
 	}
 	
 	$arr = array();
