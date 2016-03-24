@@ -10,7 +10,7 @@ class modelUsers extends modelDB{
 	
 	public function _check_admin_login($user, $pass){
 		$pass = md5($pass);
-		$sql = "SELECT `id`,`name`,`username`,`page`,`group_id` FROM `web_users` WHERE `username`='{$user}' AND `password`='{$pass}' AND `status`=1 LIMIT 1";
+		$sql = "SELECT * FROM `web_users` WHERE `username`='{$user}' AND `password`='{$pass}' AND `status`=1 LIMIT 1";
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 		$data = array();
 		while($row = $result->fetch_assoc()) $data[] = $row;

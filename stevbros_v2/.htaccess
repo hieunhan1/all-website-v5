@@ -4,6 +4,7 @@ RewriteRule ^(.*)$ http://www.iappscode.com/$1 [R=permanent,L]
 RewriteRule js - [L]
 RewriteRule public - [L]
 RewriteRule themes - [L]
+RewriteRule temp - [L]
 RewriteRule (.*) application/index.php [L]
 AddDefaultCharset UTF-8
 Options -Indexes

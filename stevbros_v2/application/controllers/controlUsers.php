@@ -30,6 +30,7 @@ class controlUsers{
 			$_SESSION['adminUser'] = $row['username'];
 			$_SESSION['adminType'] = $row['page'];
 			$_SESSION['adminGroup'] = $row['group_id'];
+			$_SESSION['adminCountry'] = $row['country'];
 			return true;
 		}else return false;
 	}

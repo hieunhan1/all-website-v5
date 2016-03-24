@@ -694,38 +694,35 @@ $(document).ready(function(e) {
 		listDistrict();
 	});*/
 	
-	function searchID(tags){
-		$(".value_id").parent().removeClass("activeSearch");
-		$(tags).parent().addClass("activeSearch");
+	function searchID(element){
+		var id = $(element).find(".value_id").val();
+		var table = $(element).find(".value_view").attr("table");
+		if(id=='' || table=='') return false;
 		
-		var id = $(".activeSearch .value_id").val();
-		
-		setTimeout( function(){
-			var table = $(".activeSearch .value_view").attr("table");
-			if(id=='' || table=='') return false;
-			
-			$.ajax({
-				url: link_ajax,
-				type:'POST',
-				data:{searchID:id, table:table},
-				cache:false,
-				success: function(data) {
-					if(data!=''){
-						$(".activeSearch .value_name").val(data);
-					}else{
-						$(".activeSearch .value_name").val('');
-						popupLoad('<p class="adError">Không tìm thấy dữ liệu</p> <p class="clear10"></p> <p class="adBtnSmall bgColorGray corner5 popupClose">Close</p> <p class="clear1"></p></p>');
-					}
-					return true;
+		$.ajax({
+			url: link_ajax,
+			type:'POST',
+			data:{searchID:id, table:table},
+			cache:false,
+			success: function(data) {
+				if(data!=''){
+					$(element).find(".value_name").val(data);
+				}else{
+					$(element).find(".value_name").val('');
+					popupLoad('<p class="adError">Không tìm thấy dữ liệu</p> <p class="clear10"></p> <p class="adBtnSmall bgColorGray corner5 popupClose">Close</p> <p class="clear1"></p></p>');
 				}
-			});
-		}, 500);
+				return true;
+			}
+		});
 	}
 	$(".value_id").live("blur", function(){
-		searchID( $(this) );
+		var element = $(this).parent().parent().contents();
+		searchID(element);
 	});
-	$(".value_id").each(function(index, element){
-		searchID( $(this) );
+	
+	$(".value_id").parent().addClass("activeSearch");
+	$(".activeSearch").each(function(index, element){
+		searchID(element);
 	});
 	
 	function searchName(tags){

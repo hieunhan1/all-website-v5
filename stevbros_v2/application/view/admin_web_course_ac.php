@@ -42,6 +42,13 @@ $other='<span class="error adError"></span>';
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Mã khóa học', $data);
 
+$name = 'pdu';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'10');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('PDUs', $data);
+
 $name = 'name';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'200');

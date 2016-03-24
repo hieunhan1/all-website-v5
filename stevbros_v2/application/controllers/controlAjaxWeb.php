@@ -472,4 +472,91 @@ if(isset($_POST['rejectKhaoSat'])){
 	return true;
 }
 /*end TrainingNeedAssessment khảo sát*/
+
+/*dompdf*/
+//reference the Dompdf namespace
+use Dompdf\Dompdf;
+if(isset($_GET['license'])){
+	$license = $c->_model->_changeDauNhay($_GET['license']);
+	
+	require_once "libraries/dompdf/autoload.inc.php";
+	
+	$arr = array(
+		'select' => '`mn_customer`.`name`, `web_header`.`name` as `course`, `web_header`.`pdu`, `mn_license`.`code`, `mn_license`.`datetime`, `mn_trainer`.`name` as `name_signature`, `mn_trainer`.`img`, `mn_trainer`.`position`',
+		'from' => '`mn_license`, `mn_customer`, `mn_trainer`, `web_header`',
+		'where' => "`mn_license`.`status`=1 AND `mn_license`.`code`='{$license}' AND `customer_id`=`mn_customer`.`id` AND `trainer_id`=`mn_trainer`.`id` AND `course_id`=`web_header`.`id`",
+		'limit' => 1,
+	);
+	$data = $c->_model->_select($arr);
+	if(count($data)==0) return false;
+	
+	$row = $data[0];
+	
+	$name = $row['name'];
+	$course = $row['course'];
+	
+	$img_signature1 = '<img src="../public/images/'.$row['img'].'" />';
+	$logo_signature1 = '<img src="../public/mauBang/logo1.png" />';
+	$name_signature1 = $row['name_signature'];
+	$position_signature1 = $row['position'];
+	
+	$img_signature2 = '<img src="../public/mauBang/sign2.png" />';
+	$logo_signature2 = '<img src="../public/mauBang/logo2.png" />';
+	$name_signature2 = 'Nguyen Huu Song Phuong';
+	$position_signature2 = 'President and Chief Executive Officer';
+	
+	$pdu = $row['pdu'];
+	$code = $row['code'];
+	$date = date('F d, Y', $row['datetime']);
+	
+	/*$name = 'Tran Hieu Nhan';
+	$course = 'PMP® Exam Preparation';
+	$img_signature1 = '<img src="../public/mauBang/sign1.png" />';
+	$logo_signature1 = '<img src="../public/mauBang/logo1.png" />';
+	$name_signature1 = 'Nguyen Binh Phuong, MBA, PMP®';
+	$position_signature1 = 'Instructor';
+	$img_signature2 = '<img src="../public/mauBang/sign2.png" />';
+	$logo_signature2 = '<img src="../public/mauBang/logo2.png" />';
+	$name_signature2 = 'Nguyen Huu Song Phuong';
+	$position_signature2 = 'President and Chief Executive Officer';
+	$pdu = '30';
+	$code = '3AJA789';
+	$date = date('F d, Y');*/
+	
+	//instantiate and use the dompdf class
+	$dompdf = new Dompdf();
+	$dompdf->set_option('isHtml5ParserEnabled', true);
+	
+	//html
+	$html = file_get_contents('../public/mauBang/file_html_img.html');
+	$html = str_replace('{_name}', $name, $html);
+	$html = str_replace('{_course}', $course, $html);
+	$html = str_replace('{_img_signature1}', $img_signature1, $html);
+	$html = str_replace('{_logo_signature1}', $logo_signature1, $html);
+	$html = str_replace('{_name_signature1}', $name_signature1, $html);
+	$html = str_replace('{_position_signature1}', $position_signature1, $html);
+	$html = str_replace('{_img_signature2}', $img_signature2, $html);
+	$html = str_replace('{_logo_signature2}', $logo_signature2, $html);
+	$html = str_replace('{_name_signature2}', $name_signature2, $html);
+	$html = str_replace('{_position_signature2}', $position_signature2, $html);
+	$html = str_replace('{_pdu}', $pdu, $html);
+	$html = str_replace('{_code}', $code, $html);
+	$html = str_replace('{_date}', $date, $html);
+	
+	$dompdf->loadHtml($html);
+	//end html
+	
+	//(Optional) Setup the paper size and orientation
+	$dompdf->setPaper('A4', 'landscape'); //portrait, landscape
+	
+	//Render the HTML as PDF
+	$dompdf->render();
+	
+	//Stream - Output the generated PDF to Browser
+	//$dompdf->output();
+	//$dompdf->stream('pdf');
+	$dompdf->stream("pdf", array("Attachment" => false));
+	exit(0);
+}
+/*end dompdf*/
 ?>

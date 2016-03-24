@@ -63,6 +63,13 @@ $value=$rowDetail[$name];
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);
 echo $cF->displayDiv('Name', $data);
 
+$name = 'position';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'150');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Position', $data);
+
 $name = 'phone';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'30');

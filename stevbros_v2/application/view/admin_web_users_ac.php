@@ -25,18 +25,6 @@ else $valueCheck=$rowDetail[$name];
 $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
 echo $cF->displayDiv('Trang mặc định', $data);
 
-/*if($rowDetail['group_id']!=3 && $id!=0){
-	echo $cF->displayDiv('Ngày đăng ký', '<b class="label2 adMessage">'.$c->viewDateTime($rowDetail['datetime']).'</b>');
-	
-	$name = 'date_expiration';
-	$properties = array();
-	$properties[] = array('propertie'=>'maxlength', 'value'=>'16');
-	if($rowDetail[$name]==0) $value=date('Y-m-d H:i', time());
-	else $value=date('Y-m-d H:i', $rowDetail[$name]);
-	$data = $cF->inputText($name, $value, 'ad_field adInput adTxtSmall datetimepick', $properties);
-	echo $cF->displayDiv('Ngày hết hạn', $data);
-}*/
-
 $name = 'group_id';
 $values = $c->_model->_listTable('web_users_group', '`_order`');
 array_unshift($values, array('name'=>'-- chọn nhóm --', 'id'=>'0'));
@@ -101,10 +89,17 @@ echo $cF->displayDiv('Email', $data);
 
 $name = 'address';
 $properties = array();
-$properties[] = array('propertie'=>'spellcheck', 'value'=>'false');
+$properties[] = array('propertie'=>'maxlength', 'value'=>'200');
 $value=$rowDetail[$name];
-$data = $cF->textArea($name, $value, 'ad_field adInput adTextArea', $properties);
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
 echo $cF->displayDiv('Address', $data);
+
+$name = 'country';
+$properties = array();
+$properties[] = array('propertie'=>'maxlength', 'value'=>'3');
+$value=$rowDetail[$name];
+$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+echo $cF->displayDiv('Country', $data);
 
 $name = 'btnCancel';
 $btnCancel = $cF->btnCancel($name, 'Quay lại');
