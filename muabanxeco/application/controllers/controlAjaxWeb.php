@@ -2,6 +2,7 @@
 if(isset($_POST['rejectContact'])){
 	$table = 'web_contact';
 	$name = $c->_model->_changeDauNhay($_POST['name']);
+	$phone = $c->_model->_changeDauNhay($_POST['phone']);
 	$email = $c->_model->_checkEmail($_POST['email']);
 	$message = $c->_model->_changeDauNhay($_POST['message']);
 	$type = $c->_model->_changeDauNhay($_POST['type']);
@@ -35,6 +36,7 @@ if(isset($_POST['rejectContact'])){
 		if(trim($dataEvent['email'])!='') $AddBCC = array('field'=>$dataEvent['email'], 'name'=>CONS_SEND_MAIL_FROM_NAME);
 		$arr = array(
 			'{_name}' => $name,
+			'{_phone}' => $phone,
 			'{_cars}' => $cars,
 			'{_message}' => $message,
 		);
