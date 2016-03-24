@@ -48,7 +48,18 @@
         echo '</div>';
     }
 	else if($totalRows==1) header('location: '.CONS_BASE_URL.'/'.$data[0]['name_alias']);
-    else echo '<p style="padding:10px 0px 100px 50px">'.$lang_var['update'].'</p>';
+    else{
+		$content = $c->_model->_content($currentPage['id']);
+		if(count($content) > 0){
+			$strContent = $content['content'];
+		}else{
+			$strContent = '<p style="padding:10px 0px 100px 50px">'.$lang_var['update'].'</p>';
+		}
+		echo '<div class="viewpost">
+			<h1>'.$currentPage['title'].'</h1>
+			'.$strContent.'
+		</div>';
+	};
     ?>
     </div>
     
