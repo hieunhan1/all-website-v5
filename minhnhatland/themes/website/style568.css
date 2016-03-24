@@ -79,7 +79,7 @@
 #contact-info .email{padding-left:15px; background-position:-20px 4px}
 #contact-info .fax{padding-left:15px; background-position:0px 2px}
 
-#contact-frm{clear:both; margin-bottom:30px}
+#contact-frm{clear:both; margin-bottom:30px; line-height:180%;}
 #contact-frm .loading{width:32%; height:422px}
 #contact-frm .txt{width:95%; padding:12px; background-color:#FFF}
 #contact-frm .textarea{width:95%; height:180px; line-height:22px; overflow:auto; resize:vertical; padding:12px; background-color:#FFF}

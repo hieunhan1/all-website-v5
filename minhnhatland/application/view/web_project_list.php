@@ -34,7 +34,7 @@
 			$i = 0;
 			echo '<div class="project-list">';
             foreach($data as $row){
-                $img = IMAGE_URL.$row['img'];
+                $img = IMAGE_URL_THUMB.$row['img'];
                 if($row['img']=='') $img=CONS_IMAGE_DEFAULT;
                 $i++;
 				if($i%3 != 1) $margin='margin'; else $margin='';
