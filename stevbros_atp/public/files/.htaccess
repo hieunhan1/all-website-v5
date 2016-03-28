@@ -1,0 +1,7 @@
+<FilesMatch ".*\.(php|js)$">
+    Deny from all
+</FilesMatch>
+
+<FilesMatch ".*\.(txt|jpg|gif|png|bmp|jpeg|doc|docx|pdf|xlsx|xls|xml)$">
+    Allow from all
+</FilesMatch>

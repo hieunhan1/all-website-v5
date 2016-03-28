@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Certificate</title>
+<style type="text/css">
+*{margin:0px}
+body{/*font-family:DejaVu Sans; */color:#333; font-size:18px; z-index:0; }
+
+#wrapper{clear:both; width:1080px; height:750px; margin:16px auto 0 auto; overflow:hidden; background:url(../public/mauBang/certificate-72.png) no-repeat; background-size:100%;}
+
+#content{text-align:center; padding:135px 50px 0 50px;}
+#content h1{color:#2e404f; font-size:200%; }
+#content h2{font-size:260%; font-weight:100; }
+#content h3{font-size:200%; font-weight:100; padding-bottom:20px; }
+#content .item1{padding:20px 0;}
+#content .item2{padding:20px 0;}
+#content .item3{line-height:22px; font-size:90%; }
+#content .signature{clear:both; padding-top:20px; }
+#content .signature .sign{padding:0 10px}
+#content .signature .sign .img{clear:both; height:60px; margin-bottom:20px;}
+#content .signature .sign .img img{height:60px;}
+#content .signature .sign .name{font-size:90%; padding:10px 0 10px 0; border-top:solid 1px #888;}
+#content .signature .sign .name span{font-size:75%;}
+#content .signature .logo1 img{height:100px}
+#content .signature .logo2 img{height:70px; padding-top:15px;}
+#content .other{padding-top:30px; font-size:80%; }
+</style>
+</head>
+
+<body>
+
+<div id="wrapper">
+	<div id="content">
+        <p class="item1">This is to certify that</p>
+        <h2>{_name}</h2>
+        <p class="item2">has completed the course</p>
+        <h3>{_course}</h3>
+        <div class="signature">
+        	<table width="100%" border="0">
+            	<tr>
+                	<td width="50%" align="center" valign="top" class="sign">
+                        <p class="img">{_img_signature1}</p>
+                        <p class="name">{_name_signature1}. <span>{_position_signature1}</span></p>
+                    </td>
+                    <td width="50%" align="center" valign="top" class="sign">
+                        <p class="img">{_img_signature2}</p>
+                        <p class="name">{_name_signature2}. <span>{_position_signature2}</span></p>
+                    </td>
+                </tr>
+            </table>
+            <table width="96%" border="0" align="center" style="margin:auto">
+                <tr>
+                	<td width="25%" align="left" valign="top">
+                    	<p class="logo1">{_logo_signature1}</p>
+                    </td>
+                	<td align="center" valign="bottom">
+                        <p class="item3">Number of PDUs: {_pdu}</p>
+                        <p class="item3">Certificate Number: {_code}</p>
+                        <p class="item3">Certificate Original Grant Date: {_date}</p>
+                    </td>
+                    <td width="25%" align="right" valign="top">
+                    	<p class="logo2">{_logo_signature2}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <p class="other">The PMI Registered Education Provider logo is a registered mark of the Project Management Institute, Inc.</p>
+        <p>&nbsp;</p>
+    </div>
+</div>
+
+</body>
+</html>
