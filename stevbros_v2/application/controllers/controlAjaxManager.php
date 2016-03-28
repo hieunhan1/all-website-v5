@@ -741,6 +741,90 @@ if(isset($_POST['sendMailClass'])){
 	return true;
 }
 
+if(isset($_POST['sendMailFinalTest'])){
+	$table = $c->_model->_changeDauNhay($_POST['table']);
+	$table_id = $c->_model->_changeDauNhay($_POST['table_id']);
+	$header_id = $c->_model->_changeDauNhay($_POST['header_id']);
+	$event_id = $c->_model->_changeDauNhay($_POST['event_id']);
+	if($table=='' || $table_id=='' || $header_id=='' || $event_id==''){
+		$arr = array('error'=>1, 'message'=>'Error: Data empty');
+		echo json_encode($arr);
+		return false;
+	}
+	
+	//sendMail Customer
+	$rowForm = $c->_model->_viewDetail('web_event_form', $event_id);
+	if(count($rowForm)==0){
+		$arr = array('error'=>1, 'message'=>'Error: Not found form sendmail');
+		echo json_encode($arr);
+		return false;
+	}
+	
+	//get customer
+	function sendMailClass($arrData){
+		global $c;
+		$name = $arrData['name'];
+		$email = $arrData['email'];
+		if( $c->_model->_checkEmail($email)==false )
+			return "<p class='adError'>ERROR: email không đúng <b>{$name} | {$email}</b></p>";
+		
+		$arr = array(
+			'{_name}' => $name,
+			'{_link}' => $arrData['link'],
+		);
+		$content = $c->contentReplace($arrData['content'], $arr);
+		$AddAddress = array('field'=>$email, 'name'=>$name);
+		$AddBCC = '';
+		if($arrData['bcc']!='') $AddBCC=array('field'=>$arrData['bcc'], 'name'=>'Stevbros');
+		$arrSend = array(
+			'AddAddress' => $AddAddress,
+			'AddBCC' => $arrData['bcc'],
+			'Subject' => $arrData['subject'],
+			'Body' => $content,
+		);
+		$data = $c->sendMail($arrSend, 1);
+		if(!preg_match("/error:/i", $data)){
+			global $cM;
+			$cM->_insertContactSendMail($name, $email, $content, $arrData['event_id'], $arrData['table'], $arrData['table_id']);
+			return "<p>Gửi mail <b class='adMessage'>{$name} - {$email}</b> thành công.</p>";
+		}else{
+			return "<p class='adError'>ERROR sendmail: <b>{$name} - {$email}</b></p>";
+		}
+	}
+	$str = '';
+	$arr = array(
+		"select"=>"`mn_customer`.`id`, `name`, `phone`, `email`, `datetime`",
+		"from"=>"`mn_class_info`, `mn_customer`",
+		"where"=>"`class_id`='{$table_id}' AND `_table`='mn_customer' AND `table_id`=`mn_customer`.`id`",
+	);
+	$data = $c->_model->_select($arr);
+	foreach($data as $row){
+		$link = CONS_BASE_URL.'/ajax/?entrytest=1&menu_id='.$header_id.'&type=mn_customer&date='.$row['datetime'];
+		$link = '<a href="'.$link.'">'.$link.'</a>';
+		$arrData = array(
+			'name' => $row['name'],
+			'email' => $row['email'],
+			'link' => $link,
+			'subject' => $rowForm['subject'],
+			'content' => $rowForm['content'],
+			'bcc' => $rowForm['email'],
+			'event_id' => $event_id,
+			'table' => 'mn_customer',
+			'table_id' => $row['id'],
+		);
+		$str .= sendMailClass($arrData);
+	}
+	
+	//result
+	$arr = array(
+		'error' => 0,
+		'message' => 'Gửi mail thành công',
+		'data' => $str,
+	);
+	echo json_encode($arr);
+	return true;
+}
+
 if(isset($_POST['sendMailPayment'])){
 	$name = $c->_model->_changeDauNhay($_POST['name']);
 	$email = $c->_model->_changeDauNhay($_POST['email']);

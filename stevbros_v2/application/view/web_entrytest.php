@@ -134,7 +134,27 @@
 			//lay thong tin
 			$arrAll = array();
 			$dataParent = $c->_model->_parent($currentPage['id']);
-			foreach($dataParent as $rowParent){
+			if(count($dataParent)!=0){
+				foreach($dataParent as $rowParent){
+					$dataEntry = $c->_model->_entrytestList($rowParent['id']);
+					$number = count($dataEntry);
+					
+					//thong tin parent
+					$arrAll[$rowParent['id']]['info'] = array(
+						'name' => $rowParent['name'],
+						'number' => $number,
+					);
+					
+					//cac entrytest
+					foreach($dataEntry as $rowEntry){
+						if(isset($dataUserAnswers[$rowEntry['id']]['answers']))
+							$rowEntry['user_answers'] = $dataUserAnswers[$rowEntry['id']]['answers'];
+							
+						$arrAll[$rowParent['id']]['entrytest'][] = $rowEntry;
+					}
+				}
+			}else{
+				$rowParent = $currentPage;
 				$dataEntry = $c->_model->_entrytestList($rowParent['id']);
 				$number = count($dataEntry);
 				

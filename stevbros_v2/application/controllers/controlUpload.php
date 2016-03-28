@@ -53,7 +53,7 @@ function imageProcess($img_info){
 	}else return false;
 }
 
-function readXML($file, $contract_id){
+function readXML($file, $table, $table_id){
 	if( !file_exists($file) ){
 		$arr = array('result'=>false, 'message'=>'File does not exist');
 		echo json_encode($arr);
@@ -65,14 +65,31 @@ function readXML($file, $contract_id){
 	$xml = simplexml_load_file($file);
 	foreach($xml->Worksheet->Table->Row as $row){
 		$name = $model->_changeDauNhay( $row->Cell[0]->Data );
-		$phone = $model->_changeDauNhay( $row->Cell[1]->Data );
-		$email = $model->_checkEmail( $row->Cell[2]->Data );
-		$address = $model->_changeDauNhay( $row->Cell[3]->Data );
-		$city = $model->_changeDauNhay( $row->Cell[4]->Data );
-		$country = $model->_changeDauNhay( $row->Cell[5]->Data );
-		$birthday = $model->_changeDauNhay( $row->Cell[6]->Data );
-		$birthplace = $model->_changeDauNhay( $row->Cell[7]->Data );
-		$company = $model->_changeDauNhay( $row->Cell[8]->Data );
+		$email = $model->_checkEmail( $row->Cell[1]->Data );
+		$phone = '';
+		if(isset($row->Cell[2]->Data)){
+			$phone = $model->_changeDauNhay( $row->Cell[2]->Data );
+		}
+		$address = '';
+		if(isset($row->Cell[3]->Data)){
+			$address = $model->_changeDauNhay( $row->Cell[3]->Data );
+		}
+		$city = '';
+		if(isset($row->Cell[4]->Data)){
+			$city = $model->_changeDauNhay( $row->Cell[4]->Data );
+		}
+		$country = '';
+		if(isset($row->Cell[5]->Data)){
+			$country = $model->_changeDauNhay( $row->Cell[5]->Data );
+		}
+		$birthday = '';
+		if(isset($row->Cell[6]->Data)){
+			$birthday = $model->_changeDauNhay( $row->Cell[6]->Data );
+		}
+		$company = '';
+		if(isset($row->Cell[7]->Data)){
+			$company = $model->_changeDauNhay( $row->Cell[7]->Data );
+		}
 		if($birthday!='') $birthday = strtotime($birthday);
 		
 		$arr = array(
@@ -86,26 +103,44 @@ function readXML($file, $contract_id){
 		
 		if($name!='' && $email!=false && $total==0){
 			$i++;
-			$customer_id = $model->_insertCustomer($name, $phone, $email, $address, $city, $country, $birthday, $birthplace, $company);
-			$model->_insertContractCustomer($contract_id, $customer_id);
+			$customer_id = $model->_insertCustomer($name, $phone, $email, $address, $city, $country, $birthday, $company);
+			if($table=='mn_contract'){
+				$model->_insertContractCustomer($table_id, $customer_id);
+			}else if($table=='mn_class'){
+				$model->_insertClassCustomer($table_id, $customer_id);
+			}
 		}else if($name!='' && $email!=false && $total==1){
 			$row = $data[0];
 			$customer_id = $row['id'];
-			$arr = array(
-				'select'=>'`id`',
-				'from' => '`mn_contract_customer`',
-				'where' => "`contract_id`='{$contract_id}' AND `customer_id`='{$customer_id}'",
-				'limit' => 1,
-			);
-			$data = $model->_select($arr);
-			$total = count($data);
-			if($total==0){
-				$i++;
-				$model->_insertContractCustomer($contract_id, $customer_id);
+			
+			if($table=='mn_contract'){
+				$arr = array(
+					'select'=>'`id`',
+					'from' => '`mn_contract_customer`',
+					'where' => "`contract_id`='{$table_id}' AND `customer_id`='{$customer_id}'",
+					'limit' => 1,
+				);
+				$data = $model->_select($arr);
+				if(count($data)==0){
+					$i++;
+					$model->_insertContractCustomer($table_id, $customer_id);
+				}
+			}else if($table=='mn_class'){
+				$arr = array(
+					'select'=>'`id`',
+					'from' => '`mn_class_info`',
+					'where' => "`class_id`='{$table_id}' AND `_table`='mn_customer' AND `table_id`='{$customer_id}'",
+					'limit' => 1,
+				);
+				$data = $model->_select($arr);
+				if(count($data)==0){
+					$i++;
+					$model->_insertClassCustomer($table_id, $customer_id);
+				}
 			}
 		}else if($name=='' || $email==false){
 			$j++;
-			$str .= "{$j}. {$hoten} - {$email} - {$phone} <span class='error'>kiểm tra data</span><br />";
+			$str .= "{$j}.{$name} - {$email} - {$phone} <span class='error'>kiểm tra data</span><br />";
 		}
 	}//end for
 }
@@ -182,7 +217,7 @@ if(isset($_POST['imageUpload'])){
 			$newName = $newName.'.'.$ext;
 			$file = IMAGE_UPLOAD_URL_TEMP.$newName;
 			if (move_uploaded_file($_FILES['photos']['tmp_name'][$name], $file)){
-				$data = readXML($file, $table_id);
+				$data = readXML($file, $table, $table_id);
 				$arr[] = array('error'=>0, 'message'=>'Upload thành công', 'img'=>'xml.png', 'img_url_thumb'=>'themes/website/img/', 'img_url'=>CONS_BASE_URL.'/themes/website/img/');
 				unlink($file);
 			}else{

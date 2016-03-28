@@ -110,6 +110,12 @@ if($id==0){
 	echo $data;
 }
 
+//upload images
+$data = ob_start();
+include_once('admin_upload.php');
+$data = ob_get_clean();
+echo $cF->displayDiv('Upload file XML', $data);
+
 $str=''; $i=0; $total=0;
 $arr = array(
 	"select"=>"`mn_class_info`.`id`, `name`, `phone`, `email`, `mn_contract`.`id` as `contract_id`",
@@ -152,12 +158,14 @@ echo $data;
 $name = 'btnCancel';
 $btnCancel = $cF->btnCancel($name, 'Quay lại');
 $name = 'btnViewAddCustomer';
-$btnViewAddCustomer = $cF->inputButton($name, 'Đưa k.hàng vào lớp', 'adBtnLarge bgColorOranges corner8');
-$name = 'btnSendMail';
-$btnSendMail = $cF->inputButton($name, 'Gửi mail thông báo', 'adBtnLarge bgColorGreen corner8');
+$btnViewAddCustomer = $cF->inputButton($name, 'Add customer', 'adBtnLarge bgColorOranges corner8');
+$name = 'viewSendMail';
+$viewSendMail = $cF->inputButton($name, 'Gửi mail', 'adBtnLarge bgColorGreen corner8');
+$name = 'viewFinalTest';
+$viewFinalTest = $cF->inputButton($name, 'Final test', 'adBtnLarge bgColorPurple corner8');
 $name = 'btnSubmitAjax';
 $btnSubmit = $cF->inputButton($name, $arrAction['lable'], 'adBtnLarge bgColorBlue1 corner8');
-echo $cF->displayDiv(' ', $btnSubmit.$btnViewAddCustomer.$btnSendMail.$btnCancel.'<span id="ajaxFee"></span>');
+echo $cF->displayDiv(' ', $btnSubmit.$btnViewAddCustomer.$viewSendMail.$viewFinalTest.$btnCancel.'<span id="ajaxFee"></span>');
 
 /*$arr = array(
 	"select" => "*",
@@ -236,7 +244,7 @@ $(document).ready(function(e) {
 		$properties[] = array('propertie'=>'style', 'value'=>'width:auto; float:left');
 		$data .= $cF->inputButton($name, 'Tìm kiếm', 'adBtnSmall bgColorBlue1 corner5 value_search');
 		$name = 'btnAddCustomer';
-		$data .= $cF->inputButton($name, 'Thêm vào hợp đồng', 'adBtnSmall bgColorOranges corner5', $properties);
+		$data .= $cF->inputButton($name, 'Thêm vào lớp học', 'adBtnSmall bgColorOranges corner5', $properties);
 		$name = 'btnClose';
 		$data .= $cF->inputButton($name, 'Close', 'adBtnSmall bgColorGray corner5 popupClose', $properties);
 		echo $cF->displayDiv('', $data);
@@ -299,6 +307,13 @@ $(document).ready(function(e) {
 		});
 	});
 	
+	$("#viewSendMail").live("click", function(){
+		var str = '<p>Bạn có muốn gửi mail thông báo?</p> <p class="clear20"></p>';
+			str+= '<p> <span id="btnSendMail" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 popupClose">No</span> </p>';
+			str+= '<p class="clear1"></p>';
+		popupLoad(str);
+	});
+	
 	$("#btnSendMail").live("click", function(){
 		var id = $("#id").val();
 		var table_id = $("#table_id").val();
@@ -319,7 +334,72 @@ $(document).ready(function(e) {
 			success: function(data){
 				console.log(data);
 				data = $.parseJSON(data);
+				var str = '';
+				if(data.error==0){
+					str = '<div style="line-height:160%"><p class="adMessage">' + data.message + '</p> <p class="clear10"></p>' + data.data + '</div>';
+				}else{
+					str = '<p class="adError">' +data.message+ '</p>';
+				}
+				str += '<p class="clear10"></p><span class="adBtnSmall bgColorGray corner5 popupClose">Close</span> <p class="clear1"></p>';
+				popupLoad(str);
+				return true;
+			}
+		});
+	});
+	
+	$("#viewFinalTest").live("click", function(){
+		var str = '<p>Gửi làm bài Final Test?</p> <p class="clear20"></p>';
+			str+= '<?php
+			$name = 'finaltest_id';
+			$arr = array(
+				"select" => "`id`, `name`",
+				"from" => "`web_header`",
+				"where" => "`status`=1 AND `properties`=1 AND `type_id`=6 AND `parent`=0",
+				"order" => "`_order`",
+			);
+			$values = $c->_model->_select($arr);
+			array_unshift($values, array('name'=>'-- chọn entry test --', 'id'=>''));
+			$data = $cF->select($name, $values, '', 'adInput adTxtMedium').'<p id="finaltest_id_error" class="adError error"></p> <p class="clear10"></p>';
+			
+			$name = 'event_id';
+			$values = $c->_model->_listTable('web_event_form', NULL, 'AND `type`=2 AND `type_id`=3');
+			array_unshift($values, array('name'=>'-- chọn form --', 'id'=>''));
+			$data .= $cF->select($name, $values, '', 'adInput adTxtMedium').'<p id="event_id_error" class="adError error"></p>';
+			
+			echo $cF->displayDiv('', $data);
+			?>';
+			str+= '<p> <span id="btnFinalTest" class="adBtnSmall bgColorRed corner5">Yes</span> <span class="adBtnSmall bgColorGray corner5 popupClose">No</span> </p>';
+			str+= '<p class="clear1"></p>';
+		popupLoad(str);
+	});
+	
+	$("#btnFinalTest").live("click", function(){
+		var id = $("#id").val();
+		var table = $("#tableName").html();
+		if(id=='' || id=='0' || table=='table') return false;
+		
+		var header_id = check_text_length("#finaltest_id", "#finaltest_id_error", "Select final test", 1);
+		var event_id = check_text_length("#event_id", "#event_id_error", "Select form sendmail", 1);
+		if(header_id==false || event_id==false) return false;
+		
+		var str = '<p><b>Đang gửi mail..</b></p><p class="clear10"></p> <p class="adMessage"><i>Vui lòng không tắt trang hay tải lại trang khi đang gửi mail.</i></p>';
+		popupLoad(str);
+		
+		var fields = new Object();
+		fields['sendMailFinalTest'] = 1;
+		fields['table'] = table;
+		fields['table_id'] = id;
+		fields['header_id'] = header_id;
+		fields['event_id'] = event_id;
+		
+		$.ajax({ 	
+			url: 'ajax',
+			type: 'post',
+			data: fields,
+			cache:false,
+			success: function(data){
 				console.log(data);
+				data = $.parseJSON(data);
 				var str = '';
 				if(data.error==0){
 					str = '<div style="line-height:160%"><p class="adMessage">' + data.message + '</p> <p class="clear10"></p>' + data.data + '</div>';
