@@ -8,8 +8,8 @@ echo $data;
 
 $name = 'status';
 $values = array();
-$values[] = array('name'=>'Hiện', 'id'=>'1');
-$values[] = array('name'=>'Ẩn', 'id'=>'0');
+$values[] = array('name'=>'enable', 'id'=>'1');
+$values[] = array('name'=>'disable', 'id'=>'0');
 if($rowDetail[$name]=='') $valueCheck=1;
 else $valueCheck=$rowDetail[$name];
 $data = $cF->inputRadio($name, $values, $valueCheck, 'ad_field adRadio');
@@ -135,15 +135,34 @@ $data = $c->_model->_select($arr);
 foreach($data as $row){
 	$i++; $total++; $code='';
 	$arr = array(
-		"select"=>"`code`",
-		"from"=>"`mn_license`",
-		"where"=>"`class_id`='{$id}' AND `customer_id`='{$row['id']}'",
+		"select"=>"`result`",
+		"from"=>"`web_entrytest_user`",
+		"where"=>"`_table`='mn_customer' AND `table_id`='{$row['id']}'",
+		"order" => "`id` DESC",
 		"limit" => 1,
 	);
 	$data = $c->_model->_select($arr);
+
 	if(count($data)>0){
-		$rowLicense = $data[0];
-		$code = '<a href="'.CONS_BASE_URL.'/ajax/?certificate='.$rowLicense['code'].'" target="_blank">Download cert</a>';
+		$rowEntry = $data[0];
+		if($rowEntry['result']>=50){
+			$code = '<span class="adMessage">PASS</span> ';
+			$arr = array(
+				"select"=>"`code`",
+				"from"=>"`mn_license`",
+				"where"=>"`status`=1 AND `class_id`='{$id}' AND `customer_id`='{$row['id']}'",
+				"limit" => 1,
+			);
+			$data = $c->_model->_select($arr);
+			if(count($data)>0){
+				$rowLicense = $data[0];
+				$code .= '<a href="'.CONS_BASE_URL.'/ajax/?certificate='.$rowLicense['code'].'" target="_blank">Download cert</a>';
+			}
+		}else{
+			$code = '<span class="adError">FAIL</span>';
+		}
+	}else{
+		$code = 'NOT STARTED YET';
 	}
 	
 	$str.='<p class="item">'.$i.'. '.$row['name'].' - '.$row['email'].' - '.$row['phone'].' - '.$code.'</p>';

@@ -102,7 +102,7 @@ $(document).ready(function(e) {
 		str+='<div class="adAction">';
 		//str+='<p class="adBtn adView bgColorGreen"><span class="adIconWhite adIconView"></span>Xem</p>';
 		//str+='<p class="adBtn adStatus bgColorOranges"><span class="adIconWhite adIconEnable"></span>Status</p>';
-		str+='<a href="' +url+ '" class="adBtn adEdit bgColorBlue1"><span class="adIconWhite adIconEdit"></span>Sửa</a>';
+		str+='<a href="' +url+ '" class="adBtn adEdit bgColorBlue1"><span class="adIconWhite adIconEdit"></span>Edit</a>';
 		//str+='<a href="javascript:;" class="adBtn adDelete bgColorRed"><span class="adIconWhite adIconDelete"></span>Xóa</a>';
 		str+='</div></div>';
 		return str;

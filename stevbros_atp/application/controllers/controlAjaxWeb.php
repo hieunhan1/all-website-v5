@@ -366,11 +366,16 @@ if(isset($_POST['entrytestThongBao'])){
 		}
 	}else{
 		$cM = new modelManager();
-		$formID = 22;
-		$key = time();
-		$cM->_insertEntryTestUser($table, $table_id, $rowEntry['menu_id'], $key);
-		$link = CONS_BASE_URL.'/ajax/?entrytest='.$key;
-		$link = '<a href="'.$link.'">'.$link.'</a>';
+		$check = $c->_model->_checkEntryTestUser($table, $table_id, $rowEntry['menu_id']);
+		if(count($check) <= 2){
+			$formID = 22;
+			$key = time();
+			$cM->_insertEntryTestUser($table, $table_id, $rowEntry['menu_id'], $key);
+			$link = CONS_BASE_URL.'/ajax/?entrytest='.$key;
+			$link = '<a href="'.$link.'">'.$link.'</a>';
+		}else{
+			$formID = 23;
+		}
 	}
 	$arr = array(
 		"select" => "*",

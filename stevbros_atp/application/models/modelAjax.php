@@ -137,6 +137,14 @@ class modelAjax extends modelDB{
 		if(!$result = $this->db->query($sql)) die($this->db->error);
 	}
 	
+	public function _checkEntryTestUser($table, $table_id, $menu_id){
+		$sql = "SELECT * FROM `web_entrytest_user` WHERE `_table`='{$table}' AND `table_id`='{$table_id}' AND `menu_id`='{$menu_id}' ";
+		if(!$result = $this->db->query($sql)) die($this->db->error);
+		$data = array();
+		while($row = $result->fetch_assoc()) $data[] = $row;
+		return $data;
+	}
+	
 	public function _updateEntryTestUser($id, $result, $sendmail){
 		$sql = "UPDATE `web_entrytest_user` SET `result`='{$result}', `sendmail`='{$sendmail}' WHERE `id`='{$id}' LIMIT 1 ";
 		if(!$result = $this->db->query($sql)) die($this->db->error);

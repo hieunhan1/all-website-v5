@@ -106,7 +106,7 @@
 				}
 				$str = '<div class="viewAnalytic" style="height:'.$height.'; line-height:'.$height.'">
 					<div class="analytic" style="width:'.$width.'; height:'.$height.'; line-height:'.$height.'">
-						<div class="info" style="width:'.$widthInfo.'; height:'.$height.'">đúng '.$arr['correct'].'/'.$arr['total'].' câu</div>
+						<div class="info" style="width:'.$widthInfo.'; height:'.$height.'">Correct Answers: '.$arr['correct'].'/'.$arr['total'].' câu</div>
 						<div class="number" style="width:'.$pixel.'; height:'.$height.$color2.'">'.$arr['result'].'%</div>
 						<div class="total" style="width:'.$width.'; height:'.$height.$color1.'"></div>
 					</div>
@@ -125,10 +125,10 @@
 			}else{
 				$disable = 'disabled="disabled"';
 				function viewAnswers($answers, $style){
-					return '<em class="'.$style.'">Answer đúng là '.$answers.'</em>';
+					return '<em class="'.$style.'">Correct Answer is '.$answers.'</em>';
 				}
 				function viewNotes($notes){
-					return '<div class="explain"><b>Giải thích:</b> '.$notes.'</div>';
+					//return '<div class="explain"><b>Explanation:</b> '.$notes.'</div>';
 				}
 			}
 			
@@ -204,7 +204,7 @@
 							</div>';
 						}
 						echo '<div class="box">
-							<div class="question"><b>Câu '.$totalEntryTest.':</b> '.viewAnswers($labelAnswers[$row['correct']], $style).$row['question'].'</div>
+							<div class="question"><b>Question '.$totalEntryTest.':</b> '.viewAnswers($labelAnswers[$row['correct']], $style).$row['question'].'</div>
 							<div class="answers">'.$strAnswers.'</div>'.viewNotes($row['notes']).'
 						</div>';
 					}
@@ -220,9 +220,9 @@
 			$btnPre = '';
 			$viewAnalytic = '';
 			if(count($entryTestData)==0){
-				$result = '<input type="button" name="btnSubmit" id="btnSubmit" value="Xem kết quả" allquestion="'.$totalEntryTest.'" class="adBtnSmall bgColorBlue corner5 hidden" />';
+				$result = '<input type="button" name="btnSubmit" id="btnSubmit" value="View Result" allquestion="'.$totalEntryTest.'" class="adBtnSmall bgColorBlue corner5 hidden" />';
 			}else{
-				$btnPre = '<input type="button" name="btnPre" value="&larr; &nbsp; Câu trước" class="adBtnSmall bgColorBlue corner5" />';
+				$btnPre = '<input type="button" name="btnPre" value="&larr; &nbsp; Previous Question" class="adBtnSmall bgColorBlue corner5" />';
 				
 				if(count($analytic)>1){
 					foreach($analytic as $row){
@@ -242,7 +242,7 @@
 				$result = round($totalUserCorrect / $totalEntryTest * 100, 2);
 				
 				$arr = array(
-					'name' => '<b>Kết quả</b>',
+					'name' => '<b>Result</b>',
 					'width' => 500,
 					'height' => 40,
 					'result' => $result,
@@ -257,7 +257,7 @@
             <div class="control">
             	<span class="numberAnswers hidden">0</span>
                 <?php echo $btnPre;?>
-            	<input type="button" name="btnNext" value="Câu kế &nbsp; &rarr;" class="adBtnSmall bgColorBlue corner5" />
+            	<input type="button" name="btnNext" value="Next Question &nbsp; &rarr;" class="adBtnSmall bgColorBlue corner5" />
                 <div class="clear20"></div>
                 <?php
                 echo $viewAnalytic;
@@ -300,7 +300,7 @@ $(document).ready(function(e) {
 		<?php if(count($entryTestData)==0){?>
 		var check = checkQuestion(number);
 		if(check==false){
-			$("#messagePP .content").html('<b class="error">Bạn chưa chọn câu trả lời.</b><p class="clear30"></p><span class="corner5 close">Close</span><p class="clear10"></p>');
+			$("#messagePP .content").html('<b class="error">You haven’t chosen answer yet</b><p class="clear30"></p><span class="corner5 close">Close</span><p class="clear10"></p>');
 			$("#messagePP").show(100);
 			return false;
 		}
@@ -347,7 +347,7 @@ $(document).ready(function(e) {
 <?php if(count($entryTestData)==0){?>
 
 <?php
-$second = $totalEntryTest * 60;
+$second = 3600; //$totalEntryTest * 60;
 $hour = floor($second/3600);
 $minute = floor($second/60) - $hour*60;
 $second = $second - $minute*60 - $hour*3600;
@@ -363,12 +363,12 @@ $(document).ready(function(e) {
 	
 	$(".box").hide();
 	$("input[name=btnNext]").hide();
-	var viewTime = 'Thời gian làm bài bạn có: <b><?php echo "{$hour} Giờ - {$minute} Phút - {$second} Giây";?></b>';
-		viewTime+= '<input type="button" name="btnStart" class="adBtnSmall bgColorBlue corner5" value="Bắt đầu" />';
+	var viewTime = 'You have 1 hour to complete FINAL TEST';
+		viewTime+= '<input type="button" name="btnStart" class="adBtnSmall bgColorBlue corner5" value="START" />';
 	$("#viewTime").html(viewTime);
 	$("input[name=btnStart]").live("click", function(){
 		$(this).hide(100);
-		var viewTime = 'Thời gian làm bài bạn còn: <b><?php echo '<b id="h"></b> Giờ - <b id="m"></b> Phút - <b id="s"></b> Giây';?></b>';
+		var viewTime = 'Remaining time: <b><?php echo '<b id="h"></b> hour - <b id="m"></b> minutes - <b id="s"></b> second';?></b>';
 		$("#viewTime").html(viewTime);
 		startTime()
 		$("input[name=btnNext]").show(100);
@@ -410,7 +410,7 @@ $(document).ready(function(e) {
 		var allquestion = parseInt( $(this).attr("allquestion") );
 		var currentCheck = parseInt( $('.field_all:checked').length );
 		if(allquestion != currentCheck){
-			$("#messagePP .content").html('<b class="error">Bạn chưa chọn câu trả lời.</b><p class="clear30"></p><span class="corner5 close">Close</span><p class="clear10"></p>');
+			$("#messagePP .content").html('<b class="error">You haven’t chosen answer yet</b><p class="clear30"></p><span class="corner5 close">Close</span><p class="clear10"></p>');
 			$("#messagePP").show(100);
 			return false;
 		}
