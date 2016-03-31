@@ -11,9 +11,8 @@ class modelManager extends modelDB{
 		if(!$this->db->query($sql)) die($this->db->error);
 	}
 	
-	public function _insertCustomer($name, $phone, $email, $address, $city, $country, $birthday, $company){
-		$datetime = time();
-		$sql = "INSERT INTO `mn_customer` (`name`, `phone`, `email`, `address`, `city`, `country`, `date_birthday`, `birthplace`, `company`, `datetime`) VALUES ('{$name}', '{$phone}', '{$email}', '{$address}', '{$city}', '{$country}', '{$birthday}', '{$birthplace}', '{$company}', '{$datetime}')";
+	public function _insertCustomer($name, $phone, $email, $address, $city, $country, $birthday, $company, $datetime){
+		$sql = "INSERT INTO `mn_customer` (`name`, `phone`, `email`, `address`, `city`, `country`, `date_birthday`, `company`, `datetime`) VALUES ('{$name}', '{$phone}', '{$email}', '{$address}', '{$city}', '{$country}', '{$birthday}', '{$company}', '{$datetime}')";
 		if(!$this->db->query($sql)) die($this->db->error);
 		return $this->db->insert_id;
 	}

@@ -342,27 +342,35 @@ if(isset($_POST['entrytestThongBao'])){
 		echo json_encode($arr);
 		return false;
 	}
-	$table_id = $data[0]['id'];
-	$table_email = $data[0]['email'];
-	$table_name = $data[0]['name'];
+	$rowCustomer = $data[0];
+	$email = $rowCustomer['email'];
+	$name = $rowCustomer['name'];
+	$table_id = $rowCustomer['id'];
 	
 	//thay doi status
 	$c->_model->_updateStatus($table, $table_id, $status=3);
 	
 	//gui mail thong bao
 	$arr = array(
-		"select" => "`subject`, `content`",
+		"select" => "*",
 		"from" => "`web_event_form`",
-		"where" => "`id`='13' AND `status`=1", //id=14 entry test
+		"where" => "`id`='13' AND `status`=1", //id=14 hoàn thành làm entry test
 	);
 	$data = $c->_model->_select($arr);
 	if(count($data) > 0){
-		$AddAddress = array('field'=>$table_email, 'name'=>$table_name);
-		$arr = array( '{_name}' => $table_name );
-		$subject = $data[0]['subject'];
-		$content = $c->contentReplace($data[0]['content'], $arr);
+		$rowForm = $data[0];
+		
+		$AddBCC = '';
+		if($rowForm['email']!='') $AddBCC = array('field'=>$rowForm['email'], 'name'=>'Stevbros');
+		$AddAddress = array('field'=>$email, 'name'=>$name);
+		$arr = array(
+			'{_name}' => $name
+		);
+		$subject = $rowForm['subject'];
+		$content = $c->contentReplace($rowForm['content'], $arr);
 		$arr = array(
 			'AddAddress' => $AddAddress,
+			'AddBCC' => $AddBCC,
 			'Subject' => $subject,
 			'Body' => $content,
 		);

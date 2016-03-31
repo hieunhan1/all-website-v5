@@ -103,7 +103,8 @@ function readXML($file, $table, $table_id){
 		
 		if($name!='' && $email!=false && $total==0){
 			$i++;
-			$customer_id = $model->_insertCustomer($name, $phone, $email, $address, $city, $country, $birthday, $company);
+			$datetime = time() + $i;
+			$customer_id = $model->_insertCustomer($name, $phone, $email, $address, $city, $country, $birthday, $company, $datetime);
 			if($table=='mn_contract'){
 				$model->_insertContractCustomer($table_id, $customer_id);
 			}else if($table=='mn_class'){
