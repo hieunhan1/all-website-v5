@@ -123,8 +123,11 @@ class controlAdminForm{
 		CKEDITOR.replace( '{$name}', {
 			uiColor: '#E1E1E1',
 			height: 400,
-			filebrowserWindowWidth: '80%',
-			filebrowserWindowHeight: '70%',
+			pasteFromWordPromptCleanup: true,
+			pasteFromWordRemoveFontStyles: true,
+			forcePasteAsPlainText: true,
+			ignoreEmptyParagraph: true,
+			removeFormatAttributes: true,
 			toolbar:
 			[
 			['Source','-','Maximize','ShowBlocks','-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
@@ -148,8 +151,11 @@ class controlAdminForm{
 		CKEDITOR.replace( '{$name}', {
 			uiColor: '#E1E1E1',
 			height: 250,
-			filebrowserWindowWidth: '80%',
-			filebrowserWindowHeight: '70%',
+			pasteFromWordPromptCleanup: true,
+			pasteFromWordRemoveFontStyles: true,
+			forcePasteAsPlainText: true,
+			ignoreEmptyParagraph: true,
+			removeFormatAttributes: true,
 			toolbar:
 			[
 			['Source','-','Maximize','ShowBlocks','PasteText','PasteFromWord','RemoveFormat'],
@@ -171,6 +177,11 @@ class controlAdminForm{
 		CKEDITOR.replace( '{$name}', {
 			uiColor: '#E1E1E1',
 			height: 120,
+			pasteFromWordPromptCleanup: true,
+			pasteFromWordRemoveFontStyles: true,
+			forcePasteAsPlainText: true,
+			ignoreEmptyParagraph: true,
+			removeFormatAttributes: true,
 			toolbar: [
 				['Source','Paste','PasteText','PasteFromWord','Bold', 'Italic', '-','RemoveFormat','TextColor','BGColor','NumberedList','BulletedList','-','Outdent','Indent',".$other."],
 			]
