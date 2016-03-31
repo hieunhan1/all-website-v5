@@ -49,6 +49,7 @@ if(count($dataPart)>0){
 			'type_id' => 3,
 			'menu_id' => $rowBox['id'],
 			'properties' => 2,
+			'order' => '`datetime` DESC, `_order` DESC',
 			'limit'=>'2',
 		);
 		$data = $c->_model->_headerData($arr);
