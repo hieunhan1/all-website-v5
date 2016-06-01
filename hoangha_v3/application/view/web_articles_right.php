@@ -16,6 +16,7 @@ foreach($dataRoot as $rowRoot){
 		'parent' => $rowRoot['id'],
 		'type_id' => 3,
 		'properties' => 1,
+		'position_id' => 5,
 		'order'=>'`_order`',
 	);
 	$dataPart = $c->_model->_headerData($arr);
@@ -77,6 +78,7 @@ if(count($data) > 0){
 		'select' => '`id`, `name`, `name_alias`, `img`, `title`',
 		'menu_id' => $row['id'],
 		'properties' => 2,
+		'order' => '`datetime` DESC, `_order` DESC',
 		'limit'=>'5',
 		'where' => "AND `id`<>'{$currentPage['id']}'",
 	);

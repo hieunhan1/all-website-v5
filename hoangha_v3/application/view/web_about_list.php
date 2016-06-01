@@ -2,7 +2,7 @@
     <div id="about-list">
     <?php
 	$row = $c->_model->_content($currentPage['id']);
-	echo '<h1>'.$currentPage['name'].'</h1>';
+	echo '<h1>'.$currentPage['title'].'</h1>';
 	echo '<p class="meta"><time datetime="'.date('Y-m-d', $currentPage['datetime']).'" pubdate>'.date('d F Y', $currentPage['datetime']).'</time> | <a href="'.$currentPage['root']['name_alias'].'">'.$currentPage['root']['name'].'</a></p>';
 	echo '<div class="viewpost">'.$row['content'].'</div>';
 	

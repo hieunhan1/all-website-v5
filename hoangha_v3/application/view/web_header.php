@@ -29,11 +29,11 @@
             
             <div id="lang">
             	<?php
-                if($lang!='vi'){
+                /*if($lang!='vi'){
 					echo '<a href="'.CONS_BASE_URL.'"><span class="allIcon iconvi"></span>Tiếng Việt</a>';
 				}else{
 					echo '<a href="'.CONS_BASE_URL.'/en"><span class="allIcon iconen"></span>English</a>';
-				}
+				}*/
 				?>
             </div>
             
@@ -77,7 +77,24 @@
             foreach($data as $row){
                 if($row['url']=='') $url=$row['name_alias']; else $url=$row['url'];
 				if($row['id']!=$currentPage['root']['id']) $active=''; else $active='class="active"';
-                echo '<li><a href="'.$url.'" title="'.$row['title'].'" '.$active.'>'.$row['name'].'</a></li>';
+                echo '<li><a href="'.$url.'" title="'.$row['title'].'" '.$active.'>'.$row['name'].'</a>';
+				
+				$arr = array(
+					'parent' => $row['id'],
+					'position_id' => 2,
+					'order'=>'`_order`',
+				);
+				$dataParent = $c->_model->_headerData($arr);
+				if(count($dataParent) > 0){
+					echo '<ul>';
+					foreach($dataParent as $rowParent){
+						if($rowParent['url']=='') $urlParent=$rowParent['name_alias']; else $urlParent=$rowParent['url'];
+						echo '<li><a href="'.$urlParent.'" title="'.$rowParent['title'].'">'.$rowParent['name'].'</a></li>';
+					}
+					echo '</ul>';
+				}
+				
+				echo '</li>';
             }
             ?>
         </ul>
@@ -111,10 +128,10 @@ if(count($dataSlider)>0){
 		}
 	}
 	
-	$contentHome = $c->_model->_content($currentPage['id']);
+	/*$contentHome = $c->_model->_content($currentPage['id']);
 	if(count($contentHome)>0){
 		$str .= '<div id="headerContent" class="viewpost">'.$contentHome['content'].'</div>';
-	}
+	}*/
 	
 	$str .= '<div id="headerImg" class="effect"></div>
 	<script type="text/javascript">

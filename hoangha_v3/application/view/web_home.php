@@ -185,6 +185,7 @@ if(count($dataSale) > 0){
 				'select' => '`id`, `name`, `name_alias`, `img`, `title`, `description`',
 				'menu_id' => $row['id'],
 				'properties' => 2,
+				'order' => '`datetime` DESC, `_order` DESC',
 				'limit'=>'3',
 			);
 			$data = $c->_model->_headerData($arr);

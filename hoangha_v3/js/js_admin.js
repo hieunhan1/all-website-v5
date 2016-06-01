@@ -501,7 +501,7 @@ $(document).ready(function(e) {
 			data: fields,
 			cache: false,
 			success: function(data){
-				console.log(data);
+				//console.log(data);
 				data = $.parseJSON(data);
 				var error = parseInt(data.error);
 				if(error==0){

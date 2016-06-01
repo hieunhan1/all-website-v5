@@ -32,7 +32,6 @@
 					'from' => '`web_sale_online`',
 					'where' => "`status`=1 AND `menu_id` LIKE '%,{$rowBox['id']},%' ",
 					'order' => '`_order`',
-					'limit' => 5
 				);
 				$data = $c->_model->_select($arr);
 				$strSale = '';

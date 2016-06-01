@@ -118,10 +118,16 @@
 #search{width:auto; float:right; margin:0 10px 0 0}
 #search input{width:135px; height:28px; line-height:28px; color:#666; padding:0 5px 0 30px; background-position:7px -744px; border:solid 1px #CCC; border-radius:5px}
 
-#menuMain{clear:right; width:auto; float:right; margin:0; padding:0}
-#menuMain li{list-style:none; width:auto; float:left}
-#menuMain li a{display:block; color:#003d70; font-weight:bold; text-transform:uppercase; margin-left:10px; padding:7px 10px 6px 10px; border-radius:5px;}
-#menuMain li a:hover, #menuMain li .active{color:#FFF; background-color:#003d70}
+#menuMain .active{color:#FFF; background-color:#003d70}
+#menuMain, #menuTop ul {list-style:none; clear:right; width:auto; float:right; position:relative; margin:0; padding:0; z-index:1}
+#menuMain a:link, #menuTop a:active, #menuTop a:visited {display:block; background-color:none; text-decoration:none}
+#menuMain li {width:auto; height:28px; line-height:28px; float:left; margin-left:10px;}
+#menuMain li a {display:block; color:#003d70; font-weight:bold; text-transform:uppercase; padding:0 10px; border-radius:5px;}
+#menuMain li ul {position:absolute; top:28px; display:none; margin:0; padding:0;}
+#menuMain li ul li {display:block; width:200px; float:none; margin:0; padding:0;}
+#menuMain li ul li a {display:block; color:rgba(255,255,255,0.8); text-transform:none; font-weight:100; margin:0; padding:0 15px; background-color:#0060ae; border-radius:0; border-bottom:solid 1px #CCC;}
+#menuMain li ul li a:hover {color:#FFF}
+#menuMain li:hover ul{display:block}
 
 #headerContent{width:90%; color:#333; padding:30px; position:absolute; top:180px; right:2%; z-index:2; background-color:rgba(255,255,255,0.5); border-radius:10px}
 #headerContent h1{color:#003d70}
