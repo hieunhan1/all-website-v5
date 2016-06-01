@@ -25,8 +25,18 @@
                 );
                 $data = $c->_model->_headerData($arr);
                 foreach($data as $row){
-                    if($row['url']=='') $url=$row['name_alias']; else $url=$row['url'];
-                    echo '<li><a href="'.$url.'" title="'.$row['title'].'">'.$row['name'].'</a></li>';
+                    if($row['url']==''){
+						$url=$row['name_alias'];
+					}else{
+						$url=$row['url'];
+					}
+					
+					if($row['type_id']!=1){
+						$name = $row['name'];
+					}else{
+						$name = '<span class="allIcon iconHome"></span>';
+					}
+                    echo '<li><a href="'.$url.'" title="'.$row['title'].'">'.$name.'</a></li>';
                 }
                 ?>
             </ul>

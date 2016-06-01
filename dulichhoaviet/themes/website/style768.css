@@ -177,11 +177,11 @@
 #header-fix .logo h3{width:auto; float:left; font-size:90%; font-weight:100; letter-spacing:3px}
 #header-fix .logo a{color:#E00}
 #header-fix .call{display:none}
-#header-fix .menuTop{clear:both; font-size:90%; text-align:center; line-height:22px; margin-bottom:30px}
+#header-fix .menuTop{clear:both; font-size:90%; text-align:center; line-height:25px; margin-bottom:30px}
 #header-fix .menuTop li{list-style:none; width:auto; float:left}
-#header-fix .menuTop a{color:#666; padding:0 11px}
+#header-fix .menuTop a{color:#666; padding:0 5px}
 #header-fix .menuTop a:hover{color:#111}
-#header-fix .menuTop .iconHome{display:inline-block; width:0; height:30px; overflow:hidden; margin-top:8px; padding-left:20px; background-position:-200px -198px}
+#header-fix .menuTop .iconHome{display:inline-block; width:20px; height:30px; overflow:hidden; margin-top:8px; background-position:-200px -200px}
 #header-fix .search{width:auto; float:right; margin:5px 0 10px 10px;}
 #header-fix .search input{width:150px; height:30px; line-height:30px; color:#666; font-size:90%; padding:0 5px 0 35px; background-position:8px 6px; border:solid 1px #CCC; border-radius:5px}
 #header-fix .menuMain{width:auto; float:right}
