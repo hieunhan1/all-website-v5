@@ -21,7 +21,7 @@
             'type_id'=>2,
             'menu_id'=>$currentPage['id'],
             'properties'=>2,
-            'order'=>'`datetime` DESC',
+            'order'=>'`_order` DESC, `datetime` DESC',
             'limit'=>array($startRow, $perPage),
         );
         $data = $c->_model->_headerData($arr);
