@@ -43,7 +43,7 @@ $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $propertie
 echo $cF->displayDiv('Username', $data);
 
 if($id==0){
-	echo $cF->displayDiv(' ', '<em class="label2 adMessage">Save ý: Khi tạo tài khoản password mặc định là "<b>'.CONS_ADMIN_PASSWORD_DEFAULT.'</b>"</em>');
+	echo $cF->displayDiv(' ', '<em class="label2 adMessage">Lưu ý: Khi tạo tài khoản password mặc định là "<b>'.CONS_ADMIN_PASSWORD_DEFAULT.'</b>"</em>');
 	$name = 'password';
 	$value = md5(CONS_ADMIN_PASSWORD_DEFAULT);
 	$data = $cF->inputHidden($name, $value, 'ad_field');

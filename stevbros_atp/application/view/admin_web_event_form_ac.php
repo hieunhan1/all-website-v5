@@ -57,7 +57,7 @@ $properties = array();
 $properties[] = array('propertie'=>'type', 'value'=>'ckeditor');
 $others = $cF->ckeditorStandard($name);
 $others .= '<div class="adNotes" style="line-height:180%; opacity:1">
-	<p class="adError" style="font-weight:bold; margin-top:5px">**Save ý</p>
+	<p class="adError" style="font-weight:bold; margin-top:5px">**Lưu ý</p>
 	<p>Phần nội dung để tự động thay đổi thông tin bạn làm như sau:</p>
 	<p style="margin-left:35px">
 		Kính gởi bạn Trần Văn A, => Kính gởi bạn {_name},<br />
