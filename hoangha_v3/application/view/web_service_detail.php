@@ -21,7 +21,7 @@
 		);
 		$data = $c->_model->_headerData($arr);
 		if(count($data)>0){
-			echo '<div id="service-other" class="width-main"><h3 class="title corner5">Dịch vụ khác</h3>';
+			echo '<div id="service-other" class="width-main"><h3 class="title corner5">'.$lang_var['other_service'].'</h3>';
 			$i=0;
 			foreach($data as $row){
 				$i++;

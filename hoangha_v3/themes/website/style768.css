@@ -158,7 +158,7 @@
 #home-service .box .item li a:hover .icon{background-position:0px -593px}
 
 #home-contact{clear:both; margin-bottom:30px}
-#home-contact .img{clear:both; position:relative; overflow:hidden; z-index:1}
+#home-contact .img{clear:both; position:relative; overflow:hidden; z-index:1; padding-bottom:60px; background-color:#060e1b}
 #home-contact .img img{max-height:100%}
 #home-contact .content{width:95%; color:#FFF; position:absolute; z-index:2}
 #home-contact .content .call{font-size:130%; text-align:center; padding-top:30px}

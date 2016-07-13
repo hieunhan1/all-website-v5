@@ -190,7 +190,7 @@ if(count($dataSale) > 0){
 			);
 			$data = $c->_model->_headerData($arr);
 			foreach($data as $row){
-				$img = IMAGE_URL.$row['img'];
+				$img = IMAGE_URL_THUMB.$row['img'];
 				if($row['img']=='') $img=CONS_IMAGE_DEFAULT;
 				echo '<div class="box">
 					<p class="img effect"><a href="'.$row['name_alias'].'"><img src="'.$img.'" alt="'.$row['title'].'" class="corner5" /></a></p>

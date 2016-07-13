@@ -29,11 +29,11 @@
             
             <div id="lang">
             	<?php
-                /*if($lang!='vi'){
+                if($lang!='vi'){
 					echo '<a href="'.CONS_BASE_URL.'"><span class="allIcon iconvi"></span>Tiếng Việt</a>';
 				}else{
 					echo '<a href="'.CONS_BASE_URL.'/en"><span class="allIcon iconen"></span>English</a>';
-				}*/
+				}
 				?>
             </div>
             
