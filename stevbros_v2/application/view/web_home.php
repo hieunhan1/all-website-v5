@@ -262,13 +262,11 @@ if(count($data) > 0){
 		$i++;
 		if($i!=1) $active=''; else $active='style="display:block"';
 		$content = $c->_model->_content($row['id']);
-		$name = explode(' - ', $row['name'], 2);
-		$degree = '';
-		if(isset($name[1])) $degree = ' - <span>'.$name[1].'</span>';
+		if($row['other']!='') $company = ' - '.$row['other']; else $company='';
 		$str.='<div class="item" id="slider_'.$i.'" '.$active.'>
 			<div class="button pre" number="'.($i-1).'">&lsaquo;</div>
 			<div class="button next" number="'.($i+1).'">&rsaquo;</div>
-			<div class="info">'.$content['content'].'<h4 class="h4">'.$name[0].$degree.'</h4></div>
+			<div class="info">'.$content['content'].'<h4 class="h4">'.$row['name'].$company.'</h4></div>
 		</div>';
 	}
 ?>

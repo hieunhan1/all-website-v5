@@ -35,8 +35,8 @@ echo $cF->displayDiv('Danh mục hiển thị', '<div class="listCheckBox">'.$da
 $name = 'course_code';
 $properties = array();
 $properties[] = array('propertie'=>'maxlength', 'value'=>'20');
-$properties[] = array('propertie'=>'check', 'value'=>'2');
-$properties[] = array('propertie'=>'message', 'value'=>'Nhập mã khóa học');
+/*$properties[] = array('propertie'=>'check', 'value'=>'2');
+$properties[] = array('propertie'=>'message', 'value'=>'Nhập mã khóa học');*/
 $value=$rowDetail[$name];
 $other='<span class="error adError"></span>';
 $data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties, $other);

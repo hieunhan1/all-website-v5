@@ -222,7 +222,7 @@
 
 .home-courses .box .title{width:20%; float:left; text-align:center}
 .home-courses .box .title .number{color:#005aab; font-size:130%; font-weight:bold; margin-bottom:4px}
-.home-courses .box .title .name{line-height:20px; height:100px; overflow:hidden; color:#FFF; font-size:90%; padding:5px; background-color:#ff9500}
+.home-courses .box .title .name{line-height:20px; height:100px; overflow:hidden; color:#FFF; padding:5px; background-color:#ff9500}
 
 .home-courses .box .content{width:68%; float:right; padding:4%; background-color:#f8f8f8}
 .home-courses .box .content .p{line-height:22px; height:66px; overflow:hidden; margin-bottom:15px}
@@ -248,16 +248,16 @@
 #whychooseus .tab .content{margin-bottom:30px; padding-right:20px}
 
 #postnew{width:48%; float:right}
-#postnew .box{height:240px; overflow:hidden; margin-bottom:30px}
+#postnew .box{margin-bottom:30px}
 #postnew .box .img{width:42%; float:left; overflow:hidden; text-align:center}
 #postnew .box .img img{max-height:100%}
 #postnew .box .content{width:55%; float:right}
 #postnew .box .h3{line-height:150%; font-weight:100; font-size:130%; margin-bottom:10px}
-#postnew .box .p{height:88px; overflow:hidden; line-height:22px; margin-bottom:20px}
+#postnew .box .p{line-height:22px; margin-bottom:20px}
 
 #home-opinion{clear:both; margin-bottom:50px; position:relative; z-index:1}
 #home-opinion .img{overflow:hidden; position:relative; z-index:1}
-#home-opinion .img img{height:450px}
+#home-opinion .img img{height:500px}
 #home-opinion .content{width:90%; color:#FFF; position:absolute; z-index:2}
 #home-opinion .content .h3{color:#ff9500; font-weight:100; font-size:150%; text-align:center; text-transform:uppercase; letter-spacing:2px; margin:40px 0 20px 0}
 #home-opinion .content .h3 strong{display:block; color:#FFF; font-size:200%; letter-spacing:11px}
@@ -267,7 +267,7 @@
 #home-opinion .content #slider .item .button:hover{opacity:1}
 #home-opinion .content #slider .item .next{right:0}
 #home-opinion .content #slider .item .pre{left:0}
-#home-opinion .content #slider .item .info{line-height:180%; margin:0 5%}
+#home-opinion .content #slider .item .info{line-height:180%; font-size:105%; margin:0 5%}
 #home-opinion .content #slider .item .h4{text-align:center; margin-top:10px}
 #home-opinion .content #slider .item .h4 span{color:#ff9500}
 

@@ -42,11 +42,11 @@ class modelDB{
 	
 	public function _changeDauNhay($str, $type=1){
 		$str = str_replace("'", '&#39;', $str);
-		$str = str_replace('\\', '&#92;', $str);
+		//$str = str_replace('\\', '&#92;', $str);
 		if($type==1){
 			$str = str_replace('"', '&quot;', $str);
-			$str = str_replace('<', '&lt;', $str);
-			$str = str_replace('>', '&gt;', $str);
+			//$str = str_replace('<', '&lt;', $str);
+			//$str = str_replace('>', '&gt;', $str);
 		}
 		$str = trim($str);
 		return $str;
