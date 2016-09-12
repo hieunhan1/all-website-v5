@@ -41,9 +41,9 @@ if(isset($_POST['rejectContact'])){
 		}else return false;
 		
 		$dataEvent = $c->_model->_typeEvent($type);
-		$AddBCC = '';
+		$AddCC = '';
 		$AddAddress = array('field'=>$email, 'name'=>$name);
-		if(trim($dataEvent['email'])!='') $AddBCC = array('field'=>$dataEvent['email'], 'name'=>'Stevbros');
+		if(trim($dataEvent['email'])!='') $AddCC = array('field'=>$dataEvent['email'], 'name'=>'Stevbros');
 		$arr = array(
 			'{_name}' => $name,
 			'{_course}' => $courseName,
@@ -53,7 +53,7 @@ if(isset($_POST['rejectContact'])){
 		$content = $c->contentReplace($dataEvent['content'], $arr);
 		$arrSend = array(
 			'AddAddress' => $AddAddress,
-			'AddBCC' => $AddBCC,
+			'AddCC' => $AddCC,
 			'Subject' => $dataEvent['subject'],
 			'Body' => $content,
 		);
@@ -158,16 +158,16 @@ if(isset($_POST['rejectTrainer'])){
 	$data = $c->createEditDataUser($table);
 	if($data!=false){
 		$dataEvent = $c->_model->_typeEvent(8);
-		$AddBCC = '';
+		$AddCC = '';
 		$AddAddress = array('field'=>$email, 'name'=>$name);
-		if(trim($dataEvent['email'])!='') $AddBCC = array('field'=>$dataEvent['email'], 'name'=>'Stevbros');
+		if(trim($dataEvent['email'])!='') $AddCC = array('field'=>$dataEvent['email'], 'name'=>'Stevbros');
 		$arr = array(
 			'{_name}' => $name,
 		);
 		$content = $c->contentReplace($dataEvent['content'], $arr);
 		$arrSend = array(
 			'AddAddress' => $AddAddress,
-			'AddBCC' => $AddBCC,
+			'AddCC' => $AddCC,
 			'Subject' => $dataEvent['subject'],
 			'Body' => $content,
 		);
@@ -221,16 +221,16 @@ if(isset($_POST['rejectOpinion'])){ /*viet Blog và Y kien*/
 		/*send mail*/
 		$email = $c->_model->_checkEmail($other);
 		if($email!=false){
-			$AddBCC = '';
+			$AddCC = '';
 			$AddAddress = array('field'=>$email, 'name'=>$name);
-			if(trim($dataEvent['email'])!='') $AddBCC = array('field'=>$dataEvent['email'], 'name'=>'Stevbros');
+			if(trim($dataEvent['email'])!='') $AddCC = array('field'=>$dataEvent['email'], 'name'=>'Stevbros');
 			$arr = array(
 				'{_name}' => $authors,
 			);
 			$content = $c->contentReplace($dataEvent['content'], $arr);
 			$arrSend = array(
 				'AddAddress' => $AddAddress,
-				'AddBCC' => $AddBCC,
+				'AddCC' => $AddCC,
 				'Subject' => $dataEvent['subject'],
 				'Body' => $content,
 			);
@@ -360,8 +360,8 @@ if(isset($_POST['entrytestThongBao'])){
 	if(count($data) > 0){
 		$rowForm = $data[0];
 		
-		$AddBCC = '';
-		if($rowForm['email']!='') $AddBCC = array('field'=>$rowForm['email'], 'name'=>'Stevbros');
+		$AddCC = '';
+		if($rowForm['email']!='') $AddCC = array('field'=>$rowForm['email'], 'name'=>'Stevbros');
 		$AddAddress = array('field'=>$email, 'name'=>$name);
 		$arr = array(
 			'{_name}' => $name
@@ -370,7 +370,7 @@ if(isset($_POST['entrytestThongBao'])){
 		$content = $c->contentReplace($rowForm['content'], $arr);
 		$arr = array(
 			'AddAddress' => $AddAddress,
-			'AddBCC' => $AddBCC,
+			'AddCC' => $AddCC,
 			'Subject' => $subject,
 			'Body' => $content,
 		);

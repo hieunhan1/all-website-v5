@@ -314,12 +314,12 @@ if(isset($_POST['accountAllocation'])){
 		);
 		$content = $c->contentReplace($rowEvent['content'], $arr);
 		
-		$AddBCC = '';
-		if($rowEvent['email']!='') $AddBCC = array('field'=>$rowEvent['email'], 'name'=>'Stevbros');
+		$AddCC = '';
+		if($rowEvent['email']!='') $AddCC = array('field'=>$rowEvent['email'], 'name'=>'Stevbros');
 		$AddAddress = array('field'=>$email, 'name'=>$row['name']);
 		$arrSend = array(
 			'AddAddress' => $AddAddress,
-			'AddBCC' => $AddBCC,
+			'AddCC' => $AddCC,
 			'Subject' => $rowEvent['subject'],
 			'Body' => $content,
 		);
@@ -509,12 +509,12 @@ if(isset($_POST['sendMailCustomer'])){
 		return false;
 	}
 	
-	$AddBCC = '';
+	$AddCC = '';
 	$AddAddress = array('field'=>$email, 'name'=>$name);
-	if($email_bcc!=false) $AddBCC = array('field'=>$email_bcc, 'name'=>'Stevbros');
+	if($email_bcc!=false) $AddCC = array('field'=>$email_bcc, 'name'=>'Stevbros');
 	$arrSend = array(
 		'AddAddress' => $AddAddress,
-		'AddBCC' => $AddBCC,
+		'AddCC' => $AddCC,
 		'Subject' => $subject,
 		'Body' => $content,
 	);
@@ -545,11 +545,11 @@ if(isset($_POST['sendMailContract'])){
 	}
 	
 	$AddAddress = array('field'=>$email, 'name'=>$name);
-	$AddBCC = '';
-	if($email_bcc!=false) $AddBCC = array('field'=>$email_bcc, 'name'=>'Stevbros');
+	$AddCC = '';
+	if($email_bcc!=false) $AddCC = array('field'=>$email_bcc, 'name'=>'Stevbros');
 	$arrSend = array(
 		'AddAddress' => $AddAddress,
-		'AddBCC' => $AddBCC,
+		'AddCC' => $AddCC,
 		'Subject' => $subject,
 		'Body' => $content,
 	);
@@ -605,12 +605,12 @@ if(isset($_POST['sendMailFee'])){
 		'{_price}' => number_format($rowFee['price'], 0, ',', '.'),
 	);
 	$content = $c->contentReplace($rowForm['content'], $arr);
-	$AddBCC = '';
+	$AddCC = '';
 	$AddAddress = array('field'=>$email, 'name'=>$name);
-	if($rowForm['email']!='') $AddBCC = array('field'=>$rowForm['email'], 'name'=>'Stevbros');
+	if($rowForm['email']!='') $AddCC = array('field'=>$rowForm['email'], 'name'=>'Stevbros');
 	$arrSend = array(
 		'AddAddress' => $AddAddress,
-		'AddBCC' => $AddBCC,
+		'AddCC' => $AddCC,
 		'Subject' => $subject,
 		'Body' => $content,
 	);
@@ -659,8 +659,8 @@ if(isset($_POST['sendMailClass'])){
 	$event_id = 16;
 	$rowForm = $c->_model->_viewDetail('web_event_form', $event_id);
 	$subject = $rowForm['subject'];
-	$AddBCC = '';
-	if($rowForm['email']!='') $AddBCC = array('field'=>$rowForm['email'], 'name'=>'Stevbros');
+	$AddCC = '';
+	if($rowForm['email']!='') $AddCC = array('field'=>$rowForm['email'], 'name'=>'Stevbros');
 	
 	//get customer
 	function sendMailClass($arrData){
@@ -677,11 +677,11 @@ if(isset($_POST['sendMailClass'])){
 		);
 		$content = $c->contentReplace($arrData['content'], $arr);
 		$AddAddress = array('field'=>$email, 'name'=>$name);
-		$AddBCC = '';
-		if($arrData['bcc']!='') $AddBCC=array('field'=>$arrData['bcc'], 'name'=>'Stevbros');
+		$AddCC = '';
+		if($arrData['bcc']!='') $AddCC=array('field'=>$arrData['bcc'], 'name'=>'Stevbros');
 		$arrSend = array(
 			'AddAddress' => $AddAddress,
-			'AddBCC' => $arrData['bcc'],
+			'AddCC' => $arrData['bcc'],
 			'Subject' => $arrData['subject'],
 			'Body' => $content,
 		);
@@ -774,11 +774,11 @@ if(isset($_POST['sendMailFinalTest'])){
 		);
 		$content = $c->contentReplace($arrData['content'], $arr);
 		$AddAddress = array('field'=>$email, 'name'=>$name);
-		$AddBCC = '';
-		if($arrData['bcc']!='') $AddBCC=array('field'=>$arrData['bcc'], 'name'=>'Stevbros');
+		$AddCC = '';
+		if($arrData['bcc']!='') $AddCC=array('field'=>$arrData['bcc'], 'name'=>'Stevbros');
 		$arrSend = array(
 			'AddAddress' => $AddAddress,
-			'AddBCC' => $arrData['bcc'],
+			'AddCC' => $arrData['bcc'],
 			'Subject' => $arrData['subject'],
 			'Body' => $content,
 		);
@@ -851,12 +851,12 @@ if(isset($_POST['sendMailPayment'])){
 		'{_link}' => $link,
 	);
 	$content = $c->contentReplace($rowForm['content'], $arr);
-	$AddBCC = '';
+	$AddCC = '';
 	$AddAddress = array('field'=>$email, 'name'=>$name);
-	if($rowForm['email']!='') $AddBCC = array('field'=>$rowForm['email'], 'name'=>'Stevbros');
+	if($rowForm['email']!='') $AddCC = array('field'=>$rowForm['email'], 'name'=>'Stevbros');
 	$arrSend = array(
 		'AddAddress' => $AddAddress,
-		'AddBCC' => $AddBCC,
+		'AddCC' => $AddCC,
 		'Subject' => $subject,
 		'Body' => $content,
 	);
