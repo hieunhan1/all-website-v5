@@ -43,5 +43,7 @@ include_once('web_tour_order.php');
 include_once('web_support.php');
 ?>
 
+<script lang="javascript">(function() {var pname = ( (document.title !='')? document.title : document.querySelector('h1').innerHTML );var ga = document.createElement('script'); ga.type = 'text/javascript';ga.src = '//live.vnpgroup.net/js/web_client_box.php?hash=fbdfad28b8ee8e858b98dc8bce1f2e75&data=eyJzc29faWQiOjQyNzAyMjAsImhhc2giOiIzMjljODJkNjBiMTcwOGE2Mjg4ZjNlYjYzZDI1M2EzMSJ9&pname='+pname;var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();</script>	
+
 </body>
 </html>

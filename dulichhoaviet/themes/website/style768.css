@@ -399,7 +399,7 @@
 /*end photos-list*/
 
 /*support*/
-#support{width:auto; height:auto; font-size:90%; position:fixed; right:0; bottom:0; overflow:hidden; z-index:3; background:url(img/support.png) no-repeat bottom right #FFF; background-size:38%; box-shadow:0 0 2px #666; border-top-left-radius:10px}
+#support{width:auto; height:auto; font-size:90%; position:fixed; right:0; bottom:0; overflow:hidden; z-index:3; padding-bottom:15px; background:url(img/support.png) no-repeat bottom right #FFF; background-size:38%; box-shadow:0 0 2px #666; border-top-left-radius:10px}
 #support .title{color:#FFF; text-transform:uppercase; overflow:hidden; margin:0; padding:6px 15px 6px 15px; background-color:rgba(235,114,25,0.9)}
 #support .close{width:auto; float:right; text-transform:none; cursor:pointer}
 #support .content{margin-top:5px; padding:5px 10px;}
