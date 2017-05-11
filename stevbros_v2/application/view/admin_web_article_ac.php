@@ -24,7 +24,7 @@ $data = $cF->inputText($name, $value, 'ad_field adInput adTxtSmall datetimepick'
 echo $cF->displayDiv('Ngày', $data);
 
 $name = 'menu_id';
-$where = "(type_id=1 OR type_id=2 OR type_id=5)";
+$where = "(type_id=1 OR type_id=2 OR type_id=5 OR type_id=12)";
 $values = $c->menuList($lang, $where);
 $valueCheck=$rowDetail[$name];
 $data = $cF->inputCheckbox($name, $values, $valueCheck, 'checkBoxItem');

@@ -252,6 +252,83 @@ if(isset($_POST['rejectOpinion'])){ /*viet Blog và Y kien*/
 	}
 }
 
+//dich vu di dan
+if(isset($_POST['rejectService'])){
+	$dien_di_dan = $c->_model->_changeDauNhay($_POST['dien_di_dan']);
+	$name = $c->_model->_changeDauNhay($_POST['name']);
+	$phone = $c->_model->_changeDauNhay($_POST['phone']);
+	$email = $c->_model->_changeDauNhay($_POST['email']);
+	$age = $c->_model->_changeDauNhay($_POST['age']);
+	$tinh_trang = $c->_model->_changeDauNhay($_POST['tinh_trang']);
+	$trinh_do = $c->_model->_changeDauNhay($_POST['trinh_do']);
+	$lich_su_di_lam1 = $c->_model->_changeDauNhay($_POST['lich_su_di_lam1']);
+	$lich_su_di_lam2 = $c->_model->_changeDauNhay($_POST['lich_su_di_lam2']);
+	$lich_su_di_lam3 = $c->_model->_changeDauNhay($_POST['lich_su_di_lam3']);
+	$lich_su_di_lam4 = $c->_model->_changeDauNhay($_POST['lich_su_di_lam4']);
+	$message = $c->_model->_changeDauNhay($_POST['message']);
+	
+	if($dien_di_dan=='' || $name=='' || $phone=='' || $email==''){
+		$arr = array('error'=>1, 'message'=>'Error 01: Please press F5 key to try again');
+		echo json_encode($arr);
+		return false;
+	}
+	
+	$ipAddress=$c->checksIpAddress();
+	if( $ipAddress==false ) return false;
+	
+	$table = 'web_contact';
+	$data = $c->createEditDataUser($table);
+	if($data!=false){
+		/*get notify*/
+		$type = 12;
+		$dataEvent = $c->_model->_typeEvent($type);
+		
+		/*send mail*/
+		$email = $c->_model->_checkEmail($email);
+		if($email!=false){
+			$AddCC = '';
+			$AddAddress = array('field'=>$email, 'name'=>$name);
+			if(trim($dataEvent['email'])!='') $AddCC = array('field'=>$dataEvent['email'], 'name'=>'Stevbros');
+			$arr = array(
+				'{_dien_di_dan}' => $dien_di_dan,
+				'{_name}' => $name,
+				'{_phone}' => $phone,
+				'{_email}' => $email,
+				'{_age}' => $age,
+				'{_tinh_trang}' => $tinh_trang,
+				'{_trinh_do}' => $trinh_do,
+				'{_lich_su_di_lam1}' => $lich_su_di_lam1,
+				'{_lich_su_di_lam2}' => $lich_su_di_lam2,
+				'{_lich_su_di_lam3}' => $lich_su_di_lam3,
+				'{_lich_su_di_lam4}' => $lich_su_di_lam4,
+				'{_message}' => $message,
+			);
+			$content = $c->contentReplace($dataEvent['content'], $arr);
+			$arrSend = array(
+				'AddAddress' => $AddAddress,
+				'AddCC' => $AddCC,
+				'Subject' => $dataEvent['subject'],
+				'Body' => $content,
+			);
+			
+			$data = $c->sendMail($arrSend, 1);
+		}
+		
+		$notify = $c->contentReplace($dataEvent['notification'], $arr);
+		$notify = '<div class="messageContact viewpost">'.$notify.'</div>';
+		$notify = str_replace('"', "'", $notify);
+		$notify = $c->_model->_removeNewLine($notify);
+		
+		$arr = array('error'=>0, 'message'=>$notify);
+		echo json_encode($arr);
+		return true;
+	}else{
+		$arr = array('error'=>1, 'message'=>'Error 02: Please press F5 key to try again');
+		echo json_encode($arr);
+		return false;
+	}
+}
+
 /*entrytest*/
 if(isset($_GET['entrytest'])){
 	if(!isset($_GET['menu_id']) || !isset($_GET['type']) || !isset($_GET['date'])) return false;

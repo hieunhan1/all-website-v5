@@ -163,7 +163,7 @@ $(document).ready(function($){
 	//view mobile
 	function viewMobile650(){
 		var width = parseInt($(window).width());
-		if(width<=650){
+		if(width<=768){
 			$("#menuMobile").show();
 			var main = '';
 			if( $(".home-header .main .menu").length ){

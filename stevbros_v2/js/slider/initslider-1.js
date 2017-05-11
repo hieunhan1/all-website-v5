@@ -412,7 +412,7 @@ jQuery(document).ready(function(){
 
                 titlecssresponsive:"font-size:12px;",
 
-                descriptioncss:"display:block; width:40%; float:right; clear:right; position:relative; font-weight:300; font-style:normal; font-size:16px; line-height:30px; font-family:Georgia,sans-serif,Arial; color:#666; padding:10px; margin:2px;",
+                descriptioncss:"display:block; width:60%; float:left; clear:right; position:relative; font-weight:300; font-style:normal; font-size:16px; line-height:30px; font-family:Georgia,sans-serif,Arial; color:#666; padding:10px; margin:2px;",
 
                 texteffect1:"slide",
 
@@ -430,7 +430,7 @@ jQuery(document).ready(function(){
 
                 buttoncssresponsive:"",
 
-                buttoncss:"display:block; width:40%; float:right; clear:right; position:relative; margin:10px;",
+                buttoncss:"display:block; width:60%; float:left; clear:right; position:relative; margin:10px;",
 
                 addgooglefonts:false,
 
@@ -462,7 +462,7 @@ jQuery(document).ready(function(){
 
                 textcss:"display:block; padding:48px; text-align:left;",
 
-                titlecss:"display:block; width:40%; float:right; clear:right; position:relative; font-weight:300; font-style:italic; font-size:28px; font-family:Georgia,sans-serif,Arial; color:#339933; padding:10px; margin:0px;",
+                titlecss:"display:block; width:auto; float:left; clear:right; position:relative; font-weight:300; font-style:italic; font-size:40px; font-family:Georgia,sans-serif,Arial; color:#FFF; padding:10px; margin:0px; background-color: rgba(0,0,0,0.3);",
 
                 textpositionmarginstatic:0,
 

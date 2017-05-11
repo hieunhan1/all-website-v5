@@ -5,6 +5,7 @@ $arrType = array(
 	2 => array('id'=>'2', 'name'=>'Đăng ký cá nhân'),
 	3 => array('id'=>'3', 'name'=>'Đăng ký doanh nghiệp'),
 	4 => array('id'=>'4', 'name'=>'Hợp tác'),
+	5 => array('id'=>'5', 'name'=>'Di dân'),
 );
 $arrStatus = array(
 	0 => array('id'=>'', 'name'=>'-- chọn trạng thái --'),

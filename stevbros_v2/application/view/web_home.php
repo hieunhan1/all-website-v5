@@ -1,8 +1,12 @@
 <!--header-->
 <div class="home-header">
-    <div class="content">
+    <div class="content"><div class="container">
         <div class="top">
-            <div class="logo"><?php echo '<a href="'.$logoPMI['url'].'" target="_blank"><img src="'.IMAGE_URL.$logoPMI['img'].'" alt="'.$logoPMI['title'].'" /></a>';?></div>
+            <div class="logo">
+				<?php echo '<a href="'.$logoPMI['url'].'" target="_blank"><img src="'.IMAGE_URL.$logoPMI['img'].'" alt="'.$logoPMI['title'].'" /></a>';?>
+            	<a href="javascript:;" title="ScrumAlliance REP"><img src="public/scrum-alliance-rep.png" alt="ScrumAlliance REP" /></a>
+            </div>
+            
             <div class="cart-user">
                 <!--<a href="http://stevbros.com/" target="_blank" title="STEVBROS GLOBAL"><span class="allIcon icon cart"><span>0</span></span></a>-->
                 <span class="allIcon icon user">&nbsp;</span>
@@ -55,19 +59,20 @@
 			}
 			?>
         </div>
-    </div>
+    </div></div>
     
-	<div class="img">
-    	<?php
-        if(isset($dataSlider)){
-			foreach($dataSlider as $row){
-				echo '<div class="itemSlider" style="display:none">'.IMAGE_URL.$row['img'].'</div>';
-			}
-		}else{
-			echo '<div class="itemSlider" style="display:none">themes/website/img/bg-home-default.jpg</div>';
+    <?php
+	if(isset($dataSlider)){
+		$key = array_rand($dataSlider);
+		$str = '';
+		foreach ( $dataSlider as $row ) {
+			$str .= '<p>'.IMAGE_URL.$row['img'].'</p>';
 		}
-		?>
-    </div>
+		echo '<div class="slider-all hidden">'.$str.'</div>';
+	}else{
+		$img = 'themes/website/img/bg-home-default.jpg';
+	}
+	?>
 </div>
 <script type="text/javascript">
 	$(document).ready(function(e) {
@@ -79,10 +84,10 @@
 			}
 		});
 		var minNumber = 0;
-		var maxNumber = parseInt( $(".itemSlider").length ) - 1;
+		var maxNumber = parseInt( $(".slider-all p").length ) - 1;
 		var slider = Math.floor(Math.random()*(maxNumber-minNumber+1)+minNumber);
-		var img = $(".itemSlider:eq(" + slider + ")").html();
-		$(".home-header .img").html('<img src="' + img + '" alt="<?php echo $slider['name'];?>" />');
+		var img = $(".slider-all p:eq(" + slider + ")").html();
+		$(".home-header").append('<div class="img" style="background-image:url(' + img + ')"></div>');
     });
 </script>
 <?php flush();?>
@@ -155,7 +160,7 @@ if(count($data)>0){
 			<h4 class="h4">'.$row['description'].'</h4>
 			<span class="request_for_service adBtnLarge bgColorOranges">'.$lang_var['request_for_service'].'</span>
 		</div>
-		<div class="img"><img src="'.IMAGE_URL.$row['img'].'" alt="'.$row['title'].'" /></div>
+		<div class="img" style="background-image:url('.IMAGE_URL.$row['img'].')"></div>
 	</div>';
 	include_once('web_course_request.php');
 }
@@ -277,7 +282,7 @@ if(count($data) > 0){
             <div id="slider"><?php echo $str;?></div>
         </div>
     </div>
-    <div class="img"><img src="<?php echo IMAGE_URL.$rowPosition['img'];?>" alt="<?php echo $rowPosition['name'];?>" /></div>
+    <div class="img" style="background-image:url(<?php echo IMAGE_URL.$rowPosition['img'];?>)"></div>
 </div>
 <script type="text/javascript">
 	$(document).ready(function(e) {

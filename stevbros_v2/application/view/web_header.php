@@ -4,6 +4,7 @@
         <div class="logo">
             <a href="<?php echo $logoStevbros['url'];?>" title="<?php echo $logoStevbros['title'];?>"><img src="<?php echo IMAGE_URL.$logoStevbros['img'];?>" alt="<?php echo $logoStevbros['name'];?>" class="logo-1" /></a>
             <a href="<?php echo $logoPMI['url'];?>" title="<?php echo $logoPMI['title'];?>" target="_blank"><img src="<?php echo IMAGE_URL.$logoPMI['img'];?>" alt="<?php echo $logoPMI['name'];?>" class="logo-2" /></a>
+            <a href="javascript:;" title="ScrumAlliance REP"><img src="public/scrum-alliance-rep.png" alt="ScrumAlliance REP" class="logo-2 logo-3" /></a>
         </div>
     	
         <div class="main">
@@ -36,5 +37,7 @@
                 <div id="viewMobile"></div>
             </div>
         </div>
+        
+        <div class="clear1"></div>
     </div>
 </div>

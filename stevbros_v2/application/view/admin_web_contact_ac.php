@@ -6,6 +6,7 @@ $arrType = array(
 	2 => array('id'=>'2', 'name'=>'Đăng ký cá nhân'),
 	3 => array('id'=>'3', 'name'=>'Đăng ký doanh nghiệp'),
 	4 => array('id'=>'4', 'name'=>'Hợp tác'),
+	5 => array('id'=>'5', 'name'=>'Di dân'),
 );
 $number = array(
 	'0' => array('id'=>0, 'name'=>'No'),
@@ -210,6 +211,107 @@ if($rowDetail[$name]!=''){
 	$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
 	echo $cF->displayDiv('Tên khách hàng', $data);
 }
+
+//di dan
+$name = 'dien_di_dan';
+if($rowDetail[$name]!=''){
+	if($rowDetail[$name]!=''){
+		$properties = array();
+		$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+		$value=$rowDetail[$name];
+		$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+		echo $cF->displayDiv('Diện di dân', $data);
+	}
+}
+
+$name = 'quoc_tich';
+if($rowDetail[$name]!=''){
+	if($rowDetail[$name]!=''){
+		$properties = array();
+		$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+		$value=$rowDetail[$name];
+		$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+		echo $cF->displayDiv('Quốc tịch', $data);
+	}
+}
+
+$name = 'age';
+if($rowDetail[$name]!=''){
+	if($rowDetail[$name]!=''){
+		$properties = array();
+		$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+		$value=$rowDetail[$name];
+		$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+		echo $cF->displayDiv('Tuổi', $data);
+	}
+}
+
+$name = 'tinh_trang';
+if($rowDetail[$name]!=''){
+	if($rowDetail[$name]!=''){
+		$properties = array();
+		$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+		$value=$rowDetail[$name];
+		$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+		echo $cF->displayDiv('Tình trạng', $data);
+	}
+}
+
+$name = 'trinh_do';
+if($rowDetail[$name]!=''){
+	if($rowDetail[$name]!=''){
+		$properties = array();
+		$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+		$value=$rowDetail[$name];
+		$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+		echo $cF->displayDiv('Trình độ', $data);
+	}
+}
+
+$name = 'lich_su_di_lam1';
+if($rowDetail[$name]!=''){
+	if($rowDetail[$name]!=''){
+		$properties = array();
+		$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+		$value=$rowDetail[$name];
+		$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+		echo $cF->displayDiv('Làm việc trong 1 ngành diện tay nghề ở Canada?', $data);
+	}
+}
+
+$name = 'lich_su_di_lam2';
+if($rowDetail[$name]!=''){
+	if($rowDetail[$name]!=''){
+		$properties = array();
+		$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+		$value=$rowDetail[$name];
+		$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+		echo $cF->displayDiv('Bạn đã làm việc nước nào trong 10 năm qua không?', $data);
+	}
+}
+
+$name = 'lich_su_di_lam3';
+if($rowDetail[$name]!=''){
+	if($rowDetail[$name]!=''){
+		$properties = array();
+		$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+		$value=$rowDetail[$name];
+		$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+		echo $cF->displayDiv('Bạn có thư mời làm việc ở Canada không?', $data);
+	}
+}
+
+$name = 'lich_su_di_lam4';
+if($rowDetail[$name]!=''){
+	if($rowDetail[$name]!=''){
+		$properties = array();
+		$properties[] = array('propertie'=>'maxlength', 'value'=>'60');
+		$value=$rowDetail[$name];
+		$data = $cF->inputText($name, $value, 'ad_field adInput adTxtMedium', $properties);
+		echo $cF->displayDiv('Bạn có bất kỳ thành viên nào trong gia đình đang sống ở Canada không?', $data);
+	}
+}
+//end di dan
 
 $name = 'message';
 if($rowDetail[$name]!=''){
