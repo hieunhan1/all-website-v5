@@ -20,7 +20,12 @@
     </div>
     
     <div class="widget">
-    	<div class="logo"><a href="<?php echo $logoPMI['url'];?>" target="_blank"><img src="<?php echo IMAGE_URL.$logoPMI['img'];?>" alt="<?php echo $logoPMI['name'];?>" /></a></div>
+    	<div class="logo">
+            <a href="javascript:;" title="ScrumAlliance REP"><img src="public/scrum-alliance-rep.png" alt="ScrumAlliance REP" /></a>
+        	<a href="<?php echo $logoPMI['url'];?>" target="_blank"><img src="<?php echo IMAGE_URL.$logoPMI['img'];?>" alt="<?php echo $logoPMI['name'];?>" /></a>
+            <p style="clear:both; height:0px"></p>
+        </div>
+        
         <a href="https://www.flickr.com/photos/127711529@N03/" class="photos corner5" target="_blank">Hình ảnh lớp</a>
     </div>
     

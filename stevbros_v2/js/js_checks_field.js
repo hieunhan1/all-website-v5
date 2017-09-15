@@ -107,7 +107,7 @@ function check_number(name_check,name_message,message_error){
 
 function checks_user(name_check,name_message,message_error){
 	var str = $.trim($(name_check).val());
-	var re = /^\w+([\.-]?\w+){3,20}$/;
+	var re = /^\w+([\.-]?\w+){1,20}$/;
 	if(!re.test(str)){
 		$(name_message).html(message_error);
 		$(name_check).focus();

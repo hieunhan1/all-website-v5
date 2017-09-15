@@ -501,10 +501,13 @@
 }
 #footer .widget .logo {
 	clear: both;
-	margin: 5px 0 20px 0
+	margin: 5px 0 10px 0;
+	text-align: center;
 }
 #footer .widget .logo img {
-	max-width: 100%
+	max-width: 100%;
+	max-height: 60px;
+	margin: 3px 0;
 }
 #footer .widget .photos {
 	display: block;
@@ -1502,6 +1505,7 @@
 	width: 46%;
 	height: 250px;
 	float: left;
+	text-align: center;
 	margin: 0 2% 20px 2%;
 	background-color: #f6f6f6;
 	overflow: hidden;
@@ -1517,7 +1521,7 @@
 	margin-bottom: 10px
 }
 .lecturer .img img {
-	max-width: 100%;
+	max-height: 100%;
 }
 .lecturer a {
 	color: #666
@@ -1846,6 +1850,12 @@
 	#home-footer .box .clear {
 		height: 20px
 	}
+	
+	/*lecturer*/
+	.lecturer .img {
+		height: 180px;
+	}
+	/*END lecturer*/
 	
 	/*opening*/
 	#opening .content .h2 {
