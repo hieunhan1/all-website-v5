@@ -1,10 +1,11 @@
 <?php
 include_once('configUpload.php');
-define('CONS_BASE_URL', 'http://localhost/all_v5/dulichhoaviet');/*domain*/
-define('CONS_HOST', 'localhost');
-define('CONS_USER_DB', 'root');
-define('CONS_PASS_DB', '');
-define('CONS_NAME_DB', 'dulichhoaviet');
+define('CONS_BASE_URL', 'http://www.dulichhoaviet.com.vn');
+define('CONS_WORK_SESSION', 'dulichhoaviet');
+define('CONS_HOST', 'db06.serverhosting.vn');
+define('CONS_USER_DB', 'dulichho_user');
+define('CONS_PASS_DB', 'dulichho_traveling#123*');
+define('CONS_NAME_DB', 'dulichho_traveling');
 define('CONS_DEFAULT_LANG', 'vi');
 
 /*cache*/
@@ -13,11 +14,11 @@ define('CONS_CACHE_TIME', 3600*12);
 define('CONS_CACHE_EXT', 'ch');
 
 /*SEND MAIL*/
-define('CONS_HOST_SMTP_SERVER', 'localhost');
-define('CONS_SEND_MAIL_ACCOUNT', 'no-reply@iappscode.com');
-define('CONS_SEND_MAIL_PASSWORD', 'no-reply#123*');
-define('CONS_SEND_MAIL_FROM', 'admin@iappscode.com');
-define('CONS_SEND_MAIL_FROM_NAME', 'Admin');
+define('CONS_HOST_SMTP_SERVER', 'email-smtp.us-east-1.amazonaws.com');
+define('CONS_SEND_MAIL_ACCOUNT', 'AKIAIJ55J26CXLAOFWLQ');
+define('CONS_SEND_MAIL_PASSWORD', 'AryH5jaeBi4EjAErX1xthEvzmgP74zvyNnhVT2oAUwcJ');
+define('CONS_SEND_MAIL_FROM', 'no-reply@dulichhoaviet.com.vn');
+define('CONS_SEND_MAIL_FROM_NAME', 'Hoa Việt Travel®');
 define('CONS_RECEIVE_MAIL_ACCOUNT', 'hieunhan112@gmail.com');
 define('CONS_RECEIVE_MAIL_NAME', 'No name');
 
