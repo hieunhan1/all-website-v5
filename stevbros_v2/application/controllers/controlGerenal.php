@@ -6,6 +6,7 @@ class controlGerenal{
 	}
 	
 	public function cacheBegin(){
+		return;
 		$bd = (float) array_sum(explode(' ', microtime()));
 		$page = 'http://'. $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$pathfile = CONS_CACHE_URL_FILE . md5($page) . '.' . CONS_CACHE_EXT;
@@ -21,6 +22,7 @@ class controlGerenal{
 	}
 	
 	public function cacheEnd(){
+		return;
 		$page = 'http://'. $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$pathfile = CONS_CACHE_URL_FILE . md5($page) . '.' . CONS_CACHE_EXT;
 		$fp = fopen($pathfile, 'w');
